@@ -1,0 +1,212 @@
+/* ==========================================================================
+   ALFALAH COMMUNITY SUPPORT CENTRE — DESIGN SYSTEM TOKENS & STYLES
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  /* Brand Palette (Emerald & Gold) */
+  --color-primary-900: #032b1e;
+  --color-primary-800: #064e3b;
+  --color-primary-700: #047857;
+  --color-primary-600: #059669;
+  --color-primary-500: #10b981;
+  --color-primary-100: #d1fae5;
+  --color-primary-50:  #ecfdf5;
+
+  --color-accent-600:  #b45309;
+  --color-accent-500:  #d97706;
+  --color-accent-400:  #f59e0b;
+  --color-accent-100:  #fef3c7;
+  --color-accent-50:   #fffbeb;
+
+  /* Light Theme Surfaces & Text */
+  --bg-page:           #fbfaf7;
+  --bg-surface:        #ffffff;
+  --bg-surface-alt:    #f4f1ea;
+  --bg-surface-elevated: #ffffff;
+  --border-color:      #e5e0d3;
+  --border-subtle:     #eeebe2;
+  
+  --text-primary:      #1a2421;
+  --text-secondary:    #4a5550;
+  --text-muted:        #718079;
+  --text-inverse:      #ffffff;
+
+  --nav-bg:            rgba(255, 255, 255, 0.92);
+  --hero-gradient:     linear-gradient(135deg, #064e3b 0%, #043d2e 60%, #02261c 100%);
+
+  /* Shadow & Elevation */
+  --shadow-sm:         0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md:         0 4px 12px rgba(6, 78, 59, 0.08);
+  --shadow-lg:         0 10px 25px rgba(6, 78, 59, 0.12);
+  --shadow-xl:         0 20px 40px rgba(6, 78, 59, 0.16);
+
+  /* Radius & Transitions */
+  --radius-sm:         6px;
+  --radius-md:         12px;
+  --radius-lg:         18px;
+  --radius-full:       9999px;
+  --transition-fast:   0.15s ease;
+  --transition-normal: 0.25s ease;
+}
+
+[data-theme='dark'] {
+  --bg-page:           #0a110e;
+  --bg-surface:        #121d18;
+  --bg-surface-alt:    #182721;
+  --bg-surface-elevated: #1e3029;
+  --border-color:      #263b32;
+  --border-subtle:     #1d2d26;
+
+  --text-primary:      #f0f5f2;
+  --text-secondary:    #b5c4bd;
+  --text-muted:        #7e9188;
+  --text-inverse:      #0a110e;
+
+  --nav-bg:            rgba(18, 29, 24, 0.94);
+  --hero-gradient:     linear-gradient(135deg, #091a14 0%, #0c241c 60%, #061510 100%);
+
+  --shadow-sm:         0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md:         0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg:         0 10px 25px rgba(0, 0, 0, 0.6);
+  --shadow-xl:         0 20px 40px rgba(0, 0, 0, 0.7);
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Islamic Geometric Motif Utility Pattern */
+.bg-islamic-pattern {
+  background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Typography Helpers */
+.arabic-title {
+  font-family: 'Amiri', serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Badges & Tags */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-100);
+  color: var(--color-primary-800);
+}
+
+[data-theme='dark'] .badge {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--color-primary-500);
+}
+
+.badge-gold {
+  background: var(--color-accent-100);
+  color: var(--color-accent-600);
+}
+
+[data-theme='dark'] .badge-gold {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--color-accent-400);
+}
+
+/* Custom Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
+}
+
+.btn-primary {
+  background-color: var(--color-primary-700);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-800);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-accent {
+  background-color: var(--color-accent-500);
+  color: #ffffff;
+}
+
+.btn-accent:hover {
+  background-color: var(--color-accent-600);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.btn-outline:hover {
+  background-color: var(--bg-surface-alt);
+  border-color: var(--color-primary-600);
+}
+
+/* Cards */
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
