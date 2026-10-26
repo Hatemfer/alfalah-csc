@@ -50,20 +50,17 @@ export default function AdminLoginPage() {
       <Card sx={{ maxWidth: 420, width: '100%', p: 2 }}>
         <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Box
+            component="img"
+            src="/images/logo-emblem.png"
+            alt="Alfalah Logo"
             sx={{
-              width: 48,
-              height: 48,
+              width: 84,
+              height: 84,
               borderRadius: '50%',
-              backgroundColor: 'primary.main',
-              color: '#ffffff',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              filter: 'drop-shadow(0 4px 12px rgba(5, 150, 105, 0.35))',
               mb: 2,
             }}
-          >
-            <LockOutlinedIcon />
-          </Box>
+          />
 
           <Typography variant="h5" component="h1" sx={{ fontWeight: 800, mb: 0.5, textAlign: 'center' }}>
             ALFALAH CMS

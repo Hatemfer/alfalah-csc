@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from './ThemeToggle';
+import { Logo } from './Logo';
 import { Menu, X, Compass, Clock, Heart, ShieldCheck } from 'lucide-react';
 
 const NAV_ITEMS = [
@@ -14,6 +15,7 @@ const NAV_ITEMS = [
   { label: 'Activities', href: '/activities' },
   { label: 'Events', href: '/events' },
   { label: 'Announcements', href: '/announcements' },
+  { label: 'Donate', href: '/donate', icon: Heart },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -76,31 +78,8 @@ export function Header() {
 
       {/* Main Navigation Bar */}
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.85rem 1.5rem' }}>
-        {/* Brand Typographic Treatment */}
-        <Link href="/" style={{ display: 'flex', flexDirection: 'column' }}>
-          <span
-            style={{
-              fontSize: '1.25rem',
-              fontWeight: 800,
-              color: 'var(--color-primary-700)',
-              letterSpacing: '-0.02em',
-              lineHeight: 1.2,
-            }}
-          >
-            ALFALAH
-          </span>
-          <span
-            style={{
-              fontSize: '0.7rem',
-              fontWeight: 700,
-              letterSpacing: '0.08em',
-              color: 'var(--text-muted)',
-              textTransform: 'uppercase',
-            }}
-          >
-            Community Support Centre
-          </span>
-        </Link>
+        {/* Brand Logo & Emblem */}
+        <Logo size="md" />
 
         {/* Desktop Navigation Links */}
         <nav
@@ -137,22 +116,41 @@ export function Header() {
           })}
         </nav>
 
-        {/* Actions (Theme Switcher + Mobile Toggle) */}
+        {/* Actions (Theme Switcher + Donate CTA + Mobile Toggle) */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <ThemeToggle />
+
+          <Link
+            href="/donate"
+            className="btn btn-accent"
+            style={{
+              padding: '0.45rem 1rem',
+              fontSize: '0.85rem',
+              borderRadius: 'var(--radius-full)',
+              display: 'none',
+              alignItems: 'center',
+              gap: '0.35rem',
+              fontWeight: 800,
+              boxShadow: '0 2px 8px rgba(217, 119, 6, 0.35)',
+            }}
+            id="header-donate-cta"
+          >
+            <Heart size={14} style={{ fill: 'currentColor' }} />
+            Donate
+          </Link>
 
           <Link
             href="/prayer-times"
             className="btn btn-primary"
             style={{
-              padding: '0.5rem 1rem',
+              padding: '0.45rem 0.9rem',
               fontSize: '0.85rem',
               borderRadius: 'var(--radius-full)',
               display: 'none',
             }}
             id="header-prayer-cta"
           >
-            <Clock size={15} />
+            <Clock size={14} />
             Prayer Times
           </Link>
 
@@ -187,9 +185,29 @@ export function Header() {
             padding: '1.25rem 1.5rem',
             display: 'flex',
             flexDirection: 'column',
-            gap: '1rem',
+            gap: '0.75rem',
           }}
         >
+          <Link
+            href="/donate"
+            onClick={() => setMobileOpen(false)}
+            className="btn btn-accent"
+            style={{
+              width: '100%',
+              padding: '0.75rem',
+              fontWeight: 800,
+              textAlign: 'center',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
+              marginBottom: '0.5rem',
+            }}
+          >
+            <Heart size={16} style={{ fill: 'currentColor' }} />
+            Donate to Support Centre
+          </Link>
+
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
@@ -199,8 +217,11 @@ export function Header() {
                 fontSize: '1rem',
                 fontWeight: pathname === item.href ? 700 : 500,
                 color: pathname === item.href ? 'var(--color-primary-600)' : 'var(--text-primary)',
-                padding: '0.5rem 0',
+                padding: '0.45rem 0',
                 borderBottom: '1px solid var(--border-subtle)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
               }}
             >
               {item.label}
@@ -229,6 +250,9 @@ export function Header() {
           }
           .mobile-toggle {
             display: none !important;
+          }
+          #header-donate-cta {
+            display: inline-flex !important;
           }
           #header-prayer-cta {
             display: inline-flex !important;

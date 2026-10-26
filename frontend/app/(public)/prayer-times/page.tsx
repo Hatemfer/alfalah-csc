@@ -1,172 +1,242 @@
 import React from 'react';
 import Link from 'next/link';
-import { PrayerCountdownWidget } from '../../../components/PrayerCountdownWidget';
-import { Clock, Calendar, Compass, Info, MapPin } from 'lucide-react';
+import { Clock, Calendar, Compass, MapPin, ExternalLink, Smartphone } from 'lucide-react';
 
 export const metadata = {
-  title: 'Prayer Times & Monthly Timetable | ALFALAH COMMUNITY SUPPORT CENTRE',
+  title: 'Live Prayer Times & Mawaqit Timetable | ALFALAH COMMUNITY SUPPORT CENTRE',
   description:
-    'Daily congregation prayer timetable and monthly calendar for Alfalah Community Support Centre in Balsall Heath, Birmingham (B12 9QU). Fajr, Dhuhr, Asr, Maghrib, Isha and Iqamah times.',
+    'Live congregation prayer times and Iqamah schedule for Al Falah Community Support Centre in Balsall Heath, Birmingham (B12 9QU). Powered directly by MAWAQIT.',
 };
 
-async function getPrayerData() {
-  const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
-  try {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth() + 1;
-
-    const [todayRes, monthlyRes] = await Promise.all([
-      fetch(`${apiBase}/prayer-times/today`, { cache: 'no-store' }),
-      fetch(`${apiBase}/prayer-times/monthly?year=${year}&month=${month}`, { cache: 'no-store' }),
-    ]);
-
-    const today = todayRes.ok ? await todayRes.json() : null;
-    const monthly = monthlyRes.ok ? await monthlyRes.json() : [];
-
-    return { today, monthly, year, month };
-  } catch (err) {
-    console.warn('Could not fetch prayer times for SSR:', err);
-    return { today: null, monthly: [], year: 2026, month: 10 };
-  }
-}
-
-export default async function PrayerTimesPage() {
-  const { today, monthly, year, month } = await getPrayerData();
-
-  const monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December',
-  ];
-
+export default function PrayerTimesPage() {
   return (
     <div style={{ paddingBottom: '4rem' }}>
-      {/* Page Header */}
+      {/* Header Banner - Lighter, Fresh & Modern */}
       <section
         style={{
-          background: 'var(--hero-gradient)',
+          background: 'linear-gradient(135deg, #065f46 0%, #047857 60%, #0d9488 100%)',
           color: '#ffffff',
           padding: '3.5rem 1.5rem',
           textAlign: 'center',
+          position: 'relative',
         }}
       >
-        <div className="container" style={{ maxWidth: '800px' }}>
-          <span className="badge badge-gold" style={{ marginBottom: '0.75rem' }}>
-            Birmingham, UK (Europe/London)
-          </span>
+        <div className="container" style={{ maxWidth: '850px' }}>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              backgroundColor: 'rgba(255, 255, 255, 0.15)',
+              backdropFilter: 'blur(8px)',
+              padding: '0.4rem 1rem',
+              borderRadius: '9999px',
+              fontSize: '0.85rem',
+              fontWeight: 700,
+              marginBottom: '1rem',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
+            }}
+          >
+            <Clock size={15} style={{ color: 'var(--color-accent-400)' }} />
+            Official MAWAQIT Live Mosque Display
+          </div>
+
           <h1
             style={{
-              fontSize: 'clamp(2rem, 4vw, 2.75rem)',
+              fontSize: 'clamp(2.2rem, 4vw, 3rem)',
               fontWeight: 800,
               marginBottom: '0.5rem',
               color: '#ffffff',
             }}
           >
-            Prayer Times & Iqamah Timetable
+            Masjid Al Falah Prayer Timetable
           </h1>
-          <p className="arabic-title" style={{ fontSize: '1.4rem', color: '#fef3c7', marginBottom: '1rem' }}>
-            مواقيت الصلاة وإقامة الجماعة
+          <p className="arabic-title" style={{ fontSize: '1.5rem', color: '#fef3c7', marginBottom: '0.75rem' }}>
+            مواقيت الصلاة وإقامة الجماعة — مسجد الفلاح
           </p>
-          <p style={{ fontSize: '1.05rem', color: '#d1fae5', lineHeight: 1.6 }}>
-            Accurate daily congregation and beginning times for Alfalah Community Support Centre, 89 Tindal Street, Balsall Heath, B12 9QU.
+          <p style={{ fontSize: '1.05rem', color: '#d1fae5', lineHeight: 1.6, maxWidth: '650px', margin: '0 auto' }}>
+            Synchronised in real-time with our mosque display board at 89 Tindal Street, Balsall Heath, Birmingham (B12 9QU).
           </p>
         </div>
       </section>
 
-      <section style={{ padding: '3rem 0' }}>
-        <div className="container" style={{ maxWidth: '1000px' }}>
-          {/* Today's Live Prayer Widget */}
-          <div style={{ marginBottom: '3rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>Today’s Timetable</h2>
-              <Link href="/qibla" className="btn btn-outline" style={{ fontSize: '0.85rem', padding: '0.4rem 0.85rem' }}>
-                <Compass size={16} /> Qibla Compass
-              </Link>
-            </div>
-            <PrayerCountdownWidget initialData={today} />
-          </div>
-
-          {/* Monthly Timetable Table */}
-          <div className="card" style={{ padding: '2rem', marginBottom: '2.5rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+      {/* Main Content Area */}
+      <section style={{ padding: '2.5rem 0' }}>
+        <div className="container" style={{ maxWidth: '1050px' }}>
+          {/* Quick Notice Bar: Jumu'ah & App */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '1rem',
+              marginBottom: '2rem',
+            }}
+          >
+            <div
+              style={{
+                backgroundColor: 'rgba(5, 150, 105, 0.08)',
+                border: '1.5px solid var(--color-primary-600)',
+                borderRadius: 'var(--radius-md)',
+                padding: '1.25rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+              }}
+            >
+              <div
+                style={{
+                  width: '46px',
+                  height: '46px',
+                  borderRadius: '50%',
+                  backgroundColor: 'var(--color-primary-600)',
+                  color: '#ffffff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontWeight: 800,
+                  fontSize: '1.1rem',
+                  flexShrink: 0,
+                }}
+              >
+                🕌
+              </div>
               <div>
-                <h2 style={{ fontSize: '1.35rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <Calendar size={20} style={{ color: 'var(--color-primary-600)' }} /> Monthly Timetable — {monthNames[month - 1]} {year}
-                </h2>
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                  Times calculated for Balsall Heath Birmingham coordinates (52.4578° N, -1.8904° W)
-                </span>
+                <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-primary-700)', textTransform: 'uppercase' }}>
+                  Friday Congregational Prayer
+                </div>
+                <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+                  Jumu&apos;ah Khutbah: 13:00 (1:00 PM)
+                </div>
               </div>
             </div>
 
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
-                <thead>
-                  <tr style={{ borderBottom: '2px solid var(--border-color)', color: 'var(--text-muted)', fontSize: '0.8rem', textTransform: 'uppercase' }}>
-                    <th style={{ padding: '0.75rem 0.5rem' }}>Date</th>
-                    <th style={{ padding: '0.75rem 0.5rem' }}>Fajr</th>
-                    <th style={{ padding: '0.75rem 0.5rem' }}>Sunrise</th>
-                    <th style={{ padding: '0.75rem 0.5rem' }}>Dhuhr</th>
-                    <th style={{ padding: '0.75rem 0.5rem' }}>Asr</th>
-                    <th style={{ padding: '0.75rem 0.5rem' }}>Maghrib</th>
-                    <th style={{ padding: '0.75rem 0.5rem' }}>Isha</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {monthly.length > 0 ? (
-                    monthly.map((row: any) => {
-                      const isToday = today && row.date === today.date;
-                      const dayNumber = new Date(row.date).getDate();
-                      return (
-                        <tr
-                          key={row.date}
-                          style={{
-                            borderBottom: '1px solid var(--border-subtle)',
-                            backgroundColor: isToday ? 'var(--color-primary-50)' : 'transparent',
-                            fontWeight: isToday ? 700 : 400,
-                          }}
-                        >
-                          <td style={{ padding: '0.75rem 0.5rem', color: isToday ? 'var(--color-primary-800)' : 'var(--text-primary)' }}>
-                            {dayNumber} {monthNames[month - 1].slice(0, 3)} {isToday && <span className="badge" style={{ fontSize: '0.65rem' }}>Today</span>}
-                          </td>
-                          <td style={{ padding: '0.75rem 0.5rem' }}>{row.fajr.adhan} <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>({row.fajr.iqamah})</span></td>
-                          <td style={{ padding: '0.75rem 0.5rem', color: 'var(--text-muted)' }}>{row.sunrise}</td>
-                          <td style={{ padding: '0.75rem 0.5rem' }}>{row.dhuhr.adhan} <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>({row.dhuhr.iqamah})</span></td>
-                          <td style={{ padding: '0.75rem 0.5rem' }}>{row.asr.adhan} <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>({row.asr.iqamah})</span></td>
-                          <td style={{ padding: '0.75rem 0.5rem' }}>{row.maghrib.adhan} <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>({row.maghrib.iqamah})</span></td>
-                          <td style={{ padding: '0.75rem 0.5rem' }}>{row.isha.adhan} <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>({row.isha.iqamah})</span></td>
-                        </tr>
-                      );
-                    })
-                  ) : (
-                    <tr>
-                      <td colSpan={7} style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-muted)' }}>
-                        Monthly timetable is loading...
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+            <div
+              style={{
+                backgroundColor: 'var(--bg-surface)',
+                border: '1px solid var(--border-color)',
+                borderRadius: 'var(--radius-md)',
+                padding: '1.25rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '0.75rem',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <Smartphone size={28} style={{ color: 'var(--color-accent-500)' }} />
+                <div>
+                  <div style={{ fontSize: '0.95rem', fontWeight: 700 }}>Follow us on MAWAQIT App</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Get live Athan & Iqamah notifications on iOS & Android</div>
+                </div>
+              </div>
+              <a
+                href="https://mawaqit.net/en/al-falah-community-support-centre-birmingham-b12-9qu-united-kingdom"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-outline"
+                style={{ fontSize: '0.8rem', padding: '0.45rem 0.85rem' }}
+              >
+                Open in Mawaqit <ExternalLink size={13} />
+              </a>
             </div>
           </div>
 
-          {/* Calculation Methodology & Disclaimer */}
+          {/* Official MAWAQIT Live Interactive Widget */}
           <div
+            className="card"
             style={{
-              backgroundColor: 'var(--bg-surface-alt)',
-              border: '1px solid var(--border-color)',
+              padding: '1.5rem',
+              boxShadow: 'var(--shadow-xl)',
               borderRadius: 'var(--radius-lg)',
-              padding: '1.75rem',
-              display: 'flex',
-              gap: '1rem',
-              alignItems: 'flex-start',
+              border: '1px solid var(--border-color)',
+              marginBottom: '3rem',
+              overflow: 'hidden',
             }}
           >
-            <Info size={24} style={{ color: 'var(--color-primary-600)', flexShrink: 0, marginTop: '0.2rem' }} />
-            <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-              <strong style={{ color: 'var(--text-primary)' }}>Calculation Method & Overrides Notice:</strong><br />
-              Beginning prayer times are calculated astronomically based on the official UK / Birmingham consensus parameters (Fajr 18.0°, Isha 18.0°, Hanafi Asr method, 1/7th high-latitude rule).
-              Where the centre publishes official printed timetables or specific seasonal Iqamah adjustments, authorised administrators enter overrides directly, which take precedence over astronomical calculations.
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <div>
+                <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+                  Live Mosque Display & Prayer Times
+                </h2>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                  Direct real-time feed from Masjid Al Falah's official MAWAQIT system
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <Link href="/qibla" className="btn btn-outline" style={{ fontSize: '0.85rem', padding: '0.45rem 0.85rem' }}>
+                  <Compass size={15} /> Qibla Compass
+                </Link>
+                <Link href="/donate" className="btn btn-accent" style={{ fontSize: '0.85rem', padding: '0.45rem 0.85rem' }}>
+                  Support Mosque
+                </Link>
+              </div>
+            </div>
+
+            {/* Mawaqit Iframe Container */}
+            <div
+              style={{
+                position: 'relative',
+                width: '100%',
+                minHeight: '680px',
+                borderRadius: 'var(--radius-md)',
+                overflow: 'hidden',
+                backgroundColor: '#0f172a',
+              }}
+            >
+              <iframe
+                src="https://mawaqit.net/en/w/al-falah-community-support-centre-birmingham-b12-9qu-united-kingdom"
+                title="Al Falah Community Support Centre Mawaqit Live Prayer Times"
+                width="100%"
+                height="680"
+                frameBorder="0"
+                scrolling="no"
+                style={{
+                  border: 'none',
+                  display: 'block',
+                  width: '100%',
+                  height: '680px',
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Location & Congregation Guidelines Card */}
+          <div
+            className="card"
+            style={{
+              padding: '2rem',
+              backgroundColor: 'var(--bg-surface-alt)',
+              border: '1px solid var(--border-color)',
+            }}
+          >
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+              <div>
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 800, marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <MapPin size={18} style={{ color: 'var(--color-primary-600)' }} /> Mosque Location & Facilities
+                </h3>
+                <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '1rem' }}>
+                  <strong>Alfalah Community Support Centre</strong><br />
+                  89 Tindal Street, Balsall Heath, Birmingham, B12 9QU<br />
+                  Charity Commission Registration: <strong>1150221</strong>
+                </p>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                  Equipped with clean wudu facilities, dedicated prayer areas, and educational classrooms.
+                </p>
+              </div>
+
+              <div>
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 800, marginBottom: '0.75rem' }}>
+                  Congregation Notes
+                </h3>
+                <ul style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, paddingLeft: '1.25rem' }}>
+                  <li>Iqamah times indicate when the congregational prayer starts.</li>
+                  <li>Please arrive 10 minutes prior to Iqamah to perform wudu and pray Tahiyyat al-Masjid.</li>
+                  <li>Jumu&apos;ah Khutbah starts at 13:00 sharp every Friday.</li>
+                  <li>Download the <strong>Mawaqit</strong> app on your smartphone and search for <em>&ldquo;Al Falah Community Support Centre&rdquo;</em> for instant prayer alerts.</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

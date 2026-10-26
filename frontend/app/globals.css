@@ -5,14 +5,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
 
 :root {
-  /* Brand Palette (Emerald & Gold) */
-  --color-primary-900: #032b1e;
-  --color-primary-800: #064e3b;
-  --color-primary-700: #047857;
-  --color-primary-600: #059669;
-  --color-primary-500: #10b981;
+  /* Brand Palette (Fresh Luminous Emerald & Warm Gold) */
+  --color-primary-900: #064e3b;
+  --color-primary-800: #047857;
+  --color-primary-700: #059669;
+  --color-primary-600: #10b981;
+  --color-primary-500: #34d399;
   --color-primary-100: #d1fae5;
-  --color-primary-50:  #ecfdf5;
+  --color-primary-50:  #f0fdf4;
 
   --color-accent-600:  #b45309;
   --color-accent-500:  #d97706;
@@ -20,21 +20,21 @@
   --color-accent-100:  #fef3c7;
   --color-accent-50:   #fffbeb;
 
-  /* Light Theme Surfaces & Text */
-  --bg-page:           #fbfaf7;
+  /* Light Theme Surfaces & Text (Crisp, Clean & Lighter) */
+  --bg-page:           #f8fafc;
   --bg-surface:        #ffffff;
-  --bg-surface-alt:    #f4f1ea;
+  --bg-surface-alt:    #f1f5f9;
   --bg-surface-elevated: #ffffff;
-  --border-color:      #e5e0d3;
-  --border-subtle:     #eeebe2;
+  --border-color:      #e2e8f0;
+  --border-subtle:     #edf2f7;
   
-  --text-primary:      #1a2421;
-  --text-secondary:    #4a5550;
-  --text-muted:        #718079;
+  --text-primary:      #0f172a;
+  --text-secondary:    #475569;
+  --text-muted:        #64748b;
   --text-inverse:      #ffffff;
 
-  --nav-bg:            rgba(255, 255, 255, 0.92);
-  --hero-gradient:     linear-gradient(135deg, #064e3b 0%, #043d2e 60%, #02261c 100%);
+  --nav-bg:            rgba(255, 255, 255, 0.95);
+  --hero-gradient:     linear-gradient(135deg, #065f46 0%, #047857 50%, #0f766e 100%);
 
   /* Shadow & Elevation */
   --shadow-sm:         0 1px 2px rgba(0, 0, 0, 0.05);

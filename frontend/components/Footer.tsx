@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { Logo } from './Logo';
 import { MapPin, Mail, ShieldCheck, Heart } from 'lucide-react';
 
 export function Footer() {
@@ -26,19 +27,9 @@ export function Footer() {
         >
           {/* Column 1: Organization Overview */}
           <div>
-            <h3
-              style={{
-                fontSize: '1.2rem',
-                fontWeight: 800,
-                color: 'var(--color-primary-700)',
-                marginBottom: '0.25rem',
-              }}
-            >
-              ALFALAH COMMUNITY SUPPORT CENTRE
-            </h3>
-            <p className="arabic-title" style={{ fontSize: '1.1rem', color: 'var(--color-accent-600)', marginBottom: '0.75rem' }}>
-              مركز الفلاح الإسلامي
-            </p>
+            <div style={{ marginBottom: '1rem' }}>
+              <Logo size="md" />
+            </div>
             <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '1rem', lineHeight: 1.6 }}>
               A registered charity serving the faith, family, and welfare needs of the community in Balsall Heath, Birmingham.
             </p>
@@ -71,6 +62,39 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/announcements" style={{ color: 'var(--text-secondary)' }}>Community Notices</Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Charity & Giving */}
+          <div>
+            <h4 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '1rem', color: 'var(--text-primary)' }}>
+              Charity & Giving
+            </h4>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.6rem', fontSize: '0.9rem' }}>
+              <li>
+                <Link href="/donate" style={{ color: 'var(--color-primary-600)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                  <Heart size={14} style={{ fill: 'currentColor' }} /> Donate Online (Sadaqah)
+                </Link>
+              </li>
+              <li>
+                <Link href="/donate" style={{ color: 'var(--text-secondary)' }}>Zakat al-Mal (100% Policy)</Link>
+              </li>
+              <li>
+                <Link href="/donate" style={{ color: 'var(--text-secondary)' }}>Gift Aid (+25% UK Tax Relief)</Link>
+              </li>
+              <li>
+                <Link href="/donate" style={{ color: 'var(--text-secondary)' }}>Bank Transfer & Standing Order</Link>
+              </li>
+              <li>
+                <a
+                  href="https://register-of-charities.charitycommission.gov.uk/charity-search/-/charity-details/5033068"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: 'var(--text-secondary)' }}
+                >
+                  Charity Commission Register #1150221 ↗
+                </a>
               </li>
             </ul>
           </div>

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     'Charity 1150221',
   ],
   authors: [{ name: 'Alfalah Community Support Centre' }],
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://alfalahcsc.com'),
   openGraph: {
     title: 'ALFALAH COMMUNITY SUPPORT CENTRE — Balsall Heath, Birmingham',
     description:

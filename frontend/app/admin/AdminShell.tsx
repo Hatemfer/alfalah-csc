@@ -90,13 +90,26 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
   const drawerContent = (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Box sx={{ p: 2.5, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-        <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 800, letterSpacing: -0.5 }}>
-          ALFALAH CMS
-        </Typography>
-        <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>
-          Community Support Centre (Birmingham)
-        </Typography>
+      <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 1.5 }}>
+        <Box
+          component="img"
+          src="/images/logo-emblem.png"
+          alt="Alfalah Crest"
+          sx={{
+            width: 44,
+            height: 44,
+            borderRadius: '50%',
+            filter: 'drop-shadow(0 2px 6px rgba(5,150,105,0.25))',
+          }}
+        />
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <Typography variant="subtitle1" sx={{ color: 'primary.main', fontWeight: 800, lineHeight: 1.2 }}>
+            ALFALAH CMS
+          </Typography>
+          <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>
+            Birmingham, UK
+          </Typography>
+        </Box>
       </Box>
 
       <Divider />

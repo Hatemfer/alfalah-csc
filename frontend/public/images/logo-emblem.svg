@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCE588" />
+      <stop offset="35%" stop-color="#D97706" />
+      <stop offset="70%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#92400E" />
+    </linearGradient>
+
+    <linearGradient id="goldLight" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#D97706" />
+      <stop offset="50%" stop-color="#FDE68A" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+
+    <radialGradient id="emeraldBg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#047857" />
+      <stop offset="65%" stop-color="#064E3B" />
+      <stop offset="100%" stop-color="#022c22" />
+    </radialGradient>
+
+    <radialGradient id="archGlow" cx="50%" cy="65%" r="60%">
+      <stop offset="0%" stop-color="#065f46" stop-opacity="0.9" />
+      <stop offset="60%" stop-color="#033829" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#022119" stop-opacity="1" />
+    </radialGradient>
+
+    <linearGradient id="pageGradLeft" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="90%" stop-color="#F1F5F9" />
+      <stop offset="100%" stop-color="#CBD5E1" />
+    </linearGradient>
+
+    <linearGradient id="pageGradRight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#CBD5E1" />
+      <stop offset="10%" stop-color="#F1F5F9" />
+      <stop offset="100%" stop-color="#F8FAFC" />
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="subtleShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.3" />
+    </filter>
+
+    <!-- Text Paths -->
+    <path id="topTextArc" d="M 52,250 A 198,198 0 1,1 448,250" fill="none" />
+    <path id="bottomTextArc" d="M 436,250 A 186,186 0 0,1 64,250" fill="none" />
+  </defs>
+
+  <!-- Base Circle Fill -->
+  <circle cx="250" cy="250" r="246" fill="url(#emeraldBg)" />
+
+  <!-- Outer Ring Borders -->
+  <circle cx="250" cy="250" r="246" fill="none" stroke="url(#goldGrad)" stroke-width="5" />
+  <circle cx="250" cy="250" r="238" fill="none" stroke="#FDE68A" stroke-width="1.5" stroke-opacity="0.8" />
+  
+  <!-- Subtle beaded ring -->
+  <circle cx="250" cy="250" r="232" fill="none" stroke="url(#goldGrad)" stroke-width="2" stroke-dasharray="2,5" stroke-linecap="round" />
+
+  <!-- Outer Text Band Interior Border -->
+  <circle cx="250" cy="250" r="162" fill="none" stroke="url(#goldGrad)" stroke-width="4" />
+  <circle cx="250" cy="250" r="156" fill="none" stroke="#FDE68A" stroke-width="1.5" stroke-opacity="0.7" />
+
+  <!-- Circular Typography: Top -->
+  <text fill="#FFFFFF" font-family="'Cinzel', 'Trajan Pro', 'Cinzel Decorative', 'Georgia', 'Times New Roman', serif" font-size="20.5" font-weight="700" letter-spacing="4" filter="url(#subtleShadow)">
+    <textPath href="#topTextArc" startOffset="50%" text-anchor="middle">
+      ALFALAH COMMUNITY SUPPORT CENTRE
+    </textPath>
+  </text>
+
+  <!-- Circular Typography: Bottom -->
+  <text fill="url(#goldLight)" font-family="'Cinzel', 'Trajan Pro', 'Cinzel Decorative', 'Georgia', 'Times New Roman', serif" font-size="19" font-weight="700" letter-spacing="6" filter="url(#subtleShadow)">
+    <textPath href="#bottomTextArc" startOffset="50%" text-anchor="middle">
+      BIRMINGHAM • UK
+    </textPath>
+  </text>
+
+  <!-- Left & Right Islamic 8-Point Stars (Rub el Hizb) on the band -->
+  <g transform="translate(68, 250) scale(0.65)">
+    <rect x="-14" y="-14" width="28" height="28" fill="url(#goldGrad)" rx="2" />
+    <rect x="-14" y="-14" width="28" height="28" fill="url(#goldGrad)" rx="2" transform="rotate(45)" />
+    <circle cx="0" cy="0" r="4.5" fill="#064E3B" />
+  </g>
+
+  <g transform="translate(432, 250) scale(0.65)">
+    <rect x="-14" y="-14" width="28" height="28" fill="url(#goldGrad)" rx="2" />
+    <rect x="-14" y="-14" width="28" height="28" fill="url(#goldGrad)" rx="2" transform="rotate(45)" />
+    <circle cx="0" cy="0" r="4.5" fill="#064E3B" />
+  </g>
+
+  <!-- INNER MEDALLION / SACRED ARCH (MIHRAB) AREA -->
+  <g id="InnerMedallion">
+    <!-- Inner medallion background -->
+    <circle cx="250" cy="250" r="154" fill="url(#archGlow)" />
+
+    <!-- Delicate Islamic 16-fold rosette background watermarking -->
+    <g opacity="0.12" stroke="url(#goldGrad)" stroke-width="1.5" fill="none">
+      <circle cx="250" cy="250" r="138" />
+      <circle cx="250" cy="250" r="115" />
+      <polygon points="250,112 347,210 347,290 250,388 153,290 153,210" />
+      <polygon points="250,112 347,210 347,290 250,388 153,290 153,210" transform="rotate(45 250 250)" />
+    </g>
+
+    <!-- Outer Mihrab / Horseshoe Arch Frame -->
+    <path d="M 166,325 L 166,220 C 166,160 205,124 250,110 C 295,124 334,160 334,220 L 334,325 Z" 
+          fill="none" stroke="url(#goldGrad)" stroke-width="6" stroke-linejoin="round" />
+    
+    <!-- Inner Mihrab decorative contour -->
+    <path d="M 174,325 L 174,222 C 174,168 208,136 250,123 C 292,136 326,168 326,222 L 326,325" 
+          fill="none" stroke="#FDE68A" stroke-width="1.5" stroke-opacity="0.8" />
+
+    <!-- Mosque Architecture Silhouette Inside Arch -->
+    <!-- Mosque Main Dome -->
+    <path d="M 205,248 C 205,195 235,172 250,158 C 265,172 295,195 295,248 Z" 
+          fill="#022119" stroke="url(#goldGrad)" stroke-width="2.5" />
+    
+    <!-- Left Minaret / Turret -->
+    <path d="M 184,260 L 184,208 L 192,208 L 192,260 Z" fill="#022119" stroke="url(#goldGrad)" stroke-width="1.5" />
+    <path d="M 182,208 C 182,200 188,194 188,194 C 188,194 194,200 194,208 Z" fill="url(#goldGrad)" />
+    
+    <!-- Right Minaret / Turret -->
+    <path d="M 308,260 L 308,208 L 316,208 L 316,260 Z" fill="#022119" stroke="url(#goldGrad)" stroke-width="1.5" />
+    <path d="M 306,208 C 306,200 312,194 312,194 C 312,194 318,200 318,208 Z" fill="url(#goldGrad)" />
+
+    <!-- Dome Finial & Crescent Moon (Hilal) -->
+    <line x1="250" y1="158" x2="250" y2="140" stroke="url(#goldGrad)" stroke-width="2.5" />
+    <!-- Upward-facing Crescent Moon -->
+    <path d="M 244,142 A 7,7 0 1,0 256,142 A 5.5,5.5 0 1,1 244,142 Z" fill="url(#goldGrad)" />
+
+    <!-- Mihrab Column Capitals -->
+    <rect x="162" y="222" width="9" height="5" fill="url(#goldGrad)" rx="1" />
+    <rect x="329" y="222" width="9" height="5" fill="url(#goldGrad)" rx="1" />
+
+    <!-- Mihrab Base Pillars -->
+    <line x1="166" y1="227" x2="166" y2="325" stroke="url(#goldGrad)" stroke-width="4" />
+    <line x1="334" y1="227" x2="334" y2="325" stroke="url(#goldGrad)" stroke-width="4" />
+
+    <!-- CENTERPIECE: NO FLAME - THE OPEN HOLY QURAN (BOOK OF GUIDANCE & KNOWLEDGE) -->
+    <!-- Quran Stand (Rihal) Base in Gold -->
+    <g id="HolyQuran" filter="url(#subtleShadow)">
+      <!-- Wooden/Gold Rihal Folding Stand under the Book -->
+      <path d="M 215,310 L 250,334 L 285,310 L 296,318 L 250,348 L 204,318 Z" fill="url(#goldGrad)" />
+      <path d="M 250,334 L 250,348" stroke="#78350F" stroke-width="2" />
+      <circle cx="250" cy="341" r="2.5" fill="#FDE68A" />
+
+      <!-- Left Page Block Depth / Binding -->
+      <path d="M 180,296 Q 212,284 246,290 L 246,296 Q 212,290 180,302 Z" fill="#94A3B8" />
+      <!-- Right Page Block Depth / Binding -->
+      <path d="M 320,296 Q 288,284 254,290 L 254,296 Q 288,290 320,302 Z" fill="#94A3B8" />
+
+      <!-- Left Page Surface (Curved open page) -->
+      <path d="M 182,295 C 195,268 220,266 248,272 L 248,291 C 220,285 195,287 182,314 Z" 
+            fill="url(#pageGradLeft)" stroke="url(#goldGrad)" stroke-width="1.8" />
+      
+      <!-- Right Page Surface (Curved open page) -->
+      <path d="M 318,295 C 305,268 280,266 252,272 L 252,291 C 280,285 305,287 318,314 Z" 
+            fill="url(#pageGradRight)" stroke="url(#goldGrad)" stroke-width="1.8" />
+
+      <!-- Spine Center Groove -->
+      <path d="M 248,272 L 252,272 L 252,291 L 248,291 Z" fill="url(#goldGrad)" />
+
+      <!-- Delicate Text Lines on Left Page (Representing sacred script) -->
+      <path d="M 198,284 Q 218,276 238,279" stroke="#64748B" stroke-width="1.5" stroke-linecap="round" />
+      <path d="M 195,291 Q 216,283 238,286" stroke="#64748B" stroke-width="1.5" stroke-linecap="round" />
+      <path d="M 194,298 Q 215,290 238,293" stroke="#64748B" stroke-width="1.5" stroke-linecap="round" />
+
+      <!-- Delicate Text Lines on Right Page (Representing sacred script) -->
+      <path d="M 262,279 Q 282,276 302,284" stroke="#64748B" stroke-width="1.5" stroke-linecap="round" />
+      <path d="M 262,286 Q 284,283 305,291" stroke="#64748B" stroke-width="1.5" stroke-linecap="round" />
+      <path d="M 262,293 Q 285,290 306,298" stroke="#64748B" stroke-width="1.5" stroke-linecap="round" />
+
+      <!-- Central Sacred Bookmark Ribbon (Silk marker falling down) -->
+      <path d="M 250,288 C 248,305 252,320 250,332" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linecap="round" />
+      <polygon points="247,332 253,332 250,338" fill="url(#goldGrad)" />
+    </g>
+
+    <!-- Subtle Divine Emanation / Rays from above the Quran -->
+    <g opacity="0.6" stroke="url(#goldGrad)" stroke-width="1.2">
+      <line x1="250" y1="230" x2="250" y2="246" stroke-dasharray="2,3" />
+      <line x1="236" y1="234" x2="242" y2="248" stroke-dasharray="2,3" />
+      <line x1="264" y1="234" x2="258" y2="248" stroke-dasharray="2,3" />
+    </g>
+  </g>
+</svg>

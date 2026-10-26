@@ -135,14 +135,25 @@ export default function ContactPage() {
                 }}
               >
                 <iframe
-                  title="Alfalah Centre Map"
+                  title="Alfalah Centre Google Map"
                   width="100%"
                   height="100%"
                   frameBorder="0"
                   scrolling="no"
-                  src="https://www.openstreetmap.org/export/embed.html?bbox=-1.895%2C52.455%2C-1.885%2C52.460&amp;layer=mapnik&amp;marker=52.4578%2C-1.8904"
+                  src="https://maps.google.com/maps?q=52.4555036,-1.8897627+(Alfalah+Community+Support+Centre)&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
                   style={{ border: 0 }}
                 />
+              </div>
+
+              <div style={{ marginTop: '0.5rem', textAlign: 'right' }}>
+                <a
+                  href="https://www.google.com/maps/place/Alfalah+Community+Support+Centre/@52.4555036,-1.8897627,17z"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-primary-700)', textDecoration: 'underline' }}
+                >
+                  Open in Google Maps ↗
+                </a>
               </div>
             </div>
 
