@@ -55,6 +55,9 @@ export function Footer() {
                 <Link href="/qibla" style={{ color: 'var(--text-secondary)' }}>Qibla Direction Compass</Link>
               </li>
               <li>
+                <Link href="/gallery" style={{ color: 'var(--text-secondary)' }}>Community Gallery & Tour</Link>
+              </li>
+              <li>
                 <Link href="/activities" style={{ color: 'var(--text-secondary)' }}>Community Programmes</Link>
               </li>
               <li>

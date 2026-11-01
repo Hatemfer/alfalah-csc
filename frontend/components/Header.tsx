@@ -21,6 +21,7 @@ const NAV_ITEMS = [
   { label: 'Prayer Times', href: '/prayer-times' },
   { label: 'Services', href: '/services' },
   { label: 'Academy & Lessons', href: '/activities' },
+  { label: 'Gallery', href: '/gallery' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ];

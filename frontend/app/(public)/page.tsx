@@ -18,9 +18,57 @@ import {
   TrendingUp,
   Building,
   Coins,
+  Video,
+  Camera,
+  Play,
 } from 'lucide-react';
 import HeroSlider from '../../components/HeroSlider';
 import PrayerTimetable from '../../components/PrayerTimetable';
+
+const CENTRE_FACILITIES = [
+  {
+    title: 'Sakeena Learning Hub',
+    image: '/images/real/sakeena-learning-hub.jpg',
+    category: 'Madrasah & Academy',
+    desc: 'Dedicated classrooms for Quran Tajweed, Hifz, and academic support.',
+    link: '/activities',
+  },
+  {
+    title: 'Youth STEM & Electronics Lab',
+    image: '/images/real/youth-electronics-workbench.jpg',
+    category: 'Robotics & Coding',
+    desc: 'Practical workshop with soldering stations, circuit boards, and microcontrollers.',
+    link: '/activities',
+  },
+  {
+    title: 'Main Prayer Hall & Library',
+    image: '/images/real/prayer-hall-library.jpg',
+    category: 'Worship & Jumu’ah',
+    desc: 'Five daily prayers, Friday khutbah at 13:00, and comprehensive Islamic library.',
+    link: '/prayer-times',
+  },
+  {
+    title: 'Sisters’ Secondary Hall',
+    image: '/images/real/secondary-hall-sisters.jpg',
+    category: 'Private Sisters Wing',
+    desc: 'Dedicated sisters’ hall with private Wudu facilities and family study circles.',
+    link: '/services',
+  },
+  {
+    title: 'Community Marquee & Garden',
+    image: '/images/real/marquee-garden.jpg',
+    category: 'Hospitality & Events',
+    desc: 'Covered outdoor garden for Eid tea gatherings, community lunches, and youth circles.',
+    link: '/gallery',
+  },
+  {
+    title: 'Private Courtyard & Safe Parking',
+    image: '/images/real/parking-courtyard.jpg',
+    category: 'Accessible Facilities',
+    desc: 'On-site courtyard for accessible drop-offs, elderly worshippers, and volunteer projects.',
+    link: '/about',
+  },
+];
 
 async function getHomepageData() {
   const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
@@ -291,6 +339,156 @@ export default async function HomePage() {
                   </Link>
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5.5. Real Centre Facilities & Video Tour Showcase */}
+      <section style={{ padding: '4.5rem 0', backgroundColor: '#f1f5f9', borderBottom: '1px solid #e2e8f0' }}>
+        <div className="container">
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-end',
+              marginBottom: '2.5rem',
+              flexWrap: 'wrap',
+              gap: '1rem',
+            }}
+          >
+            <div>
+              <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', fontWeight: 800, color: '#0f172a', marginBottom: '0.5rem' }}>
+                Explore Our Centre & Facilities
+              </h2>
+              <p style={{ color: '#64748b', fontSize: '1rem', maxWidth: '680px', margin: 0 }}>
+                A vibrant multi-facility grassroots centre in Balsall Heath, Birmingham — serving spiritual, educational, and community needs under one roof.
+              </p>
+            </div>
+
+            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <Link href="/gallery" className="btn btn-primary" style={{ fontSize: '0.88rem', fontWeight: 800, gap: '0.4rem' }}>
+                <Camera size={15} /> View Full Photo Gallery
+              </Link>
+              <Link href="/about" className="btn btn-outline" style={{ fontSize: '0.88rem', fontWeight: 700 }}>
+                About 89 Tindal St →
+              </Link>
+            </div>
+          </div>
+
+          {/* Facilities Cards Grid */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '1.75rem',
+              marginBottom: '2.5rem',
+            }}
+          >
+            {CENTRE_FACILITIES.map((fac) => (
+              <Link
+                key={fac.title}
+                href={fac.link}
+                style={{
+                  backgroundColor: '#ffffff',
+                  borderRadius: '18px',
+                  overflow: 'hidden',
+                  border: '1px solid #e2e8f0',
+                  boxShadow: '0 4px 14px rgba(15, 23, 42, 0.04)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  textDecoration: 'none',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                }}
+                className="facility-card"
+              >
+                <div style={{ position: 'relative', width: '100%', height: '220px', backgroundColor: '#0f172a' }}>
+                  <Image
+                    src={fac.image}
+                    alt={fac.title}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    sizes="(max-width: 768px) 100vw, 380px"
+                  />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '10px',
+                      left: '10px',
+                      backgroundColor: 'rgba(5, 150, 105, 0.95)',
+                      color: '#ffffff',
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
+                      padding: '0.25rem 0.65rem',
+                      borderRadius: '9999px',
+                      backdropFilter: 'blur(4px)',
+                    }}
+                  >
+                    {fac.category}
+                  </div>
+                </div>
+
+                <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                  <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.4rem' }}>
+                    {fac.title}
+                  </h3>
+                  <p style={{ fontSize: '0.88rem', color: '#64748b', lineHeight: 1.5, margin: 0, flex: 1 }}>
+                    {fac.desc}
+                  </p>
+                  <div style={{ marginTop: '0.85rem', color: '#059669', fontSize: '0.85rem', fontWeight: 800, display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
+                    Explore Details <ArrowRight size={13} />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Video Tour Callout Card */}
+          <div
+            style={{
+              backgroundColor: '#0f172a',
+              borderRadius: '20px',
+              padding: '2rem 2.5rem',
+              color: '#ffffff',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '2rem',
+              alignItems: 'center',
+            }}
+          >
+            <div>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#34d399', fontWeight: 700, fontSize: '0.8rem', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+                <Video size={16} /> Virtual Video Walkthrough
+              </div>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, margin: '0 0 0.5rem', color: '#ffffff' }}>
+                Experience the Atmosphere at Alfalah Centre
+              </h3>
+              <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+                Take a quick virtual tour of our prayer halls, the vibrant Sakeena Learning Hub, the outdoor garden marquee, and community spaces at 89 Tindal Street.
+              </p>
+            </div>
+
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'flex-start' }}>
+              <Link
+                href="/gallery"
+                className="btn btn-accent"
+                style={{ padding: '0.8rem 1.6rem', fontWeight: 800, display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+              >
+                <Play size={16} fill="currentColor" /> Watch Video Tour & Photos
+              </Link>
+              <Link
+                href="/contact"
+                className="btn"
+                style={{
+                  padding: '0.8rem 1.4rem',
+                  fontWeight: 700,
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  color: '#ffffff',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                }}
+              >
+                Plan a Visit in Person
+              </Link>
             </div>
           </div>
         </div>

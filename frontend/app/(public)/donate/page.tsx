@@ -93,6 +93,7 @@ function DonateContent() {
   const [amount, setAmount] = useState<number>(50);
   const [customAmount, setCustomAmount] = useState<string>('');
   const [giftAid, setGiftAid] = useState<boolean>(true);
+  const [paymentMethod, setPaymentMethod] = useState<'card' | 'bank'>('card');
 
   // Donor Details (HMRC Standard)
   const [donorFirstName, setDonorFirstName] = useState('');
@@ -740,348 +741,520 @@ UK Registered Charity #1150221`;
                   </div>
                 </div>
 
-                {/* 4. DONOR DETAILS & CARD FORM */}
+                {/* 4. PAYMENT METHOD SELECTOR & DETAILS */}
                 <div style={{ marginBottom: '1rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                      Donor & Payment Details
-                    </label>
-                    <a
-                      href="#bank-transfer"
-                      style={{
-                        fontSize: '0.76rem',
-                        fontWeight: 700,
-                        color: '#059669',
-                        textDecoration: 'none',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.25rem',
-                      }}
-                    >
-                      <Building size={12} /> Bank Transfer? →
-                    </a>
-                  </div>
-
-                  <form onSubmit={handleSubmitCard} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                    {errorMessage && (
-                      <div
-                        style={{
-                          padding: '0.65rem 0.85rem',
-                          backgroundColor: '#fee2e2',
-                          color: '#991b1b',
-                          borderRadius: '8px',
-                          border: '1px solid #fecaca',
-                          fontSize: '0.82rem',
-                          fontWeight: 600,
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '0.45rem',
-                        }}
-                      >
-                        <AlertCircle size={15} style={{ flexShrink: 0 }} />
-                        <span>{errorMessage}</span>
-                      </div>
-                    )}
-
-                    {/* Donor Name Fields */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-                      <div>
-                        <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#475569', marginBottom: '0.3rem' }}>
-                          First Name *
-                        </label>
-                        <input
-                          type="text"
-                          name="given-name"
-                          autoComplete="given-name"
-                          required
-                          placeholder="First name"
-                          value={donorFirstName}
-                          onChange={(e) => setDonorFirstName(e.target.value)}
-                          style={{
-                            width: '100%',
-                            padding: '0.75rem 0.95rem',
-                            borderRadius: '10px',
-                            border: '1.5px solid #e2e8f0',
-                            fontSize: '0.95rem',
-                            outline: 'none',
-                            backgroundColor: '#ffffff',
-                          }}
-                        />
-                      </div>
-
-                      <div>
-                        <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#475569', marginBottom: '0.3rem' }}>
-                          Last Name *
-                        </label>
-                        <input
-                          type="text"
-                          name="family-name"
-                          autoComplete="family-name"
-                          required
-                          placeholder="Last name"
-                          value={donorLastName}
-                          onChange={(e) => setDonorLastName(e.target.value)}
-                          style={{
-                            width: '100%',
-                            padding: '0.75rem 0.95rem',
-                            borderRadius: '10px',
-                            border: '1.5px solid #e2e8f0',
-                            fontSize: '0.95rem',
-                            outline: 'none',
-                            backgroundColor: '#ffffff',
-                          }}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Email Address */}
-                    <div>
-                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#475569', marginBottom: '0.3rem' }}>
-                        Email Address * (for Official Charity Receipt)
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        autoComplete="email"
-                        required
-                        placeholder="yourname@example.com"
-                        value={donorEmail}
-                        onChange={(e) => setDonorEmail(e.target.value)}
-                        style={{
-                          width: '100%',
-                          padding: '0.75rem 0.95rem',
-                          borderRadius: '10px',
-                          border: '1.5px solid #e2e8f0',
-                          fontSize: '0.95rem',
-                          outline: 'none',
-                          backgroundColor: '#ffffff',
-                        }}
-                      />
-                    </div>
-
-                    {/* DIGNIFIED UK GIFT AID CARD (SOFT FRESH MINT, NO UGLY YELLOW) */}
-                    <div
-                      style={{
-                        backgroundColor: '#f0fdf4',
-                        border: '1.5px solid #bbf7d0',
-                        borderRadius: '14px',
-                        padding: '1.15rem 1.25rem',
-                      }}
-                    >
-                      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', cursor: 'pointer' }}>
-                        <input
-                          type="checkbox"
-                          checked={giftAid}
-                          onChange={(e) => setGiftAid(e.target.checked)}
-                          style={{ accentColor: '#059669', width: '20px', height: '20px', marginTop: '2px', flexShrink: 0 }}
-                        />
-                        <div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-                            <span
-                              style={{
-                                backgroundColor: '#059669',
-                                color: '#ffffff',
-                                fontSize: '0.72rem',
-                                fontWeight: 800,
-                                padding: '2px 7px',
-                                borderRadius: '5px',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.5px',
-                              }}
-                            >
-                              Gift Aid
-                            </span>
-                            <span style={{ fontSize: '0.92rem', color: '#065f46', fontWeight: 800 }}>
-                              Boost your donation by 25% for free (+£{giftAidAmount.toFixed(2)})
-                            </span>
-                          </div>
-                          <div style={{ fontSize: '0.78rem', color: '#047857', marginTop: '0.35rem', lineHeight: 1.45 }}>
-                            If you are a UK taxpayer, HMRC reimburses 25p for every £1 you donate at £0 cost to you.
-                          </div>
-                        </div>
-                      </label>
-
-                      {/* UK Address & Postcode when Gift Aid is active */}
-                      {giftAid && (
-                        <div style={{ marginTop: '0.85rem', paddingTop: '0.85rem', borderTop: '1px dashed #86efac', display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '0.75rem' }}>
-                          <div>
-                            <label style={{ display: 'block', fontSize: '0.76rem', fontWeight: 700, color: '#065f46', marginBottom: '0.25rem' }}>
-                              UK Street Address *
-                            </label>
-                            <input
-                              type="text"
-                              name="address-line1"
-                              autoComplete="address-line1"
-                              required={giftAid}
-                              placeholder="e.g. 89 Tindal Street"
-                              value={donorAddress}
-                              onChange={(e) => setDonorAddress(e.target.value)}
-                              style={{
-                                width: '100%',
-                                padding: '0.65rem 0.85rem',
-                                borderRadius: '8px',
-                                border: '1px solid #86efac',
-                                fontSize: '0.9rem',
-                                outline: 'none',
-                                backgroundColor: '#ffffff',
-                              }}
-                            />
-                          </div>
-                          <div>
-                            <label style={{ display: 'block', fontSize: '0.76rem', fontWeight: 700, color: '#065f46', marginBottom: '0.25rem' }}>
-                              Postcode *
-                            </label>
-                            <input
-                              type="text"
-                              name="postal-code"
-                              autoComplete="postal-code"
-                              required={giftAid}
-                              placeholder="B12 9QU"
-                              value={donorPostcode}
-                              onChange={(e) => setDonorPostcode(e.target.value.toUpperCase())}
-                              style={{
-                                width: '100%',
-                                padding: '0.65rem 0.85rem',
-                                borderRadius: '8px',
-                                border: '1px solid #86efac',
-                                fontSize: '0.9rem',
-                                fontWeight: 700,
-                                textTransform: 'uppercase',
-                                outline: 'none',
-                                backgroundColor: '#ffffff',
-                              }}
-                            />
-                          </div>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* CARD DETAILS */}
-                    <div style={{ backgroundColor: '#f8fafc', border: '1.5px solid #e2e8f0', borderRadius: '14px', padding: '1.15rem 1.25rem' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
-                        <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase' }}>
-                          Payment Card
-                        </span>
-                        <div style={{ display: 'flex', gap: '0.35rem', alignItems: 'center' }}>
-                          <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#1e40af', backgroundColor: '#dbeafe', padding: '2px 6px', borderRadius: '4px' }}>VISA</span>
-                          <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#b91c1c', backgroundColor: '#fee2e2', padding: '2px 6px', borderRadius: '4px' }}>MC</span>
-                          <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#0369a1', backgroundColor: '#e0f2fe', padding: '2px 6px', borderRadius: '4px' }}>AMEX</span>
-                        </div>
-                      </div>
-
-                      <div style={{ marginBottom: '0.75rem' }}>
-                        <div style={{ position: 'relative' }}>
-                          <input
-                            type="text"
-                            name="cardnumber"
-                            autoComplete="cc-number"
-                            inputMode="numeric"
-                            required
-                            placeholder="Card Number •••• •••• •••• ••••"
-                            value={cardNumber}
-                            onChange={handleCardNumberChange}
-                            style={{
-                              width: '100%',
-                              padding: '0.75rem 2.5rem 0.75rem 0.95rem',
-                              borderRadius: '8px',
-                              border: '1px solid #cbd5e1',
-                              fontSize: '0.96rem',
-                              fontFamily: 'monospace',
-                              letterSpacing: '0.04em',
-                              outline: 'none',
-                              backgroundColor: '#ffffff',
-                            }}
-                          />
-                          <Lock size={15} style={{ position: 'absolute', right: '0.95rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
-                        </div>
-                      </div>
-
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-                        <div>
-                          <input
-                            type="text"
-                            name="cc-exp"
-                            autoComplete="cc-exp"
-                            inputMode="numeric"
-                            required
-                            placeholder="MM / YY"
-                            value={cardExpiry}
-                            onChange={handleExpiryChange}
-                            style={{
-                              width: '100%',
-                              padding: '0.75rem 0.95rem',
-                              borderRadius: '8px',
-                              border: '1px solid #cbd5e1',
-                              fontSize: '0.95rem',
-                              fontFamily: 'monospace',
-                              textAlign: 'center',
-                              outline: 'none',
-                              backgroundColor: '#ffffff',
-                            }}
-                          />
-                        </div>
-
-                        <div>
-                          <input
-                            type="password"
-                            name="cvc"
-                            autoComplete="cc-csc"
-                            inputMode="numeric"
-                            maxLength={4}
-                            required
-                            placeholder="CVC 🔒"
-                            value={cardCvc}
-                            onChange={(e) => setCardCvc(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                            style={{
-                              width: '100%',
-                              padding: '0.75rem 0.95rem',
-                              borderRadius: '8px',
-                              border: '1px solid #cbd5e1',
-                              fontSize: '0.95rem',
-                              fontFamily: 'monospace',
-                              textAlign: 'center',
-                              outline: 'none',
-                              backgroundColor: '#ffffff',
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* SUBMIT CTA BUTTON (VIBRANT REFINED HIGH-CONVERTING CTA) */}
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.55rem' }}>
+                    4. Select Payment Method
+                  </label>
+                  
+                  {/* Two-option payment method switcher */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem', marginBottom: '1.25rem' }}>
                     <button
-                      type="submit"
-                      disabled={isSubmitting || selectedAmount <= 0}
+                      type="button"
+                      onClick={() => setPaymentMethod('card')}
                       style={{
-                        width: '100%',
-                        padding: '1.1rem 1.5rem',
-                        fontSize: '1.12rem',
-                        fontWeight: 800,
-                        borderRadius: '14px',
-                        cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                        padding: '0.85rem 1rem',
+                        borderRadius: '12px',
+                        border: paymentMethod === 'card' ? '2px solid #059669' : '1.5px solid #e2e8f0',
+                        backgroundColor: paymentMethod === 'card' ? '#ecfdf5' : '#ffffff',
+                        color: paymentMethod === 'card' ? '#065f46' : '#475569',
+                        fontWeight: 700,
+                        fontSize: '0.92rem',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        gap: '0.6rem',
-                        marginTop: '0.5rem',
-                        background: 'linear-gradient(135deg, #e11d48 0%, #be123c 100%)',
-                        color: '#ffffff',
-                        border: 'none',
-                        boxShadow: '0 4px 18px rgba(225, 29, 72, 0.35)',
+                        gap: '0.5rem',
+                        cursor: 'pointer',
                         transition: 'all 0.15s ease',
+                        boxShadow: paymentMethod === 'card' ? '0 2px 8px rgba(5, 150, 105, 0.12)' : 'none',
                       }}
                     >
-                      <Lock size={18} />
-                      {isSubmitting
-                        ? 'Processing securely...'
-                        : `Donate £${selectedAmount.toFixed(2)}${frequency === 'monthly' ? ' / Month' : ''} Securely`}
+                      <CreditCard size={18} color={paymentMethod === 'card' ? '#059669' : '#64748b'} />
+                      Debit / Credit Card
                     </button>
 
-                    <div style={{ textAlign: 'center', fontSize: '0.72rem', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem', marginTop: '0.2rem' }}>
-                      <ShieldCheck size={14} style={{ color: '#059669' }} />
-                      256-bit SSL encrypted • PCI-DSS compliant • Official Receipt
+                    <button
+                      type="button"
+                      onClick={() => setPaymentMethod('bank')}
+                      style={{
+                        padding: '0.85rem 1rem',
+                        borderRadius: '12px',
+                        border: paymentMethod === 'bank' ? '2px solid #059669' : '1.5px solid #e2e8f0',
+                        backgroundColor: paymentMethod === 'bank' ? '#ecfdf5' : '#ffffff',
+                        color: paymentMethod === 'bank' ? '#065f46' : '#475569',
+                        fontWeight: 700,
+                        fontSize: '0.92rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.5rem',
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease',
+                        boxShadow: paymentMethod === 'bank' ? '0 2px 8px rgba(5, 150, 105, 0.12)' : 'none',
+                      }}
+                    >
+                      <Building size={18} color={paymentMethod === 'bank' ? '#059669' : '#64748b'} />
+                      Bank Transfer (0% Fees)
+                    </button>
+                  </div>
+
+                  {/* BANK TRANSFER INLINE MODE */}
+                  {paymentMethod === 'bank' ? (
+                    <div
+                      style={{
+                        backgroundColor: '#f0fdf4',
+                        border: '1.5px solid #86efac',
+                        borderRadius: '16px',
+                        padding: '1.5rem',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '1rem',
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem' }}>
+                        <div>
+                          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', backgroundColor: '#059669', color: '#ffffff', fontSize: '0.72rem', fontWeight: 800, padding: '2px 8px', borderRadius: '4px', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
+                            Direct Bank Transfer
+                          </div>
+                          <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#065f46' }}>
+                            Send £{selectedAmount.toFixed(2)} to Al Rayan Bank
+                          </div>
+                          <div style={{ fontSize: '0.82rem', color: '#047857' }}>
+                            Cause: {currentFund.label} {frequency === 'monthly' ? '• Monthly Standing Order' : ''}
+                          </div>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={handleCopyAll}
+                          style={{
+                            padding: '0.5rem 0.85rem',
+                            fontSize: '0.8rem',
+                            fontWeight: 700,
+                            borderRadius: '8px',
+                            border: '1px solid #059669',
+                            backgroundColor: copiedAll ? '#059669' : '#ffffff',
+                            color: copiedAll ? '#ffffff' : '#059669',
+                            cursor: 'pointer',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.4rem',
+                          }}
+                        >
+                          {copiedAll ? <Check size={14} /> : <Copy size={14} />}
+                          {copiedAll ? 'Details Copied!' : 'Copy All Details'}
+                        </button>
+                      </div>
+
+                      {/* Bank Details Table */}
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.65rem' }}>
+                        <div style={{ backgroundColor: '#ffffff', borderRadius: '10px', padding: '0.75rem 0.9rem', border: '1px solid #bbf7d0' }}>
+                          <span style={{ display: 'block', fontSize: '0.7rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>Bank</span>
+                          <span style={{ fontSize: '0.95rem', fontWeight: 800, color: '#0f172a' }}>Al Rayan Bank</span>
+                        </div>
+
+                        <div style={{ backgroundColor: '#ffffff', borderRadius: '10px', padding: '0.75rem 0.9rem', border: '1px solid #bbf7d0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div>
+                            <span style={{ display: 'block', fontSize: '0.7rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>Sort Code</span>
+                            <span style={{ fontSize: '1.05rem', fontWeight: 800, fontFamily: 'monospace', color: '#059669' }}>30-00-83</span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => handleCopy('30-00-83', 'sort-code')}
+                            style={{ padding: '0.35rem 0.55rem', borderRadius: '6px', border: '1px solid #cbd5e1', backgroundColor: '#f8fafc', color: '#334155', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}
+                          >
+                            {copiedField === 'sort-code' ? <Check size={12} color="#059669" /> : <Copy size={12} />}
+                            {copiedField === 'sort-code' ? 'Copied' : 'Copy'}
+                          </button>
+                        </div>
+
+                        <div style={{ backgroundColor: '#ffffff', borderRadius: '10px', padding: '0.75rem 0.9rem', border: '1px solid #bbf7d0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div>
+                            <span style={{ display: 'block', fontSize: '0.7rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>Account Number</span>
+                            <span style={{ fontSize: '1.05rem', fontWeight: 800, fontFamily: 'monospace', color: '#059669' }}>01298401</span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => handleCopy('01298401', 'account-number')}
+                            style={{ padding: '0.35rem 0.55rem', borderRadius: '6px', border: '1px solid #cbd5e1', backgroundColor: '#f8fafc', color: '#334155', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}
+                          >
+                            {copiedField === 'account-number' ? <Check size={12} color="#059669" /> : <Copy size={12} />}
+                            {copiedField === 'account-number' ? 'Copied' : 'Copy'}
+                          </button>
+                        </div>
+
+                        <div style={{ backgroundColor: '#ffffff', borderRadius: '10px', padding: '0.75rem 0.9rem', border: '1px solid #bbf7d0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div>
+                            <span style={{ display: 'block', fontSize: '0.7rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>Payment Reference</span>
+                            <span style={{ fontSize: '0.92rem', fontWeight: 800, fontFamily: 'monospace', color: '#0f172a' }}>{paymentReference}</span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => handleCopy(paymentReference, 'reference')}
+                            style={{ padding: '0.35rem 0.55rem', borderRadius: '6px', border: '1px solid #cbd5e1', backgroundColor: '#f8fafc', color: '#334155', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}
+                          >
+                            {copiedField === 'reference' ? <Check size={12} color="#059669" /> : <Copy size={12} />}
+                            {copiedField === 'reference' ? 'Copied' : 'Copy'}
+                          </button>
+                        </div>
+                      </div>
+
+                      <div style={{ backgroundColor: '#ffffff', borderRadius: '10px', padding: '0.75rem 0.9rem', border: '1px solid #bbf7d0' }}>
+                        <span style={{ display: 'block', fontSize: '0.7rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>Beneficiary Account Name</span>
+                        <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#0f172a' }}>ALFALAH COMMUNITY SUPPORT CENTRE</span>
+                      </div>
+
+                      {/* Instructions */}
+                      <div style={{ fontSize: '0.82rem', color: '#065f46', lineHeight: 1.5, borderTop: '1px dashed #86efac', paddingTop: '0.75rem' }}>
+                        <strong>Instructions:</strong> Open your online banking or banking app (e.g. Barclays, Lloyds, NatWest, Monzo, HSBC), select <em>Pay Someone New</em>, enter the details above, and quote <strong>{paymentReference}</strong> so we allocate your donation to the correct cause.
+                      </div>
+
+                      {/* WhatsApp confirmation CTA */}
+                      <a
+                        href={`https://wa.me/447476815340?text=${encodeURIComponent(`Assalamu Alaikum, I have sent a bank transfer donation of £${selectedAmount.toFixed(2)} for ${currentFund.label} (Payment Reference: ${paymentReference}). Please confirm receipt.`)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          padding: '0.85rem 1.25rem',
+                          backgroundColor: '#25D366',
+                          color: '#ffffff',
+                          borderRadius: '12px',
+                          textDecoration: 'none',
+                          fontWeight: 700,
+                          fontSize: '0.92rem',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '0.5rem',
+                          boxShadow: '0 4px 12px rgba(37, 211, 102, 0.25)',
+                        }}
+                      >
+                        Notify Us on WhatsApp for Instant Receipt →
+                      </a>
                     </div>
-                  </form>
+                  ) : (
+                    /* CARD PAYMENT FORM */
+                    <form onSubmit={handleSubmitCard} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                      {errorMessage && (
+                        <div
+                          style={{
+                            padding: '0.65rem 0.85rem',
+                            backgroundColor: '#fee2e2',
+                            color: '#991b1b',
+                            borderRadius: '8px',
+                            border: '1px solid #fecaca',
+                            fontSize: '0.82rem',
+                            fontWeight: 600,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.45rem',
+                          }}
+                        >
+                          <AlertCircle size={15} style={{ flexShrink: 0 }} />
+                          <span>{errorMessage}</span>
+                        </div>
+                      )}
+
+                      {/* Donor Name Fields */}
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                        <div>
+                          <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#475569', marginBottom: '0.3rem' }}>
+                            First Name *
+                          </label>
+                          <input
+                            type="text"
+                            name="given-name"
+                            autoComplete="given-name"
+                            required
+                            placeholder="First name"
+                            value={donorFirstName}
+                            onChange={(e) => setDonorFirstName(e.target.value)}
+                            style={{
+                              width: '100%',
+                              padding: '0.75rem 0.95rem',
+                              borderRadius: '10px',
+                              border: '1.5px solid #e2e8f0',
+                              fontSize: '0.95rem',
+                              outline: 'none',
+                              backgroundColor: '#ffffff',
+                            }}
+                          />
+                        </div>
+
+                        <div>
+                          <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#475569', marginBottom: '0.3rem' }}>
+                            Last Name *
+                          </label>
+                          <input
+                            type="text"
+                            name="family-name"
+                            autoComplete="family-name"
+                            required
+                            placeholder="Last name"
+                            value={donorLastName}
+                            onChange={(e) => setDonorLastName(e.target.value)}
+                            style={{
+                              width: '100%',
+                              padding: '0.75rem 0.95rem',
+                              borderRadius: '10px',
+                              border: '1.5px solid #e2e8f0',
+                              fontSize: '0.95rem',
+                              outline: 'none',
+                              backgroundColor: '#ffffff',
+                            }}
+                          />
+                        </div>
+                      </div>
+
+                      {/* Email Address */}
+                      <div>
+                        <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#475569', marginBottom: '0.3rem' }}>
+                          Email Address * (for Official Charity Receipt)
+                        </label>
+                        <input
+                          type="email"
+                          name="email"
+                          autoComplete="email"
+                          required
+                          placeholder="yourname@example.com"
+                          value={donorEmail}
+                          onChange={(e) => setDonorEmail(e.target.value)}
+                          style={{
+                            width: '100%',
+                            padding: '0.75rem 0.95rem',
+                            borderRadius: '10px',
+                            border: '1.5px solid #e2e8f0',
+                            fontSize: '0.95rem',
+                            outline: 'none',
+                            backgroundColor: '#ffffff',
+                          }}
+                        />
+                      </div>
+
+                      {/* DIGNIFIED UK GIFT AID CARD */}
+                      <div
+                        style={{
+                          backgroundColor: '#f0fdf4',
+                          border: '1.5px solid #bbf7d0',
+                          borderRadius: '14px',
+                          padding: '1.15rem 1.25rem',
+                        }}
+                      >
+                        <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', cursor: 'pointer' }}>
+                          <input
+                            type="checkbox"
+                            checked={giftAid}
+                            onChange={(e) => setGiftAid(e.target.checked)}
+                            style={{ accentColor: '#059669', width: '20px', height: '20px', marginTop: '2px', flexShrink: 0 }}
+                          />
+                          <div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                              <span
+                                style={{
+                                  backgroundColor: '#059669',
+                                  color: '#ffffff',
+                                  fontSize: '0.72rem',
+                                  fontWeight: 800,
+                                  padding: '2px 7px',
+                                  borderRadius: '5px',
+                                  textTransform: 'uppercase',
+                                  letterSpacing: '0.5px',
+                                }}
+                              >
+                                Gift Aid
+                              </span>
+                              <span style={{ fontSize: '0.92rem', color: '#065f46', fontWeight: 800 }}>
+                                Boost your donation by 25% for free (+£{giftAidAmount.toFixed(2)})
+                              </span>
+                            </div>
+                            <div style={{ fontSize: '0.78rem', color: '#047857', marginTop: '0.35rem', lineHeight: 1.45 }}>
+                              If you are a UK taxpayer, HMRC reimburses 25p for every £1 you donate at £0 cost to you.
+                            </div>
+                          </div>
+                        </label>
+
+                        {/* UK Address & Postcode when Gift Aid is active */}
+                        {giftAid && (
+                          <div style={{ marginTop: '0.85rem', paddingTop: '0.85rem', borderTop: '1px dashed #86efac', display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '0.75rem' }}>
+                            <div>
+                              <label style={{ display: 'block', fontSize: '0.76rem', fontWeight: 700, color: '#065f46', marginBottom: '0.25rem' }}>
+                                UK Street Address *
+                              </label>
+                              <input
+                                type="text"
+                                name="address-line1"
+                                autoComplete="address-line1"
+                                required={giftAid}
+                                placeholder="e.g. 89 Tindal Street"
+                                value={donorAddress}
+                                onChange={(e) => setDonorAddress(e.target.value)}
+                                style={{
+                                  width: '100%',
+                                  padding: '0.65rem 0.85rem',
+                                  borderRadius: '8px',
+                                  border: '1px solid #86efac',
+                                  fontSize: '0.9rem',
+                                  outline: 'none',
+                                  backgroundColor: '#ffffff',
+                                }}
+                              />
+                            </div>
+                            <div>
+                              <label style={{ display: 'block', fontSize: '0.76rem', fontWeight: 700, color: '#065f46', marginBottom: '0.25rem' }}>
+                                Postcode *
+                              </label>
+                              <input
+                                type="text"
+                                name="postal-code"
+                                autoComplete="postal-code"
+                                required={giftAid}
+                                placeholder="B12 9QU"
+                                value={donorPostcode}
+                                onChange={(e) => setDonorPostcode(e.target.value.toUpperCase())}
+                                style={{
+                                  width: '100%',
+                                  padding: '0.65rem 0.85rem',
+                                  borderRadius: '8px',
+                                  border: '1px solid #86efac',
+                                  fontSize: '0.9rem',
+                                  fontWeight: 700,
+                                  textTransform: 'uppercase',
+                                  outline: 'none',
+                                  backgroundColor: '#ffffff',
+                                }}
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* CARD DETAILS */}
+                      <div style={{ backgroundColor: '#f8fafc', border: '1.5px solid #e2e8f0', borderRadius: '14px', padding: '1.15rem 1.25rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
+                          <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase' }}>
+                            Payment Card
+                          </span>
+                          <div style={{ display: 'flex', gap: '0.35rem', alignItems: 'center' }}>
+                            <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#1e40af', backgroundColor: '#dbeafe', padding: '2px 6px', borderRadius: '4px' }}>VISA</span>
+                            <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#b91c1c', backgroundColor: '#fee2e2', padding: '2px 6px', borderRadius: '4px' }}>MC</span>
+                            <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#0369a1', backgroundColor: '#e0f2fe', padding: '2px 6px', borderRadius: '4px' }}>AMEX</span>
+                          </div>
+                        </div>
+
+                        <div style={{ marginBottom: '0.75rem' }}>
+                          <div style={{ position: 'relative' }}>
+                            <input
+                              type="text"
+                              name="cardnumber"
+                              autoComplete="cc-number"
+                              inputMode="numeric"
+                              required
+                              placeholder="Card Number •••• •••• •••• ••••"
+                              value={cardNumber}
+                              onChange={handleCardNumberChange}
+                              style={{
+                                width: '100%',
+                                padding: '0.75rem 2.5rem 0.75rem 0.95rem',
+                                borderRadius: '8px',
+                                border: '1px solid #cbd5e1',
+                                fontSize: '0.96rem',
+                                fontFamily: 'monospace',
+                                letterSpacing: '0.04em',
+                                outline: 'none',
+                                backgroundColor: '#ffffff',
+                              }}
+                            />
+                            <Lock size={15} style={{ position: 'absolute', right: '0.95rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                          </div>
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                          <div>
+                            <input
+                              type="text"
+                              name="cc-exp"
+                              autoComplete="cc-exp"
+                              inputMode="numeric"
+                              required
+                              placeholder="MM / YY"
+                              value={cardExpiry}
+                              onChange={handleExpiryChange}
+                              style={{
+                                width: '100%',
+                                padding: '0.75rem 0.95rem',
+                                borderRadius: '8px',
+                                border: '1px solid #cbd5e1',
+                                fontSize: '0.95rem',
+                                fontFamily: 'monospace',
+                                textAlign: 'center',
+                                outline: 'none',
+                                backgroundColor: '#ffffff',
+                              }}
+                            />
+                          </div>
+
+                          <div>
+                            <input
+                              type="password"
+                              name="cvc"
+                              autoComplete="cc-csc"
+                              inputMode="numeric"
+                              maxLength={4}
+                              required
+                              placeholder="CVC 🔒"
+                              value={cardCvc}
+                              onChange={(e) => setCardCvc(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                              style={{
+                                width: '100%',
+                                padding: '0.75rem 0.95rem',
+                                borderRadius: '8px',
+                                border: '1px solid #cbd5e1',
+                                fontSize: '0.95rem',
+                                fontFamily: 'monospace',
+                                textAlign: 'center',
+                                outline: 'none',
+                                backgroundColor: '#ffffff',
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* SUBMIT CTA BUTTON */}
+                      <button
+                        type="submit"
+                        disabled={isSubmitting || selectedAmount <= 0}
+                        style={{
+                          width: '100%',
+                          padding: '1.1rem 1.5rem',
+                          fontSize: '1.12rem',
+                          fontWeight: 800,
+                          borderRadius: '14px',
+                          cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '0.6rem',
+                          marginTop: '0.5rem',
+                          background: 'linear-gradient(135deg, #e11d48 0%, #be123c 100%)',
+                          color: '#ffffff',
+                          border: 'none',
+                          boxShadow: '0 4px 18px rgba(225, 29, 72, 0.35)',
+                          transition: 'all 0.15s ease',
+                        }}
+                      >
+                        <Lock size={18} />
+                        {isSubmitting
+                          ? 'Processing securely...'
+                          : `Donate £${selectedAmount.toFixed(2)}${frequency === 'monthly' ? ' / Month' : ''} Securely`}
+                      </button>
+
+                      <div style={{ textAlign: 'center', fontSize: '0.72rem', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem', marginTop: '0.2rem' }}>
+                        <ShieldCheck size={14} style={{ color: '#059669' }} />
+                        256-bit SSL encrypted • PCI-DSS compliant • Official Receipt
+                      </div>
+                    </form>
+                  )}
                 </div>
               </div>
             )}
