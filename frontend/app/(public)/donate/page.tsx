@@ -316,69 +316,7 @@ UK Registered Charity #1150221`;
       </section>
 
       {/* 2. Main Donation Container (Spacious 860px PC Width) */}
-      <div className="container" style={{ maxWidth: '860px', marginTop: '1.5rem' }}>
-        {/* Official Appeal Flyer Verification Callout (Lightweight & High Trust) */}
-        <div
-          style={{
-            backgroundColor: '#ffffff',
-            border: '1px solid #e2e8f0',
-            borderRadius: '16px',
-            padding: '0.85rem 1.15rem',
-            marginBottom: '1.25rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '0.75rem',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <img
-              src="/images/client-appeal.jpg"
-              alt="Official Mosque Purchase Appeal Flyer"
-              style={{
-                width: '42px',
-                height: '56px',
-                objectFit: 'cover',
-                borderRadius: '6px',
-                border: '1px solid #cbd5e1',
-                flexShrink: 0,
-              }}
-            />
-            <div>
-              <div style={{ fontSize: '0.9rem', fontWeight: 800, color: '#0f172a' }}>
-                Official Mosque Purchase Appeal (£600,000 Target)
-              </div>
-              <div style={{ fontSize: '0.78rem', color: '#64748b' }}>
-                Securing 89 Tindal Street building • UK Registered Charity #1150221
-              </div>
-            </div>
-          </div>
-
-          <a
-            href="/images/client-appeal.jpg"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              padding: '0.4rem 0.85rem',
-              borderRadius: '9999px',
-              backgroundColor: '#ecfdf5',
-              color: '#047857',
-              fontWeight: 700,
-              fontSize: '0.78rem',
-              textDecoration: 'none',
-              border: '1px solid #a7f3d0',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            <span>View Full Official Flyer</span> ↗
-          </a>
-        </div>
-
+      <div className="container" style={{ maxWidth: '860px', marginTop: '2rem' }}>
         {/* MAIN DONATION FORM OR OFFICIAL RECEIPT */}
         <div
           className="card donate-card"
