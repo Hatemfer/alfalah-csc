@@ -337,13 +337,15 @@ export default async function HomePage() {
           {/* Action Callout for Zakat & Welfare */}
           <div
             style={{
-              backgroundColor: '#064e3b',
+              backgroundColor: '#0f172a',
               borderRadius: '20px',
               padding: '2rem 2.5rem',
               color: '#ffffff',
               display: 'flex',
               flexDirection: 'column',
               gap: '1.5rem',
+              border: '1px solid #1e293b',
+              boxShadow: '0 10px 25px -5px rgba(15, 23, 42, 0.1)',
             }}
           >
             <div
@@ -359,7 +361,7 @@ export default async function HomePage() {
                 <h3 style={{ fontSize: '1.5rem', fontWeight: 800, margin: '0 0 0.4rem', color: '#ffffff' }}>
                   Fulfill Your Zakat Obligation Locally in Birmingham
                 </h3>
-                <p style={{ color: '#a7f3d0', fontSize: '0.95rem', margin: 0, maxWidth: '650px', lineHeight: 1.5 }}>
+                <p style={{ color: '#94a3b8', fontSize: '0.95rem', margin: 0, maxWidth: '650px', lineHeight: 1.5 }}>
                   Give with confidence. Your contribution transforms lives in Balsall Heath, Sparkbrook, and surrounding communities with total transparency.
                 </p>
               </div>
@@ -616,13 +618,13 @@ export default async function HomePage() {
                   position: 'absolute',
                   top: '12px',
                   left: '12px',
-                  backgroundColor: 'rgba(6, 78, 59, 0.95)',
+                  backgroundColor: 'rgba(15, 23, 42, 0.88)',
                   color: '#ffffff',
                   fontSize: '0.75rem',
-                  fontWeight: 800,
+                  fontWeight: 700,
                   padding: '0.35rem 0.75rem',
                   borderRadius: '9999px',
-                  backdropFilter: 'blur(4px)',
+                  backdropFilter: 'blur(6px)',
                 }}
               >
                 Every Saturday Post-Maghrib
@@ -761,7 +763,7 @@ export default async function HomePage() {
                       position: 'relative',
                       width: '100%',
                       height: '200px',
-                      backgroundColor: '#064e3b',
+                      backgroundColor: '#0f172a',
                     }}
                   >
                     <Image
@@ -791,16 +793,16 @@ export default async function HomePage() {
                     >
                       <span
                         style={{
-                          backgroundColor: 'rgba(6, 78, 59, 0.95)',
+                          backgroundColor: 'rgba(15, 23, 42, 0.88)',
                           color: '#ffffff',
-                          fontWeight: 800,
+                          fontWeight: 700,
                           fontSize: '0.75rem',
                           padding: '0.3rem 0.75rem',
                           borderRadius: '9999px',
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: '0.35rem',
-                          backdropFilter: 'blur(4px)',
+                          backdropFilter: 'blur(6px)',
                         }}
                       >
                         {getCategoryIcon(act.category)} {act.category}

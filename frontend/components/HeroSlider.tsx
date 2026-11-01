@@ -148,7 +148,7 @@ export default function HeroSlider() {
       style={{
         position: 'relative',
         minHeight: '620px',
-        backgroundColor: '#047857',
+        backgroundColor: '#0f172a',
         color: '#ffffff',
         overflow: 'hidden',
         display: 'flex',
@@ -180,13 +180,13 @@ export default function HeroSlider() {
                 sizes="100vw"
                 style={{ objectFit: 'cover', objectPosition: 'center' }}
               />
-              {/* Radiant Islamic Emerald Gradient & Warm Ambient Glow (Light & Welcoming) */}
+              {/* Clean Cinematic Gradient for Perfect Photo Clarity & Legibility */}
               <div
                 style={{
                   position: 'absolute',
                   inset: 0,
                   background:
-                    'linear-gradient(135deg, rgba(5, 150, 105, 0.76) 0%, rgba(13, 148, 136, 0.62) 50%, rgba(16, 185, 129, 0.48) 100%)',
+                    'linear-gradient(to right, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.6) 48%, rgba(15, 23, 42, 0.2) 100%)',
                 }}
               />
               <div
@@ -194,7 +194,7 @@ export default function HeroSlider() {
                   position: 'absolute',
                   inset: 0,
                   background:
-                    'radial-gradient(ellipse at 85% 20%, rgba(245, 158, 11, 0.28) 0%, transparent 60%)',
+                    'linear-gradient(to top, rgba(15, 23, 42, 0.75) 0%, transparent 45%)',
                 }}
               />
             </div>
@@ -323,9 +323,9 @@ export default function HeroSlider() {
         style={{
           position: 'relative',
           zIndex: 10,
-          background: 'rgba(6, 78, 59, 0.68)',
+          background: 'rgba(15, 23, 42, 0.82)',
           backdropFilter: 'blur(16px)',
-          borderTop: '1px solid rgba(255, 255, 255, 0.2)',
+          borderTop: '1px solid rgba(255, 255, 255, 0.12)',
           padding: '1.25rem 1.5rem',
         }}
       >

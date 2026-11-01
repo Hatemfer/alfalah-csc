@@ -93,13 +93,14 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 1.5 }}>
         <Box
           component="img"
-          src="/images/logo-emblem.svg"
+          src="/images/alfalah-official-emblem.jpg"
           alt="Alfalah Crest"
           sx={{
             width: 44,
             height: 44,
             borderRadius: '50%',
-            filter: 'drop-shadow(0 2px 6px rgba(5,150,105,0.25))',
+            border: '1.5px solid #e2e8f0',
+            objectFit: 'cover',
           }}
         />
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>

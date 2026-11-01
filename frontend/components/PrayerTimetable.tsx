@@ -218,12 +218,12 @@ export default function PrayerTimetable({
             <div
               key={p.id}
               style={{
-                backgroundColor: p.isNext ? '#f0fdf4' : '#f8fafc',
-                border: p.isNext ? '2px solid #059669' : '1px solid #e2e8f0',
+                backgroundColor: p.isNext ? '#f0fdf4' : '#ffffff',
+                border: p.isNext ? '2px solid #065f46' : '1px solid #e2e8f0',
                 borderRadius: 'var(--radius-md)',
                 padding: '0.85rem 0.5rem',
                 textAlign: 'center',
-                boxShadow: p.isNext ? '0 4px 12px rgba(5, 150, 105, 0.12)' : 'none',
+                boxShadow: p.isNext ? '0 4px 12px rgba(6, 95, 70, 0.1)' : '0 1px 3px rgba(15, 23, 42, 0.04)',
                 transition: 'all 0.2s ease',
               }}
             >
@@ -233,7 +233,7 @@ export default function PrayerTimetable({
                     fontSize: '0.62rem',
                     fontWeight: 800,
                     letterSpacing: '0.05em',
-                    color: '#059669',
+                    color: '#065f46',
                     textTransform: 'uppercase',
                     marginBottom: '0.2rem',
                   }}
@@ -242,7 +242,7 @@ export default function PrayerTimetable({
                 </div>
               )}
               <div style={{ marginBottom: '0.25rem' }}>
-                <span style={{ fontSize: '0.98rem', fontWeight: 800, color: p.isNext ? '#065f46' : '#1e293b' }}>
+                <span style={{ fontSize: '0.98rem', fontWeight: 800, color: p.isNext ? '#065f46' : '#0f172a' }}>
                   {p.name}
                 </span>
               </div>
@@ -256,7 +256,7 @@ export default function PrayerTimetable({
                   fontSize: '1.35rem',
                   fontWeight: 800,
                   fontFamily: 'monospace',
-                  color: p.iqamah === '—' ? '#94a3b8' : (p.isNext ? '#047857' : '#059669'),
+                  color: p.iqamah === '—' ? '#94a3b8' : (p.isNext ? '#065f46' : '#0f172a'),
                   marginTop: '0.25rem',
                 }}
               >
@@ -312,7 +312,7 @@ export default function PrayerTimetable({
       {/* Top Header Card: Dates & Next Prayer Countdown */}
       <div
         style={{
-          background: 'linear-gradient(135deg, #065f46 0%, #047857 50%, #0f766e 100%)',
+          background: 'linear-gradient(135deg, #064e3b 0%, #065f46 100%)',
           borderRadius: 'var(--radius-lg)',
           padding: '1.75rem 2rem',
           color: '#ffffff',

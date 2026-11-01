@@ -242,12 +242,13 @@ export default function VirtualTourVideo() {
                   position: 'absolute',
                   top: '10px',
                   left: '10px',
-                  backgroundColor: 'rgba(6, 78, 59, 0.9)',
+                  backgroundColor: 'rgba(15, 23, 42, 0.88)',
                   color: '#ffffff',
                   fontSize: '0.7rem',
                   fontWeight: 700,
-                  padding: '0.2rem 0.6rem',
+                  padding: '0.2rem 0.65rem',
                   borderRadius: '9999px',
+                  backdropFilter: 'blur(6px)',
                 }}
               >
                 {spot.tag}

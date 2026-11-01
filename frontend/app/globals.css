@@ -171,12 +171,12 @@ img {
 }
 
 .btn-primary {
-  background-color: var(--color-primary-700);
+  background-color: var(--color-primary-800);
   color: #ffffff;
 }
 
 .btn-primary:hover {
-  background-color: var(--color-primary-800);
+  background-color: var(--color-primary-900);
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
