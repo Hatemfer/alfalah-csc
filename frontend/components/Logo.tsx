@@ -1,6 +1,6 @@
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
+import { AlfalahSimpleLogoSvg } from './AlfalahSimpleLogoSvg';
 
 interface LogoProps {
   variant?: 'full' | 'compact' | 'stacked';
@@ -15,8 +15,8 @@ export function Logo({
 }: LogoProps) {
   const dimensions = {
     sm: { imgSize: 38, titleSize: '1.05rem', subSize: '0.62rem', arabicSize: '0.85rem' },
-    md: { imgSize: 48, titleSize: '1.25rem', subSize: '0.68rem', arabicSize: '1rem' },
-    lg: { imgSize: 64, titleSize: '1.5rem', subSize: '0.78rem', arabicSize: '1.25rem' },
+    md: { imgSize: 46, titleSize: '1.25rem', subSize: '0.68rem', arabicSize: '1rem' },
+    lg: { imgSize: 60, titleSize: '1.5rem', subSize: '0.78rem', arabicSize: '1.25rem' },
   }[size];
 
   const content = (
@@ -26,32 +26,24 @@ export function Logo({
         alignItems: 'center',
         gap: '0.75rem',
         textDecoration: 'none',
+        outline: 'none',
       }}
     >
-      {/* Authentic Registered Charity Emblem */}
+      {/* Clean Modern Islamic Vector Emblem */}
       <div
         style={{
           width: dimensions.imgSize,
           height: dimensions.imgSize,
           borderRadius: '50%',
-          overflow: 'hidden',
           flexShrink: 0,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#ffffff',
-          border: '1.5px solid #e2e8f0',
-          boxShadow: '0 2px 6px rgba(15, 23, 42, 0.08)',
+          filter: 'drop-shadow(0 2px 6px rgba(6, 95, 70, 0.2))',
+          transition: 'transform 0.2s ease',
         }}
       >
-        <Image
-          src="/images/alfalah-official-emblem.jpg"
-          alt="Alfalah Community Support Centre Official Emblem"
-          width={dimensions.imgSize}
-          height={dimensions.imgSize}
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          priority
-        />
+        <AlfalahSimpleLogoSvg size={dimensions.imgSize} />
       </div>
 
       {/* Typography: Clean, Modern, Prestigious */}
@@ -98,7 +90,7 @@ export function Logo({
 
   if (linkToHome) {
     return (
-      <Link href="/" style={{ textDecoration: 'none', display: 'inline-block' }}>
+      <Link href="/" style={{ textDecoration: 'none', display: 'inline-block', outline: 'none' }}>
         {content}
       </Link>
     );

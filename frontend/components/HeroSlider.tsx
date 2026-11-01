@@ -148,7 +148,7 @@ export default function HeroSlider() {
       style={{
         position: 'relative',
         minHeight: '620px',
-        backgroundColor: '#0f172a',
+        backgroundColor: '#064e3b',
         color: '#ffffff',
         overflow: 'hidden',
         display: 'flex',
@@ -180,13 +180,13 @@ export default function HeroSlider() {
                 sizes="100vw"
                 style={{ objectFit: 'cover', objectPosition: 'center' }}
               />
-              {/* Clean Cinematic Gradient for Perfect Photo Clarity & Legibility */}
+              {/* Luminous Light Green & Ocean Blue Gradient Filter (Zero Black) */}
               <div
                 style={{
                   position: 'absolute',
                   inset: 0,
                   background:
-                    'linear-gradient(to right, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.6) 48%, rgba(15, 23, 42, 0.2) 100%)',
+                    'linear-gradient(135deg, rgba(6, 95, 70, 0.72) 0%, rgba(13, 148, 136, 0.52) 48%, rgba(2, 132, 199, 0.22) 85%, transparent 100%)',
                 }}
               />
               <div
@@ -194,7 +194,7 @@ export default function HeroSlider() {
                   position: 'absolute',
                   inset: 0,
                   background:
-                    'linear-gradient(to top, rgba(15, 23, 42, 0.75) 0%, transparent 45%)',
+                    'linear-gradient(to top, rgba(6, 78, 59, 0.65) 0%, transparent 45%)',
                 }}
               />
             </div>
@@ -233,11 +233,12 @@ export default function HeroSlider() {
           <div
             style={{
               margin: '1rem 0 1.25rem',
-              padding: '0.85rem 1.25rem',
-              backgroundColor: 'rgba(0, 0, 0, 0.28)',
-              borderLeft: '3px solid #fbbf24',
-              borderRadius: '0 8px 8px 0',
-              backdropFilter: 'blur(8px)',
+              padding: '0.95rem 1.35rem',
+              backgroundColor: 'rgba(6, 78, 59, 0.45)',
+              border: '1px solid rgba(255, 255, 255, 0.18)',
+              borderLeft: '4px solid #fbbf24',
+              borderRadius: '0 10px 10px 0',
+              backdropFilter: 'blur(10px)',
               maxWidth: '740px',
             }}
           >
@@ -323,9 +324,9 @@ export default function HeroSlider() {
         style={{
           position: 'relative',
           zIndex: 10,
-          background: 'rgba(15, 23, 42, 0.82)',
+          background: 'rgba(6, 78, 59, 0.78)',
           backdropFilter: 'blur(16px)',
-          borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+          borderTop: '1px solid rgba(255, 255, 255, 0.2)',
           padding: '1.25rem 1.5rem',
         }}
       >
