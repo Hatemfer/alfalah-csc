@@ -16,106 +16,33 @@ import {
   Clock,
   ChevronDown,
   Building,
-  Sparkles,
   Users,
-  Camera,
   Coins,
-  BookOpen,
   GraduationCap,
   HeartHandshake,
-  FileText,
   LucideIcon,
 } from 'lucide-react';
 
-interface SubNavItem {
+interface SubItem {
   label: string;
   href: string;
   desc: string;
   icon: LucideIcon;
-  badge?: string;
 }
 
-interface NavGroup {
-  id: string;
+interface NavItem {
   label: string;
-  baseHref: string;
-  items: SubNavItem[];
+  href: string;
+  children?: SubItem[];
 }
 
-const NAV_GROUPS: NavGroup[] = [
+const NAV_ITEMS: NavItem[] = [
+  { label: 'Home', href: '/' },
+  { label: 'Prayer Times', href: '/prayer-times' },
   {
-    id: 'about',
-    label: 'About Us',
-    baseHref: '/about',
-    items: [
-      {
-        label: 'Our Story & Vision',
-        href: '/about',
-        desc: 'Serving Balsall Heath & Birmingham since 2012',
-        icon: Building,
-      },
-      {
-        label: 'Facilities & Centre Tour',
-        href: '/about#facilities',
-        desc: 'Prayer halls, STEM lab, Sakeena hub & courtyard',
-        icon: Sparkles,
-      },
-      {
-        label: 'Leadership & Scholars',
-        href: '/about#scholars',
-        desc: 'Resident scholars, trustees & management',
-        icon: Users,
-      },
-      {
-        label: 'Photo & Video Gallery',
-        href: '/gallery',
-        desc: 'Walkthrough tour, youth workshops & community',
-        icon: Camera,
-      },
-      {
-        label: 'Charity Governance',
-        href: '/about#governance',
-        desc: 'Official UK Charity #1150221 & annual reports',
-        icon: ShieldCheck,
-      },
-    ],
-  },
-  {
-    id: 'prayers',
-    label: 'Prayers & Worship',
-    baseHref: '/prayer-times',
-    items: [
-      {
-        label: 'Daily Prayer Timetable',
-        href: '/prayer-times',
-        desc: 'Live countdown, start times & Iqamah congregation',
-        icon: Clock,
-      },
-      {
-        label: 'Friday Jumu’ah Prayers',
-        href: '/prayer-times#jumuah',
-        desc: 'Khutbah at 13:00, English summary & parking guide',
-        icon: Users,
-      },
-      {
-        label: 'Monthly Timetable (PDF)',
-        href: '/prayer-times#monthly',
-        desc: 'Printable monthly prayer calendar for home',
-        icon: FileText,
-      },
-      {
-        label: 'Qibla Direction Finder',
-        href: '/qibla',
-        desc: 'Interactive digital compass calibrated for Birmingham',
-        icon: Compass,
-      },
-    ],
-  },
-  {
-    id: 'services',
-    label: 'Services & Welfare',
-    baseHref: '/services',
-    items: [
+    label: 'Services',
+    href: '/services',
+    children: [
       {
         label: 'All Community Services',
         href: '/services',
@@ -127,7 +54,6 @@ const NAV_GROUPS: NavGroup[] = [
         href: '/services#welfare',
         desc: '0% admin fee, emergency food parcels & hardship grants',
         icon: Coins,
-        badge: '100% Policy',
       },
       {
         label: 'Nikah (Marriage) Solemnisation',
@@ -149,89 +75,47 @@ const NAV_GROUPS: NavGroup[] = [
       },
     ],
   },
+  { label: 'Academy & Lessons', href: '/activities' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'About', href: '/about' },
   {
-    id: 'academy',
-    label: 'Academy & Youth',
-    baseHref: '/activities',
-    items: [
-      {
-        label: 'Alfalah Academy Overview',
-        href: '/activities',
-        desc: 'Weekend Madrasah, Quran Tajweed & Islamic studies',
-        icon: BookOpen,
-      },
-      {
-        label: 'Weekly Tafsir Series',
-        href: '/activities#tafsir',
-        desc: 'Surah al-Hujurat with Sheikh Jamal (Saturdays post-Maghrib)',
-        icon: GraduationCap,
-        badge: 'Weekly',
-      },
-      {
-        label: 'Youth STEM & Electronics Lab',
-        href: '/activities#stem',
-        desc: 'Hands-on robotics, coding & circuit workbench',
-        icon: Sparkles,
-      },
-      {
-        label: 'Sakeena Sisters Hub',
-        href: '/activities#sisters',
-        desc: 'Dedicated sisters circles, well-being & private hall',
-        icon: Users,
-      },
+    label: 'More',
+    href: '/announcements',
+    children: [
       {
         label: 'Community Announcements',
         href: '/announcements',
         desc: 'Latest news, Eid notices & community bulletins',
         icon: Calendar,
       },
-    ],
-  },
-  {
-    id: 'appeals',
-    label: 'Appeals & Giving',
-    baseHref: '/donate',
-    items: [
       {
-        label: 'Building Purchase Appeal',
-        href: '/donate?category=purchase',
-        desc: 'Secure 89 Tindal St permanently (£600k target)',
-        icon: Building,
-        badge: 'Urgent',
+        label: 'Events & Halaqas',
+        href: '/events',
+        desc: 'Upcoming study circles, workshops & programmes',
+        icon: GraduationCap,
       },
       {
-        label: '100% Zakat Al-Mal Fund',
-        href: '/donate?category=zakat',
-        desc: '0% administration deduction, direct to Birmingham needy',
-        icon: Coins,
-      },
-      {
-        label: 'Sadaqah Jariyah & General Fund',
-        href: '/donate?category=sadaqah',
-        desc: 'Continuous reward supporting daily operations & youth',
-        icon: HeartHandshake,
-      },
-      {
-        label: 'Direct Bank Transfer (Al Rayan)',
-        href: '/donate?tab=bank',
-        desc: '0% transaction fees via UK bank transfer & Gift Aid',
-        icon: ShieldCheck,
+        label: 'Qibla Direction Finder',
+        href: '/qibla',
+        desc: 'Interactive digital compass calibrated for Birmingham',
+        icon: Compass,
       },
     ],
   },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileExpandedGroup, setMobileExpandedGroup] = useState<string | null>(null);
   const pathname = usePathname();
   const navRef = useRef<HTMLDivElement>(null);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const [formattedDates, setFormattedDates] = useState<{ greg: string; hijri: string }>({
-    greg: 'Thursday, 29 October 2026',
-    hijri: '18 Jumada I 1448 AH',
+    greg: 'Sunday, 1 November 2026',
+    hijri: '21 Jumada I 1448 AH',
   });
 
   useEffect(() => {
@@ -254,11 +138,11 @@ export function Header() {
     }
   }, []);
 
-  // Handle outside click to close dropdowns
+  // Close dropdown on outside click
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (navRef.current && !navRef.current.contains(event.target as Node)) {
-        setActiveDropdown(null);
+        setOpenDropdown(null);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -267,32 +151,35 @@ export function Header() {
     };
   }, []);
 
-  // Close dropdown on route change
+  // Close menus on page route changes
   useEffect(() => {
-    setActiveDropdown(null);
+    setOpenDropdown(null);
     setMobileOpen(false);
   }, [pathname]);
 
-  const handleMouseEnter = (groupId: string) => {
+  const handleMouseEnter = (label: string) => {
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
       closeTimeoutRef.current = null;
     }
-    setActiveDropdown(groupId);
+    setOpenDropdown(label);
   };
 
   const handleMouseLeave = () => {
     closeTimeoutRef.current = setTimeout(() => {
-      setActiveDropdown(null);
-    }, 150);
+      setOpenDropdown(null);
+    }, 180);
   };
 
-  const isGroupActive = (group: NavGroup) => {
-    if (pathname === group.baseHref) return true;
-    return group.items.some((item) => {
-      const itemPath = item.href.split('?')[0].split('#')[0];
-      return pathname === itemPath && itemPath !== '/';
-    });
+  const isItemActive = (item: NavItem) => {
+    if (pathname === item.href) return true;
+    if (item.children) {
+      return item.children.some((child) => {
+        const childPath = child.href.split('?')[0].split('#')[0];
+        return pathname === childPath && childPath !== '/';
+      });
+    }
+    return false;
   };
 
   return (
@@ -309,7 +196,7 @@ export function Header() {
         transition: 'background-color var(--transition-normal)',
       }}
     >
-      {/* Top Banner with Charity Registration & Live Dates (Crisp & Dignified) */}
+      {/* Top Banner with Live Dates & Charity Registration */}
       <div
         style={{
           backgroundColor: '#f8fafc',
@@ -363,7 +250,7 @@ export function Header() {
         {/* Brand Logo & Emblem */}
         <Logo size="md" />
 
-        {/* Desktop Navigation with Dropdowns */}
+        {/* Desktop Navigation Links (Direct 1-click links, with dropdown only when needed) */}
         <nav
           style={{
             display: 'none',
@@ -372,98 +259,130 @@ export function Header() {
           }}
           className="desktop-nav"
         >
-          {/* Home Link */}
-          <Link
-            href="/"
-            style={{
-              padding: '0.5rem 0.75rem',
-              fontSize: '0.92rem',
-              fontWeight: pathname === '/' ? 700 : 500,
-              color: pathname === '/' ? 'var(--color-primary-900)' : 'var(--text-secondary)',
-              borderRadius: 'var(--radius-sm)',
-              textDecoration: 'none',
-              transition: 'color var(--transition-fast), background-color var(--transition-fast)',
-            }}
-          >
-            Home
-          </Link>
+          {NAV_ITEMS.map((item) => {
+            const hasChildren = Boolean(item.children && item.children.length > 0);
+            const isOpen = openDropdown === item.label;
+            const active = isItemActive(item);
 
-          {/* Dropdown Groups */}
-          {NAV_GROUPS.map((group) => {
-            const isOpen = activeDropdown === group.id;
-            const active = isGroupActive(group);
-
-            return (
-              <div
-                key={group.id}
-                style={{ position: 'relative' }}
-                onMouseEnter={() => handleMouseEnter(group.id)}
-                onMouseLeave={handleMouseLeave}
-              >
-                <button
-                  type="button"
-                  onClick={() => setActiveDropdown(isOpen ? null : group.id)}
-                  aria-expanded={isOpen}
+            if (!hasChildren) {
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '0.3rem',
-                    padding: '0.5rem 0.75rem',
                     fontSize: '0.92rem',
                     fontWeight: active ? 700 : 500,
                     color: active ? 'var(--color-primary-900)' : 'var(--text-secondary)',
-                    backgroundColor: isOpen ? '#f1f5f9' : 'transparent',
-                    border: 'none',
+                    borderBottom: active ? '2px solid var(--color-primary-800)' : '2px solid transparent',
+                    padding: '0.45rem 0.65rem',
                     borderRadius: 'var(--radius-sm)',
-                    cursor: 'pointer',
+                    textDecoration: 'none',
                     transition: 'all var(--transition-fast)',
                   }}
                 >
-                  <span>{group.label}</span>
-                  <ChevronDown
-                    size={14}
+                  {item.label}
+                </Link>
+              );
+            }
+
+            // Item with children: Link is directly clickable, hover reveals sub-options
+            return (
+              <div
+                key={item.label}
+                style={{ position: 'relative' }}
+                onMouseEnter={() => handleMouseEnter(item.label)}
+                onMouseLeave={handleMouseLeave}
+              >
+                <div
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.25rem',
+                    borderRadius: 'var(--radius-sm)',
+                    backgroundColor: isOpen ? '#f1f5f9' : 'transparent',
+                    transition: 'background-color var(--transition-fast)',
+                  }}
+                >
+                  <Link
+                    href={item.href}
                     style={{
-                      transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                      transition: 'transform 0.2s ease',
-                      opacity: 0.7,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      fontSize: '0.92rem',
+                      fontWeight: active ? 700 : 500,
+                      color: active ? 'var(--color-primary-900)' : 'var(--text-secondary)',
+                      padding: '0.45rem 0.35rem 0.45rem 0.65rem',
+                      textDecoration: 'none',
+                      borderBottom: active ? '2px solid var(--color-primary-800)' : '2px solid transparent',
                     }}
-                  />
-                </button>
+                  >
+                    {item.label}
+                  </Link>
+
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpenDropdown(isOpen ? null : item.label);
+                    }}
+                    aria-label={`Toggle ${item.label} menu`}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      padding: '0.45rem 0.45rem 0.45rem 0',
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      color: active ? 'var(--color-primary-900)' : 'var(--text-secondary)',
+                    }}
+                  >
+                    <ChevronDown
+                      size={14}
+                      style={{
+                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.2s ease',
+                        opacity: 0.7,
+                      }}
+                    />
+                  </button>
+                </div>
 
                 {/* Dropdown Card */}
-                {isOpen && (
+                {isOpen && item.children && (
                   <div
                     style={{
                       position: 'absolute',
                       top: 'calc(100% + 4px)',
-                      left: group.id === 'appeals' ? 'auto' : 0,
-                      right: group.id === 'appeals' ? 0 : 'auto',
-                      width: '360px',
+                      left: item.label === 'More' ? 'auto' : 0,
+                      right: item.label === 'More' ? 0 : 'auto',
+                      width: '320px',
                       backgroundColor: '#ffffff',
-                      borderRadius: '16px',
+                      borderRadius: '14px',
                       border: '1px solid #e2e8f0',
                       boxShadow: '0 12px 32px -4px rgba(15, 23, 42, 0.12), 0 4px 12px -2px rgba(15, 23, 42, 0.06)',
-                      padding: '0.6rem',
+                      padding: '0.5rem',
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: '0.25rem',
+                      gap: '0.2rem',
                       zIndex: 120,
-                      animation: 'fadeInDown 0.18s ease-out forwards',
+                      animation: 'fadeInDown 0.15s ease-out forwards',
                     }}
                   >
-                    {group.items.map((item) => {
-                      const Icon = item.icon;
+                    {item.children.map((child) => {
+                      const Icon = child.icon;
                       return (
                         <Link
-                          key={item.href}
-                          href={item.href}
-                          onClick={() => setActiveDropdown(null)}
+                          key={child.href}
+                          href={child.href}
+                          onClick={() => setOpenDropdown(null)}
                           style={{
                             display: 'flex',
                             alignItems: 'flex-start',
-                            gap: '0.75rem',
-                            padding: '0.65rem 0.75rem',
-                            borderRadius: '10px',
+                            gap: '0.65rem',
+                            padding: '0.6rem 0.65rem',
+                            borderRadius: '8px',
                             textDecoration: 'none',
                             transition: 'background-color 0.15s ease',
                           }}
@@ -471,8 +390,8 @@ export function Header() {
                         >
                           <div
                             style={{
-                              width: '34px',
-                              height: '34px',
+                              width: '32px',
+                              height: '32px',
                               borderRadius: '8px',
                               backgroundColor: '#ecfdf5',
                               color: '#065f46',
@@ -483,61 +402,15 @@ export function Header() {
                               marginTop: '2px',
                             }}
                           >
-                            <Icon size={17} />
+                            <Icon size={16} />
                           </div>
                           <div style={{ flex: 1, minWidth: 0 }}>
-                            <div
-                              style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                gap: '0.5rem',
-                              }}
-                            >
-                              <span
-                                style={{
-                                  fontSize: '0.88rem',
-                                  fontWeight: 700,
-                                  color: '#0f172a',
-                                }}
-                              >
-                                {item.label}
-                              </span>
-                              {item.badge && (
-                                <span
-                                  style={{
-                                    fontSize: '0.68rem',
-                                    fontWeight: 800,
-                                    backgroundColor:
-                                      item.badge === 'Urgent'
-                                        ? '#fee2e2'
-                                        : item.badge === 'Weekly'
-                                        ? '#e0e7ff'
-                                        : '#d1fae5',
-                                    color:
-                                      item.badge === 'Urgent'
-                                        ? '#991b1b'
-                                        : item.badge === 'Weekly'
-                                        ? '#3730a3'
-                                        : '#065f46',
-                                    padding: '0.15rem 0.45rem',
-                                    borderRadius: '9999px',
-                                  }}
-                                >
-                                  {item.badge}
-                                </span>
-                              )}
+                            <div style={{ fontSize: '0.86rem', fontWeight: 700, color: '#0f172a' }}>
+                              {child.label}
                             </div>
-                            <p
-                              style={{
-                                fontSize: '0.76rem',
-                                color: '#64748b',
-                                margin: '0.15rem 0 0',
-                                lineHeight: 1.35,
-                              }}
-                            >
-                              {item.desc}
-                            </p>
+                            <div style={{ fontSize: '0.74rem', color: '#64748b', marginTop: '0.1rem', lineHeight: 1.3 }}>
+                              {child.desc}
+                            </div>
                           </div>
                         </Link>
                       );
@@ -547,22 +420,6 @@ export function Header() {
               </div>
             );
           })}
-
-          {/* Contact Direct Link */}
-          <Link
-            href="/contact"
-            style={{
-              padding: '0.5rem 0.75rem',
-              fontSize: '0.92rem',
-              fontWeight: pathname === '/contact' ? 700 : 500,
-              color: pathname === '/contact' ? 'var(--color-primary-900)' : 'var(--text-secondary)',
-              borderRadius: 'var(--radius-sm)',
-              textDecoration: 'none',
-              transition: 'color var(--transition-fast), background-color var(--transition-fast)',
-            }}
-          >
-            Contact
-          </Link>
         </nav>
 
         {/* Actions (Donate CTA + Mobile Toggle) */}
@@ -609,7 +466,7 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile Drawer Accordion */}
+      {/* Mobile Drawer */}
       {mobileOpen && (
         <div
           style={{
@@ -618,7 +475,7 @@ export function Header() {
             padding: '1.25rem 1.25rem 2rem',
             display: 'flex',
             flexDirection: 'column',
-            gap: '0.6rem',
+            gap: '0.5rem',
             boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)',
             maxHeight: 'calc(100vh - 120px)',
             overflowY: 'auto',
@@ -722,86 +579,106 @@ export function Header() {
             </a>
           </div>
 
-          {/* Home Direct Link */}
-          <Link
-            href="/"
-            onClick={() => setMobileOpen(false)}
-            style={{
-              fontSize: '1rem',
-              fontWeight: pathname === '/' ? 700 : 600,
-              color: pathname === '/' ? 'var(--color-primary-800)' : 'var(--text-primary)',
-              padding: '0.65rem 0.5rem',
-              borderBottom: '1px solid var(--border-subtle)',
-              textDecoration: 'none',
-            }}
-          >
-            Home
-          </Link>
+          {/* Mobile Links */}
+          {NAV_ITEMS.map((item) => {
+            const hasChildren = Boolean(item.children && item.children.length > 0);
+            const isExpanded = mobileExpandedGroup === item.label;
+            const active = isItemActive(item);
 
-          {/* Mobile Accordion Groups */}
-          {NAV_GROUPS.map((group) => {
-            const isExpanded = mobileExpandedGroup === group.id;
-            const active = isGroupActive(group);
+            if (!hasChildren) {
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileOpen(false)}
+                  style={{
+                    fontSize: '1rem',
+                    fontWeight: active ? 700 : 500,
+                    color: active ? 'var(--color-primary-800)' : 'var(--text-primary)',
+                    padding: '0.65rem 0.5rem',
+                    borderBottom: '1px solid var(--border-subtle)',
+                    textDecoration: 'none',
+                  }}
+                >
+                  {item.label}
+                </Link>
+              );
+            }
 
             return (
               <div
-                key={group.id}
+                key={item.label}
                 style={{
                   borderBottom: '1px solid var(--border-subtle)',
-                  paddingBottom: isExpanded ? '0.5rem' : '0',
+                  paddingBottom: isExpanded ? '0.4rem' : '0',
                 }}
               >
-                <button
-                  type="button"
-                  onClick={() => setMobileExpandedGroup(isExpanded ? null : group.id)}
+                <div
                   style={{
-                    width: '100%',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: '0.7rem 0.5rem',
-                    background: 'none',
-                    border: 'none',
-                    fontSize: '1rem',
-                    fontWeight: active ? 700 : 600,
-                    color: active ? 'var(--color-primary-800)' : 'var(--text-primary)',
-                    cursor: 'pointer',
-                    textAlign: 'left',
                   }}
                 >
-                  <span>{group.label}</span>
-                  <ChevronDown
-                    size={16}
+                  <Link
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
                     style={{
-                      transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-                      transition: 'transform 0.2s ease',
-                      opacity: 0.6,
+                      flex: 1,
+                      fontSize: '1rem',
+                      fontWeight: active ? 700 : 500,
+                      color: active ? 'var(--color-primary-800)' : 'var(--text-primary)',
+                      padding: '0.65rem 0.5rem',
+                      textDecoration: 'none',
                     }}
-                  />
-                </button>
+                  >
+                    {item.label}
+                  </Link>
 
-                {isExpanded && (
+                  <button
+                    type="button"
+                    onClick={() => setMobileExpandedGroup(isExpanded ? null : item.label)}
+                    aria-label={`Expand ${item.label}`}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      padding: '0.65rem 0.75rem',
+                      cursor: 'pointer',
+                      color: 'var(--text-secondary)',
+                    }}
+                  >
+                    <ChevronDown
+                      size={16}
+                      style={{
+                        transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.2s ease',
+                      }}
+                    />
+                  </button>
+                </div>
+
+                {isExpanded && item.children && (
                   <div
                     style={{
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: '0.4rem',
+                      gap: '0.35rem',
                       paddingLeft: '0.5rem',
-                      paddingTop: '0.25rem',
+                      paddingBottom: '0.4rem',
                     }}
                   >
-                    {group.items.map((item) => {
-                      const Icon = item.icon;
+                    {item.children.map((child) => {
+                      const Icon = child.icon;
                       return (
                         <Link
-                          key={item.href}
-                          href={item.href}
+                          key={child.href}
+                          href={child.href}
                           onClick={() => setMobileOpen(false)}
                           style={{
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '0.65rem',
-                            padding: '0.5rem 0.5rem',
+                            gap: '0.6rem',
+                            padding: '0.45rem 0.5rem',
                             borderRadius: 'var(--radius-sm)',
                             textDecoration: 'none',
                             color: 'var(--text-secondary)',
@@ -810,8 +687,8 @@ export function Header() {
                         >
                           <div
                             style={{
-                              width: '28px',
-                              height: '28px',
+                              width: '26px',
+                              height: '26px',
                               borderRadius: '6px',
                               backgroundColor: '#ecfdf5',
                               color: '#065f46',
@@ -823,11 +700,10 @@ export function Header() {
                           >
                             <Icon size={14} />
                           </div>
-                          <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ fontSize: '0.86rem', fontWeight: 600, color: '#0f172a' }}>
-                              {item.label}
+                          <div>
+                            <div style={{ fontSize: '0.84rem', fontWeight: 600, color: '#0f172a' }}>
+                              {child.label}
                             </div>
-                            <div style={{ fontSize: '0.72rem', color: '#64748b' }}>{item.desc}</div>
                           </div>
                         </Link>
                       );
@@ -837,22 +713,6 @@ export function Header() {
               </div>
             );
           })}
-
-          {/* Contact Direct Link */}
-          <Link
-            href="/contact"
-            onClick={() => setMobileOpen(false)}
-            style={{
-              fontSize: '1rem',
-              fontWeight: pathname === '/contact' ? 700 : 600,
-              color: pathname === '/contact' ? 'var(--color-primary-800)' : 'var(--text-primary)',
-              padding: '0.65rem 0.5rem',
-              borderBottom: '1px solid var(--border-subtle)',
-              textDecoration: 'none',
-            }}
-          >
-            Contact
-          </Link>
 
           {/* Mobile Footer Links */}
           <div
@@ -895,7 +755,7 @@ export function Header() {
         @keyframes fadeInDown {
           from {
             opacity: 0;
-            transform: translateY(-6px);
+            transform: translateY(-4px);
           }
           to {
             opacity: 1;
@@ -905,7 +765,7 @@ export function Header() {
         :global(.dropdown-item:hover) {
           background-color: #f8fafc !important;
         }
-        :global(.dropdown-item:hover span) {
+        :global(.dropdown-item:hover div) {
           color: #064e3b !important;
         }
         @media (max-width: 768px) {
@@ -925,4 +785,3 @@ export function Header() {
     </header>
   );
 }
-
