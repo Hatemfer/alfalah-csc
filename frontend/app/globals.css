@@ -5,26 +5,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
 
 :root {
-  /* Brand Palette (Lighter, Fresh Luminous Emerald & Sage) */
+  /* Brand Palette (Deep British Heritage Forest & Cambridge Emerald) */
+  --color-primary-950: #022c22;
   --color-primary-900: #064e3b;
-  --color-primary-800: #047857;
-  --color-primary-700: #059669;
-  --color-primary-600: #10b981;
-  --color-primary-500: #34d399;
+  --color-primary-800: #065f46;
+  --color-primary-700: #047857;
+  --color-primary-600: #059669;
+  --color-primary-500: #10b981;
   --color-primary-100: #ecfdf5;
-  --color-primary-50:  #f0fdf4;
+  --color-primary-50:  #f6fbf8;
 
-  /* High-Contrast Action Palette for Donate CTA (Vibrant Coral / Ruby Red — UK Charity Standard) */
-  --color-accent-700:  #9f1239;
-  --color-accent-600:  #be123c;
-  --color-accent-500:  #e11d48;
-  --color-accent-400:  #f43f5e;
-  --color-accent-100:  #ffe4e6;
-  --color-accent-50:   #fff1f2;
-  --color-accent-shadow: rgba(225, 29, 72, 0.35);
+  /* Dignified Action Palette for Donate CTA (Classic UK Charity Royal Ruby / Crimson) */
+  --color-accent-800:  #7f1d1d;
+  --color-accent-700:  #991b1b;
+  --color-accent-600:  #b91c1c;
+  --color-accent-500:  #dc2626;
+  --color-accent-400:  #ef4444;
+  --color-accent-100:  #fee2e2;
+  --color-accent-50:   #fef2f2;
+  --color-accent-shadow: rgba(185, 28, 28, 0.22);
 
-  /* Light Theme Surfaces & Text (Crisp, Airy & Modern Light) */
-  --bg-page:           #fcfdfd;
+  /* Light Theme Surfaces & Text (Crisp Architectural Light) */
+  --bg-page:           #fbfcfc;
   --bg-surface:        #ffffff;
   --bg-surface-alt:    #f8fafc;
   --bg-surface-elevated: #ffffff;
@@ -32,18 +34,18 @@
   --border-subtle:     #f1f5f9;
   
   --text-primary:      #0f172a;
-  --text-secondary:    #475569;
+  --text-secondary:    #334155;
   --text-muted:        #64748b;
   --text-inverse:      #ffffff;
 
   --nav-bg:            rgba(255, 255, 255, 0.98);
-  --hero-gradient:     linear-gradient(135deg, #059669 0%, #0d9488 50%, #10b981 100%);
+  --hero-gradient:     linear-gradient(135deg, #064e3b 0%, #065f46 55%, #047857 100%);
 
-  /* Shadow & Elevation */
-  --shadow-sm:         0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md:         0 4px 12px rgba(5, 150, 105, 0.07);
-  --shadow-lg:         0 10px 25px rgba(5, 150, 105, 0.10);
-  --shadow-xl:         0 20px 40px rgba(5, 150, 105, 0.14);
+  /* Neutral Modern Elevation Shadows */
+  --shadow-sm:         0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md:         0 4px 14px rgba(15, 23, 42, 0.06);
+  --shadow-lg:         0 10px 25px rgba(15, 23, 42, 0.08);
+  --shadow-xl:         0 20px 40px rgba(15, 23, 42, 0.12);
 
   /* Radius & Transitions */
   --radius-sm:         6px;
@@ -180,7 +182,7 @@ img {
 }
 
 .btn-accent {
-  background-color: var(--color-accent-500);
+  background-color: var(--color-accent-600);
   color: #ffffff;
   box-shadow: 0 4px 14px var(--color-accent-shadow);
   font-weight: 700;
@@ -188,9 +190,9 @@ img {
 }
 
 .btn-accent:hover {
-  background-color: var(--color-accent-600);
+  background-color: var(--color-accent-700);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(225, 29, 72, 0.45);
+  box-shadow: 0 6px 20px var(--color-accent-shadow);
 }
 
 .btn-outline {

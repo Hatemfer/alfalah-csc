@@ -59,7 +59,7 @@ export function Logo({
               style={{
                 fontSize: dimensions.titleSize,
                 fontWeight: 800,
-                color: 'var(--color-primary-700)',
+                color: 'var(--color-primary-900)',
                 letterSpacing: '-0.02em',
               }}
             >
@@ -69,7 +69,7 @@ export function Logo({
               className="arabic-title"
               style={{
                 fontSize: dimensions.arabicSize,
-                color: 'var(--color-accent-600)',
+                color: 'var(--color-primary-800)',
                 fontWeight: 700,
               }}
             >

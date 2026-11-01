@@ -1236,10 +1236,10 @@ UK Registered Charity #1150221`;
                           justifyContent: 'center',
                           gap: '0.6rem',
                           marginTop: '0.5rem',
-                          background: 'linear-gradient(135deg, #e11d48 0%, #be123c 100%)',
+                          background: 'linear-gradient(135deg, #b91c1c 0%, #991b1b 100%)',
                           color: '#ffffff',
                           border: 'none',
-                          boxShadow: '0 4px 18px rgba(225, 29, 72, 0.35)',
+                          boxShadow: '0 4px 16px rgba(185, 28, 28, 0.25)',
                           transition: 'all 0.15s ease',
                         }}
                       >

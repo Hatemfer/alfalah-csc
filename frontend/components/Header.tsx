@@ -83,18 +83,18 @@ export function Header() {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', color: '#047857', fontWeight: 700 }}>
-            <Calendar size={13} />
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', color: '#334155', fontWeight: 600 }}>
+            <Calendar size={13} style={{ color: 'var(--color-primary-700)' }} />
             {formattedDates.greg} • {formattedDates.hijri}
           </span>
-          <span style={{ opacity: 0.4 }} className="header-meta-desktop">|</span>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }} className="header-meta-desktop">
-            <ShieldCheck size={13} style={{ color: '#059669' }} />
+          <span style={{ opacity: 0.3 }} className="header-meta-desktop">|</span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', color: '#334155' }} className="header-meta-desktop">
+            <ShieldCheck size={13} style={{ color: 'var(--color-primary-700)' }} />
             Charity <strong>#1150221</strong>
           </span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <span style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 600 }} className="header-meta-desktop">
+          <span style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 500 }} className="header-meta-desktop">
             Balsall Heath, Birmingham B12 9QU
           </span>
         </div>
@@ -123,11 +123,11 @@ export function Header() {
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  fontSize: '0.9rem',
+                  fontSize: '0.92rem',
                   fontWeight: isActive ? 700 : 500,
-                  color: isActive ? 'var(--color-primary-700)' : 'var(--text-secondary)',
-                  borderBottom: isActive ? '2px solid var(--color-primary-700)' : '2px solid transparent',
-                  padding: '0.25rem 0',
+                  color: isActive ? 'var(--color-primary-900)' : 'var(--text-secondary)',
+                  borderBottom: isActive ? '2px solid var(--color-primary-800)' : '2px solid transparent',
+                  padding: '0.3rem 0',
                   transition: 'color var(--transition-fast)',
                 }}
               >
@@ -144,18 +144,18 @@ export function Header() {
             href="/donate"
             className="btn btn-accent header-donate-cta"
             style={{
-              padding: '0.45rem 1.15rem',
-              fontSize: '0.88rem',
+              padding: '0.5rem 1.25rem',
+              fontSize: '0.9rem',
               borderRadius: 'var(--radius-full)',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.4rem',
+              gap: '0.45rem',
               fontWeight: 800,
-              boxShadow: '0 4px 14px rgba(225, 29, 72, 0.35)',
+              boxShadow: '0 2px 10px var(--color-accent-shadow)',
               whiteSpace: 'nowrap',
             }}
           >
-            <Heart size={14} style={{ fill: 'currentColor' }} />
+            <Heart size={15} style={{ fill: 'currentColor' }} />
             <span>Donate</span>
           </Link>
 

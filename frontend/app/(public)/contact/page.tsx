@@ -44,21 +44,21 @@ export default function ContactPage() {
 
   return (
     <div style={{ paddingBottom: '4rem' }}>
-      {/* Page Header - Clean, Luminous & Modern */}
+      {/* Page Header - Clean, Prestigious & Dignified */}
       <section
         style={{
-          background: 'linear-gradient(180deg, #ecfdf5 0%, #f8fafc 100%)',
+          backgroundColor: '#ffffff',
           borderBottom: '1px solid #e2e8f0',
-          padding: '3rem 1.5rem 2.5rem',
+          padding: '3.5rem 1.5rem 2.75rem',
           textAlign: 'center',
         }}
       >
-        <div className="container" style={{ maxWidth: '800px' }}>
+        <div className="container" style={{ maxWidth: '780px' }}>
           <h1
             style={{
               fontSize: 'clamp(2.1rem, 4vw, 2.75rem)',
               fontWeight: 800,
-              marginBottom: '0.6rem',
+              marginBottom: '0.65rem',
               color: '#0f172a',
               letterSpacing: '-0.025em',
             }}
@@ -77,82 +77,173 @@ export default function ContactPage() {
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '3rem',
+              gap: '2.5rem',
             }}
           >
             {/* Contact Information & Map */}
             <div>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1.25rem', color: 'var(--color-primary-800)' }}>
+              <h2 style={{ fontSize: '1.35rem', fontWeight: 800, marginBottom: '1.25rem', color: '#0f172a' }}>
                 Centre Address & Information
               </h2>
 
-              <div className="card" style={{ padding: '1.75rem', marginBottom: '2rem' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
-                    <MapPin size={22} style={{ color: 'var(--color-primary-600)', flexShrink: 0, marginTop: '0.2rem' }} />
+              <div
+                style={{
+                  backgroundColor: '#ffffff',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '20px',
+                  padding: '2rem',
+                  marginBottom: '2rem',
+                  boxShadow: '0 4px 20px rgba(15, 23, 42, 0.04)',
+                }}
+              >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                  {/* Location */}
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+                    <div
+                      style={{
+                        width: '42px',
+                        height: '42px',
+                        borderRadius: '12px',
+                        backgroundColor: '#ecfdf5',
+                        border: '1px solid #d1fae5',
+                        color: '#065f46',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                        marginTop: '0.15rem',
+                      }}
+                    >
+                      <MapPin size={20} />
+                    </div>
                     <div>
-                      <strong style={{ fontSize: '1rem', color: 'var(--text-primary)' }}>Physical Location:</strong><br />
-                      <span style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                        ALFALAH COMMUNITY SUPPORT CENTRE<br />
-                        89 Tindal Street, Balsall Heath,<br />
-                        Birmingham, B12 9QU, United Kingdom
+                      <span style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>
+                        Physical Location
                       </span>
+                      <div style={{ color: '#0f172a', fontWeight: 700, fontSize: '0.98rem' }}>
+                        ALFALAH COMMUNITY SUPPORT CENTRE
+                      </div>
+                      <div style={{ color: '#475569', fontSize: '0.92rem', lineHeight: 1.5, marginTop: '0.15rem' }}>
+                        89 Tindal Street, Balsall Heath, Birmingham, B12 9QU
+                      </div>
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    <Phone size={22} style={{ color: 'var(--color-primary-600)', flexShrink: 0 }} />
+                  {/* Telephone */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <div
+                      style={{
+                        width: '42px',
+                        height: '42px',
+                        borderRadius: '12px',
+                        backgroundColor: '#ecfdf5',
+                        border: '1px solid #d1fae5',
+                        color: '#065f46',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <Phone size={20} />
+                    </div>
                     <div>
-                      <strong style={{ fontSize: '1rem', color: 'var(--text-primary)' }}>Telephone:</strong><br />
-                      <a href="tel:07429188880" style={{ color: 'var(--color-primary-700)', fontWeight: 700, textDecoration: 'none' }}>
+                      <span style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>
+                        Telephone
+                      </span>
+                      <a
+                        href="tel:07429188880"
+                        style={{ color: '#0f172a', fontWeight: 800, fontSize: '1.05rem', textDecoration: 'none' }}
+                      >
                         07429 188880
                       </a>
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    <Mail size={22} style={{ color: 'var(--color-primary-600)', flexShrink: 0 }} />
+                  {/* Email */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <div
+                      style={{
+                        width: '42px',
+                        height: '42px',
+                        borderRadius: '12px',
+                        backgroundColor: '#ecfdf5',
+                        border: '1px solid #d1fae5',
+                        color: '#065f46',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <Mail size={20} />
+                    </div>
                     <div>
-                      <strong style={{ fontSize: '1rem', color: 'var(--text-primary)' }}>Email:</strong><br />
-                      <a href="mailto:alfalahcsc@hotmail.com" style={{ color: 'var(--color-primary-700)', textDecoration: 'underline' }}>
+                      <span style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>
+                        Email Inquiries
+                      </span>
+                      <a
+                        href="mailto:alfalahcsc@hotmail.com"
+                        style={{ color: '#065f46', fontWeight: 700, fontSize: '0.96rem', textDecoration: 'none' }}
+                      >
                         alfalahcsc@hotmail.com
                       </a>
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    <ShieldCheck size={22} style={{ color: 'var(--color-primary-600)', flexShrink: 0 }} />
+                  {/* Charity Reg */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <div
+                      style={{
+                        width: '42px',
+                        height: '42px',
+                        borderRadius: '12px',
+                        backgroundColor: '#ecfdf5',
+                        border: '1px solid #d1fae5',
+                        color: '#065f46',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <ShieldCheck size={20} />
+                    </div>
                     <div>
-                      <strong style={{ fontSize: '1rem', color: 'var(--text-primary)' }}>Charity Registration:</strong><br />
-                      <span style={{ color: 'var(--text-secondary)' }}>Registered Charity No. 1150221</span>
+                      <span style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>
+                        UK Charity Status
+                      </span>
+                      <span style={{ color: '#0f172a', fontWeight: 700, fontSize: '0.96rem' }}>
+                        Registered Charity No. 1150221
+                      </span>
                     </div>
                   </div>
 
-                  {/* Direct WhatsApp Action Button */}
-                  <div style={{ marginTop: '0.5rem', paddingTop: '1rem', borderTop: '1px solid #f1f5f9' }}>
+                  {/* Direct WhatsApp Action Button (Official WhatsApp Dark Forest Tone) */}
+                  <div style={{ marginTop: '0.25rem', paddingTop: '1.25rem', borderTop: '1px solid #f1f5f9' }}>
                     <a
                       href="https://wa.me/447429188880"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn"
                       style={{
                         width: '100%',
-                        backgroundColor: '#25D366',
+                        backgroundColor: '#075e54',
                         color: '#ffffff',
                         fontWeight: 700,
-                        fontSize: '0.9rem',
+                        fontSize: '0.92rem',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        gap: '0.5rem',
-                        borderRadius: '10px',
-                        padding: '0.65rem 1rem',
+                        gap: '0.55rem',
+                        borderRadius: '12px',
+                        padding: '0.85rem 1.25rem',
                         textDecoration: 'none',
                         border: 'none',
-                        boxShadow: '0 2px 8px rgba(37, 211, 102, 0.25)',
+                        boxShadow: '0 2px 8px rgba(7, 94, 84, 0.2)',
+                        transition: 'all 0.15s ease',
                       }}
                     >
-                      <MessageSquare size={17} />
+                      <MessageSquare size={18} />
                       <span>Chat on WhatsApp (07429 188880)</span>
                     </a>
                   </div>
@@ -162,11 +253,11 @@ export default function ContactPage() {
               {/* Map View */}
               <div
                 style={{
-                  borderRadius: 'var(--radius-lg)',
+                  borderRadius: '16px',
                   overflow: 'hidden',
-                  boxShadow: 'var(--shadow-md)',
-                  border: '1px solid var(--border-color)',
-                  height: '280px',
+                  boxShadow: '0 4px 16px rgba(15, 23, 42, 0.05)',
+                  border: '1px solid #e2e8f0',
+                  height: '260px',
                 }}
               >
                 <iframe
@@ -185,7 +276,7 @@ export default function ContactPage() {
                   href="https://www.google.com/maps/place/Alfalah+Community+Support+Centre/@52.4555036,-1.8897627,17z"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-primary-700)', textDecoration: 'underline' }}
+                  style={{ fontSize: '0.84rem', fontWeight: 700, color: '#065f46', textDecoration: 'none' }}
                 >
                   Open in Google Maps ↗
                 </a>
@@ -194,11 +285,19 @@ export default function ContactPage() {
 
             {/* Interactive Form */}
             <div>
-              <div className="card" style={{ padding: '2.5rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '0.5rem' }}>
+              <div
+                style={{
+                  backgroundColor: '#ffffff',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '20px',
+                  padding: '2.5rem',
+                  boxShadow: '0 4px 20px rgba(15, 23, 42, 0.04)',
+                }}
+              >
+                <h2 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '0.4rem', color: '#0f172a' }}>
                   Send an Inquiry
                 </h2>
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
+                <p style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '1.5rem', lineHeight: 1.5 }}>
                   Please fill out the form below. Messages are reviewed promptly by centre staff.
                 </p>
 
@@ -206,18 +305,19 @@ export default function ContactPage() {
                   <div
                     style={{
                       padding: '1rem 1.25rem',
-                      borderRadius: 'var(--radius-md)',
-                      backgroundColor: 'var(--color-primary-50)',
-                      border: '1px solid var(--color-primary-500)',
-                      color: 'var(--color-primary-900)',
+                      borderRadius: '12px',
+                      backgroundColor: '#f0fdf4',
+                      border: '1px solid #86efac',
+                      color: '#065f46',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.75rem',
                       marginBottom: '1.5rem',
-                      fontSize: '0.95rem',
+                      fontSize: '0.92rem',
+                      fontWeight: 600,
                     }}
                   >
-                    <CheckCircle2 size={20} style={{ color: 'var(--color-primary-600)', flexShrink: 0 }} />
+                    <CheckCircle2 size={18} style={{ color: '#059669', flexShrink: 0 }} />
                     {successMessage}
                   </div>
                 )}
@@ -226,27 +326,28 @@ export default function ContactPage() {
                   <div
                     style={{
                       padding: '1rem 1.25rem',
-                      borderRadius: 'var(--radius-md)',
+                      borderRadius: '12px',
                       backgroundColor: '#fef2f2',
-                      border: '1px solid #f87171',
+                      border: '1px solid #fecaca',
                       color: '#991b1b',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.75rem',
                       marginBottom: '1.5rem',
-                      fontSize: '0.95rem',
+                      fontSize: '0.92rem',
+                      fontWeight: 600,
                     }}
                   >
-                    <AlertCircle size={20} style={{ color: '#dc2626', flexShrink: 0 }} />
+                    <AlertCircle size={18} style={{ color: '#dc2626', flexShrink: 0 }} />
                     {errorMessage}
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }}>
                   <div>
                     <label
                       htmlFor="contact-name"
-                      style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem' }}
+                      style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}
                     >
                       Your Full Name *
                     </label>
@@ -259,12 +360,13 @@ export default function ContactPage() {
                       placeholder="e.g. Brother / Sister Ahmed"
                       style={{
                         width: '100%',
-                        padding: '0.75rem 1rem',
-                        borderRadius: 'var(--radius-md)',
-                        border: '1px solid var(--border-color)',
-                        backgroundColor: 'var(--bg-surface)',
-                        color: 'var(--text-primary)',
+                        padding: '0.8rem 1rem',
+                        borderRadius: '10px',
+                        border: '1.5px solid #cbd5e1',
+                        backgroundColor: '#ffffff',
+                        color: '#0f172a',
                         fontSize: '0.95rem',
+                        outline: 'none',
                       }}
                     />
                   </div>
@@ -272,7 +374,7 @@ export default function ContactPage() {
                   <div>
                     <label
                       htmlFor="contact-email"
-                      style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem' }}
+                      style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}
                     >
                       Email Address *
                     </label>
@@ -285,12 +387,13 @@ export default function ContactPage() {
                       placeholder="e.g. name@example.com"
                       style={{
                         width: '100%',
-                        padding: '0.75rem 1rem',
-                        borderRadius: 'var(--radius-md)',
-                        border: '1px solid var(--border-color)',
-                        backgroundColor: 'var(--bg-surface)',
-                        color: 'var(--text-primary)',
+                        padding: '0.8rem 1rem',
+                        borderRadius: '10px',
+                        border: '1.5px solid #cbd5e1',
+                        backgroundColor: '#ffffff',
+                        color: '#0f172a',
                         fontSize: '0.95rem',
+                        outline: 'none',
                       }}
                     />
                   </div>
@@ -298,7 +401,7 @@ export default function ContactPage() {
                   <div>
                     <label
                       htmlFor="contact-subject"
-                      style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem' }}
+                      style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}
                     >
                       Subject *
                     </label>
@@ -311,12 +414,13 @@ export default function ContactPage() {
                       placeholder="e.g. Inquiry regarding community programmes"
                       style={{
                         width: '100%',
-                        padding: '0.75rem 1rem',
-                        borderRadius: 'var(--radius-md)',
-                        border: '1px solid var(--border-color)',
-                        backgroundColor: 'var(--bg-surface)',
-                        color: 'var(--text-primary)',
+                        padding: '0.8rem 1rem',
+                        borderRadius: '10px',
+                        border: '1.5px solid #cbd5e1',
+                        backgroundColor: '#ffffff',
+                        color: '#0f172a',
                         fontSize: '0.95rem',
+                        outline: 'none',
                       }}
                     />
                   </div>
@@ -324,7 +428,7 @@ export default function ContactPage() {
                   <div>
                     <label
                       htmlFor="contact-message"
-                      style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem' }}
+                      style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}
                     >
                       Message *
                     </label>
@@ -337,26 +441,42 @@ export default function ContactPage() {
                       placeholder="Please write your message here..."
                       style={{
                         width: '100%',
-                        padding: '0.75rem 1rem',
-                        borderRadius: 'var(--radius-md)',
-                        border: '1px solid var(--border-color)',
-                        backgroundColor: 'var(--bg-surface)',
-                        color: 'var(--text-primary)',
+                        padding: '0.8rem 1rem',
+                        borderRadius: '10px',
+                        border: '1.5px solid #cbd5e1',
+                        backgroundColor: '#ffffff',
+                        color: '#0f172a',
                         fontSize: '0.95rem',
                         resize: 'vertical',
+                        outline: 'none',
                       }}
                     />
                   </div>
 
-                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+                  <p style={{ fontSize: '0.78rem', color: '#64748b', lineHeight: 1.5, margin: 0 }}>
                     Privacy Notice: Information submitted is used solely to respond to your inquiry and is never shared with third parties.
                   </p>
 
                   <button
                     type="submit"
                     disabled={loading}
-                    className="btn btn-primary"
-                    style={{ padding: '0.85rem', fontSize: '1rem', width: '100%' }}
+                    style={{
+                      padding: '0.9rem 1.5rem',
+                      fontSize: '1rem',
+                      fontWeight: 700,
+                      width: '100%',
+                      backgroundColor: '#065f46',
+                      color: '#ffffff',
+                      borderRadius: '12px',
+                      border: 'none',
+                      cursor: loading ? 'not-allowed' : 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.5rem',
+                      boxShadow: '0 4px 14px rgba(6, 95, 70, 0.25)',
+                      transition: 'all 0.15s ease',
+                    }}
                   >
                     {loading ? (
                       'Sending Inquiry...'

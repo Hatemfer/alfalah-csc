@@ -82,7 +82,7 @@ export default function MobileBottomNav() {
                 color: item.isActive
                   ? '#059669'
                   : item.highlight
-                  ? '#e11d48'
+                  ? '#b91c1c'
                   : '#64748b',
                 transition: 'all 0.15s ease',
               }}

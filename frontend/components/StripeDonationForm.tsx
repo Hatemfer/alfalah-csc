@@ -385,7 +385,7 @@ export default function StripeDonationForm({
                       position: 'absolute',
                       top: '-7px',
                       right: '8px',
-                      backgroundColor: '#e11d48',
+                      backgroundColor: '#b91c1c',
                       color: '#ffffff',
                       fontSize: '0.6rem',
                       fontWeight: 800,
