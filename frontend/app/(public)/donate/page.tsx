@@ -36,7 +36,7 @@ const FUND_CATEGORIES = [
   {
     id: 'zakat',
     label: 'Zakat al-Mal',
-    sublabel: '100% Policy • Direct to Needy',
+    sublabel: 'Direct to Eligible Families',
     icon: Coins,
     desc: 'Zakat al-Mal',
     reference: 'ZAKAT-ALFALAH',
@@ -323,26 +323,6 @@ UK Registered Charity #1150221`;
         }}
       >
         <div className="container" style={{ maxWidth: '860px' }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.45rem',
-              backgroundColor: '#ffffff',
-              border: '1px solid #a7f3d0',
-              padding: '0.35rem 0.85rem',
-              borderRadius: '9999px',
-              fontSize: '0.78rem',
-              fontWeight: 700,
-              color: '#065f46',
-              marginBottom: '0.85rem',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
-            }}
-          >
-            <ShieldCheck size={15} style={{ color: '#059669' }} />
-            Official UK Registered Charity #1150221 • 100% Donation Policy (0% Fees)
-          </div>
-
           <h1
             style={{
               fontSize: 'clamp(2rem, 4vw, 2.75rem)',
@@ -607,23 +587,10 @@ UK Registered Charity #1150221`;
 
                 {/* 2. AMOUNT SELECTION (WIDE 6-COLUMN GRID ON DESKTOP, NO POPULAR TEXT) */}
                 <div style={{ marginBottom: '1.75rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
+                  <div style={{ marginBottom: '0.65rem' }}>
                     <label style={{ fontSize: '0.82rem', fontWeight: 700, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                       Select Amount {frequency === 'monthly' ? '(Monthly)' : ''}
                     </label>
-                    <span
-                      style={{
-                        fontSize: '0.75rem',
-                        fontWeight: 700,
-                        color: '#059669',
-                        backgroundColor: '#ecfdf5',
-                        padding: '0.2rem 0.65rem',
-                        borderRadius: '9999px',
-                        border: '1px solid #a7f3d0',
-                      }}
-                    >
-                      100% Policy • 0% Fees
-                    </span>
                   </div>
 
                   {/* Preset Amount Grid */}
@@ -1137,13 +1104,13 @@ UK Registered Charity #1150221`;
             <div>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', backgroundColor: '#ecfdf5', color: '#047857', fontSize: '0.75rem', fontWeight: 800, padding: '0.25rem 0.75rem', borderRadius: '9999px', marginBottom: '0.5rem' }}>
                 <Building size={13} />
-                DIRECT BANK TRANSFER & STANDING ORDERS • 0% FEES
+                Direct Bank Transfer & Standing Orders
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', margin: '0 0 0.35rem' }}>
                 Prefer Direct Bank Transfer?
               </h3>
               <p style={{ fontSize: '0.88rem', color: '#64748b', margin: 0, lineHeight: 1.5 }}>
-                100% of your donation reaches the mosque with zero processing fees. Recommended for regular monthly standing orders and larger gifts (£100, £250, £500, £1,000+).
+                Direct transfer to Masjid Al Falah’s official charity bank account at Al Rayan Bank. Recommended for monthly standing orders and larger donations.
               </p>
             </div>
           </div>
@@ -1332,9 +1299,9 @@ UK Registered Charity #1150221`;
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.82rem' }}>
               <div>
-                <strong style={{ color: '#0f172a', display: 'block', marginBottom: '0.15rem' }}>How does the 100% policy work?</strong>
+                <strong style={{ color: '#0f172a', display: 'block', marginBottom: '0.15rem' }}>Where does my donation go?</strong>
                 <span style={{ color: '#64748b', lineHeight: 1.5 }}>
-                  100% of your donation reaches the specified fund. Administrative costs are underwritten separately.
+                  Every penny goes directly to your selected cause (Mosque Purchase Appeal, Zakat al-Mal, Youth Madrasah, or General Sadaqah).
                 </span>
               </div>
               <div>
@@ -1344,9 +1311,9 @@ UK Registered Charity #1150221`;
                 </span>
               </div>
               <div>
-                <strong style={{ color: '#0f172a', display: 'block', marginBottom: '0.15rem' }}>Can I set up a Standing Order?</strong>
+                <strong style={{ color: '#0f172a', display: 'block', marginBottom: '0.15rem' }}>Can I set up a regular Standing Order?</strong>
                 <span style={{ color: '#64748b', lineHeight: 1.5 }}>
-                  Yes! Use the official Al Rayan Bank transfer details above to set up a regular standing order directly in your UK banking app with 0% processing fees.
+                  Yes! Use the official Al Rayan Bank transfer details above to set up a regular monthly standing order directly in your UK banking app.
                 </span>
               </div>
             </div>

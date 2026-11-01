@@ -54,9 +54,9 @@ const CORE_SERVICES = [
   },
   {
     id: 'welfare',
-    title: '100% Zakat & Welfare Relief',
+    title: 'Zakat & Welfare Relief',
     icon: Coins,
-    desc: '100% Zakat distribution policy — 0% deducted for admin costs. Direct hardship grants, emergency food vouchers, and warm community space in Balsall Heath.',
+    desc: 'Direct distribution to local needy families. Hardship grants, emergency food vouchers, and warm community support in Balsall Heath.',
     link: '/donate?category=zakat',
     linkText: 'Donate Zakat',
   },
@@ -237,7 +237,7 @@ export default async function HomePage() {
                   }}
                 >
                   <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#065f46', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                    0% Fee Direct Bank Transfer (Al Rayan Bank)
+                    Direct Bank Transfer (Al Rayan Bank)
                   </div>
                   <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0f172a', marginTop: '0.2rem' }}>
                     Sort Code: <span style={{ fontFamily: 'monospace', color: '#059669' }}>30-00-83</span> • Account: <span style={{ fontFamily: 'monospace', color: '#059669' }}>01298401</span>

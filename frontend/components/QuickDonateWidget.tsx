@@ -7,7 +7,7 @@ import { Heart, ShieldCheck, ArrowRight, Building, Coins, GraduationCap, Sparkle
 
 const CAUSES = [
   { id: 'purchase', label: 'Mosque Purchase Appeal', icon: Building, tag: 'Urgent (£600k)' },
-  { id: 'zakat', label: 'Zakat al-Mal', icon: Coins, tag: '100% Policy' },
+  { id: 'zakat', label: 'Zakat al-Mal', icon: Coins, tag: 'Eligible Needy' },
   { id: 'sadaqah', label: 'General Sadaqah & Welfare', icon: Heart, tag: 'Daily Care' },
   { id: 'academy', label: 'Academy & Youth STEM', icon: GraduationCap, tag: 'Education' },
 ];
@@ -84,7 +84,7 @@ export default function QuickDonateWidget() {
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.78rem', color: '#065f46', fontWeight: 700 }}>
           <ShieldCheck size={16} style={{ color: '#059669' }} />
-          UK Charity #1150221 • 100% Policy (0% Fees)
+          UK Charity #1150221
         </div>
       </div>
 

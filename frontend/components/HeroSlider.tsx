@@ -37,7 +37,7 @@ const slides: Slide[] = [
   {
     id: 1,
     image: '/images/real/prayer-hall-library.jpg',
-    badgeText: 'URGENT APPEAL: £600,000 GOAL • 100% DONATION POLICY',
+    badgeText: 'URGENT APPEAL • £600,000 GOAL',
     badgeStyle: 'red',
     title: 'Help Us Purchase Our Mosque',
     arabicVerse: 'مَنْ بَنَى لِلَّهِ مَسْجِدًا بَنَى اللَّهُ لَهُ بَيْتًا فِي الْجَنَّةِ',
@@ -47,7 +47,7 @@ const slides: Slide[] = [
       'Masjid Al Falah needs your urgent support to purchase the very building we pray in at 89 Tindal Street, Balsall Heath. Every brick, prayer mat, and donation protects this house of Allah for our children and generations to come.',
     primaryCtaText: 'Help Purchase Our Mosque',
     primaryCtaLink: '/donate?category=purchase',
-    secondaryCtaText: 'View Bank Details (0% Fees)',
+    secondaryCtaText: 'View Bank Details',
     secondaryCtaLink: '/donate?category=purchase#bank-transfer',
     highlightStat: { value: '£600,000', label: 'Fundraising Target' },
   },
@@ -112,12 +112,12 @@ const slides: Slide[] = [
     englishVerse: '“The believers are but brothers, so make settlement between your brothers.”',
     verseReference: 'Surah Al-Hujurat (49:10)',
     description:
-      'Celebrating Eid, hosting weekly community teas, distributing 100% Zakat relief, and bringing together diverse families across Balsall Heath and greater Birmingham.',
+      'Celebrating Eid, hosting weekly community teas, distributing Zakat relief, and bringing together diverse families across Balsall Heath and greater Birmingham.',
     primaryCtaText: 'Donate Sadaqah & Zakat',
     primaryCtaLink: '/donate?category=welfare',
     secondaryCtaText: 'Our Community Projects',
     secondaryCtaLink: '/about',
-    highlightStat: { value: '100%', label: 'Donation Policy' },
+    highlightStat: { value: 'Direct', label: 'Local Community Aid' },
   },
 ];
 

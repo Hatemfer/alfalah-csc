@@ -78,7 +78,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/donate" style={{ color: 'var(--text-secondary)' }}>Zakat al-Mal (100% Policy)</Link>
+                <Link href="/donate" style={{ color: 'var(--text-secondary)' }}>Zakat al-Mal</Link>
               </li>
               <li>
                 <Link href="/donate" style={{ color: 'var(--text-secondary)' }}>Gift Aid (+25% UK Tax Relief)</Link>
