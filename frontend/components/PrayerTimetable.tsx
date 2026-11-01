@@ -118,6 +118,7 @@ export default function PrayerTimetable({
         }}
       >
         <div
+          className="prayer-compact-header"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -217,6 +218,7 @@ export default function PrayerTimetable({
           ].map((p) => (
             <div
               key={p.id}
+              className="prayer-pill"
               style={{
                 backgroundColor: p.isNext ? '#f0fdf4' : '#ffffff',
                 border: p.isNext ? '2px solid #065f46' : '1px solid #e2e8f0',
@@ -252,6 +254,7 @@ export default function PrayerTimetable({
               </div>
 
               <div
+                className="prayer-pill-time"
                 style={{
                   fontSize: '1.35rem',
                   fontWeight: 800,
@@ -280,6 +283,7 @@ export default function PrayerTimetable({
 
         {/* Friday Jumu'ah reminder strip */}
         <div
+          className="prayer-jumuah-strip"
           style={{
             marginTop: '1rem',
             paddingTop: '0.75rem',

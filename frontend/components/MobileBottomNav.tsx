@@ -65,6 +65,9 @@ export default function MobileBottomNav() {
       >
         {navItems.map((item) => {
           const Icon = item.icon;
+          const activeColor = item.highlight ? '#dc2626' : '#059669';
+          const activeBg = item.highlight ? '#fee2e2' : '#ecfdf5';
+
           return (
             <Link
               key={item.label}
@@ -77,13 +80,9 @@ export default function MobileBottomNav() {
                 gap: '0.2rem',
                 textDecoration: 'none',
                 flex: 1,
-                padding: '0.3rem',
+                padding: '0.25rem 0.2rem',
                 borderRadius: '8px',
-                color: item.isActive
-                  ? '#059669'
-                  : item.highlight
-                  ? '#b91c1c'
-                  : '#64748b',
+                color: item.isActive ? activeColor : '#64748b',
                 transition: 'all 0.15s ease',
               }}
             >
@@ -93,22 +92,24 @@ export default function MobileBottomNav() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: item.highlight ? '34px' : '26px',
-                  height: item.highlight ? '34px' : '26px',
-                  borderRadius: item.highlight ? '9999px' : '0',
-                  backgroundColor: item.highlight ? '#ffe4e6' : 'transparent',
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '9999px',
+                  backgroundColor: item.isActive ? activeBg : 'transparent',
+                  transition: 'background-color 0.15s ease',
                 }}
               >
                 <Icon
-                  size={item.highlight ? 18 : 20}
-                  fill={item.highlight ? 'currentColor' : 'none'}
-                  strokeWidth={item.isActive || item.highlight ? 2.3 : 1.8}
+                  size={19}
+                  fill={item.isActive ? 'currentColor' : 'none'}
+                  strokeWidth={item.isActive ? 2.4 : 1.9}
+                  style={{ color: !item.isActive && item.highlight ? '#ef4444' : 'inherit' }}
                 />
               </div>
               <span
                 style={{
                   fontSize: '0.72rem',
-                  fontWeight: item.isActive || item.highlight ? 800 : 600,
+                  fontWeight: item.isActive ? 800 : 600,
                   letterSpacing: '0.2px',
                 }}
               >

@@ -165,6 +165,7 @@ export function Header() {
     >
       {/* Top Banner with Live Dates & Charity Registration */}
       <div
+        className="header-top-banner"
         style={{
           backgroundColor: '#f8fafc',
           borderBottom: '1px solid #e2e8f0',

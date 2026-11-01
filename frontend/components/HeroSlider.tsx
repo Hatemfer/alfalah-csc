@@ -343,6 +343,7 @@ export default function HeroSlider() {
           {/* Left: Centre Info & Location Strip */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
             <span
+              className="hero-location-badge"
               style={{
                 backgroundColor: 'rgba(255, 255, 255, 0.16)',
                 color: '#ffffff',
@@ -356,7 +357,7 @@ export default function HeroSlider() {
                 gap: '0.4rem',
               }}
             >
-              <MapPin size={14} style={{ color: '#fbbf24' }} /> 89 Tindal Street, Balsall Heath, Birmingham (B12 9QU)
+              <MapPin size={14} style={{ color: '#fbbf24', flexShrink: 0 }} /> 89 Tindal Street, Balsall Heath, Birmingham (B12 9QU)
             </span>
           </div>
 
