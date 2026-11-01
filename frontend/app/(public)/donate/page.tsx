@@ -763,11 +763,11 @@ UK Registered Charity #1150221`;
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
                         <Calculator size={18} style={{ color: '#059669', flexShrink: 0 }} />
                         <div>
-                          <div style={{ fontSize: '0.86rem', fontWeight: 700, color: '#065f46' }}>
-                            Need to calculate your 2026 Zakat al-Mal?
+                          <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#065f46' }}>
+                            Need help calculating your Zakat?
                           </div>
-                          <div style={{ fontSize: '0.76rem', color: '#047857' }}>
-                            Current UK Silver Nisab: £485.00 • Strictly 2.5% rate • 100% Policy
+                          <div style={{ fontSize: '0.78rem', color: '#047857', marginTop: '0.1rem' }}>
+                            Based on UK Silver Nisab: £485.00
                           </div>
                         </div>
                       </div>
@@ -779,8 +779,8 @@ UK Registered Charity #1150221`;
                           color: '#ffffff',
                           border: 'none',
                           borderRadius: '8px',
-                          padding: '0.45rem 0.9rem',
-                          fontSize: '0.8rem',
+                          padding: '0.45rem 0.95rem',
+                          fontSize: '0.82rem',
                           fontWeight: 700,
                           cursor: 'pointer',
                           display: 'inline-flex',
@@ -788,7 +788,7 @@ UK Registered Charity #1150221`;
                           gap: '0.35rem',
                         }}
                       >
-                        Open Zakat Calculator
+                        Open Calculator
                       </button>
                     </div>
                   )}

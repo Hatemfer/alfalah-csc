@@ -61,29 +61,29 @@ export function ZakatWelfareCallout() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
           <span
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.16)',
+              backgroundColor: 'rgba(255, 255, 255, 0.15)',
               color: '#fef08a',
-              fontSize: '0.78rem',
+              fontSize: '0.8rem',
               fontWeight: 800,
-              padding: '0.3rem 0.75rem',
+              padding: '0.35rem 0.85rem',
               borderRadius: '9999px',
-              border: '1px solid rgba(254, 240, 138, 0.3)',
+              border: '1px solid rgba(254, 240, 138, 0.35)',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.35rem',
+              gap: '0.4rem',
             }}
           >
-            <TrendingUp size={13} />
+            <Coins size={14} />
             UK Silver Nisab 2026: £485.00
           </span>
 
           <span
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.12)',
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
               color: '#d1fae5',
-              fontSize: '0.78rem',
-              fontWeight: 700,
-              padding: '0.3rem 0.75rem',
+              fontSize: '0.8rem',
+              fontWeight: 600,
+              padding: '0.35rem 0.85rem',
               borderRadius: '9999px',
               border: '1px solid rgba(255, 255, 255, 0.15)',
               display: 'inline-flex',
@@ -91,22 +91,8 @@ export function ZakatWelfareCallout() {
               gap: '0.35rem',
             }}
           >
-            <ShieldCheck size={13} />
-            100% Policy (0% Admin Deduction)
-          </span>
-
-          <span
-            style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.12)',
-              color: '#d1fae5',
-              fontSize: '0.78rem',
-              fontWeight: 700,
-              padding: '0.3rem 0.75rem',
-              borderRadius: '9999px',
-              border: '1px solid rgba(255, 255, 255, 0.15)',
-            }}
-          >
-            Charity Commission #1150221
+            <ShieldCheck size={14} />
+            0% Admin Fee • 100% to Local Families
           </span>
         </div>
 
@@ -120,22 +106,21 @@ export function ZakatWelfareCallout() {
             gap: '1.75rem',
           }}
         >
-          <div style={{ maxWidth: '640px' }}>
+          <div style={{ maxWidth: '620px' }}>
             <h3
               style={{
-                fontSize: 'clamp(1.35rem, 2.5vw, 1.75rem)',
+                fontSize: 'clamp(1.4rem, 2.5vw, 1.85rem)',
                 fontWeight: 800,
                 margin: '0 0 0.5rem',
                 color: '#ffffff',
-                letterSpacing: '-0.015em',
+                letterSpacing: '-0.02em',
               }}
             >
-              Fulfill Your Zakat Obligation Locally in Birmingham
+              Fulfill Your Zakat Locally in Birmingham
             </h3>
-            <p style={{ color: '#e2e8f0', fontSize: '0.96rem', margin: 0, lineHeight: 1.6 }}>
-              Under Charity Commission Registration #1150221, Al Falah operates a strict 100% Zakat
-              policy. Every single pound is distributed directly to vetted local families, widows, and
-              vulnerable neighbours in Balsall Heath and Sparkbrook.
+            <p style={{ color: '#e2e8f0', fontSize: '0.98rem', margin: 0, lineHeight: 1.6 }}>
+              Every penny of your Zakat al-Mal is distributed directly to vetted local families,
+              widows, and elders facing hardship in Balsall Heath and Sparkbrook.
             </p>
           </div>
 
@@ -146,8 +131,8 @@ export function ZakatWelfareCallout() {
               type="button"
               onClick={() => setModalOpen(true)}
               style={{
-                backgroundColor: '#f59e0b',
-                color: '#0f172a',
+                backgroundColor: '#ffffff',
+                color: '#065f46',
                 border: 'none',
                 borderRadius: '12px',
                 padding: '0.8rem 1.4rem',
@@ -157,12 +142,12 @@ export function ZakatWelfareCallout() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                boxShadow: '0 4px 14px rgba(245, 158, 11, 0.35)',
+                boxShadow: '0 4px 14px rgba(0, 0, 0, 0.15)',
                 transition: 'all 0.15s ease',
               }}
             >
-              <Calculator size={18} />
-              <span>Calculate Your Zakat</span>
+              <Calculator size={18} style={{ color: '#059669' }} />
+              <span>Calculate Zakat</span>
             </button>
 
             {/* 2. Direct Donate Button */}
@@ -173,7 +158,7 @@ export function ZakatWelfareCallout() {
                 color: '#ffffff',
                 border: '1px solid rgba(255, 255, 255, 0.3)',
                 borderRadius: '12px',
-                padding: '0.8rem 1.3rem',
+                padding: '0.8rem 1.35rem',
                 fontSize: '0.92rem',
                 fontWeight: 700,
                 textDecoration: 'none',
@@ -184,24 +169,24 @@ export function ZakatWelfareCallout() {
               }}
             >
               <Heart size={16} fill="currentColor" />
-              <span>Donate 100% Zakat</span>
+              <span>Give Zakat Online</span>
             </Link>
 
             {/* 3. Request Welfare */}
             <Link
               href="/services#welfare"
               style={{
-                color: '#cbd5e1',
+                color: '#d1fae5',
                 fontSize: '0.88rem',
                 fontWeight: 600,
                 textDecoration: 'none',
                 padding: '0.6rem 0.5rem',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.3rem',
+                gap: '0.35rem',
               }}
             >
-              <span>Welfare Assistance</span>
+              <span>Need Support?</span>
               <ArrowRight size={14} />
             </Link>
           </div>
@@ -210,16 +195,16 @@ export function ZakatWelfareCallout() {
         {/* Direct Bank Details for Zakat */}
         <div
           style={{
-            backgroundColor: 'rgba(0, 0, 0, 0.22)',
+            backgroundColor: 'rgba(0, 0, 0, 0.2)',
             borderRadius: '14px',
-            padding: '1rem 1.35rem',
+            padding: '0.9rem 1.25rem',
             border: '1px solid rgba(255, 255, 255, 0.12)',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             flexWrap: 'wrap',
             gap: '0.85rem',
-            fontSize: '0.85rem',
+            fontSize: '0.86rem',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
@@ -229,11 +214,11 @@ export function ZakatWelfareCallout() {
             <span>
               Sort Code: <strong style={{ fontFamily: 'monospace', color: '#6ee7b7' }}>30-00-83</strong>
             </span>
-            <span>•</span>
+            <span style={{ opacity: 0.5 }}>•</span>
             <span>
               Account: <strong style={{ fontFamily: 'monospace', color: '#6ee7b7' }}>01298401</strong>
             </span>
-            <span>•</span>
+            <span style={{ opacity: 0.5 }}>•</span>
             <span>
               Ref: <strong style={{ color: '#fef08a' }}>ZAKAT-ALFALAH</strong>
             </span>
@@ -244,11 +229,11 @@ export function ZakatWelfareCallout() {
             onClick={handleCopyBank}
             style={{
               background: copied ? '#059669' : 'rgba(255, 255, 255, 0.12)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
               color: '#ffffff',
               borderRadius: '8px',
-              padding: '0.4rem 0.85rem',
-              fontSize: '0.8rem',
+              padding: '0.45rem 0.9rem',
+              fontSize: '0.82rem',
               fontWeight: 700,
               cursor: 'pointer',
               display: 'inline-flex',
@@ -258,7 +243,7 @@ export function ZakatWelfareCallout() {
             }}
           >
             {copied ? <Check size={14} /> : <Copy size={14} />}
-            <span>{copied ? 'Bank Details Copied!' : 'Copy Bank Details'}</span>
+            <span>{copied ? 'Copied!' : 'Copy Bank Details'}</span>
           </button>
         </div>
       </div>
