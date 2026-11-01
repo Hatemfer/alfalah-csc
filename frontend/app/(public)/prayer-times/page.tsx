@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Clock, Calendar, Compass, MapPin, ExternalLink, Smartphone } from 'lucide-react';
+import PrayerTimetable from '@/components/PrayerTimetable';
 
 export const metadata = {
   title: 'Live Prayer Times & Mawaqit Timetable | ALFALAH COMMUNITY SUPPORT CENTRE',
@@ -41,144 +42,8 @@ export default function PrayerTimesPage() {
       {/* Main Content Area */}
       <section style={{ padding: '2.5rem 0' }}>
         <div className="container" style={{ maxWidth: '1050px' }}>
-          {/* Quick Notice Bar: Jumu'ah & App */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '1rem',
-              marginBottom: '2rem',
-            }}
-          >
-            <div
-              style={{
-                backgroundColor: 'rgba(5, 150, 105, 0.08)',
-                border: '1.5px solid var(--color-primary-600)',
-                borderRadius: 'var(--radius-md)',
-                padding: '1.25rem',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '1rem',
-              }}
-            >
-              <div
-                style={{
-                  width: '46px',
-                  height: '46px',
-                  borderRadius: '50%',
-                  backgroundColor: 'var(--color-primary-600)',
-                  color: '#ffffff',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 800,
-                  fontSize: '1.1rem',
-                  flexShrink: 0,
-                }}
-              >
-                🕌
-              </div>
-              <div>
-                <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-primary-700)', textTransform: 'uppercase' }}>
-                  Friday Congregational Prayer
-                </div>
-                <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-                  Jumu&apos;ah Khutbah: 13:00 (1:00 PM)
-                </div>
-              </div>
-            </div>
-
-            <div
-              style={{
-                backgroundColor: 'var(--bg-surface)',
-                border: '1px solid var(--border-color)',
-                borderRadius: 'var(--radius-md)',
-                padding: '1.25rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '0.75rem',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <Smartphone size={28} style={{ color: 'var(--color-accent-500)' }} />
-                <div>
-                  <div style={{ fontSize: '0.95rem', fontWeight: 700 }}>Follow us on MAWAQIT App</div>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Get live Athan & Iqamah notifications on iOS & Android</div>
-                </div>
-              </div>
-              <a
-                href="https://mawaqit.net/en/al-falah-community-support-centre-birmingham-b12-9qu-united-kingdom"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-outline"
-                style={{ fontSize: '0.8rem', padding: '0.45rem 0.85rem' }}
-              >
-                Open in Mawaqit <ExternalLink size={13} />
-              </a>
-            </div>
-          </div>
-
-          {/* Official MAWAQIT Live Interactive Widget */}
-          <div
-            className="card"
-            style={{
-              padding: '1.5rem',
-              boxShadow: 'var(--shadow-xl)',
-              borderRadius: 'var(--radius-lg)',
-              border: '1px solid var(--border-color)',
-              marginBottom: '3rem',
-              overflow: 'hidden',
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-              <div>
-                <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-                  Live Mosque Display & Prayer Times
-                </h2>
-                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                  Direct real-time feed from Masjid Al Falah's official MAWAQIT system
-                </p>
-              </div>
-
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <Link href="/qibla" className="btn btn-outline" style={{ fontSize: '0.85rem', padding: '0.45rem 0.85rem' }}>
-                  <Compass size={15} /> Qibla Compass
-                </Link>
-                <Link href="/donate" className="btn btn-accent" style={{ fontSize: '0.85rem', padding: '0.45rem 0.85rem' }}>
-                  Support Mosque
-                </Link>
-              </div>
-            </div>
-
-            {/* Mawaqit Iframe Container */}
-            <div
-              style={{
-                position: 'relative',
-                width: '100%',
-                minHeight: '680px',
-                borderRadius: 'var(--radius-md)',
-                overflow: 'hidden',
-                backgroundColor: '#0f172a',
-              }}
-            >
-              <iframe
-                src="https://mawaqit.net/en/w/al-falah-community-support-centre-birmingham-b12-9qu-united-kingdom"
-                title="Al Falah Community Support Centre Mawaqit Live Prayer Times"
-                width="100%"
-                height="680"
-                frameBorder="0"
-                scrolling="no"
-                style={{
-                  border: 'none',
-                  display: 'block',
-                  width: '100%',
-                  height: '680px',
-                }}
-              />
-            </div>
-          </div>
+          {/* Complete Interactive Timetable (Today, Full Month Schedule, Mawaqit Screen) */}
+          <PrayerTimetable variant="full" showTabs={true} />
 
           {/* Location & Congregation Guidelines Card */}
           <div

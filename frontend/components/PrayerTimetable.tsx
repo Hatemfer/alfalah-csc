@@ -12,7 +12,7 @@ import {
   Monitor,
   ArrowRight,
 } from 'lucide-react';
-import { getDaySchedule, getMonthSchedule, DayPrayerSchedule } from '../utils/prayerTimes';
+import { getDaySchedule, getMonthSchedule, DayPrayerSchedule } from '@/utils/prayerTimes';
 
 interface PrayerTimetableProps {
   initialDate?: string;
