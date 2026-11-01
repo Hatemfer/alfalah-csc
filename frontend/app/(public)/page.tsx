@@ -23,6 +23,7 @@ import {
   Sparkles,
   HelpCircle,
   FileCheck,
+  Target,
 } from 'lucide-react';
 import HeroSlider from '../../components/HeroSlider';
 import PrayerTimetable from '../../components/PrayerTimetable';
@@ -386,14 +387,47 @@ export default async function HomePage() {
                   Our community at 89 Tindal Street has the historic opportunity to permanently purchase the building that houses our prayer halls, youth STEM lab, and classrooms. Every brick and prayer mat pledged secures ongoing worship for generations to come.
                 </p>
 
-                {/* Progress Bar */}
-                <div style={{ marginBottom: '1.25rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.35rem' }}>
-                    <span style={{ color: '#065f46' }}>£218,500 Raised (36.4%)</span>
-                    <span style={{ color: '#64748b' }}>Target: £600,000</span>
+                {/* Clean Official Goal Banner (Transparent, zero-maintenance, matches poster) */}
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '1rem',
+                    backgroundColor: '#f8fafc',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: 'var(--radius-md)',
+                    padding: '0.85rem 1.15rem',
+                    marginBottom: '1.25rem',
+                  }}
+                >
+                  <div
+                    style={{
+                      width: '44px',
+                      height: '44px',
+                      borderRadius: '50%',
+                      backgroundColor: '#ecfdf5',
+                      color: '#065f46',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                      border: '1.5px solid #a7f3d0',
+                    }}
+                  >
+                    <Target size={22} />
                   </div>
-                  <div style={{ width: '100%', height: '10px', backgroundColor: '#e2e8f0', borderRadius: '9999px', overflow: 'hidden' }}>
-                    <div style={{ width: '36.4%', height: '100%', background: 'linear-gradient(90deg, #10b981 0%, #065f46 100%)', borderRadius: '9999px' }} />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: '0.72rem', fontWeight: 800, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.6px' }}>
+                      Fundraising Target Goal
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', flexWrap: 'wrap' }}>
+                      <span style={{ fontSize: '1.35rem', fontWeight: 800, color: '#065f46', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
+                        £600,000
+                      </span>
+                      <span style={{ fontSize: '0.82rem', fontWeight: 600, color: '#475569' }}>
+                        to permanently secure our mosque building
+                      </span>
+                    </div>
                   </div>
                 </div>
 
