@@ -52,7 +52,7 @@ export function Footer() {
                 <Link href="/prayer-times#jumuah" style={{ color: 'var(--text-secondary)' }}>Friday Jumu’ah Prayers</Link>
               </li>
               <li>
-                <Link href="/services#welfare" style={{ color: 'var(--text-secondary)' }}>100% Zakat & Foodbank Relief</Link>
+                <Link href="/services#welfare" style={{ color: 'var(--text-secondary)' }}>Local Zakat & Foodbank Relief</Link>
               </li>
               <li>
                 <Link href="/services#nikah" style={{ color: 'var(--text-secondary)' }}>Nikah Marriage Solemnisation</Link>
@@ -81,7 +81,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/donate?category=zakat" style={{ color: 'var(--text-secondary)' }}>100% Zakat al-Mal (0% Admin)</Link>
+                <Link href="/donate?category=zakat" style={{ color: 'var(--text-secondary)' }}>Zakat al-Mal (Local Welfare)</Link>
               </li>
               <li>
                 <Link href="/activities" style={{ color: 'var(--text-secondary)' }}>Weekend Madrasah & Academy</Link>

@@ -768,7 +768,7 @@ export function ZakatCalculatorModal({ isOpen, onClose }: ZakatCalculatorModalPr
               <span>
                 {zakatDue > 0
                   ? `Pay £${zakatDue.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Zakat Online`
-                  : 'Pay Zakat al-Mal (100% Policy)'}
+                  : 'Donate Zakat Online'}
               </span>
               <ArrowRight size={16} />
             </button>

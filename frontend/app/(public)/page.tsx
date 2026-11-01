@@ -106,9 +106,9 @@ const CORE_SERVICES = [
   },
   {
     id: 'welfare',
-    title: '100% Zakat & Welfare Relief',
+    title: 'Local Zakat & Welfare Relief',
     icon: Coins,
-    desc: 'Direct distribution to local needy families with 0% admin fee deduction. Hardship grants, emergency food vouchers, and warm community support in Balsall Heath.',
+    desc: 'Direct distribution of Zakat al-Mal and Sadaqah to eligible local families in Birmingham. Emergency food aid, winter utility grants, and dignified community welfare.',
     link: '/donate?category=zakat',
     linkText: 'Donate Zakat',
   },
@@ -249,22 +249,21 @@ export default async function HomePage() {
                 gap: '0.4rem',
                 backgroundColor: '#ecfdf5',
                 color: '#065f46',
-                padding: '0.3rem 0.85rem',
+                padding: '0.35rem 0.85rem',
                 borderRadius: '9999px',
-                fontSize: '0.78rem',
-                fontWeight: 800,
-                letterSpacing: '0.5px',
-                textTransform: 'uppercase',
+                fontSize: '0.8rem',
+                fontWeight: 700,
+                letterSpacing: '0.3px',
                 marginBottom: '0.75rem',
               }}
             >
-              <ShieldCheck size={14} /> 100% Policy • 0% Administrative Deduction
+              <HeartHandshake size={14} /> Local Community Welfare & Hardship Relief
             </div>
             <h2 style={{ fontSize: 'clamp(2rem, 3.8vw, 2.6rem)', fontWeight: 800, color: '#0f172a', marginBottom: '0.75rem' }}>
-              100% Local Zakat & Welfare Relief
+              Local Zakat & Welfare Support
             </h2>
             <p style={{ color: '#64748b', fontSize: '1.05rem', lineHeight: 1.6, margin: 0 }}>
-              Under Charity Commission Registration #1150221, Alfalah operates a strict 100% donation policy on all Zakat. Every single pound is distributed directly to vulnerable families, widows, and low-income residents in Birmingham.
+              Masjid Al Falah collects and distributes Zakat al-Mal directly to eligible families and elders in Balsall Heath and Sparkbrook, ensuring your religious obligation creates immediate local impact.
             </p>
           </div>
 
@@ -278,8 +277,8 @@ export default async function HomePage() {
           >
             {[
               {
-                title: '0% Admin Fee Guarantee',
-                desc: 'Not a single penny is taken for administration or operating costs. 100% of your Zakat al-Mal directly reaches those in genuine need.',
+                title: '100% Direct Distribution',
+                desc: 'Every pound of your Zakat al-Mal goes directly to eligible individuals in accordance with Islamic principles, with zero admin deductions.',
                 icon: Coins,
               },
               {
