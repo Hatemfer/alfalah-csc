@@ -70,7 +70,7 @@ export default async function ActivityDetailPage({
             {activity.title}
           </h1>
 
-          <p style={{ fontSize: '1.15rem', color: '#d1fae5', lineHeight: 1.6 }}>
+          <p style={{ fontSize: '1.05rem', color: '#475569', lineHeight: 1.6 }}>
             {activity.shortDescription}
           </p>
         </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { MapPin, Mail, Send, CheckCircle2, AlertCircle, ShieldCheck } from 'lucide-react';
+import { MapPin, Mail, Send, CheckCircle2, AlertCircle, ShieldCheck, Phone, MessageSquare } from 'lucide-react';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -21,7 +21,8 @@ export default function ContactPage() {
     setErrorMessage(null);
 
     try {
-      const res = await fetch('/api/v1/contact', {
+      const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
+      const res = await fetch(`${apiBase}/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -100,6 +101,16 @@ export default function ContactPage() {
                   </div>
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    <Phone size={22} style={{ color: 'var(--color-primary-600)', flexShrink: 0 }} />
+                    <div>
+                      <strong style={{ fontSize: '1rem', color: 'var(--text-primary)' }}>Telephone:</strong><br />
+                      <a href="tel:07429188880" style={{ color: 'var(--color-primary-700)', fontWeight: 700, textDecoration: 'none' }}>
+                        07429 188880
+                      </a>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <Mail size={22} style={{ color: 'var(--color-primary-600)', flexShrink: 0 }} />
                     <div>
                       <strong style={{ fontSize: '1rem', color: 'var(--text-primary)' }}>Email:</strong><br />
@@ -115,6 +126,35 @@ export default function ContactPage() {
                       <strong style={{ fontSize: '1rem', color: 'var(--text-primary)' }}>Charity Registration:</strong><br />
                       <span style={{ color: 'var(--text-secondary)' }}>Registered Charity No. 1150221</span>
                     </div>
+                  </div>
+
+                  {/* Direct WhatsApp Action Button */}
+                  <div style={{ marginTop: '0.5rem', paddingTop: '1rem', borderTop: '1px solid #f1f5f9' }}>
+                    <a
+                      href="https://wa.me/447429188880"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn"
+                      style={{
+                        width: '100%',
+                        backgroundColor: '#25D366',
+                        color: '#ffffff',
+                        fontWeight: 700,
+                        fontSize: '0.9rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.5rem',
+                        borderRadius: '10px',
+                        padding: '0.65rem 1rem',
+                        textDecoration: 'none',
+                        border: 'none',
+                        boxShadow: '0 2px 8px rgba(37, 211, 102, 0.25)',
+                      }}
+                    >
+                      <MessageSquare size={17} />
+                      <span>Chat on WhatsApp (07429 188880)</span>
+                    </a>
                   </div>
                 </div>
               </div>

@@ -9,6 +9,7 @@ import { HomepageSection } from '../homepage/entities/homepage-section.entity';
 import { PrayerSetting } from '../prayer-times/entities/prayer-setting.entity';
 import { Activity } from '../activities/entities/activity.entity';
 import { Announcement } from '../announcements/entities/announcement.entity';
+import { Event } from '../events/entities/event.entity';
 
 async function seed() {
   console.log('🌱 Starting Alfalah Community database seeding...');
@@ -20,6 +21,7 @@ async function seed() {
   const prayerRepo = AppDataSource.getRepository(PrayerSetting);
   const activityRepo = AppDataSource.getRepository(Activity);
   const announcementRepo = AppDataSource.getRepository(Announcement);
+  const eventRepo = AppDataSource.getRepository(Event);
 
   // 1. Initial Super Admin
   const adminEmail = process.env.INITIAL_ADMIN_EMAIL || 'admin@alfalahcsc.com';
@@ -211,6 +213,56 @@ async function seed() {
       }),
     );
     console.log('✅ Initial announcement seeded.');
+  }
+
+  // 7. Initial Events
+  const existingEvents = await eventRepo.find();
+  if (existingEvents.length === 0) {
+    const nextSat = new Date();
+    nextSat.setDate(nextSat.getDate() + ((6 - nextSat.getDay() + 7) % 7 || 7));
+    nextSat.setHours(17, 0, 0, 0);
+
+    const nextSatEnd = new Date(nextSat);
+    nextSatEnd.setHours(18, 30, 0, 0);
+
+    const nextSun = new Date(nextSat);
+    nextSun.setDate(nextSun.getDate() + 1);
+    nextSun.setHours(11, 0, 0, 0);
+
+    const nextSunEnd = new Date(nextSun);
+    nextSunEnd.setHours(13, 0, 0, 0);
+
+    await eventRepo.save([
+      eventRepo.create({
+        id: uuidv4(),
+        title: 'Weekly Quran Tafsir with Sheikh Jamal Al-Jabarti',
+        slug: 'weekly-quran-tafsir-sheikh-jamal',
+        category: 'Spiritual Lecture',
+        summary: 'In-depth verse-by-verse exploration of the Holy Quran with contemporary reflections for daily life.',
+        description: 'Join our weekly circle led by Sheikh Jamal bin Saeed Al-Jabarti. Open to brothers and sisters. Light refreshments served.',
+        startTime: nextSat,
+        endTime: nextSatEnd,
+        timezone: 'Europe/London',
+        venue: 'Main Prayer Hall, 89 Tindal St, Birmingham, B12 9QU',
+        isFeatured: true,
+        isPublished: true,
+      }),
+      eventRepo.create({
+        id: uuidv4(),
+        title: 'Youth STEM & Robotics Discovery Workshop',
+        slug: 'youth-stem-robotics-workshop',
+        category: 'Youth & STEM',
+        summary: 'Hands-on robotics construction, coding challenges, and interactive engineering for ages 7–15.',
+        description: 'An interactive workshop empowering youth with modern computing logic and mechanical teamwork in a supportive environment.',
+        startTime: nextSun,
+        endTime: nextSunEnd,
+        timezone: 'Europe/London',
+        venue: 'Alfalah Academy Lab, 89 Tindal St, Birmingham, B12 9QU',
+        isFeatured: false,
+        isPublished: true,
+      }),
+    ]);
+    console.log('✅ Initial community events seeded.');
   }
 
   await AppDataSource.destroy();

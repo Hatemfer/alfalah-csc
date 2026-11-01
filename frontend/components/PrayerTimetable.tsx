@@ -11,6 +11,7 @@ import {
   Sparkles,
   Monitor,
   ArrowRight,
+  Printer,
 } from 'lucide-react';
 import { getDaySchedule, getMonthSchedule, DayPrayerSchedule } from '@/utils/prayerTimes';
 
@@ -656,7 +657,7 @@ export default function PrayerTimetable({
               </p>
             </div>
 
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
               <button
                 type="button"
                 onClick={() => setSelectedMonth(9)}
@@ -672,6 +673,16 @@ export default function PrayerTimetable({
                 style={{ fontSize: '0.85rem', padding: '0.45rem 0.85rem' }}
               >
                 November
+              </button>
+              <button
+                type="button"
+                onClick={() => window.print()}
+                className="btn btn-outline"
+                style={{ fontSize: '0.85rem', padding: '0.45rem 0.85rem', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}
+                title="Print Timetable for Home / Fridge"
+              >
+                <Printer size={15} />
+                <span>Print Timetable</span>
               </button>
             </div>
           </div>

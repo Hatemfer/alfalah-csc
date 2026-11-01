@@ -170,7 +170,7 @@ export default function ServicesPage() {
                   boxShadow: 'var(--shadow-sm)',
                 }}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+                <div style={{ marginBottom: '1.25rem' }}>
                   <div
                     style={{
                       width: '48px',
@@ -185,19 +185,6 @@ export default function ServicesPage() {
                   >
                     <srv.icon size={24} />
                   </div>
-                  <span
-                    style={{
-                      fontSize: '0.75rem',
-                      fontWeight: 800,
-                      color: '#065f46',
-                      backgroundColor: '#ecfdf5',
-                      padding: '0.25rem 0.75rem',
-                      borderRadius: '9999px',
-                      border: '1px solid #a7f3d0',
-                    }}
-                  >
-                    {srv.badge}
-                  </span>
                 </div>
 
                 <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.65rem' }}>
@@ -256,20 +243,6 @@ export default function ServicesPage() {
             }}
           >
             <div>
-              <span
-                style={{
-                  backgroundColor: '#ecfdf5',
-                  color: '#065f46',
-                  fontSize: '0.75rem',
-                  fontWeight: 800,
-                  padding: '0.2rem 0.65rem',
-                  borderRadius: '9999px',
-                  display: 'inline-block',
-                  marginBottom: '0.5rem',
-                }}
-              >
-                MOSQUE WELFARE & ADMINISTRATION OFFICE
-              </span>
               <h3 style={{ fontSize: '1.45rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.4rem' }}>
                 Need Assistance or Pastoral Guidance?
               </h3>

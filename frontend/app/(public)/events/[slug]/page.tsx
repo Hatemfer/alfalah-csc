@@ -93,7 +93,7 @@ export default async function EventDetailPage({
             {event.title}
           </h1>
 
-          <p style={{ fontSize: '1.15rem', color: '#d1fae5', lineHeight: 1.6 }}>
+          <p style={{ fontSize: '1.05rem', color: '#475569', lineHeight: 1.6 }}>
             {event.summary}
           </p>
         </div>

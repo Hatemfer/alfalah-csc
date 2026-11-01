@@ -82,7 +82,7 @@ export default function MobileBottomNav() {
                 color: item.isActive
                   ? '#059669'
                   : item.highlight
-                  ? '#b45309'
+                  ? '#e11d48'
                   : '#64748b',
                 transition: 'all 0.15s ease',
               }}
@@ -96,7 +96,7 @@ export default function MobileBottomNav() {
                   width: item.highlight ? '34px' : '26px',
                   height: item.highlight ? '34px' : '26px',
                   borderRadius: item.highlight ? '9999px' : '0',
-                  backgroundColor: item.highlight ? '#fef3c7' : 'transparent',
+                  backgroundColor: item.highlight ? '#ffe4e6' : 'transparent',
                 }}
               >
                 <Icon
