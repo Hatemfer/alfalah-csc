@@ -83,7 +83,7 @@ export function Header() {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', color: '#334155', fontWeight: 600 }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', color: '#334155', fontWeight: 600 }} suppressHydrationWarning>
             <Calendar size={13} style={{ color: 'var(--color-primary-700)' }} />
             {formattedDates.greg} • {formattedDates.hijri}
           </span>

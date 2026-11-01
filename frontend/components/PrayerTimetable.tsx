@@ -26,10 +26,12 @@ export default function PrayerTimetable({
   variant = 'full',
 }: PrayerTimetableProps) {
   const [now, setNow] = useState<Date>(new Date());
+  const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState<'today' | 'month' | 'mawaqit-screen'>('today');
   const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth());
 
   useEffect(() => {
+    setMounted(true);
     const timer = setInterval(() => {
       setNow(new Date());
     }, 1000);
@@ -146,10 +148,10 @@ export default function PrayerTimetable({
               <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#10b981' }} />
               MAWAQIT TIMETABLE
             </span>
-            <span style={{ fontSize: '1rem', fontWeight: 800, color: '#0f172a' }}>
+            <span style={{ fontSize: '1rem', fontWeight: 800, color: '#0f172a' }} suppressHydrationWarning>
               {todaySchedule.dateStr}
             </span>
-            <span style={{ fontSize: '0.88rem', color: '#64748b', fontWeight: 600 }}>
+            <span style={{ fontSize: '0.88rem', color: '#64748b', fontWeight: 600 }} suppressHydrationWarning>
               • {todaySchedule.hijriStr}
             </span>
           </div>
@@ -170,8 +172,13 @@ export default function PrayerTimetable({
                 gap: '0.5rem',
               }}
             >
-              <span>Next: {nextPrayerInfo.name} ({nextPrayerInfo.time})</span>
-              <span style={{ fontFamily: 'monospace', color: '#b45309', fontWeight: 800 }}>in {nextPrayerInfo.countdown}</span>
+              <span suppressHydrationWarning>Next: {nextPrayerInfo.name} ({nextPrayerInfo.time})</span>
+              <span
+                style={{ fontFamily: 'monospace', color: '#b45309', fontWeight: 800 }}
+                suppressHydrationWarning
+              >
+                {mounted ? `in ${nextPrayerInfo.countdown}` : 'calculating...'}
+              </span>
             </div>
 
             <Link
@@ -367,7 +374,7 @@ export default function PrayerTimetable({
             minWidth: '220px',
           }}
         >
-          <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: '#fbbf24', fontWeight: 800, letterSpacing: '0.05em' }}>
+          <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: '#fbbf24', fontWeight: 800, letterSpacing: '0.05em' }} suppressHydrationWarning>
             Next: {nextPrayerInfo.name} ({nextPrayerInfo.time})
           </div>
           <div
@@ -379,8 +386,9 @@ export default function PrayerTimetable({
               marginTop: '0.2rem',
               letterSpacing: '0.05em',
             }}
+            suppressHydrationWarning
           >
-            {nextPrayerInfo.countdown}
+            {mounted ? nextPrayerInfo.countdown : '--:--:--'}
           </div>
           <div style={{ fontSize: '0.75rem', color: '#93c5fd', marginTop: '0.25rem' }}>
             Official MAWAQIT Real-time Feed
