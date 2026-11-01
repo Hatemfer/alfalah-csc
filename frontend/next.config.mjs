@@ -13,6 +13,16 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'alfalahcsc.com',
+        pathname: '/uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.alfalahcsc.com',
+        pathname: '/uploads/**',
+      },
     ],
   },
   async rewrites() {

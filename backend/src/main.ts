@@ -30,6 +30,8 @@ async function bootstrap() {
   const allowedOrigins = [
     'http://localhost:3000',
     'http://localhost:4000',
+    'https://alfalahcsc.com',
+    'https://www.alfalahcsc.com',
     process.env.FRONTEND_URL,
     process.env.CORS_ORIGIN,
   ].filter(Boolean);
