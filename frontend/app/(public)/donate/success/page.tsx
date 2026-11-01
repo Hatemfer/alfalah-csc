@@ -89,30 +89,30 @@ function SuccessContent() {
   const fundName = fundLabels[resolvedFund] || fundLabels.purchase;
 
   return (
-    <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', padding: '3.5rem 1.5rem 6rem' }}>
-      <div className="container" style={{ maxWidth: '720px' }}>
+    <div className="receipt-page-container">
+      <div className="container" style={{ maxWidth: '680px', margin: '0 auto' }}>
         {/* Success Header */}
-        <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div
             style={{
-              width: '72px',
-              height: '72px',
+              width: '60px',
+              height: '60px',
               borderRadius: '50%',
               backgroundColor: '#ecfdf5',
               color: '#059669',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 8px 24px rgba(5, 150, 105, 0.25)',
-              marginBottom: '1.25rem',
+              boxShadow: '0 8px 24px rgba(5, 150, 105, 0.22)',
+              marginBottom: '1rem',
             }}
           >
-            <CheckCircle size={40} />
+            <CheckCircle size={34} />
           </div>
 
           <div
             style={{
-              fontSize: '1.15rem',
+              fontSize: 'clamp(0.95rem, 2.8vw, 1.15rem)',
               color: '#059669',
               fontWeight: 800,
               marginBottom: '0.35rem',
@@ -123,165 +123,130 @@ function SuccessContent() {
 
           <h1
             style={{
-              fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)',
+              fontSize: 'clamp(1.4rem, 4vw, 2.2rem)',
               fontWeight: 800,
               color: '#0f172a',
               letterSpacing: '-0.02em',
-              margin: '0 0 0.5rem',
+              lineHeight: 1.25,
+              margin: '0 0 0.45rem',
             }}
           >
             Thank You for Your Generous Donation!
           </h1>
 
-          <p style={{ fontSize: '0.98rem', color: '#475569', lineHeight: 1.6, maxWidth: '580px', margin: '0 auto' }}>
+          <p style={{ fontSize: '0.88rem', color: '#475569', lineHeight: 1.55, maxWidth: '560px', margin: '0 auto' }}>
             Your gift has been securely received. May Allah reward you abundantly and make it a continuous source of blessings (Sadaqah Jariyah) for you and your family.
           </p>
 
           {isSimulated && (
             <div
               style={{
-                marginTop: '1rem',
+                marginTop: '0.85rem',
                 display: 'inline-block',
                 backgroundColor: '#fef3c7',
                 border: '1px solid #fde68a',
                 color: '#92400e',
-                padding: '0.35rem 0.85rem',
+                padding: '0.3rem 0.8rem',
                 borderRadius: '9999px',
-                fontSize: '0.78rem',
+                fontSize: '0.74rem',
                 fontWeight: 700,
               }}
             >
-              Demo Preview Mode (Configure STRIPE_SECRET_KEY in .env.local for live processing)
+              Demo Preview Mode • Test Receipt
             </div>
           )}
         </div>
 
         {/* Printable Official Charity Tax Receipt Card */}
-        <div
-          className="card"
-          style={{
-            backgroundColor: '#ffffff',
-            borderRadius: '24px',
-            boxShadow: '0 12px 40px rgba(15, 23, 42, 0.08)',
-            border: '1px solid #e2e8f0',
-            padding: '2.5rem',
-            marginBottom: '2rem',
-          }}
-        >
+        <div className="card receipt-card print-receipt-card">
           {/* Charity Header */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              flexWrap: 'wrap',
-              gap: '1rem',
-              borderBottom: '2px solid #f1f5f9',
-              paddingBottom: '1.5rem',
-              marginBottom: '1.75rem',
-            }}
-          >
+          <div className="receipt-header">
             <div>
-              <div
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.4rem',
-                  backgroundColor: '#ecfdf5',
-                  color: '#047857',
-                  padding: '0.2rem 0.65rem',
-                  borderRadius: '9999px',
-                  fontSize: '0.72rem',
-                  fontWeight: 800,
-                  marginBottom: '0.4rem',
-                }}
-              >
+              <div className="receipt-badge">
                 <ShieldCheck size={14} />
-                OFFICIAL UK CHARITY RECEIPT
+                <span>OFFICIAL UK CHARITY RECEIPT</span>
               </div>
-              <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', margin: '0 0 0.2rem' }}>
+              <h2 className="receipt-org-title">
                 Alfalah Community Support Centre
               </h2>
-              <p style={{ margin: 0, fontSize: '0.8rem', color: '#64748b', lineHeight: 1.4 }}>
+              <p className="receipt-org-address">
                 89 Tindal Street, Balsall Heath, Birmingham B12 9QU<br />
                 UK Registered Charity No. <strong>1150221</strong>
               </p>
             </div>
 
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase', fontWeight: 700 }}>
-                Receipt Reference
+            {/* Dedicated Reference Banner */}
+            <div className="receipt-ref-banner">
+              <div>
+                <span className="receipt-ref-label">RECEIPT REFERENCE</span>
+                <span className="receipt-ref-code">{receiptNumber}</span>
               </div>
-              <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#059669', letterSpacing: '0.5px' }}>
-                {receiptNumber}
-              </div>
-              <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '2px' }}>
+              <div className="receipt-ref-date">
                 {timestamp}
               </div>
             </div>
           </div>
 
           {/* Donation Financial Breakdown Table */}
-          <div style={{ marginBottom: '1.75rem' }}>
-            <div style={{ fontSize: '0.82rem', fontWeight: 800, color: '#334155', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
+          <div style={{ marginBottom: '1.5rem' }}>
+            <div
+              style={{
+                fontSize: '0.8rem',
+                fontWeight: 800,
+                color: '#334155',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                marginBottom: '0.65rem',
+              }}
+            >
               Donation Summary
             </div>
 
-            <div
-              style={{
-                backgroundColor: '#f8fafc',
-                borderRadius: '16px',
-                border: '1px solid #e2e8f0',
-                padding: '1.25rem',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.75rem',
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem' }}>
-                <span style={{ color: '#475569' }}>Selected Cause:</span>
-                <strong style={{ color: '#0f172a' }}>{fundName}</strong>
+            <div className="receipt-summary-box">
+              {/* Stacked Cause: Full width, never wraps awkwardly into single words */}
+              <div className="receipt-row-stacked">
+                <span className="receipt-row-label">Selected Cause</span>
+                <span className="receipt-row-val">{fundName}</span>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem' }}>
-                <span style={{ color: '#475569' }}>Frequency:</span>
-                <strong style={{ color: '#0f172a' }}>
+              {/* Frequency */}
+              <div className="receipt-row" style={{ borderTop: '1px solid #f1f5f9', paddingTop: '0.65rem' }}>
+                <span className="receipt-row-label">Frequency</span>
+                <span className="receipt-row-val">
                   {resolvedFrequency === 'monthly' ? 'Monthly Recurring' : 'One-Off Gift'}
-                </strong>
+                </span>
               </div>
 
+              {/* Donor Name if provided */}
               {resolvedDonorName && (
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem' }}>
-                  <span style={{ color: '#475569' }}>Donor Name:</span>
-                  <strong style={{ color: '#0f172a' }}>{resolvedDonorName}</strong>
+                <div className="receipt-row" style={{ borderTop: '1px solid #f1f5f9', paddingTop: '0.65rem' }}>
+                  <span className="receipt-row-label">Donor Name</span>
+                  <span className="receipt-row-val">{resolvedDonorName}</span>
                 </div>
               )}
 
-              <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '0.65rem', display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem' }}>
-                <span style={{ color: '#475569' }}>Base Donation:</span>
-                <strong style={{ color: '#0f172a' }}>£{baseAmount.toFixed(2)}</strong>
+              {/* Base Donation */}
+              <div className="receipt-row" style={{ borderTop: '1px solid #e2e8f0', paddingTop: '0.65rem' }}>
+                <span className="receipt-row-label">Base Donation</span>
+                <span className="receipt-row-val">£{baseAmount.toFixed(2)}</span>
               </div>
 
+              {/* Fee Coverage */}
               {queryCoverFee && feeAmount > 0 && (
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', color: '#059669' }}>
-                  <span>Card Processing Fee Contribution (100% Policy):</span>
-                  <strong>+£{feeAmount.toFixed(2)}</strong>
+                <div className="receipt-row" style={{ color: '#059669' }}>
+                  <span className="receipt-row-label" style={{ color: '#059669' }}>
+                    Card Processing Fee Covered
+                  </span>
+                  <span className="receipt-row-val" style={{ color: '#059669' }}>
+                    +£{feeAmount.toFixed(2)}
+                  </span>
                 </div>
               )}
 
-              <div
-                style={{
-                  borderTop: '2px dashed #cbd5e1',
-                  paddingTop: '0.75rem',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  fontSize: '1.15rem',
-                  fontWeight: 800,
-                  color: '#0f172a',
-                }}
-              >
-                <span>Total Amount Charged:</span>
-                <span style={{ color: '#059669' }}>£{totalCharged.toFixed(2)}</span>
+              {/* Total Charged */}
+              <div className="receipt-total-row">
+                <span className="receipt-total-label">Total Amount Charged:</span>
+                <span className="receipt-total-val">£{totalCharged.toFixed(2)}</span>
               </div>
             </div>
           </div>
@@ -292,22 +257,21 @@ function SuccessContent() {
               style={{
                 backgroundColor: '#ecfdf5',
                 border: '1.5px solid #a7f3d0',
-                borderRadius: '16px',
-                padding: '1.15rem 1.25rem',
-                marginBottom: '1.75rem',
+                borderRadius: '14px',
+                padding: '0.9rem 1rem',
+                marginBottom: '1.5rem',
                 display: 'flex',
                 alignItems: 'flex-start',
-                gap: '0.75rem',
+                gap: '0.65rem',
               }}
             >
-              <Sparkles size={22} style={{ color: '#059669', flexShrink: 0, marginTop: '2px' }} />
+              <Sparkles size={20} style={{ color: '#059669', flexShrink: 0, marginTop: '2px' }} />
               <div>
-                <div style={{ fontWeight: 800, color: '#065f46', fontSize: '0.95rem' }}>
+                <div style={{ fontWeight: 800, color: '#065f46', fontSize: '0.9rem' }}>
                   UK Gift Aid Claimed: +£{giftAidAmount.toFixed(2)} from HMRC
                 </div>
-                <p style={{ margin: '0.2rem 0 0', fontSize: '0.82rem', color: '#047857', lineHeight: 1.45 }}>
-                  Because you declared Gift Aid, Masjid Al Falah will claim 25p on every £1 from HMRC at zero extra cost to you.
-                  Total value received by the charity: <strong>£{totalBenefit.toFixed(2)}</strong>.
+                <p style={{ margin: '0.2rem 0 0', fontSize: '0.78rem', color: '#047857', lineHeight: 1.45 }}>
+                  Because you declared Gift Aid, Masjid Al Falah will claim 25p on every £1 from HMRC at zero extra cost to you. Total charity benefit: <strong>£{totalBenefit.toFixed(2)}</strong>.
                 </p>
               </div>
             </div>
@@ -316,27 +280,26 @@ function SuccessContent() {
           {/* Verification & Audit Note */}
           <div
             style={{
-              fontSize: '0.78rem',
+              fontSize: '0.75rem',
               color: '#64748b',
               lineHeight: 1.5,
               borderTop: '1px solid #f1f5f9',
-              paddingTop: '1.25rem',
+              paddingTop: '1rem',
             }}
           >
-            Alfalah Community Support Centre is registered and audited under the UK Charities Act. For questions regarding your donation or tax receipts, email us at <a href="mailto:alfalahcsc@hotmail.com" style={{ color: '#059669', fontWeight: 700 }}>alfalahcsc@hotmail.com</a> or phone <a href="tel:07429188880" style={{ color: '#059669', fontWeight: 700 }}>07429 188880</a>.
+            Alfalah Community Support Centre is registered and audited under the UK Charities Act. For questions regarding your donation or tax receipts, email us at{' '}
+            <a href="mailto:alfalahcsc@hotmail.com" style={{ color: '#059669', fontWeight: 700, wordBreak: 'break-all' }}>
+              alfalahcsc@hotmail.com
+            </a>{' '}
+            or phone{' '}
+            <a href="tel:07429188880" style={{ color: '#059669', fontWeight: 700, whiteSpace: 'nowrap' }}>
+              07429 188880
+            </a>.
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '1rem',
-          }}
-        >
+        <div className="receipt-actions no-print">
           <button
             type="button"
             onClick={() => window.print()}
@@ -351,6 +314,7 @@ function SuccessContent() {
               cursor: 'pointer',
               display: 'inline-flex',
               alignItems: 'center',
+              justifyContent: 'center',
               gap: '0.5rem',
               boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
             }}
@@ -370,6 +334,7 @@ function SuccessContent() {
               textDecoration: 'none',
               display: 'inline-flex',
               alignItems: 'center',
+              justifyContent: 'center',
               gap: '0.5rem',
               boxShadow: '0 4px 14px rgba(5, 150, 105, 0.3)',
             }}

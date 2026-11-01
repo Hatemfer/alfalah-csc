@@ -43,7 +43,7 @@ const GIVING_CAUSES = [
   },
   {
     id: 'zakat',
-    title: 'Zakat al-Mal (100% Policy)',
+    title: 'Zakat al-Mal (Direct Distribution)',
     desc: 'Strictly distributed directly to eligible needy families',
     icon: Coins,
   },
@@ -501,7 +501,7 @@ export default function StripeDonationForm({
                   borderRadius: '9999px',
                 }}
               >
-                100% Policy
+                Direct Impact
               </span>
             </div>
 
