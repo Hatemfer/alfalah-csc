@@ -347,28 +347,46 @@ export default async function HomePage() {
               backgroundColor: '#ffffff',
               border: '2px solid #f59e0b',
               borderRadius: 'var(--radius-lg)',
-              padding: '2.75rem 2.5rem',
+              padding: 'clamp(1.5rem, 4vw, 2.75rem)',
               boxShadow: 'var(--shadow-md)',
             }}
           >
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
-                gap: '2rem',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
+                gap: '2.25rem',
                 alignItems: 'center',
               }}
             >
-              {/* Story */}
+              {/* Story & Interactive Bank Details */}
               <div>
-                <h2 style={{ fontSize: 'clamp(1.8rem, 3.2vw, 2.3rem)', fontWeight: 800, color: '#0f172a', marginBottom: '0.5rem' }}>
+                <div
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.4rem',
+                    backgroundColor: '#fef3c7',
+                    color: '#92400e',
+                    padding: '0.25rem 0.75rem',
+                    borderRadius: '9999px',
+                    fontSize: '0.74rem',
+                    fontWeight: 800,
+                    letterSpacing: '0.5px',
+                    marginBottom: '0.65rem',
+                  }}
+                >
+                  URGENT COMMUNITY APPEAL • TARGET £600K
+                </div>
+
+                <h2 style={{ fontSize: 'clamp(1.75rem, 3.2vw, 2.3rem)', fontWeight: 800, color: '#0f172a', marginBottom: '0.5rem', lineHeight: 1.2 }}>
                   A Permanent House of Allah in Balsall Heath
                 </h2>
-                <p style={{ fontSize: '1rem', color: '#475569', lineHeight: 1.6, marginBottom: '1.25rem' }}>
-                  Our community at 89 Tindal Street has the historic opportunity to permanently purchase the building that houses our prayer halls, youth STEM lab, and classrooms. Every brick pledged secures ongoing worship for generations to come.
+                <p style={{ fontSize: '0.98rem', color: '#475569', lineHeight: 1.6, marginBottom: '1.25rem' }}>
+                  Our community at 89 Tindal Street has the historic opportunity to permanently purchase the building that houses our prayer halls, youth STEM lab, and classrooms. Every brick and prayer mat pledged secures ongoing worship for generations to come.
                 </p>
 
-                {/* Progress Mini Bar */}
+                {/* Progress Bar */}
                 <div style={{ marginBottom: '1.25rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.35rem' }}>
                     <span style={{ color: '#065f46' }}>£218,500 Raised (36.4%)</span>
@@ -379,7 +397,7 @@ export default async function HomePage() {
                   </div>
                 </div>
 
-                {/* Bank Transfer 0% fees box */}
+                {/* Bank Transfer Box */}
                 <div
                   style={{
                     backgroundColor: '#ecfdf5',
@@ -410,39 +428,128 @@ export default async function HomePage() {
                 </div>
               </div>
 
-              {/* 3 Real Symbolic Giving Tiers */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-                {[
-                  { title: 'One Brick', amount: '£250', desc: 'Fund a brick towards securing our mosque walls', link: '/donate?amount=250&category=purchase' },
-                  { title: 'Half Prayer Mat', amount: '£500', desc: 'Sponsor half a prayer mat for continuous worshippers', link: '/donate?amount=500&category=purchase' },
-                  { title: 'Full Prayer Mat Space', amount: '£1,000', desc: 'Sponsor an entire prayer mat space for continuous reward', link: '/donate?amount=1000&category=purchase', popular: true },
-                ].map((tier) => (
-                  <Link
-                    key={tier.title}
-                    href={tier.link}
+              {/* Official Appeal Flyer Showcase & Quick Pledges */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <a
+                  href="/images/client-appeal.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Click to view full official appeal flyer"
+                  style={{
+                    display: 'block',
+                    position: 'relative',
+                    width: '100%',
+                    maxWidth: '380px',
+                    borderRadius: '16px',
+                    overflow: 'hidden',
+                    boxShadow: '0 10px 30px rgba(15, 23, 42, 0.12)',
+                    border: '1.5px solid #e2e8f0',
+                    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                  }}
+                >
+                  <img
+                    src="/images/client-appeal.jpg"
+                    alt="Masjid Al Falah Official Mosque Purchase Appeal"
                     style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      padding: '1.1rem 1.25rem',
-                      backgroundColor: tier.popular ? '#fffbeb' : '#ffffff',
-                      border: tier.popular ? '2px solid #f59e0b' : '1px solid #cbd5e1',
-                      borderRadius: 'var(--radius-md)',
-                      textDecoration: 'none',
-                      transition: 'all 0.15s ease',
+                      width: '100%',
+                      height: 'auto',
+                      display: 'block',
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      background: 'linear-gradient(to top, rgba(6, 78, 59, 0.95) 0%, rgba(6, 78, 59, 0.6) 70%, transparent 100%)',
+                      padding: '1.25rem 1rem 0.85rem',
+                      color: '#ffffff',
+                      textAlign: 'center',
                     }}
                   >
-                    <div>
-                      <div style={{ fontWeight: 800, fontSize: '1.05rem', color: '#0f172a' }}>
-                        {tier.title}
-                      </div>
-                      <div style={{ fontSize: '0.82rem', color: '#64748b' }}>{tier.desc}</div>
+                    <span
+                      style={{
+                        backgroundColor: '#f59e0b',
+                        color: '#0f172a',
+                        fontWeight: 800,
+                        fontSize: '0.74rem',
+                        padding: '0.25rem 0.75rem',
+                        borderRadius: '9999px',
+                        display: 'inline-block',
+                        marginBottom: '0.35rem',
+                      }}
+                    >
+                      OFFICIAL CHARITY APPEAL • TARGET £600K
+                    </span>
+                    <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#f0fdf4' }}>
+                      Click to View Full High-Res Flyer ↗
                     </div>
-                    <div style={{ fontSize: '1.35rem', fontWeight: 900, color: '#065f46', paddingLeft: '0.75rem', fontFamily: 'monospace' }}>
-                      {tier.amount}
-                    </div>
+                  </div>
+                </a>
+
+                {/* 3 Quick Pledge Tiers Matching the Poster */}
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
+                    gap: '0.5rem',
+                    width: '100%',
+                    maxWidth: '380px',
+                    marginTop: '0.85rem',
+                  }}
+                >
+                  <Link
+                    href="/donate?amount=250&category=purchase"
+                    style={{
+                      padding: '0.65rem 0.35rem',
+                      textAlign: 'center',
+                      backgroundColor: '#ffffff',
+                      border: '1.5px solid #e2e8f0',
+                      borderRadius: '12px',
+                      textDecoration: 'none',
+                      transition: 'all 0.15s ease',
+                      boxShadow: '0 2px 6px rgba(0,0,0,0.03)',
+                    }}
+                  >
+                    <div style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: 700 }}>One Brick</div>
+                    <div style={{ fontSize: '1rem', fontWeight: 800, color: '#065f46', fontFamily: 'monospace', marginTop: '1px' }}>£250</div>
                   </Link>
-                ))}
+
+                  <Link
+                    href="/donate?amount=500&category=purchase"
+                    style={{
+                      padding: '0.65rem 0.35rem',
+                      textAlign: 'center',
+                      backgroundColor: '#ffffff',
+                      border: '1.5px solid #e2e8f0',
+                      borderRadius: '12px',
+                      textDecoration: 'none',
+                      transition: 'all 0.15s ease',
+                      boxShadow: '0 2px 6px rgba(0,0,0,0.03)',
+                    }}
+                  >
+                    <div style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: 700 }}>One Mat</div>
+                    <div style={{ fontSize: '1rem', fontWeight: 800, color: '#065f46', fontFamily: 'monospace', marginTop: '1px' }}>£500</div>
+                  </Link>
+
+                  <Link
+                    href="/donate?amount=1000&category=purchase"
+                    style={{
+                      padding: '0.65rem 0.35rem',
+                      textAlign: 'center',
+                      backgroundColor: '#fffbeb',
+                      border: '1.5px solid #f59e0b',
+                      borderRadius: '12px',
+                      textDecoration: 'none',
+                      transition: 'all 0.15s ease',
+                      boxShadow: '0 2px 6px rgba(245, 158, 11, 0.12)',
+                    }}
+                  >
+                    <div style={{ fontSize: '0.72rem', color: '#92400e', fontWeight: 800 }}>Full Space</div>
+                    <div style={{ fontSize: '1rem', fontWeight: 800, color: '#065f46', fontFamily: 'monospace', marginTop: '1px' }}>£1,000</div>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
