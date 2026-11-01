@@ -146,7 +146,7 @@ export default function PrayerTimetable({
               }}
             >
               <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#10b981' }} />
-              MAWAQIT TIMETABLE
+              Live Timetable
             </span>
             <span style={{ fontSize: '1rem', fontWeight: 800, color: '#0f172a' }} suppressHydrationWarning>
               {todaySchedule.dateStr}
@@ -390,9 +390,6 @@ export default function PrayerTimetable({
           >
             {mounted ? nextPrayerInfo.countdown : '--:--:--'}
           </div>
-          <div style={{ fontSize: '0.75rem', color: '#93c5fd', marginTop: '0.25rem' }}>
-            Official MAWAQIT Real-time Feed
-          </div>
         </div>
       </div>
 
@@ -468,7 +465,7 @@ export default function PrayerTimetable({
                 gap: '0.4rem',
               }}
             >
-              <Monitor size={16} /> Live Mawaqit TV Screen
+              <Monitor size={16} /> Live TV Screen
             </button>
           </div>
 
@@ -506,9 +503,6 @@ export default function PrayerTimetable({
                   Verified times for Masjid Al Falah (Birmingham B12 9QU)
                 </p>
               </div>
-              <span className="badge badge-primary">
-                Official MAWAQIT Synced
-              </span>
             </div>
 
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
@@ -763,7 +757,7 @@ export default function PrayerTimetable({
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
             <div>
               <h3 style={{ fontSize: '1.3rem', fontWeight: 800, margin: 0, color: 'var(--text-primary)' }}>
-                Official MAWAQIT Live Screen
+                Mosque Live TV Screen
               </h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: '0.2rem 0 0' }}>
                 Full TV screen view synced live with the mosque prayer hall display

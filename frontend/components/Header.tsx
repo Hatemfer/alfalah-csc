@@ -15,11 +15,8 @@ import {
   MapPin,
   Clock,
   ChevronDown,
-  Building,
-  Users,
-  Coins,
+  Camera,
   GraduationCap,
-  HeartHandshake,
   LucideIcon,
 } from 'lucide-react';
 
@@ -39,44 +36,8 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { label: 'Home', href: '/' },
   { label: 'Prayer Times', href: '/prayer-times' },
-  {
-    label: 'Services',
-    href: '/services',
-    children: [
-      {
-        label: 'All Community Services',
-        href: '/services',
-        desc: 'Overview of community support & pastoral care',
-        icon: HeartHandshake,
-      },
-      {
-        label: '100% Zakat & Foodbank Relief',
-        href: '/services#welfare',
-        desc: '0% admin fee, emergency food parcels & hardship grants',
-        icon: Coins,
-      },
-      {
-        label: 'Nikah (Marriage) Solemnisation',
-        href: '/services#nikah',
-        desc: 'Sunnah ceremony, certificates & pre-marriage advice',
-        icon: Users,
-      },
-      {
-        label: 'Janazah & Bereavement Support',
-        href: '/services#janazah',
-        desc: '24/7 burial liaison, ritual washing & grief care',
-        icon: ShieldCheck,
-      },
-      {
-        label: 'School & Neighbour Visits',
-        href: '/services#visits',
-        desc: 'Welcoming Birmingham schools, colleges & guests',
-        icon: Building,
-      },
-    ],
-  },
-  { label: 'Academy & Lessons', href: '/activities' },
-  { label: 'Gallery', href: '/gallery' },
+  { label: 'Services', href: '/services' },
+  { label: 'Academy', href: '/activities' },
   { label: 'About', href: '/about' },
   {
     label: 'More',
@@ -93,6 +54,12 @@ const NAV_ITEMS: NavItem[] = [
         href: '/events',
         desc: 'Upcoming study circles, workshops & programmes',
         icon: GraduationCap,
+      },
+      {
+        label: 'Gallery & Media',
+        href: '/gallery',
+        desc: 'Mosque photo archive, community life & video tour',
+        icon: Camera,
       },
       {
         label: 'Qibla Direction Finder',
@@ -250,12 +217,12 @@ export function Header() {
         {/* Brand Logo & Emblem */}
         <Logo size="md" />
 
-        {/* Desktop Navigation Links (Direct 1-click links, with dropdown only when needed) */}
+        {/* Desktop Navigation Links */}
         <nav
           style={{
             display: 'none',
             alignItems: 'center',
-            gap: '0.5rem',
+            gap: '0.4rem',
           }}
           className="desktop-nav"
         >
@@ -269,25 +236,38 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  className="nav-link-item"
                   style={{
+                    position: 'relative',
                     display: 'inline-flex',
                     alignItems: 'center',
                     fontSize: '0.92rem',
-                    fontWeight: active ? 700 : 500,
-                    color: active ? 'var(--color-primary-900)' : 'var(--text-secondary)',
-                    borderBottom: active ? '2px solid var(--color-primary-800)' : '2px solid transparent',
-                    padding: '0.45rem 0.65rem',
-                    borderRadius: 'var(--radius-sm)',
+                    fontWeight: active ? 600 : 500,
+                    color: active ? '#047857' : '#475569',
+                    padding: '0.5rem 0.65rem',
                     textDecoration: 'none',
-                    transition: 'all var(--transition-fast)',
+                    transition: 'color 0.15s ease',
                   }}
                 >
                   {item.label}
+                  {active && (
+                    <span
+                      style={{
+                        position: 'absolute',
+                        bottom: '0',
+                        left: '0.65rem',
+                        right: '0.65rem',
+                        height: '2.5px',
+                        backgroundColor: '#059669',
+                        borderRadius: '2px',
+                      }}
+                    />
+                  )}
                 </Link>
               );
             }
 
-            // Item with children: Link is directly clickable, hover reveals sub-options
+            // Dropdown parent (e.g. More)
             return (
               <div
                 key={item.label}
@@ -295,59 +275,51 @@ export function Header() {
                 onMouseEnter={() => handleMouseEnter(item.label)}
                 onMouseLeave={handleMouseLeave}
               >
-                <div
+                <button
+                  type="button"
+                  onClick={() => setOpenDropdown(isOpen ? null : item.label)}
+                  aria-expanded={isOpen}
+                  aria-haspopup="true"
+                  className="nav-link-btn"
                   style={{
+                    position: 'relative',
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '0.25rem',
-                    borderRadius: 'var(--radius-sm)',
-                    backgroundColor: isOpen ? '#f1f5f9' : 'transparent',
-                    transition: 'background-color var(--transition-fast)',
+                    background: 'none',
+                    border: 'none',
+                    padding: '0.5rem 0.65rem',
+                    cursor: 'pointer',
+                    fontSize: '0.92rem',
+                    fontWeight: active ? 600 : 500,
+                    color: active || isOpen ? '#047857' : '#475569',
+                    fontFamily: 'inherit',
+                    transition: 'color 0.15s ease',
                   }}
                 >
-                  <Link
-                    href={item.href}
+                  <span>{item.label}</span>
+                  <ChevronDown
+                    size={14}
                     style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      fontSize: '0.92rem',
-                      fontWeight: active ? 700 : 500,
-                      color: active ? 'var(--color-primary-900)' : 'var(--text-secondary)',
-                      padding: '0.45rem 0.35rem 0.45rem 0.65rem',
-                      textDecoration: 'none',
-                      borderBottom: active ? '2px solid var(--color-primary-800)' : '2px solid transparent',
+                      transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                      transition: 'transform 0.2s ease',
+                      opacity: active || isOpen ? 0.9 : 0.6,
                     }}
-                  >
-                    {item.label}
-                  </Link>
-
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setOpenDropdown(isOpen ? null : item.label);
-                    }}
-                    aria-label={`Toggle ${item.label} menu`}
-                    style={{
-                      background: 'none',
-                      border: 'none',
-                      padding: '0.45rem 0.45rem 0.45rem 0',
-                      cursor: 'pointer',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      color: active ? 'var(--color-primary-900)' : 'var(--text-secondary)',
-                    }}
-                  >
-                    <ChevronDown
-                      size={14}
+                  />
+                  {active && (
+                    <span
                       style={{
-                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                        transition: 'transform 0.2s ease',
-                        opacity: 0.7,
+                        position: 'absolute',
+                        bottom: '0',
+                        left: '0.65rem',
+                        right: '0.65rem',
+                        height: '2.5px',
+                        backgroundColor: '#059669',
+                        borderRadius: '2px',
                       }}
                     />
-                  </button>
-                </div>
+                  )}
+                </button>
 
                 {/* Dropdown Card */}
                 {isOpen && item.children && (
@@ -355,14 +327,13 @@ export function Header() {
                     style={{
                       position: 'absolute',
                       top: 'calc(100% + 4px)',
-                      left: item.label === 'More' ? 'auto' : 0,
-                      right: item.label === 'More' ? 0 : 'auto',
-                      width: '320px',
+                      right: 0,
+                      width: '310px',
                       backgroundColor: '#ffffff',
-                      borderRadius: '14px',
+                      borderRadius: '12px',
                       border: '1px solid #e2e8f0',
                       boxShadow: '0 12px 32px -4px rgba(15, 23, 42, 0.12), 0 4px 12px -2px rgba(15, 23, 42, 0.06)',
-                      padding: '0.5rem',
+                      padding: '0.45rem',
                       display: 'flex',
                       flexDirection: 'column',
                       gap: '0.2rem',
@@ -372,6 +343,7 @@ export function Header() {
                   >
                     {item.children.map((child) => {
                       const Icon = child.icon;
+                      const isChildActive = pathname === child.href;
                       return (
                         <Link
                           key={child.href}
@@ -384,6 +356,7 @@ export function Header() {
                             padding: '0.6rem 0.65rem',
                             borderRadius: '8px',
                             textDecoration: 'none',
+                            backgroundColor: isChildActive ? '#f0fdf4' : 'transparent',
                             transition: 'background-color 0.15s ease',
                           }}
                           className="dropdown-item"
@@ -393,7 +366,7 @@ export function Header() {
                               width: '32px',
                               height: '32px',
                               borderRadius: '8px',
-                              backgroundColor: '#ecfdf5',
+                              backgroundColor: isChildActive ? '#dcfce7' : '#ecfdf5',
                               color: '#065f46',
                               display: 'flex',
                               alignItems: 'center',
@@ -405,7 +378,7 @@ export function Header() {
                             <Icon size={16} />
                           </div>
                           <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ fontSize: '0.86rem', fontWeight: 700, color: '#0f172a' }}>
+                            <div style={{ fontSize: '0.86rem', fontWeight: 700, color: isChildActive ? '#065f46' : '#0f172a' }}>
                               {child.label}
                             </div>
                             <div style={{ fontSize: '0.74rem', color: '#64748b', marginTop: '0.1rem', lineHeight: 1.3 }}>
@@ -761,6 +734,10 @@ export function Header() {
             opacity: 1;
             transform: translateY(0);
           }
+        }
+        :global(.nav-link-item:hover),
+        :global(.nav-link-btn:hover) {
+          color: #047857 !important;
         }
         :global(.dropdown-item:hover) {
           background-color: #f8fafc !important;
