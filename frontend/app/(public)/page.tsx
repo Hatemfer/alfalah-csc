@@ -27,6 +27,7 @@ import {
 import HeroSlider from '../../components/HeroSlider';
 import PrayerTimetable from '../../components/PrayerTimetable';
 import VirtualTourVideo from '../../components/VirtualTourVideo';
+import { ZakatWelfareCallout } from '../../components/ZakatWelfareCallout';
 
 const CENTRE_FACILITIES = [
   {
@@ -334,86 +335,8 @@ export default async function HomePage() {
             ))}
           </div>
 
-          {/* Action Callout for Zakat & Welfare */}
-          <div
-            style={{
-              backgroundColor: '#0f172a',
-              borderRadius: '20px',
-              padding: '2rem 2.5rem',
-              color: '#ffffff',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1.5rem',
-              border: '1px solid #1e293b',
-              boxShadow: '0 10px 25px -5px rgba(15, 23, 42, 0.1)',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexWrap: 'wrap',
-                gap: '1.5rem',
-              }}
-            >
-              <div>
-                <h3 style={{ fontSize: '1.5rem', fontWeight: 800, margin: '0 0 0.4rem', color: '#ffffff' }}>
-                  Fulfill Your Zakat Obligation Locally in Birmingham
-                </h3>
-                <p style={{ color: '#94a3b8', fontSize: '0.95rem', margin: 0, maxWidth: '650px', lineHeight: 1.5 }}>
-                  Give with confidence. Your contribution transforms lives in Balsall Heath, Sparkbrook, and surrounding communities with total transparency.
-                </p>
-              </div>
-
-              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                <Link
-                  href="/donate?category=zakat"
-                  className="btn btn-accent"
-                  style={{ fontWeight: 800, padding: '0.75rem 1.6rem', display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}
-                >
-                  <Heart size={16} fill="currentColor" /> Calculate & Pay 100% Zakat
-                </Link>
-                <Link
-                  href="/services#welfare"
-                  className="btn"
-                  style={{
-                    fontWeight: 700,
-                    padding: '0.75rem 1.4rem',
-                    backgroundColor: 'rgba(255, 255, 255, 0.12)',
-                    color: '#ffffff',
-                    border: '1px solid rgba(255, 255, 255, 0.25)',
-                  }}
-                >
-                  Request Welfare Support
-                </Link>
-              </div>
-            </div>
-
-            {/* Direct Bank Details for Zakat */}
-            <div
-              style={{
-                backgroundColor: 'rgba(0, 0, 0, 0.2)',
-                borderRadius: '12px',
-                padding: '0.85rem 1.25rem',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexWrap: 'wrap',
-                gap: '0.5rem',
-                fontSize: '0.82rem',
-              }}
-            >
-              <div>
-                <strong>Direct Bank Transfer (Al Rayan Bank):</strong> Sort Code:{' '}
-                <span style={{ fontFamily: 'monospace', color: '#6ee7b7' }}>30-00-83</span> • Account:{' '}
-                <span style={{ fontFamily: 'monospace', color: '#6ee7b7' }}>01298401</span> • Ref:{' '}
-                <span style={{ color: '#fef08a' }}>ZAKAT-ALFALAH</span>
-              </div>
-              <div style={{ color: '#cbd5e1' }}>0% Processing Fees • Official UK Charity</div>
-            </div>
-          </div>
+          {/* Action Callout for Zakat & Welfare with Interactive Calculator */}
+          <ZakatWelfareCallout />
         </div>
       </section>
 

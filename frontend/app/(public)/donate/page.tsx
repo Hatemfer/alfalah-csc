@@ -21,7 +21,9 @@ import {
   Mail,
   AlertCircle,
   HelpCircle,
+  Calculator,
 } from 'lucide-react';
+import { ZakatCalculatorModal } from '../../../components/ZakatCalculatorModal';
 
 // Fund Causes (Islamic Intention Selection)
 const FUND_CATEGORIES = [
@@ -119,6 +121,8 @@ function DonateContent() {
     totalBenefit: number;
     giftAidAmount: number;
   } | null>(null);
+
+  const [zakatModalOpen, setZakatModalOpen] = useState(false);
 
   // Sync with URL parameters on mount
   useEffect(() => {
@@ -739,6 +743,55 @@ UK Registered Charity #1150221`;
                       );
                     })}
                   </div>
+
+                  {/* Zakat al-Mal Helper Banner */}
+                  {fundId === 'zakat' && (
+                    <div
+                      style={{
+                        marginTop: '0.85rem',
+                        backgroundColor: '#ecfdf5',
+                        border: '1px solid #a7f3d0',
+                        borderRadius: '12px',
+                        padding: '0.85rem 1.15rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        flexWrap: 'wrap',
+                        gap: '0.75rem',
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                        <Calculator size={18} style={{ color: '#059669', flexShrink: 0 }} />
+                        <div>
+                          <div style={{ fontSize: '0.86rem', fontWeight: 700, color: '#065f46' }}>
+                            Need to calculate your 2026 Zakat al-Mal?
+                          </div>
+                          <div style={{ fontSize: '0.76rem', color: '#047857' }}>
+                            Current UK Silver Nisab: £485.00 • Strictly 2.5% rate • 100% Policy
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setZakatModalOpen(true)}
+                        style={{
+                          backgroundColor: '#059669',
+                          color: '#ffffff',
+                          border: 'none',
+                          borderRadius: '8px',
+                          padding: '0.45rem 0.9rem',
+                          fontSize: '0.8rem',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.35rem',
+                        }}
+                      >
+                        Open Zakat Calculator
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 {/* 4. PAYMENT METHOD SELECTOR & DETAILS */}
@@ -1493,6 +1546,9 @@ UK Registered Charity #1150221`;
           </div>
         </div>
       </div>
+
+      {/* Interactive Zakat Calculator Modal */}
+      <ZakatCalculatorModal isOpen={zakatModalOpen} onClose={() => setZakatModalOpen(false)} />
     </div>
   );
 }
