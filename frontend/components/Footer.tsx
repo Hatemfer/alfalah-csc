@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Logo } from './Logo';
-import { MapPin, Mail, ShieldCheck, Heart } from 'lucide-react';
+import { MapPin, Mail, ShieldCheck, Heart, Phone } from 'lucide-react';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -39,55 +39,61 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Navigation Links */}
+          {/* Column 2: Prayers & Community Services */}
           <div>
             <h4 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '1rem', color: 'var(--text-primary)' }}>
-              Quick Navigation
+              Prayers & Services
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.6rem', fontSize: '0.9rem' }}>
               <li>
-                <Link href="/about" style={{ color: 'var(--text-secondary)' }}>About Our Centre</Link>
+                <Link href="/prayer-times" style={{ color: 'var(--text-secondary)' }}>Daily Prayer Timetable</Link>
               </li>
               <li>
-                <Link href="/prayer-times" style={{ color: 'var(--text-secondary)' }}>Prayer Timetable & Iqamah</Link>
+                <Link href="/prayer-times#jumuah" style={{ color: 'var(--text-secondary)' }}>Friday Jumu’ah Prayers</Link>
+              </li>
+              <li>
+                <Link href="/services#welfare" style={{ color: 'var(--text-secondary)' }}>100% Zakat & Foodbank Relief</Link>
+              </li>
+              <li>
+                <Link href="/services#nikah" style={{ color: 'var(--text-secondary)' }}>Nikah Marriage Solemnisation</Link>
+              </li>
+              <li>
+                <Link href="/services#janazah" style={{ color: 'var(--text-secondary)' }}>Janazah & Bereavement Support</Link>
+              </li>
+              <li>
+                <Link href="/services#visits" style={{ color: 'var(--text-secondary)' }}>School & Neighbour Visits</Link>
               </li>
               <li>
                 <Link href="/qibla" style={{ color: 'var(--text-secondary)' }}>Qibla Direction Compass</Link>
               </li>
-              <li>
-                <Link href="/gallery" style={{ color: 'var(--text-secondary)' }}>Community Gallery & Tour</Link>
-              </li>
-              <li>
-                <Link href="/activities" style={{ color: 'var(--text-secondary)' }}>Community Programmes</Link>
-              </li>
-              <li>
-                <Link href="/events" style={{ color: 'var(--text-secondary)' }}>Upcoming Events & Circles</Link>
-              </li>
-              <li>
-                <Link href="/announcements" style={{ color: 'var(--text-secondary)' }}>Community Notices</Link>
-              </li>
             </ul>
           </div>
 
-          {/* Column 3: Charity & Giving */}
+          {/* Column 3: Academy, Media & Appeals */}
           <div>
             <h4 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '1rem', color: 'var(--text-primary)' }}>
-              Charity & Giving
+              Academy & Appeals
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.6rem', fontSize: '0.9rem' }}>
               <li>
-                <Link href="/donate" style={{ color: 'var(--color-primary-600)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
-                  <Heart size={14} style={{ fill: 'currentColor' }} /> Donate Online (Sadaqah)
+                <Link href="/donate?category=purchase" style={{ color: 'var(--color-primary-800)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                  <Heart size={14} style={{ fill: 'currentColor' }} /> Mosque Purchase Appeal
                 </Link>
               </li>
               <li>
-                <Link href="/donate" style={{ color: 'var(--text-secondary)' }}>Zakat al-Mal</Link>
+                <Link href="/donate?category=zakat" style={{ color: 'var(--text-secondary)' }}>100% Zakat al-Mal (0% Admin)</Link>
               </li>
               <li>
-                <Link href="/donate" style={{ color: 'var(--text-secondary)' }}>Gift Aid (+25% UK Tax Relief)</Link>
+                <Link href="/activities" style={{ color: 'var(--text-secondary)' }}>Weekend Madrasah & Academy</Link>
               </li>
               <li>
-                <Link href="/donate" style={{ color: 'var(--text-secondary)' }}>Bank Transfer & Standing Order</Link>
+                <Link href="/activities#tafsir" style={{ color: 'var(--text-secondary)' }}>Weekly Tafsir (Sheikh Jamal)</Link>
+              </li>
+              <li>
+                <Link href="/activities#stem" style={{ color: 'var(--text-secondary)' }}>Youth STEM & Electronics Lab</Link>
+              </li>
+              <li>
+                <Link href="/gallery" style={{ color: 'var(--text-secondary)' }}>Virtual Tour & Photo Gallery</Link>
               </li>
               <li>
                 <a
@@ -102,14 +108,14 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Contact & Location */}
+          {/* Column 4: Contact & Location */}
           <div>
             <h4 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '1rem', color: 'var(--text-primary)' }}>
               Location & Contact
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
-                <MapPin size={18} style={{ color: 'var(--color-primary-600)', flexShrink: 0, marginTop: '0.15rem' }} />
+                <MapPin size={18} style={{ color: 'var(--color-primary-700)', flexShrink: 0, marginTop: '0.15rem' }} />
                 <span>
                   89 Tindal Street, Balsall Heath,<br />
                   Birmingham, B12 9QU,<br />
@@ -117,10 +123,14 @@ export function Footer() {
                 </span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <Mail size={18} style={{ color: 'var(--color-primary-600)', flexShrink: 0 }} />
+                <Mail size={18} style={{ color: 'var(--color-primary-700)', flexShrink: 0 }} />
                 <a href="mailto:alfalahcsc@hotmail.com" style={{ textDecoration: 'underline' }}>
                   alfalahcsc@hotmail.com
                 </a>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+                <Phone size={18} style={{ color: 'var(--color-primary-700)', flexShrink: 0 }} />
+                <a href="tel:07429188880">07429 188880</a>
               </div>
               <div style={{ marginTop: '0.5rem' }}>
                 <Link href="/contact" className="btn btn-outline" style={{ fontSize: '0.85rem', padding: '0.5rem 1rem' }}>

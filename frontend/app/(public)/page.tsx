@@ -14,16 +14,19 @@ import {
   GraduationCap,
   Users,
   Compass,
-  CheckCircle2,
-  TrendingUp,
-  Building,
   Coins,
   Video,
   Camera,
   Play,
+  HeartHandshake,
+  Coffee,
+  Sparkles,
+  HelpCircle,
+  FileCheck,
 } from 'lucide-react';
 import HeroSlider from '../../components/HeroSlider';
 import PrayerTimetable from '../../components/PrayerTimetable';
+import VirtualTourVideo from '../../components/VirtualTourVideo';
 
 const CENTRE_FACILITIES = [
   {
@@ -82,7 +85,7 @@ async function getHomepageData() {
   }
 }
 
-// 6 Core Mosque Pillars matching UK Mosque Standards (Birmingham Central Mosque, ICCUK, East London Mosque)
+// 6 Core Mosque Pillars matching UK Mosque Standards
 const CORE_SERVICES = [
   {
     id: 'prayers',
@@ -102,9 +105,9 @@ const CORE_SERVICES = [
   },
   {
     id: 'welfare',
-    title: 'Zakat & Welfare Relief',
+    title: '100% Zakat & Welfare Relief',
     icon: Coins,
-    desc: 'Direct distribution to local needy families. Hardship grants, emergency food vouchers, and warm community support in Balsall Heath.',
+    desc: 'Direct distribution to local needy families with 0% admin fee deduction. Hardship grants, emergency food vouchers, and warm community support in Balsall Heath.',
     link: '/donate?category=zakat',
     linkText: 'Donate Zakat',
   },
@@ -148,7 +151,7 @@ export default async function HomePage() {
 
   return (
     <div>
-      {/* 1. Cinematic Full-Width Hero Slider with Auto Background Change */}
+      {/* 1. Cinematic Full-Width Hero Slider */}
       <HeroSlider />
 
       {/* 2. Sleek Prayer Times Strip — Crisp & Modern Light Card */}
@@ -197,7 +200,7 @@ export default async function HomePage() {
                     height: '46px',
                     borderRadius: '12px',
                     backgroundColor: '#ecfdf5',
-                    color: '#059669',
+                    color: '#065f46',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -218,7 +221,7 @@ export default async function HomePage() {
                     style={{
                       fontSize: '0.88rem',
                       fontWeight: 800,
-                      color: '#059669',
+                      color: '#065f46',
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '0.35rem',
@@ -234,8 +237,186 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 4. Urgent £600,000 Mosque Purchase Campaign Banner */}
+      {/* 4. INSPIRED FROM GREEN LANE MASJID: 100% Zakat & Community Welfare Relief Showcase */}
       <section style={{ padding: '4.5rem 0', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 3rem' }}>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                backgroundColor: '#ecfdf5',
+                color: '#065f46',
+                padding: '0.3rem 0.85rem',
+                borderRadius: '9999px',
+                fontSize: '0.78rem',
+                fontWeight: 800,
+                letterSpacing: '0.5px',
+                textTransform: 'uppercase',
+                marginBottom: '0.75rem',
+              }}
+            >
+              <ShieldCheck size={14} /> 100% Policy • 0% Administrative Deduction
+            </div>
+            <h2 style={{ fontSize: 'clamp(2rem, 3.8vw, 2.6rem)', fontWeight: 800, color: '#0f172a', marginBottom: '0.75rem' }}>
+              100% Local Zakat & Welfare Relief
+            </h2>
+            <p style={{ color: '#64748b', fontSize: '1.05rem', lineHeight: 1.6, margin: 0 }}>
+              Under Charity Commission Registration #1150221, Alfalah operates a strict 100% donation policy on all Zakat. Every single pound is distributed directly to vulnerable families, widows, and low-income residents in Birmingham.
+            </p>
+          </div>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gap: '1.5rem',
+              marginBottom: '2.5rem',
+            }}
+          >
+            {[
+              {
+                title: '0% Admin Fee Guarantee',
+                desc: 'Not a single penny is taken for administration or operating costs. 100% of your Zakat al-Mal directly reaches those in genuine need.',
+                icon: Coins,
+              },
+              {
+                title: 'Emergency Foodbank Parcels',
+                desc: 'Weekly distributions of non-perishable staple foods, halal provisions, and supermarket vouchers from 89 Tindal Street.',
+                icon: HeartHandshake,
+              },
+              {
+                title: 'Winter Warmth & Utility Grants',
+                desc: 'Crucial emergency hardship assistance to protect elderly and families from freezing temperatures and energy poverty.',
+                icon: Sparkles,
+              },
+              {
+                title: 'Confidential 48h Assessment',
+                desc: 'Compassionate, dignified assessment conducted promptly by our welfare committee to deliver immediate relief.',
+                icon: FileCheck,
+              },
+            ].map((pillar) => (
+              <div
+                key={pillar.title}
+                style={{
+                  backgroundColor: '#ffffff',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '16px',
+                  padding: '1.5rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.75rem',
+                  boxShadow: '0 2px 8px rgba(15, 23, 42, 0.04)',
+                }}
+              >
+                <div
+                  style={{
+                    width: '42px',
+                    height: '42px',
+                    borderRadius: '10px',
+                    backgroundColor: '#ecfdf5',
+                    color: '#065f46',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <pillar.icon size={20} />
+                </div>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>
+                  {pillar.title}
+                </h3>
+                <p style={{ fontSize: '0.88rem', color: '#64748b', lineHeight: 1.5, margin: 0 }}>
+                  {pillar.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Action Callout for Zakat & Welfare */}
+          <div
+            style={{
+              backgroundColor: '#064e3b',
+              borderRadius: '20px',
+              padding: '2rem 2.5rem',
+              color: '#ffffff',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1.5rem',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '1.5rem',
+              }}
+            >
+              <div>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 800, margin: '0 0 0.4rem', color: '#ffffff' }}>
+                  Fulfill Your Zakat Obligation Locally in Birmingham
+                </h3>
+                <p style={{ color: '#a7f3d0', fontSize: '0.95rem', margin: 0, maxWidth: '650px', lineHeight: 1.5 }}>
+                  Give with confidence. Your contribution transforms lives in Balsall Heath, Sparkbrook, and surrounding communities with total transparency.
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                <Link
+                  href="/donate?category=zakat"
+                  className="btn btn-accent"
+                  style={{ fontWeight: 800, padding: '0.75rem 1.6rem', display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}
+                >
+                  <Heart size={16} fill="currentColor" /> Calculate & Pay 100% Zakat
+                </Link>
+                <Link
+                  href="/services#welfare"
+                  className="btn"
+                  style={{
+                    fontWeight: 700,
+                    padding: '0.75rem 1.4rem',
+                    backgroundColor: 'rgba(255, 255, 255, 0.12)',
+                    color: '#ffffff',
+                    border: '1px solid rgba(255, 255, 255, 0.25)',
+                  }}
+                >
+                  Request Welfare Support
+                </Link>
+              </div>
+            </div>
+
+            {/* Direct Bank Details for Zakat */}
+            <div
+              style={{
+                backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                borderRadius: '12px',
+                padding: '0.85rem 1.25rem',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '0.5rem',
+                fontSize: '0.82rem',
+              }}
+            >
+              <div>
+                <strong>Direct Bank Transfer (Al Rayan Bank):</strong> Sort Code:{' '}
+                <span style={{ fontFamily: 'monospace', color: '#6ee7b7' }}>30-00-83</span> • Account:{' '}
+                <span style={{ fontFamily: 'monospace', color: '#6ee7b7' }}>01298401</span> • Ref:{' '}
+                <span style={{ color: '#fef08a' }}>ZAKAT-ALFALAH</span>
+              </div>
+              <div style={{ color: '#cbd5e1' }}>0% Processing Fees • Official UK Charity</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Urgent £600,000 Mosque Purchase Campaign Banner */}
+      <section style={{ padding: '4.5rem 0', backgroundColor: '#ffffff' }}>
         <div className="container">
           <div
             style={{
@@ -266,11 +447,11 @@ export default async function HomePage() {
                 {/* Progress Mini Bar */}
                 <div style={{ marginBottom: '1.25rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.35rem' }}>
-                    <span style={{ color: '#059669' }}>£218,500 Raised (36.4%)</span>
+                    <span style={{ color: '#065f46' }}>£218,500 Raised (36.4%)</span>
                     <span style={{ color: '#64748b' }}>Target: £600,000</span>
                   </div>
                   <div style={{ width: '100%', height: '10px', backgroundColor: '#e2e8f0', borderRadius: '9999px', overflow: 'hidden' }}>
-                    <div style={{ width: '36.4%', height: '100%', background: 'linear-gradient(90deg, #10b981 0%, #059669 100%)', borderRadius: '9999px' }} />
+                    <div style={{ width: '36.4%', height: '100%', background: 'linear-gradient(90deg, #10b981 0%, #065f46 100%)', borderRadius: '9999px' }} />
                   </div>
                 </div>
 
@@ -288,7 +469,7 @@ export default async function HomePage() {
                     Direct Bank Transfer (Al Rayan Bank)
                   </div>
                   <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0f172a', marginTop: '0.2rem' }}>
-                    Sort Code: <span style={{ fontFamily: 'monospace', color: '#059669' }}>30-00-83</span> • Account: <span style={{ fontFamily: 'monospace', color: '#059669' }}>01298401</span>
+                    Sort Code: <span style={{ fontFamily: 'monospace', color: '#065f46' }}>30-00-83</span> • Account: <span style={{ fontFamily: 'monospace', color: '#065f46' }}>01298401</span>
                   </div>
                   <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '0.2rem' }}>
                     Beneficiary: Alfalah Community Support Centre • Reference: <strong style={{ color: '#b45309' }}>PURCHASE-MOSQUE</strong>
@@ -305,7 +486,7 @@ export default async function HomePage() {
                 </div>
               </div>
 
-              {/* 3 Real Symbolic Giving Tiers linking dynamically to /donate */}
+              {/* 3 Real Symbolic Giving Tiers */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                 {[
                   { title: 'One Brick', amount: '£250', desc: 'Fund a brick towards securing our mosque walls', link: '/donate?amount=250&category=purchase' },
@@ -333,7 +514,7 @@ export default async function HomePage() {
                       </div>
                       <div style={{ fontSize: '0.82rem', color: '#64748b' }}>{tier.desc}</div>
                     </div>
-                    <div style={{ fontSize: '1.35rem', fontWeight: 900, color: '#059669', paddingLeft: '0.75rem', fontFamily: 'monospace' }}>
+                    <div style={{ fontSize: '1.35rem', fontWeight: 900, color: '#065f46', paddingLeft: '0.75rem', fontFamily: 'monospace' }}>
                       {tier.amount}
                     </div>
                   </Link>
@@ -344,8 +525,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 5.5. Real Centre Facilities & Video Tour Showcase */}
-      <section style={{ padding: '4.5rem 0', backgroundColor: '#f1f5f9', borderBottom: '1px solid #e2e8f0' }}>
+      {/* 6. Real Centre Facilities & Interactive Video Tour Showcase (Using Real Video Walkthrough) */}
+      <section style={{ padding: '4.5rem 0', backgroundColor: '#f1f5f9', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }}>
         <div className="container">
           <div
             style={{
@@ -358,11 +539,25 @@ export default async function HomePage() {
             }}
           >
             <div>
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  color: '#065f46',
+                  fontWeight: 700,
+                  fontSize: '0.82rem',
+                  textTransform: 'uppercase',
+                  marginBottom: '0.35rem',
+                }}
+              >
+                <Video size={16} /> Authentic Walkthrough Tour & Photos
+              </div>
               <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', fontWeight: 800, color: '#0f172a', marginBottom: '0.5rem' }}>
                 Explore Our Centre & Facilities
               </h2>
               <p style={{ color: '#64748b', fontSize: '1rem', maxWidth: '680px', margin: 0 }}>
-                A vibrant multi-facility grassroots centre in Balsall Heath, Birmingham — serving spiritual, educational, and community needs under one roof.
+                A vibrant multi-facility grassroots centre at 89 Tindal Street, Balsall Heath — serving spiritual, educational, and community needs under one roof.
               </p>
             </div>
 
@@ -376,126 +571,141 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* Facilities Cards Grid */}
+          {/* Interactive Virtual Video Tour Player Component */}
+          <VirtualTourVideo />
+        </div>
+      </section>
+
+      {/* 7. INSPIRED FROM GREEN LANE MASJID: Weekly Tafsir Series & Resident Scholars Spotlight */}
+      <section style={{ padding: '4.5rem 0', backgroundColor: '#ffffff' }}>
+        <div className="container">
           <div
             style={{
+              backgroundColor: '#f8fafc',
+              borderRadius: '24px',
+              border: '1px solid #e2e8f0',
+              overflow: 'hidden',
+              padding: '2.5rem',
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '1.75rem',
-              marginBottom: '2.5rem',
-            }}
-          >
-            {CENTRE_FACILITIES.map((fac) => (
-              <Link
-                key={fac.title}
-                href={fac.link}
-                style={{
-                  backgroundColor: '#ffffff',
-                  borderRadius: '18px',
-                  overflow: 'hidden',
-                  border: '1px solid #e2e8f0',
-                  boxShadow: '0 4px 14px rgba(15, 23, 42, 0.04)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  textDecoration: 'none',
-                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                }}
-                className="facility-card"
-              >
-                <div style={{ position: 'relative', width: '100%', height: '220px', backgroundColor: '#0f172a' }}>
-                  <Image
-                    src={fac.image}
-                    alt={fac.title}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                    sizes="(max-width: 768px) 100vw, 380px"
-                  />
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: '10px',
-                      left: '10px',
-                      backgroundColor: 'rgba(5, 150, 105, 0.95)',
-                      color: '#ffffff',
-                      fontSize: '0.72rem',
-                      fontWeight: 700,
-                      padding: '0.25rem 0.65rem',
-                      borderRadius: '9999px',
-                      backdropFilter: 'blur(4px)',
-                    }}
-                  >
-                    {fac.category}
-                  </div>
-                </div>
-
-                <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                  <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.4rem' }}>
-                    {fac.title}
-                  </h3>
-                  <p style={{ fontSize: '0.88rem', color: '#64748b', lineHeight: 1.5, margin: 0, flex: 1 }}>
-                    {fac.desc}
-                  </p>
-                  <div style={{ marginTop: '0.85rem', color: '#059669', fontSize: '0.85rem', fontWeight: 800, display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-                    Explore Details <ArrowRight size={13} />
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          {/* Video Tour Callout Card */}
-          <div
-            style={{
-              backgroundColor: '#0f172a',
-              borderRadius: '20px',
-              padding: '2rem 2.5rem',
-              color: '#ffffff',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '2rem',
+              gap: '3rem',
               alignItems: 'center',
             }}
           >
-            <div>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#34d399', fontWeight: 700, fontSize: '0.8rem', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
-                <Video size={16} /> Virtual Video Walkthrough
-              </div>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 800, margin: '0 0 0.5rem', color: '#ffffff' }}>
-                Experience the Atmosphere at Alfalah Centre
-              </h3>
-              <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
-                Take a quick virtual tour of our prayer halls, the vibrant Sakeena Learning Hub, the outdoor garden marquee, and community spaces at 89 Tindal Street.
-              </p>
-            </div>
-
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'flex-start' }}>
-              <Link
-                href="/gallery"
-                className="btn btn-accent"
-                style={{ padding: '0.8rem 1.6rem', fontWeight: 800, display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
-              >
-                <Play size={16} fill="currentColor" /> Watch Video Tour & Photos
-              </Link>
-              <Link
-                href="/contact"
-                className="btn"
+            {/* Column 1: Real Poster Frame */}
+            <div
+              style={{
+                position: 'relative',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: '0 12px 30px -4px rgba(15, 23, 42, 0.15)',
+                aspectRatio: '3/4',
+                maxHeight: '480px',
+                backgroundColor: '#0f172a',
+              }}
+            >
+              <Image
+                src="/images/real/poster-tafsir-sheikh-jamal.jpg"
+                alt="Weekly Tafsir Series with Sheikh Jamal bin Saeed Al-Jabarti"
+                fill
+                style={{ objectFit: 'cover' }}
+                sizes="(max-width: 768px) 100vw, 420px"
+              />
+              <div
                 style={{
-                  padding: '0.8rem 1.4rem',
-                  fontWeight: 700,
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  position: 'absolute',
+                  top: '12px',
+                  left: '12px',
+                  backgroundColor: 'rgba(6, 78, 59, 0.95)',
                   color: '#ffffff',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  fontSize: '0.75rem',
+                  fontWeight: 800,
+                  padding: '0.35rem 0.75rem',
+                  borderRadius: '9999px',
+                  backdropFilter: 'blur(4px)',
                 }}
               >
-                Plan a Visit in Person
-              </Link>
+                Every Saturday Post-Maghrib
+              </div>
+            </div>
+
+            {/* Column 2: Lecture Details & Hospitality */}
+            <div>
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  backgroundColor: '#ecfdf5',
+                  color: '#065f46',
+                  fontSize: '0.8rem',
+                  fontWeight: 800,
+                  padding: '0.3rem 0.75rem',
+                  borderRadius: '9999px',
+                  textTransform: 'uppercase',
+                  marginBottom: '0.75rem',
+                }}
+              >
+                <GraduationCap size={15} /> Knowledge & Spiritual Growth
+              </div>
+
+              <h2 style={{ fontSize: 'clamp(1.75rem, 3.2vw, 2.2rem)', fontWeight: 800, color: '#0f172a', marginBottom: '0.75rem' }}>
+                Weekly Tafsir Lesson (Surah Al-Hujurat) with Sheikh Jamal Al-Jabarti
+              </h2>
+
+              <p style={{ color: '#475569', fontSize: '1rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+                Join our resident scholar, Sheikh Jamal bin Saeed Al-Jabarti, every Saturday evening after Salat al-Maghrib for verse-by-verse Quranic reflection, practical rulings, and spiritual purification in the heart of Birmingham.
+              </p>
+
+              {/* Key Features */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', marginBottom: '1.75rem' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
+                  <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#ecfdf5', color: '#065f46', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Coffee size={16} />
+                  </div>
+                  <div>
+                    <strong style={{ fontSize: '0.92rem', color: '#0f172a' }}>Traditional Somali Spiced Tea (Shaah) & Dates</strong>
+                    <div style={{ fontSize: '0.82rem', color: '#64748b' }}>Complimentary warm hospitality served after every session to build community bonds.</div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
+                  <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#ecfdf5', color: '#065f46', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Users size={16} />
+                  </div>
+                  <div>
+                    <strong style={{ fontSize: '0.92rem', color: '#0f172a' }}>Sisters’ Audio-Linked Secondary Hall</strong>
+                    <div style={{ fontSize: '0.82rem', color: '#64748b' }}>Dedicated private hall with live audio and screen link for sisters and families.</div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
+                  <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#ecfdf5', color: '#065f46', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <HelpCircle size={16} />
+                  </div>
+                  <div>
+                    <strong style={{ fontSize: '0.92rem', color: '#0f172a' }}>Interactive Q&A Session</strong>
+                    <div style={{ fontSize: '0.82rem', color: '#64748b' }}>Dedicated question period addressing family, youth, and practical everyday Islamic life.</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action buttons */}
+              <div style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap' }}>
+                <Link href="/activities#tafsir" className="btn btn-primary" style={{ fontWeight: 800, padding: '0.75rem 1.4rem' }}>
+                  View Circle Schedule →
+                </Link>
+                <Link href="/contact" className="btn btn-outline" style={{ fontWeight: 700, padding: '0.75rem 1.25rem' }}>
+                  Ask a Scholar
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 6. Alfalah Academy & Educational Activities (Robotics, Handmade, Deen, Quran) */}
-      <section style={{ padding: '4.5rem 0', backgroundColor: '#ffffff' }}>
+      {/* 8. Alfalah Academy & Educational Activities (Robotics, Handmade, Deen, Quran) */}
+      <section style={{ padding: '4.5rem 0', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0' }}>
         <div className="container">
           <div
             style={{
@@ -581,7 +791,7 @@ export default async function HomePage() {
                     >
                       <span
                         style={{
-                          backgroundColor: 'rgba(5, 150, 105, 0.9)',
+                          backgroundColor: 'rgba(6, 78, 59, 0.95)',
                           color: '#ffffff',
                           fontWeight: 800,
                           fontSize: '0.75rem',
@@ -631,14 +841,14 @@ export default async function HomePage() {
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.75rem', borderTop: '1px solid #f1f5f9' }}>
                       <span style={{ fontSize: '0.8rem', color: '#64748b', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-                        <MapPin size={12} style={{ color: '#059669' }} /> {act.location || 'Alfalah Centre'}
+                        <MapPin size={12} style={{ color: '#065f46' }} /> {act.location || 'Alfalah Centre'}
                       </span>
                       <Link
                         href={`/activities/${act.slug}`}
                         style={{
                           fontSize: '0.88rem',
                           fontWeight: 800,
-                          color: '#059669',
+                          color: '#065f46',
                           textDecoration: 'none',
                           display: 'inline-flex',
                           alignItems: 'center',
@@ -656,7 +866,74 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 7. Verified Location & Map Section */}
+      {/* 9. INSPIRED FROM GREEN LANE MASJID: Welcoming Non-Muslim Neighbours, Schools & Reverts */}
+      <section style={{ padding: '4rem 0', backgroundColor: '#ffffff', borderTop: '1px solid #e2e8f0' }}>
+        <div className="container">
+          <div
+            style={{
+              backgroundColor: '#f8fafc',
+              border: '1.5px solid #cbd5e1',
+              borderRadius: '20px',
+              padding: '2.5rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1.5rem',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '1.5rem',
+              }}
+            >
+              <div style={{ maxWidth: '720px' }}>
+                <div
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.4rem',
+                    color: '#065f46',
+                    fontSize: '0.8rem',
+                    fontWeight: 800,
+                    textTransform: 'uppercase',
+                    marginBottom: '0.5rem',
+                  }}
+                >
+                  <Compass size={15} /> Community Outreach & Welcome
+                </div>
+                <h3 style={{ fontSize: 'clamp(1.5rem, 2.5vw, 1.85rem)', fontWeight: 800, color: '#0f172a', margin: '0 0 0.5rem' }}>
+                  Visiting Alfalah for the First Time?
+                </h3>
+                <p style={{ color: '#64748b', fontSize: '0.98rem', lineHeight: 1.6, margin: 0 }}>
+                  We warmly open our doors to non-Muslim neighbours, local primary and secondary school visits across Birmingham, and provide dedicated one-to-one mentorship and free English Quran translations for new Muslims.
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                <Link
+                  href="/services#visits"
+                  className="btn btn-primary"
+                  style={{ fontWeight: 800, padding: '0.75rem 1.4rem' }}
+                >
+                  Book a School / Group Visit
+                </Link>
+                <Link
+                  href="/contact"
+                  className="btn btn-outline"
+                  style={{ fontWeight: 700, padding: '0.75rem 1.4rem' }}
+                >
+                  Request Free Quran & Info
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 10. Verified Location & Map Section */}
       <section
         style={{
           padding: '4.5rem 0',
@@ -683,7 +960,7 @@ export default async function HomePage() {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2rem' }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
-                  <MapPin size={22} style={{ color: '#059669', flexShrink: 0, marginTop: '0.2rem' }} />
+                  <MapPin size={22} style={{ color: '#065f46', flexShrink: 0, marginTop: '0.2rem' }} />
                   <div>
                     <strong style={{ fontSize: '1.05rem', color: '#0f172a' }}>89 Tindal Street</strong><br />
                     Balsall Heath, Birmingham<br />
@@ -691,7 +968,7 @@ export default async function HomePage() {
                   </div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  <ShieldCheck size={22} style={{ color: '#059669', flexShrink: 0 }} />
+                  <ShieldCheck size={22} style={{ color: '#065f46', flexShrink: 0 }} />
                   <div style={{ color: '#0f172a' }}>Charity Commission Registration: <strong>#1150221</strong></div>
                 </div>
               </div>
@@ -741,4 +1018,3 @@ export default async function HomePage() {
     </div>
   );
 }
-
