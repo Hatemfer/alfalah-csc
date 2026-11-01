@@ -49,9 +49,9 @@ export default async function EventDetailPage({
     <div style={{ paddingBottom: '4rem' }}>
       <section
         style={{
-          background: 'var(--hero-gradient)',
-          color: '#ffffff',
-          padding: '3.5rem 1.5rem',
+          background: 'linear-gradient(180deg, #ecfdf5 0%, #f8fafc 100%)',
+          borderBottom: '1px solid #e2e8f0',
+          padding: '3rem 1.5rem 2.5rem',
         }}
       >
         <div className="container" style={{ maxWidth: '850px' }}>
@@ -61,7 +61,8 @@ export default async function EventDetailPage({
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
-              color: '#d1fae5',
+              color: '#059669',
+              fontWeight: 600,
               fontSize: '0.9rem',
               marginBottom: '1rem',
             }}
@@ -70,16 +71,23 @@ export default async function EventDetailPage({
           </Link>
 
           <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.75rem' }}>
-            <span className="badge badge-gold">{event.category}</span>
-            {event.isFeatured && <span className="badge">Featured</span>}
+            <span className="badge" style={{ backgroundColor: '#059669', color: '#ffffff', fontWeight: 700 }}>
+              {event.category}
+            </span>
+            {event.isFeatured && (
+              <span className="badge" style={{ backgroundColor: '#f59e0b', color: '#ffffff', fontWeight: 700 }}>
+                Featured
+              </span>
+            )}
           </div>
 
           <h1
             style={{
-              fontSize: 'clamp(2rem, 4vw, 2.75rem)',
+              fontSize: 'clamp(2.1rem, 4vw, 2.75rem)',
               fontWeight: 800,
               marginBottom: '0.75rem',
-              color: '#ffffff',
+              color: '#0f172a',
+              letterSpacing: '-0.025em',
             }}
           >
             {event.title}

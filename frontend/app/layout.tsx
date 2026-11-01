@@ -7,7 +7,7 @@ import { Footer } from '../components/Footer';
 export const metadata: Metadata = {
   title: 'ALFALAH COMMUNITY SUPPORT CENTRE | Birmingham, UK (Charity #1150221)',
   description:
-    'Official website for Alfalah Community Support Centre (مركز الفلاح الإسلامي) at 89 Tindal Street, Balsall Heath, Birmingham B12 9QU. Live prayer times, community programmes, educational circles, and notices.',
+    'Official website for Alfalah Community Support Centre at 89 Tindal Street, Balsall Heath, Birmingham B12 9QU. Live prayer times, community programmes, educational circles, and notices.',
   keywords: [
     'Alfalah Community Support Centre',
     'Alfalah Mosque Birmingham',

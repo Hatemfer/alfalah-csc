@@ -1,27 +1,57 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ThemeToggle } from './ThemeToggle';
 import { Logo } from './Logo';
-import { Menu, X, Compass, Clock, Heart, ShieldCheck } from 'lucide-react';
+import {
+  Menu,
+  X,
+  Heart,
+  ShieldCheck,
+  Calendar,
+  Phone,
+  Compass,
+  MapPin,
+  Clock,
+} from 'lucide-react';
 
 const NAV_ITEMS = [
   { label: 'Home', href: '/' },
+  { label: 'Prayer Times', href: '/prayer-times' },
+  { label: 'Services', href: '/services' },
+  { label: 'Academy & Lessons', href: '/activities' },
   { label: 'About', href: '/about' },
-  { label: 'Prayer Times', href: '/prayer-times', icon: Clock },
-  { label: 'Qibla', href: '/qibla', icon: Compass },
-  { label: 'Activities', href: '/activities' },
-  { label: 'Events', href: '/events' },
-  { label: 'Announcements', href: '/announcements' },
-  { label: 'Donate', href: '/donate', icon: Heart },
   { label: 'Contact', href: '/contact' },
 ];
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const [formattedDates, setFormattedDates] = useState<{ greg: string; hijri: string }>({
+    greg: 'Thursday, 29 October 2026',
+    hijri: '18 Jumada I 1448 AH',
+  });
+
+  useEffect(() => {
+    try {
+      const now = new Date();
+      const greg = new Intl.DateTimeFormat('en-GB', {
+        weekday: 'short',
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+      }).format(now);
+      const hijri = new Intl.DateTimeFormat('en-GB-u-ca-islamic-umalqura', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      }).format(now);
+      setFormattedDates({ greg, hijri });
+    } catch {
+      // Fallback already set
+    }
+  }, []);
 
   return (
     <header
@@ -36,13 +66,14 @@ export function Header() {
         transition: 'background-color var(--transition-normal)',
       }}
     >
-      {/* Top Banner with Charity Registration & Quick Info */}
+      {/* Top Banner with Charity Registration & Live Dates (Light, Crisp & Dignified) */}
       <div
         style={{
-          backgroundColor: 'var(--color-primary-800)',
-          color: '#ffffff',
+          backgroundColor: '#f8fafc',
+          borderBottom: '1px solid #e2e8f0',
+          color: '#475569',
           padding: '0.35rem 1rem',
-          fontSize: '0.8rem',
+          fontSize: '0.78rem',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -50,34 +81,26 @@ export function Header() {
           gap: '0.5rem',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-            <ShieldCheck size={14} style={{ color: 'var(--color-accent-400)' }} />
-            Registered UK Charity <strong>#1150221</strong>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', color: '#047857', fontWeight: 700 }}>
+            <Calendar size={13} />
+            {formattedDates.greg} • {formattedDates.hijri}
           </span>
-          <span style={{ opacity: 0.8 }}>|</span>
-          <span style={{ opacity: 0.9 }}>Balsall Heath, Birmingham B12 9QU</span>
+          <span style={{ opacity: 0.4 }} className="header-meta-desktop">|</span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }} className="header-meta-desktop">
+            <ShieldCheck size={13} style={{ color: '#059669' }} />
+            Charity <strong>#1150221</strong>
+          </span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <span className="arabic-title" style={{ fontSize: '0.95rem', color: '#e2f5ec' }}>
-            مركز الفلاح الإسلامي
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <span style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 600 }} className="header-meta-desktop">
+            Balsall Heath, Birmingham B12 9QU
           </span>
-          <Link
-            href="/admin"
-            style={{
-              fontSize: '0.75rem',
-              color: '#d1fae5',
-              textDecoration: 'underline',
-              opacity: 0.9,
-            }}
-          >
-            Staff Portal
-          </Link>
         </div>
       </div>
 
       {/* Main Navigation Bar */}
-      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.85rem 1.5rem' }}>
+      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.75rem 1.25rem' }}>
         {/* Brand Logo & Emblem */}
         <Logo size="md" />
 
@@ -92,7 +115,6 @@ export function Header() {
         >
           {NAV_ITEMS.map((item) => {
             const isActive = pathname === item.href;
-            const Icon = item.icon;
             return (
               <Link
                 key={item.href}
@@ -100,58 +122,40 @@ export function Header() {
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.35rem',
                   fontSize: '0.9rem',
                   fontWeight: isActive ? 700 : 500,
-                  color: isActive ? 'var(--color-primary-600)' : 'var(--text-secondary)',
-                  borderBottom: isActive ? '2px solid var(--color-primary-600)' : '2px solid transparent',
+                  color: isActive ? 'var(--color-primary-700)' : 'var(--text-secondary)',
+                  borderBottom: isActive ? '2px solid var(--color-primary-700)' : '2px solid transparent',
                   padding: '0.25rem 0',
                   transition: 'color var(--transition-fast)',
                 }}
               >
-                {Icon && <Icon size={15} />}
                 {item.label}
               </Link>
             );
           })}
         </nav>
 
-        {/* Actions (Theme Switcher + Donate CTA + Mobile Toggle) */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <ThemeToggle />
-
+        {/* Actions (Donate CTA + Mobile Toggle) */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+          {/* Always visible Donate CTA on mobile and desktop */}
           <Link
             href="/donate"
-            className="btn btn-accent"
+            className="btn btn-accent header-donate-cta"
             style={{
-              padding: '0.45rem 1rem',
-              fontSize: '0.85rem',
+              padding: '0.45rem 1.15rem',
+              fontSize: '0.88rem',
               borderRadius: 'var(--radius-full)',
-              display: 'none',
+              display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.35rem',
+              gap: '0.4rem',
               fontWeight: 800,
-              boxShadow: '0 2px 8px rgba(217, 119, 6, 0.35)',
+              boxShadow: '0 4px 14px rgba(225, 29, 72, 0.35)',
+              whiteSpace: 'nowrap',
             }}
-            id="header-donate-cta"
           >
             <Heart size={14} style={{ fill: 'currentColor' }} />
-            Donate
-          </Link>
-
-          <Link
-            href="/prayer-times"
-            className="btn btn-primary"
-            style={{
-              padding: '0.45rem 0.9rem',
-              fontSize: '0.85rem',
-              borderRadius: 'var(--radius-full)',
-              display: 'none',
-            }}
-            id="header-prayer-cta"
-          >
-            <Clock size={14} />
-            Prayer Times
+            <span>Donate</span>
           </Link>
 
           {/* Mobile Menu Toggle Button */}
@@ -167,7 +171,7 @@ export function Header() {
               border: 'none',
               color: 'var(--text-primary)',
               cursor: 'pointer',
-              padding: '0.5rem',
+              padding: '0.4rem',
             }}
             className="mobile-toggle"
           >
@@ -186,6 +190,7 @@ export function Header() {
             display: 'flex',
             flexDirection: 'column',
             gap: '0.75rem',
+            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)',
           }}
         >
           <Link
@@ -194,7 +199,7 @@ export function Header() {
             className="btn btn-accent"
             style={{
               width: '100%',
-              padding: '0.75rem',
+              padding: '0.85rem',
               fontWeight: 800,
               textAlign: 'center',
               display: 'flex',
@@ -202,11 +207,88 @@ export function Header() {
               justifyContent: 'center',
               gap: '0.5rem',
               marginBottom: '0.5rem',
+              borderRadius: 'var(--radius-md)',
             }}
           >
             <Heart size={16} style={{ fill: 'currentColor' }} />
-            Donate to Support Centre
+            Donate to Masjid Purchase Appeal
           </Link>
+
+          {/* Mobile Quick Action Buttons Grid */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: '0.5rem',
+              marginBottom: '0.75rem',
+            }}
+          >
+            <Link
+              href="/prayer-times"
+              onClick={() => setMobileOpen(false)}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '0.35rem',
+                padding: '0.6rem 0.35rem',
+                backgroundColor: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
+                borderRadius: 'var(--radius-sm)',
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                color: 'var(--text-primary)',
+                textDecoration: 'none',
+              }}
+            >
+              <Clock size={16} style={{ color: 'var(--color-primary-600)' }} />
+              Timetable
+            </Link>
+            <Link
+              href="/qibla"
+              onClick={() => setMobileOpen(false)}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '0.35rem',
+                padding: '0.6rem 0.35rem',
+                backgroundColor: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
+                borderRadius: 'var(--radius-sm)',
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                color: 'var(--text-primary)',
+                textDecoration: 'none',
+              }}
+            >
+              <Compass size={16} style={{ color: 'var(--color-primary-600)' }} />
+              Qibla
+            </Link>
+            <a
+              href="https://maps.google.com/?q=89+Tindal+Street,+Birmingham+B12+9QU"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileOpen(false)}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '0.35rem',
+                padding: '0.6rem 0.35rem',
+                backgroundColor: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
+                borderRadius: 'var(--radius-sm)',
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                color: 'var(--text-primary)',
+                textDecoration: 'none',
+              }}
+            >
+              <MapPin size={16} style={{ color: 'var(--color-primary-600)' }} />
+              Find Us
+            </a>
+          </div>
 
           {NAV_ITEMS.map((item) => (
             <Link
@@ -217,7 +299,7 @@ export function Header() {
                 fontSize: '1rem',
                 fontWeight: pathname === item.href ? 700 : 500,
                 color: pathname === item.href ? 'var(--color-primary-600)' : 'var(--text-primary)',
-                padding: '0.45rem 0',
+                padding: '0.55rem 0',
                 borderBottom: '1px solid var(--border-subtle)',
                 display: 'flex',
                 alignItems: 'center',
@@ -227,35 +309,55 @@ export function Header() {
               {item.label}
             </Link>
           ))}
-          <div style={{ paddingTop: '0.5rem' }}>
+
+          <div
+            style={{
+              paddingTop: '0.75rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.6rem',
+              fontSize: '0.85rem',
+            }}
+          >
+            <a
+              href="tel:07429188880"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                color: 'var(--text-secondary)',
+                textDecoration: 'none',
+              }}
+            >
+              <Phone size={14} style={{ color: 'var(--color-primary-600)' }} />
+              07429 188880 (Direct Enquiries)
+            </a>
             <Link
               href="/admin"
               onClick={() => setMobileOpen(false)}
               style={{
-                fontSize: '0.9rem',
                 color: 'var(--text-muted)',
-                display: 'block',
+                fontSize: '0.8rem',
               }}
             >
-              Administrator & Staff Login →
+              Administrator & Staff Portal →
             </Link>
           </div>
         </div>
       )}
 
       <style jsx>{`
+        @media (max-width: 768px) {
+          .header-meta-desktop {
+            display: none !important;
+          }
+        }
         @media (min-width: 900px) {
           .desktop-nav {
             display: flex !important;
           }
           .mobile-toggle {
             display: none !important;
-          }
-          #header-donate-cta {
-            display: inline-flex !important;
-          }
-          #header-prayer-cta {
-            display: inline-flex !important;
           }
         }
       `}</style>

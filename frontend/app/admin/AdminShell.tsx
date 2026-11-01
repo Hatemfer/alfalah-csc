@@ -93,7 +93,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 1.5 }}>
         <Box
           component="img"
-          src="/images/logo-emblem.png"
+          src="/images/logo-emblem.svg"
           alt="Alfalah Crest"
           sx={{
             width: 44,

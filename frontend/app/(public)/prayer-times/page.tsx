@@ -11,50 +11,28 @@ export const metadata = {
 export default function PrayerTimesPage() {
   return (
     <div style={{ paddingBottom: '4rem' }}>
-      {/* Header Banner - Lighter, Fresh & Modern */}
+      {/* Header Banner - Clean, Luminous & Modern */}
       <section
         style={{
-          background: 'linear-gradient(135deg, #065f46 0%, #047857 60%, #0d9488 100%)',
-          color: '#ffffff',
-          padding: '3.5rem 1.5rem',
+          background: 'linear-gradient(180deg, #ecfdf5 0%, #f8fafc 100%)',
+          borderBottom: '1px solid #e2e8f0',
+          padding: '3rem 1.5rem 2.5rem',
           textAlign: 'center',
-          position: 'relative',
         }}
       >
         <div className="container" style={{ maxWidth: '850px' }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              backgroundColor: 'rgba(255, 255, 255, 0.15)',
-              backdropFilter: 'blur(8px)',
-              padding: '0.4rem 1rem',
-              borderRadius: '9999px',
-              fontSize: '0.85rem',
-              fontWeight: 700,
-              marginBottom: '1rem',
-              border: '1px solid rgba(255, 255, 255, 0.25)',
-            }}
-          >
-            <Clock size={15} style={{ color: 'var(--color-accent-400)' }} />
-            Official MAWAQIT Live Mosque Display
-          </div>
-
           <h1
             style={{
-              fontSize: 'clamp(2.2rem, 4vw, 3rem)',
+              fontSize: 'clamp(2.1rem, 4vw, 2.85rem)',
               fontWeight: 800,
-              marginBottom: '0.5rem',
-              color: '#ffffff',
+              marginBottom: '0.6rem',
+              color: '#0f172a',
+              letterSpacing: '-0.025em',
             }}
           >
             Masjid Al Falah Prayer Timetable
           </h1>
-          <p className="arabic-title" style={{ fontSize: '1.5rem', color: '#fef3c7', marginBottom: '0.75rem' }}>
-            مواقيت الصلاة وإقامة الجماعة — مسجد الفلاح
-          </p>
-          <p style={{ fontSize: '1.05rem', color: '#d1fae5', lineHeight: 1.6, maxWidth: '650px', margin: '0 auto' }}>
+          <p style={{ fontSize: '1.05rem', color: '#475569', lineHeight: 1.6, maxWidth: '650px', margin: '0 auto' }}>
             Synchronised in real-time with our mosque display board at 89 Tindal Street, Balsall Heath, Birmingham (B12 9QU).
           </p>
         </div>

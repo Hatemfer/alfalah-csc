@@ -51,7 +51,7 @@ export default function AdminLoginPage() {
         <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Box
             component="img"
-            src="/images/logo-emblem.png"
+            src="/images/logo-emblem.svg"
             alt="Alfalah Logo"
             sx={{
               width: 84,

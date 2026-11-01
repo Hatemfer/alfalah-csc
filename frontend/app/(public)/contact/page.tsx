@@ -43,33 +43,28 @@ export default function ContactPage() {
 
   return (
     <div style={{ paddingBottom: '4rem' }}>
-      {/* Page Header */}
+      {/* Page Header - Clean, Luminous & Modern */}
       <section
         style={{
-          background: 'var(--hero-gradient)',
-          color: '#ffffff',
-          padding: '4rem 1.5rem',
+          background: 'linear-gradient(180deg, #ecfdf5 0%, #f8fafc 100%)',
+          borderBottom: '1px solid #e2e8f0',
+          padding: '3rem 1.5rem 2.5rem',
           textAlign: 'center',
         }}
       >
         <div className="container" style={{ maxWidth: '800px' }}>
-          <span className="badge badge-gold" style={{ marginBottom: '0.75rem' }}>
-            Get In Touch
-          </span>
           <h1
             style={{
-              fontSize: 'clamp(2rem, 4vw, 2.75rem)',
+              fontSize: 'clamp(2.1rem, 4vw, 2.75rem)',
               fontWeight: 800,
-              marginBottom: '0.5rem',
-              color: '#ffffff',
+              marginBottom: '0.6rem',
+              color: '#0f172a',
+              letterSpacing: '-0.025em',
             }}
           >
             Contact Alfalah Centre
           </h1>
-          <p className="arabic-title" style={{ fontSize: '1.4rem', color: '#fef3c7', marginBottom: '1rem' }}>
-            تواصل معنا
-          </p>
-          <p style={{ fontSize: '1.05rem', color: '#d1fae5', lineHeight: 1.6 }}>
+          <p style={{ fontSize: '1.05rem', color: '#475569', lineHeight: 1.6, maxWidth: '650px', margin: '0 auto' }}>
             We welcome inquiries from community members, families, and neighbours across Birmingham.
           </p>
         </div>

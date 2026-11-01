@@ -31,9 +31,9 @@ export default async function ActivityDetailPage({
     <div style={{ paddingBottom: '4rem' }}>
       <section
         style={{
-          background: 'var(--hero-gradient)',
-          color: '#ffffff',
-          padding: '3.5rem 1.5rem',
+          background: 'linear-gradient(180deg, #ecfdf5 0%, #f8fafc 100%)',
+          borderBottom: '1px solid #e2e8f0',
+          padding: '3rem 1.5rem 2.5rem',
         }}
       >
         <div className="container" style={{ maxWidth: '850px' }}>
@@ -43,7 +43,8 @@ export default async function ActivityDetailPage({
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
-              color: '#d1fae5',
+              color: '#059669',
+              fontWeight: 600,
               fontSize: '0.9rem',
               marginBottom: '1rem',
             }}
@@ -52,15 +53,18 @@ export default async function ActivityDetailPage({
           </Link>
 
           <div style={{ marginBottom: '0.75rem' }}>
-            <span className="badge badge-gold">{activity.category}</span>
+            <span className="badge" style={{ backgroundColor: '#059669', color: '#ffffff', fontWeight: 700 }}>
+              {activity.category}
+            </span>
           </div>
 
           <h1
             style={{
-              fontSize: 'clamp(2rem, 4vw, 2.75rem)',
+              fontSize: 'clamp(2.1rem, 4vw, 2.75rem)',
               fontWeight: 800,
               marginBottom: '0.75rem',
-              color: '#ffffff',
+              color: '#0f172a',
+              letterSpacing: '-0.025em',
             }}
           >
             {activity.title}

@@ -13,24 +13,25 @@ export default function PrivacyPage() {
     <div style={{ paddingBottom: '4rem' }}>
       <section
         style={{
-          background: 'var(--hero-gradient)',
-          color: '#ffffff',
-          padding: '3.5rem 1.5rem',
+          background: 'linear-gradient(180deg, #ecfdf5 0%, #f8fafc 100%)',
+          borderBottom: '1px solid #e2e8f0',
+          padding: '3rem 1.5rem 2.5rem',
           textAlign: 'center',
         }}
       >
         <div className="container" style={{ maxWidth: '800px' }}>
           <h1
             style={{
-              fontSize: 'clamp(2rem, 4vw, 2.5rem)',
+              fontSize: 'clamp(2.1rem, 4vw, 2.75rem)',
               fontWeight: 800,
-              marginBottom: '0.5rem',
-              color: '#ffffff',
+              marginBottom: '0.6rem',
+              color: '#0f172a',
+              letterSpacing: '-0.025em',
             }}
           >
             Privacy Notice & Legal Information
           </h1>
-          <p style={{ fontSize: '1rem', color: '#d1fae5' }}>
+          <p style={{ fontSize: '1rem', color: '#475569' }}>
             ALFALAH COMMUNITY SUPPORT CENTRE | UK Registered Charity No. 1150221
           </p>
         </div>

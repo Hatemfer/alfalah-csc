@@ -5,42 +5,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
 
 :root {
-  /* Brand Palette (Fresh Luminous Emerald & Warm Gold) */
+  /* Brand Palette (Lighter, Fresh Luminous Emerald & Sage) */
   --color-primary-900: #064e3b;
   --color-primary-800: #047857;
   --color-primary-700: #059669;
   --color-primary-600: #10b981;
   --color-primary-500: #34d399;
-  --color-primary-100: #d1fae5;
+  --color-primary-100: #ecfdf5;
   --color-primary-50:  #f0fdf4;
 
-  --color-accent-600:  #b45309;
-  --color-accent-500:  #d97706;
-  --color-accent-400:  #f59e0b;
-  --color-accent-100:  #fef3c7;
-  --color-accent-50:   #fffbeb;
+  /* High-Contrast Action Palette for Donate CTA (Vibrant Coral / Ruby Red — UK Charity Standard) */
+  --color-accent-700:  #9f1239;
+  --color-accent-600:  #be123c;
+  --color-accent-500:  #e11d48;
+  --color-accent-400:  #f43f5e;
+  --color-accent-100:  #ffe4e6;
+  --color-accent-50:   #fff1f2;
+  --color-accent-shadow: rgba(225, 29, 72, 0.35);
 
-  /* Light Theme Surfaces & Text (Crisp, Clean & Lighter) */
-  --bg-page:           #f8fafc;
+  /* Light Theme Surfaces & Text (Crisp, Airy & Modern Light) */
+  --bg-page:           #fcfdfd;
   --bg-surface:        #ffffff;
-  --bg-surface-alt:    #f1f5f9;
+  --bg-surface-alt:    #f8fafc;
   --bg-surface-elevated: #ffffff;
   --border-color:      #e2e8f0;
-  --border-subtle:     #edf2f7;
+  --border-subtle:     #f1f5f9;
   
   --text-primary:      #0f172a;
   --text-secondary:    #475569;
   --text-muted:        #64748b;
   --text-inverse:      #ffffff;
 
-  --nav-bg:            rgba(255, 255, 255, 0.95);
-  --hero-gradient:     linear-gradient(135deg, #065f46 0%, #047857 50%, #0f766e 100%);
+  --nav-bg:            rgba(255, 255, 255, 0.98);
+  --hero-gradient:     linear-gradient(135deg, #059669 0%, #0d9488 50%, #10b981 100%);
 
   /* Shadow & Elevation */
-  --shadow-sm:         0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md:         0 4px 12px rgba(6, 78, 59, 0.08);
-  --shadow-lg:         0 10px 25px rgba(6, 78, 59, 0.12);
-  --shadow-xl:         0 20px 40px rgba(6, 78, 59, 0.16);
+  --shadow-sm:         0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md:         0 4px 12px rgba(5, 150, 105, 0.07);
+  --shadow-lg:         0 10px 25px rgba(5, 150, 105, 0.10);
+  --shadow-xl:         0 20px 40px rgba(5, 150, 105, 0.14);
 
   /* Radius & Transitions */
   --radius-sm:         6px;
@@ -179,11 +182,15 @@ img {
 .btn-accent {
   background-color: var(--color-accent-500);
   color: #ffffff;
+  box-shadow: 0 4px 14px var(--color-accent-shadow);
+  font-weight: 700;
+  transition: all var(--transition-fast);
 }
 
 .btn-accent:hover {
   background-color: var(--color-accent-600);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(225, 29, 72, 0.45);
 }
 
 .btn-outline {
@@ -209,4 +216,71 @@ img {
 .card:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-3px);
+}
+
+.donate-card {
+  padding: 2.25rem 2.5rem;
+}
+
+.donate-card:hover {
+  transform: none;
+}
+
+@media (max-width: 640px) {
+  .donate-card {
+    padding: 1.25rem 1rem !important;
+  }
+}
+
+.donate-amount-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.65rem;
+}
+
+@media (max-width: 820px) {
+  .donate-amount-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .donate-amount-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.45rem;
+  }
+}
+
+.donate-cause-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .donate-cause-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Print Utilities for Official Receipts */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  header, footer, nav, .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .print-receipt-card {
+    border: 2px solid #065f46 !important;
+    box-shadow: none !important;
+    padding: 2rem !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-radius: 8px !important;
+  }
 }

@@ -29,7 +29,18 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const CATEGORIES = ['Education', 'Youth', 'Sisters', 'Charity', 'Community', 'Elders'];
+const CATEGORIES = [
+  'Robotics & STEM',
+  'Handmade & Arts',
+  'Quran & Tajweed',
+  'Deen & Islamic Studies',
+  'Education',
+  'Youth',
+  'Sisters',
+  'Charity',
+  'Community',
+  'Elders',
+];
 
 export default function AdminActivitiesPage() {
   const [activities, setActivities] = useState<any[]>([]);
@@ -38,11 +49,12 @@ export default function AdminActivitiesPage() {
   const [formData, setFormData] = useState<any>({
     title: '',
     slug: '',
-    category: 'Education',
+    category: 'Robotics & STEM',
     shortDescription: '',
     fullDescription: '',
     scheduleInfo: '',
     location: 'Alfalah Community Support Centre',
+    imageUrl: '',
     isPublished: true,
   });
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -73,11 +85,12 @@ export default function AdminActivitiesPage() {
     setFormData({
       title: '',
       slug: '',
-      category: 'Education',
+      category: 'Robotics & STEM',
       shortDescription: '',
       fullDescription: '',
       scheduleInfo: '',
       location: 'Alfalah Community Support Centre',
+      imageUrl: '',
       isPublished: true,
     });
     setDialogOpen(true);
@@ -293,6 +306,14 @@ export default function AdminActivitiesPage() {
             placeholder="e.g. Every Saturday 10:00 - 12:30"
             value={formData.scheduleInfo}
             onChange={(e) => setFormData({ ...formData, scheduleInfo: e.target.value })}
+          />
+          <TextField
+            label="Image URL or Path"
+            fullWidth
+            placeholder="e.g. /images/hero-quran.jpg or uploaded media URL"
+            value={formData.imageUrl || ''}
+            onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+            helperText="Activity photo displayed on cards and details page"
           />
           <TextField
             label="Location"
