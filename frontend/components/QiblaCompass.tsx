@@ -89,11 +89,11 @@ export function QiblaCompass() {
 
   return (
     <div
+      className="qibla-card"
       style={{
         background: 'var(--bg-surface)',
         border: '1px solid var(--border-color)',
         borderRadius: 'var(--radius-lg)',
-        padding: '2rem',
         boxShadow: 'var(--shadow-md)',
         maxWidth: '540px',
         margin: '0 auto',
@@ -114,8 +114,8 @@ export function QiblaCompass() {
       <div
         style={{
           position: 'relative',
-          width: '240px',
-          height: '240px',
+          width: 'min(240px, 68vw)',
+          height: 'min(240px, 68vw)',
           margin: '0 auto 1.5rem',
           borderRadius: '50%',
           border: '4px solid var(--color-primary-700)',
@@ -240,6 +240,17 @@ export function QiblaCompass() {
           )}
         </div>
       )}
+
+      <style jsx>{`
+        .qibla-card {
+          padding: 2rem;
+        }
+        @media (max-width: 480px) {
+          .qibla-card {
+            padding: 1.25rem 0.85rem !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

@@ -48,8 +48,8 @@ export default function QiblaPage() {
             style={{
               marginTop: '2.5rem',
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '1.5rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+              gap: '1.25rem',
             }}
           >
             <div className="card">

@@ -97,7 +97,7 @@ export default function AboutPage() {
               backgroundColor: '#ffffff',
               borderRadius: '24px',
               border: '1px solid #e2e8f0',
-              padding: '2.5rem',
+              padding: 'clamp(1.25rem, 4vw, 2.5rem)',
               boxShadow: '0 8px 30px rgba(15, 23, 42, 0.05)',
               marginBottom: '3rem',
             }}
@@ -105,8 +105,8 @@ export default function AboutPage() {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '2.5rem',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+                gap: '2rem',
                 alignItems: 'center',
               }}
             >
@@ -289,8 +289,8 @@ export default function AboutPage() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '1.75rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+              gap: '1.5rem',
               marginBottom: '4rem',
             }}
           >
@@ -335,7 +335,7 @@ export default function AboutPage() {
               backgroundColor: '#ffffff',
               borderRadius: '24px',
               border: '1px solid #e2e8f0',
-              padding: '2.5rem',
+              padding: 'clamp(1.25rem, 4vw, 2.5rem)',
               boxShadow: '0 8px 30px rgba(15, 23, 42, 0.05)',
               marginBottom: '3rem',
             }}
@@ -343,8 +343,8 @@ export default function AboutPage() {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '2.5rem',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+                gap: '2rem',
                 alignItems: 'center',
               }}
             >
@@ -396,9 +396,9 @@ export default function AboutPage() {
               backgroundColor: '#ecfdf5',
               border: '1.5px solid #10b981',
               borderRadius: '20px',
-              padding: '2rem 2.5rem',
+              padding: 'clamp(1.25rem, 4vw, 2rem)',
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
               gap: '1.5rem',
               alignItems: 'center',
             }}

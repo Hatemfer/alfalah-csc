@@ -120,11 +120,29 @@ img {
   padding: 0 1.5rem;
 }
 
+@media (max-width: 640px) {
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+}
+
 /* Typography Helpers */
 .arabic-title {
   font-family: 'Amiri', serif;
   font-weight: 700;
   letter-spacing: 0.5px;
+}
+
+@media (max-width: 360px) {
+  .logo-arabic {
+    display: none !important;
+  }
 }
 
 /* Badges & Tags */

@@ -152,8 +152,8 @@ export default function ServicesPage() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-              gap: '2rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+              gap: '1.5rem',
             }}
           >
             {SERVICES.map((srv) => (
@@ -235,10 +235,10 @@ export default function ServicesPage() {
               backgroundColor: '#ffffff',
               border: '2px solid #059669',
               borderRadius: 'var(--radius-lg)',
-              padding: '2rem 2.5rem',
+              padding: 'clamp(1.25rem, 4vw, 2rem)',
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '2rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+              gap: '1.5rem',
               alignItems: 'center',
             }}
           >

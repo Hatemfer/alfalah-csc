@@ -333,8 +333,8 @@ export default function GalleryPage() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-              gap: '1.5rem',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
+              gap: '1.25rem',
             }}
           >
             {filteredItems.map((item) => (
@@ -408,10 +408,10 @@ export default function GalleryPage() {
               backgroundColor: '#ffffff',
               borderRadius: '20px',
               border: '2px solid #059669',
-              padding: '2rem 2.5rem',
+              padding: 'clamp(1.25rem, 4vw, 2rem)',
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '2rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+              gap: '1.5rem',
               alignItems: 'center',
             }}
           >

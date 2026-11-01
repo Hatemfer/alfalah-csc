@@ -29,10 +29,10 @@ export function ZakatWelfareCallout() {
   return (
     <>
       <div
+        className="zakat-callout-card"
         style={{
           background: 'linear-gradient(135deg, #064e3b 0%, #065f46 55%, #047857 100%)',
           borderRadius: '24px',
-          padding: '2.5rem',
           color: '#ffffff',
           display: 'flex',
           flexDirection: 'column',
@@ -92,7 +92,7 @@ export function ZakatWelfareCallout() {
             }}
           >
             <ShieldCheck size={14} />
-            0% Admin Fee • 100% to Local Families
+            0% Admin Fee
           </span>
         </div>
 
@@ -125,7 +125,7 @@ export function ZakatWelfareCallout() {
           </div>
 
           {/* Action Buttons */}
-          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+          <div className="zakat-callout-actions" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
             {/* 1. Interactive Zakat Calculator Trigger */}
             <button
               type="button"
@@ -227,6 +227,7 @@ export function ZakatWelfareCallout() {
           <button
             type="button"
             onClick={handleCopyBank}
+            className="zakat-callout-bank-btn"
             style={{
               background: copied ? '#059669' : 'rgba(255, 255, 255, 0.12)',
               border: '1px solid rgba(255, 255, 255, 0.25)',
@@ -250,6 +251,32 @@ export function ZakatWelfareCallout() {
 
       {/* Interactive Modal */}
       <ZakatCalculatorModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+
+      <style jsx>{`
+        .zakat-callout-card {
+          padding: 2.5rem;
+        }
+        @media (max-width: 640px) {
+          .zakat-callout-card {
+            padding: 1.5rem 1rem !important;
+            border-radius: 16px !important;
+          }
+          :global(.zakat-callout-actions) {
+            flex-direction: column !important;
+            width: 100% !important;
+            align-items: stretch !important;
+          }
+          :global(.zakat-callout-actions) button,
+          :global(.zakat-callout-actions) a {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+          :global(.zakat-callout-bank-btn) {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+        }
+      `}</style>
     </>
   );
 }

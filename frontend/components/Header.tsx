@@ -745,8 +745,9 @@ export function Header() {
         :global(.dropdown-item:hover div) {
           color: #064e3b !important;
         }
-        @media (max-width: 768px) {
-          .header-meta-desktop {
+        @media (max-width: 767px) {
+          .header-meta-desktop,
+          :global(.header-donate-cta) {
             display: none !important;
           }
         }

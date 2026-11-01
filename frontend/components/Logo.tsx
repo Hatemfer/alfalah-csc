@@ -61,7 +61,7 @@ export function Logo({
               AL FALAH
             </span>
             <span
-              className="arabic-title"
+              className="arabic-title logo-arabic"
               style={{
                 fontSize: dimensions.arabicSize,
                 color: '#065f46',

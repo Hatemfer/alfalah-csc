@@ -49,12 +49,12 @@ export default function PrayerTimesPage() {
           <div
             className="card"
             style={{
-              padding: '2rem',
+              padding: 'clamp(1.25rem, 4vw, 2rem)',
               backgroundColor: 'var(--bg-surface-alt)',
               border: '1px solid var(--border-color)',
             }}
           >
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.5rem' }}>
               <div>
                 <h3 style={{ fontSize: '1.15rem', fontWeight: 800, marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <MapPin size={18} style={{ color: 'var(--color-primary-600)' }} /> Mosque Location & Facilities
