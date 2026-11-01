@@ -314,22 +314,8 @@ export default function PrayerTimetable({
   return (
     <div className="prayer-timetable-container">
       {/* Top Header Card: Dates & Next Prayer Countdown */}
-      <div
-        style={{
-          background: 'linear-gradient(135deg, #064e3b 0%, #065f46 100%)',
-          borderRadius: 'var(--radius-lg)',
-          padding: '1.75rem 2rem',
-          color: '#ffffff',
-          marginBottom: '1.75rem',
-          boxShadow: 'var(--shadow-lg)',
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '1.5rem',
-        }}
-      >
-        <div>
+      <div className="prayer-full-hero">
+        <div className="prayer-full-hero-content">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.4rem', flexWrap: 'wrap' }}>
             <span
               style={{
@@ -353,43 +339,27 @@ export default function PrayerTimetable({
 
           <h2
             style={{
-              fontSize: '1.9rem',
+              fontSize: 'clamp(1.35rem, 4vw, 1.9rem)',
               fontWeight: 800,
               color: '#ffffff',
               margin: '0 0 0.25rem',
+              lineHeight: 1.25,
             }}
           >
             {todaySchedule.dateStr}
           </h2>
-          <p style={{ margin: 0, color: '#d1fae5', fontSize: '0.9rem' }}>
+          <p style={{ margin: 0, color: '#d1fae5', fontSize: '0.85rem', lineHeight: 1.4 }}>
             Masjid Al Falah • 89 Tindal Street, Balsall Heath, Birmingham (B12 9QU)
           </p>
         </div>
 
         {/* Next Prayer Countdown Callout */}
-        <div
-          style={{
-            backgroundColor: 'rgba(0, 0, 0, 0.25)',
-            border: '1px solid rgba(255, 255, 255, 0.25)',
-            backdropFilter: 'blur(10px)',
-            borderRadius: 'var(--radius-md)',
-            padding: '1rem 1.5rem',
-            textAlign: 'center',
-            minWidth: '220px',
-          }}
-        >
-          <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: '#fbbf24', fontWeight: 800, letterSpacing: '0.05em' }} suppressHydrationWarning>
+        <div className="prayer-full-hero-countdown">
+          <div className="prayer-full-countdown-label" suppressHydrationWarning>
             Next: {nextPrayerInfo.name} ({nextPrayerInfo.time})
           </div>
           <div
-            style={{
-              fontSize: '1.75rem',
-              fontWeight: 800,
-              fontFamily: 'monospace',
-              color: '#ffffff',
-              marginTop: '0.2rem',
-              letterSpacing: '0.05em',
-            }}
+            className="prayer-full-countdown-time"
             suppressHydrationWarning
           >
             {mounted ? nextPrayerInfo.countdown : '--:--:--'}
@@ -399,87 +369,38 @@ export default function PrayerTimetable({
 
       {/* Tab Controls */}
       {showTabs && (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '1.5rem',
-            flexWrap: 'wrap',
-            gap: '1rem',
-            borderBottom: '1px solid var(--border-color)',
-            paddingBottom: '0.75rem',
-          }}
-        >
-          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+        <div className="prayer-tabs-container">
+          <div className="prayer-tabs-list">
             <button
               type="button"
               onClick={() => setActiveTab('today')}
-              style={{
-                backgroundColor: activeTab === 'today' ? 'var(--color-primary-600)' : 'var(--bg-surface)',
-                color: activeTab === 'today' ? '#ffffff' : 'var(--text-primary)',
-                border: '1px solid var(--border-color)',
-                padding: '0.55rem 1.1rem',
-                borderRadius: 'var(--radius-md)',
-                fontSize: '0.9rem',
-                fontWeight: 700,
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.4rem',
-              }}
+              className={`prayer-tab-btn ${activeTab === 'today' ? 'active' : ''}`}
             >
-              <Clock size={16} /> Today&apos;s Schedule
+              <Clock size={15} /> Today&apos;s Schedule
             </button>
 
             <button
               type="button"
               onClick={() => setActiveTab('month')}
-              style={{
-                backgroundColor: activeTab === 'month' ? 'var(--color-primary-600)' : 'var(--bg-surface)',
-                color: activeTab === 'month' ? '#ffffff' : 'var(--text-primary)',
-                border: '1px solid var(--border-color)',
-                padding: '0.55rem 1.1rem',
-                borderRadius: 'var(--radius-md)',
-                fontSize: '0.9rem',
-                fontWeight: 700,
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.4rem',
-              }}
+              className={`prayer-tab-btn ${activeTab === 'month' ? 'active' : ''}`}
             >
-              <Calendar size={16} /> Monthly Schedule ({monthNames[selectedMonth]})
+              <Calendar size={15} /> Monthly ({monthNames[selectedMonth]})
             </button>
 
             <button
               type="button"
               onClick={() => setActiveTab('mawaqit-screen')}
-              style={{
-                backgroundColor: activeTab === 'mawaqit-screen' ? 'var(--color-primary-600)' : 'var(--bg-surface)',
-                color: activeTab === 'mawaqit-screen' ? '#ffffff' : 'var(--text-primary)',
-                border: '1px solid var(--border-color)',
-                padding: '0.55rem 1.1rem',
-                borderRadius: 'var(--radius-md)',
-                fontSize: '0.9rem',
-                fontWeight: 700,
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.4rem',
-              }}
+              className={`prayer-tab-btn ${activeTab === 'mawaqit-screen' ? 'active' : ''}`}
             >
-              <Monitor size={16} /> Live TV Screen
+              <Monitor size={15} /> Live TV Screen
             </button>
-          </div>
 
-          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
             <Link
               href="/qibla"
-              className="btn btn-outline"
-              style={{ fontSize: '0.85rem', padding: '0.45rem 0.85rem' }}
+              className="prayer-tab-btn"
+              style={{ textDecoration: 'none' }}
             >
-              <Compass size={14} /> Qibla Direction
+              <Compass size={15} /> Qibla Direction
             </Link>
           </div>
         </div>
@@ -490,26 +411,23 @@ export default function PrayerTimetable({
         <div>
           {/* Detailed Timetable Table */}
           <div
-            className="card"
+            className="card prayer-full-card"
             style={{
-              padding: '1.5rem',
-              border: '1px solid var(--border-color)',
-              marginBottom: '2rem',
               overflowX: 'auto',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
               <div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0, color: 'var(--text-primary)' }}>
+                <h3 style={{ fontSize: 'clamp(1.05rem, 3.5vw, 1.25rem)', fontWeight: 800, margin: 0, color: 'var(--text-primary)', lineHeight: 1.3 }}>
                   Today&apos;s Complete Congregation Schedule
                 </h3>
-                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: '0.2rem 0 0' }}>
+                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '0.2rem 0 0' }}>
                   Verified times for Masjid Al Falah (Birmingham B12 9QU)
                 </p>
               </div>
             </div>
 
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+            <table className="prayer-table-responsive" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '480px' }}>
               <thead>
                 <tr style={{ borderBottom: '2px solid var(--border-color)', backgroundColor: 'var(--bg-surface-alt)' }}>
                   <th style={{ padding: '0.85rem 1rem', fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-secondary)' }}>SALAH (PRAYER)</th>
@@ -652,7 +570,7 @@ export default function PrayerTimetable({
 
       {/* TAB 2: MONTHLY TIMETABLE SCHEDULE */}
       {activeTab === 'month' && (
-        <div className="card" style={{ padding: '1.5rem', border: '1px solid var(--border-color)', marginBottom: '2rem' }}>
+        <div className="card prayer-full-card" style={{ marginBottom: '2rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.75rem' }}>
             <div>
               <h3 style={{ fontSize: '1.3rem', fontWeight: 800, margin: 0, color: 'var(--text-primary)' }}>
@@ -757,7 +675,7 @@ export default function PrayerTimetable({
 
       {/* TAB 3: LIVE MAWAQIT SCREEN EMBED */}
       {activeTab === 'mawaqit-screen' && (
-        <div className="card" style={{ padding: '1.5rem', border: '1px solid var(--border-color)', marginBottom: '2rem' }}>
+        <div className="card prayer-full-card" style={{ marginBottom: '2rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
             <div>
               <h3 style={{ fontSize: '1.3rem', fontWeight: 800, margin: 0, color: 'var(--text-primary)' }}>

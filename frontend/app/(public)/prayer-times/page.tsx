@@ -11,36 +11,37 @@ export const metadata = {
 
 export default function PrayerTimesPage() {
   return (
-    <div style={{ paddingBottom: '4rem' }}>
+    <div style={{ paddingBottom: '6rem' }}>
       {/* Header Banner - Clean, Luminous & Modern */}
       <section
         style={{
           background: 'linear-gradient(180deg, #ecfdf5 0%, #f8fafc 100%)',
           borderBottom: '1px solid #e2e8f0',
-          padding: '3rem 1.5rem 2.5rem',
+          padding: 'clamp(2rem, 5vw, 3rem) 1rem clamp(1.5rem, 3.5vw, 2.5rem)',
           textAlign: 'center',
         }}
       >
         <div className="container" style={{ maxWidth: '850px' }}>
           <h1
             style={{
-              fontSize: 'clamp(2.1rem, 4vw, 2.85rem)',
+              fontSize: 'clamp(1.6rem, 4.5vw, 2.85rem)',
               fontWeight: 800,
-              marginBottom: '0.6rem',
+              marginBottom: '0.5rem',
               color: '#0f172a',
               letterSpacing: '-0.025em',
+              lineHeight: 1.25,
             }}
           >
             Masjid Al Falah Prayer Timetable
           </h1>
-          <p style={{ fontSize: '1.05rem', color: '#475569', lineHeight: 1.6, maxWidth: '650px', margin: '0 auto' }}>
+          <p style={{ fontSize: 'clamp(0.88rem, 2.5vw, 1.05rem)', color: '#475569', lineHeight: 1.6, maxWidth: '650px', margin: '0 auto' }}>
             Synchronised in real-time with our mosque display board at 89 Tindal Street, Balsall Heath, Birmingham (B12 9QU).
           </p>
         </div>
       </section>
 
       {/* Main Content Area */}
-      <section style={{ padding: '2.5rem 0' }}>
+      <section style={{ padding: 'clamp(1.25rem, 3vw, 2.5rem) 0' }}>
         <div className="container" style={{ maxWidth: '1050px' }}>
           {/* Complete Interactive Timetable (Today, Full Month Schedule, Mawaqit Screen) */}
           <PrayerTimetable variant="full" showTabs={true} />
