@@ -32,6 +32,7 @@ function SuccessContent() {
 
   const [receiptNumber, setReceiptNumber] = useState<string>('');
   const [timestamp, setTimestamp] = useState<string>('');
+  const [stripeData, setStripeData] = useState<any>(null);
 
   useEffect(() => {
     const year = new Date().getFullYear();
@@ -46,12 +47,36 @@ function SuccessContent() {
         minute: '2-digit',
       })
     );
+
+    if (sessionId) {
+      fetch(`/api/donations/session?session_id=${encodeURIComponent(sessionId)}`)
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          if (data && data.isConfigured) {
+            setStripeData(data);
+          }
+        })
+        .catch((err) => console.warn('Could not fetch Stripe session details:', err));
+    }
   }, [sessionId]);
 
-  const baseAmount = queryAmount ? parseFloat(queryAmount) : 50;
-  const feeAmount = queryCoverFee && queryFee ? parseFloat(queryFee) : 0;
-  const totalCharged = baseAmount + feeAmount;
-  const giftAidAmount = queryGiftAid ? Math.round(baseAmount * 0.25 * 100) / 100 : 0;
+  const baseAmount = stripeData?.metadata?.baseAmount
+    ? parseFloat(stripeData.metadata.baseAmount)
+    : queryAmount
+    ? parseFloat(queryAmount)
+    : 50;
+
+  const isGiftAid = stripeData?.metadata?.giftAid
+    ? stripeData.metadata.giftAid === 'true'
+    : queryGiftAid;
+
+  const resolvedDonorName = stripeData?.customerName || queryDonorName;
+  const resolvedFund = stripeData?.metadata?.fundId || queryFund;
+  const resolvedFrequency = stripeData?.metadata?.frequency || queryFrequency;
+
+  const feeAmount = queryCoverFee && queryFee ? parseFloat(queryFee) : (stripeData?.metadata?.feeAmount ? parseFloat(stripeData.metadata.feeAmount) : 0);
+  const totalCharged = stripeData?.amountTotal || (baseAmount + feeAmount);
+  const giftAidAmount = isGiftAid ? Math.round(baseAmount * 0.25 * 100) / 100 : 0;
   const totalBenefit = baseAmount + giftAidAmount;
 
   const fundLabels: Record<string, string> = {
@@ -61,7 +86,7 @@ function SuccessContent() {
     academy: 'Youth & Madrasah Education Lab',
   };
 
-  const fundName = fundLabels[queryFund] || fundLabels.purchase;
+  const fundName = fundLabels[resolvedFund] || fundLabels.purchase;
 
   return (
     <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', padding: '3.5rem 1.5rem 6rem' }}>
@@ -221,14 +246,14 @@ function SuccessContent() {
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem' }}>
                 <span style={{ color: '#475569' }}>Frequency:</span>
                 <strong style={{ color: '#0f172a' }}>
-                  {queryFrequency === 'monthly' ? 'Monthly Recurring' : 'One-Off Gift'}
+                  {resolvedFrequency === 'monthly' ? 'Monthly Recurring' : 'One-Off Gift'}
                 </strong>
               </div>
 
-              {queryDonorName && (
+              {resolvedDonorName && (
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem' }}>
                   <span style={{ color: '#475569' }}>Donor Name:</span>
-                  <strong style={{ color: '#0f172a' }}>{queryDonorName}</strong>
+                  <strong style={{ color: '#0f172a' }}>{resolvedDonorName}</strong>
                 </div>
               )}
 
@@ -262,7 +287,7 @@ function SuccessContent() {
           </div>
 
           {/* Gift Aid Highlight Box (if claimed) */}
-          {queryGiftAid && (
+          {isGiftAid && (
             <div
               style={{
                 backgroundColor: '#ecfdf5',

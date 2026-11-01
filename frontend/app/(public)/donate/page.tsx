@@ -24,6 +24,7 @@ import {
   Calculator,
 } from 'lucide-react';
 import { ZakatCalculatorModal } from '../../../components/ZakatCalculatorModal';
+import { calculateFeeBreakdown } from '@/utils/stripeFee';
 
 // Fund Causes (Islamic Intention Selection)
 const FUND_CATEGORIES = [
@@ -104,10 +105,8 @@ function DonateContent() {
   const [donorAddress, setDonorAddress] = useState('');
   const [donorPostcode, setDonorPostcode] = useState('');
 
-  // Payment Card Details
-  const [cardNumber, setCardNumber] = useState('');
-  const [cardExpiry, setCardExpiry] = useState('');
-  const [cardCvc, setCardCvc] = useState('');
+  // Payment Card & Fee States
+  const [coverFee, setCoverFee] = useState(true);
 
   // UI & Feedback States
   const [copiedField, setCopiedField] = useState<string | null>(null);
@@ -181,25 +180,17 @@ function DonateContent() {
     return giftAid ? Number((selectedAmount * 0.25).toFixed(2)) : 0;
   }, [selectedAmount, giftAid]);
 
+  const feeBreakdown = useMemo(() => {
+    return calculateFeeBreakdown(selectedAmount);
+  }, [selectedAmount]);
+
+  const totalToPay = coverFee ? feeBreakdown.totalAmount : selectedAmount;
+
   const paymentReference = useMemo(() => {
     return frequency === 'monthly' ? `SO-${currentFund.reference}` : currentFund.reference;
   }, [frequency, currentFund]);
 
-  // Card Formatting Handlers
-  const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const raw = e.target.value.replace(/\D/g, '').slice(0, 16);
-    const formatted = raw.replace(/(\d{4})/g, '$1 ').trim();
-    setCardNumber(formatted);
-  };
 
-  const handleExpiryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const raw = e.target.value.replace(/\D/g, '').slice(0, 4);
-    if (raw.length >= 3) {
-      setCardExpiry(`${raw.slice(0, 2)}/${raw.slice(2, 4)}`);
-    } else {
-      setCardExpiry(raw);
-    }
-  };
 
   // Copy Bank Details
   const handleCopy = (text: string, field: string) => {
@@ -225,6 +216,7 @@ UK Registered Charity #1150221`;
   };
 
   // Validate & Process Card Donation
+  // Validate & Process Donation via Secure Stripe Checkout (Apple Pay, Google Pay, Cards)
   const handleSubmitCard = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
@@ -248,68 +240,37 @@ UK Registered Charity #1150221`;
       return;
     }
 
-    const cleanCard = cardNumber.replace(/\s/g, '');
-    if (cleanCard.length < 15) {
-      setErrorMessage('Please enter a valid 16-digit debit or credit card number.');
-      return;
-    }
-    if (cardExpiry.length < 5) {
-      setErrorMessage('Please enter a valid expiry date (MM/YY).');
-      return;
-    }
-    if (cardCvc.length < 3) {
-      setErrorMessage('Please enter a valid 3-digit security code (CVC).');
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
-      const res = await fetch('/api/donations', {
+      const res = await fetch('/api/donations/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           amount: selectedAmount,
           frequency,
           fundId,
+          coverFee,
+          giftAid,
           donorName: donorFullName,
           donorEmail: donorEmail.trim(),
           donorAddress: donorAddress.trim(),
           donorPostcode: donorPostcode.trim().toUpperCase(),
-          giftAid,
-          paymentMethod: 'card',
-          cardLast4: cleanCard.slice(-4),
         }),
       });
 
       const data = await res.json();
 
       if (!res.ok || !data.success) {
-        throw new Error(data.error || 'Donation could not be processed. Please check your details.');
+        throw new Error(data.error || 'Payment checkout could not be started. Please check your details.');
       }
 
-      setReceiptData({
-        receiptNumber: data.receiptNumber,
-        timestamp: new Date(data.timestamp).toLocaleString('en-GB', {
-          dateStyle: 'long',
-          timeStyle: 'short',
-        }),
-        totalBenefit: data.donation.totalBenefit,
-        giftAidAmount: data.donation.giftAidAmount,
-      });
-
-      setSubmitted(true);
+      if (data.url) {
+        window.location.href = data.url;
+      }
     } catch (err: any) {
-      // Graceful fallback for offline / server recovery
-      console.warn('API error, falling back to local receipt:', err);
-      const fallbackRef = `ALF-${new Date().getFullYear()}-${Math.floor(100000 + Math.random() * 900000)}`;
-      setReceiptData({
-        receiptNumber: fallbackRef,
-        timestamp: new Date().toLocaleString('en-GB', { dateStyle: 'long', timeStyle: 'short' }),
-        totalBenefit: Number((selectedAmount + giftAidAmount).toFixed(2)),
-        giftAidAmount,
-      });
-      setSubmitted(true);
+      console.warn('Checkout error:', err);
+      setErrorMessage(err?.message || 'Payment service is temporarily unavailable. Please use direct bank transfer.');
     } finally {
       setIsSubmitting(false);
     }
@@ -518,9 +479,6 @@ UK Registered Charity #1150221`;
                       setDonorEmail('');
                       setDonorAddress('');
                       setDonorPostcode('');
-                      setCardNumber('');
-                      setCardExpiry('');
-                      setCardCvc('');
                     }}
                     className="btn btn-primary"
                     style={{ flex: 1, minWidth: '160px', padding: '0.75rem 1rem', fontWeight: 700 }}
@@ -823,7 +781,7 @@ UK Registered Charity #1150221`;
                       }}
                     >
                       <CreditCard size={18} color={paymentMethod === 'card' ? '#059669' : '#64748b'} />
-                      Debit / Credit Card
+                      Card / Apple Pay / G Pay
                     </button>
 
                     <button
@@ -1181,95 +1139,73 @@ UK Registered Charity #1150221`;
                         )}
                       </div>
 
-                      {/* CARD DETAILS */}
-                      <div style={{ backgroundColor: '#f8fafc', border: '1.5px solid #e2e8f0', borderRadius: '14px', padding: '1.15rem 1.25rem' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
-                          <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase' }}>
-                            Payment Card
+                      {/* OPTIONAL FEE RECOVERY CHECKBOX */}
+                      <div
+                        style={{
+                          backgroundColor: '#f8fafc',
+                          border: '1.5px solid #e2e8f0',
+                          borderRadius: '12px',
+                          padding: '0.85rem 1rem',
+                        }}
+                      >
+                        <label style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', cursor: 'pointer' }}>
+                          <input
+                            type="checkbox"
+                            checked={coverFee}
+                            onChange={(e) => setCoverFee(e.target.checked)}
+                            style={{ accentColor: '#059669', width: '18px', height: '18px', flexShrink: 0 }}
+                          />
+                          <div style={{ fontSize: '0.82rem', color: '#334155' }}>
+                            <span style={{ fontWeight: 700, color: '#0f172a' }}>
+                              Cover card processing fee (+£{feeBreakdown.feeAmount.toFixed(2)})
+                            </span>
+                            <span style={{ color: '#64748b' }}>
+                              {' '}— Ensure 100% of your intended £{selectedAmount.toFixed(2)} reaches Masjid Al Falah.
+                            </span>
+                          </div>
+                        </label>
+                      </div>
+
+                      {/* SUPPORTED PAYMENT METHODS & PCI TRUST BADGE */}
+                      <div
+                        style={{
+                          backgroundColor: '#ffffff',
+                          border: '1.5px solid #e2e8f0',
+                          borderRadius: '14px',
+                          padding: '0.95rem 1.15rem',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '0.65rem',
+                        }}
+                      >
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
+                          <span style={{ fontSize: '0.76rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                            Accepted Instant Methods
                           </span>
-                          <div style={{ display: 'flex', gap: '0.35rem', alignItems: 'center' }}>
-                            <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#1e40af', backgroundColor: '#dbeafe', padding: '2px 6px', borderRadius: '4px' }}>VISA</span>
-                            <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#b91c1c', backgroundColor: '#fee2e2', padding: '2px 6px', borderRadius: '4px' }}>MC</span>
-                            <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#0369a1', backgroundColor: '#e0f2fe', padding: '2px 6px', borderRadius: '4px' }}>AMEX</span>
+                          <div style={{ display: 'flex', gap: '0.35rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                            <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#000000', backgroundColor: '#f1f5f9', padding: '3px 8px', borderRadius: '6px', border: '1px solid #cbd5e1' }}>
+                               Pay
+                            </span>
+                            <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#1a73e8', backgroundColor: '#e8f0fe', padding: '3px 8px', borderRadius: '6px', border: '1px solid #c2e7ff' }}>
+                              G Pay
+                            </span>
+                            <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#1e40af', backgroundColor: '#dbeafe', padding: '3px 8px', borderRadius: '6px' }}>
+                              VISA
+                            </span>
+                            <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#b91c1c', backgroundColor: '#fee2e2', padding: '3px 8px', borderRadius: '6px' }}>
+                              Mastercard
+                            </span>
+                            <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#0369a1', backgroundColor: '#e0f2fe', padding: '3px 8px', borderRadius: '6px' }}>
+                              AMEX
+                            </span>
                           </div>
                         </div>
 
-                        <div style={{ marginBottom: '0.75rem' }}>
-                          <div style={{ position: 'relative' }}>
-                            <input
-                              type="text"
-                              name="cardnumber"
-                              autoComplete="cc-number"
-                              inputMode="numeric"
-                              required
-                              placeholder="Card Number •••• •••• •••• ••••"
-                              value={cardNumber}
-                              onChange={handleCardNumberChange}
-                              style={{
-                                width: '100%',
-                                padding: '0.75rem 2.5rem 0.75rem 0.95rem',
-                                borderRadius: '8px',
-                                border: '1px solid #cbd5e1',
-                                fontSize: '0.96rem',
-                                fontFamily: 'monospace',
-                                letterSpacing: '0.04em',
-                                outline: 'none',
-                                backgroundColor: '#ffffff',
-                              }}
-                            />
-                            <Lock size={15} style={{ position: 'absolute', right: '0.95rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
-                          </div>
-                        </div>
-
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-                          <div>
-                            <input
-                              type="text"
-                              name="cc-exp"
-                              autoComplete="cc-exp"
-                              inputMode="numeric"
-                              required
-                              placeholder="MM / YY"
-                              value={cardExpiry}
-                              onChange={handleExpiryChange}
-                              style={{
-                                width: '100%',
-                                padding: '0.75rem 0.95rem',
-                                borderRadius: '8px',
-                                border: '1px solid #cbd5e1',
-                                fontSize: '0.95rem',
-                                fontFamily: 'monospace',
-                                textAlign: 'center',
-                                outline: 'none',
-                                backgroundColor: '#ffffff',
-                              }}
-                            />
-                          </div>
-
-                          <div>
-                            <input
-                              type="password"
-                              name="cvc"
-                              autoComplete="cc-csc"
-                              inputMode="numeric"
-                              maxLength={4}
-                              required
-                              placeholder="CVC 🔒"
-                              value={cardCvc}
-                              onChange={(e) => setCardCvc(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                              style={{
-                                width: '100%',
-                                padding: '0.75rem 0.95rem',
-                                borderRadius: '8px',
-                                border: '1px solid #cbd5e1',
-                                fontSize: '0.95rem',
-                                fontFamily: 'monospace',
-                                textAlign: 'center',
-                                outline: 'none',
-                                backgroundColor: '#ffffff',
-                              }}
-                            />
-                          </div>
+                        <div style={{ fontSize: '0.76rem', color: '#64748b', lineHeight: 1.4, display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                          <ShieldCheck size={16} style={{ color: '#059669', flexShrink: 0 }} />
+                          <span>
+                            Processed on <strong>Stripe&apos;s PCI Level 1</strong> certified checkout. No card numbers touch our servers.
+                          </span>
                         </div>
                       </div>
 
@@ -1289,22 +1225,24 @@ UK Registered Charity #1150221`;
                           justifyContent: 'center',
                           gap: '0.6rem',
                           marginTop: '0.5rem',
-                          background: 'linear-gradient(135deg, #b91c1c 0%, #991b1b 100%)',
+                          background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
                           color: '#ffffff',
                           border: 'none',
-                          boxShadow: '0 4px 16px rgba(185, 28, 28, 0.25)',
+                          boxShadow: '0 4px 16px rgba(5, 150, 105, 0.25)',
                           transition: 'all 0.15s ease',
                         }}
                       >
                         <Lock size={18} />
-                        {isSubmitting
-                          ? 'Processing securely...'
-                          : `Donate £${selectedAmount.toFixed(2)}${frequency === 'monthly' ? ' / Month' : ''} Securely`}
+                        <span>
+                          {isSubmitting
+                            ? 'Connecting to secure checkout...'
+                            : `Proceed to Pay £${totalToPay.toFixed(2)}${frequency === 'monthly' ? ' / Month' : ''} →`}
+                        </span>
                       </button>
 
                       <div style={{ textAlign: 'center', fontSize: '0.72rem', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem', marginTop: '0.2rem' }}>
                         <ShieldCheck size={14} style={{ color: '#059669' }} />
-                        256-bit SSL encrypted • PCI-DSS compliant • Official Receipt
+                        Official UK Charity #1150221 • HMRC Tax Deductible Receipt
                       </div>
                     </form>
                   )}
