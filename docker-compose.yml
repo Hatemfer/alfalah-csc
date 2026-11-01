@@ -9,7 +9,7 @@ services:
       MYSQL_USER: ${DB_USERNAME:-alfalah_user}
       MYSQL_PASSWORD: ${DB_PASSWORD:-alfalah_dev_2026}
     ports:
-      - "${DB_PORT:-3306}:3306"
+      - "127.0.0.1:${DB_PORT:-3306}:3306"
     volumes:
       - db_data:/var/lib/mysql
     healthcheck:
@@ -25,18 +25,29 @@ services:
     container_name: alfalah-backend
     restart: unless-stopped
     ports:
-      - "${PORT_BACKEND:-4000}:4000"
+      - "127.0.0.1:${PORT_BACKEND:-4000}:4000"
     environment:
       NODE_ENV: production
       PORT: 4000
+      API_PREFIX: /api/v1
       DB_HOST: db
       DB_PORT: 3306
       DB_USERNAME: ${DB_USERNAME:-alfalah_user}
       DB_PASSWORD: ${DB_PASSWORD:-alfalah_dev_2026}
       DB_NAME: ${DB_NAME:-alfalah_db}
       JWT_SECRET: ${JWT_SECRET:-change_in_production}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-7d}
+      COOKIE_SECRET: ${COOKIE_SECRET:-change_in_production_cookie}
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
+      MEDIA_UPLOAD_DIR: /app/uploads
+      CONTACT_NOTIFICATION_EMAIL: ${CONTACT_NOTIFICATION_EMAIL:-alfalahcsc@hotmail.com}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_FROM: ${SMTP_FROM:-}
     volumes:
-      - media_uploads:/app/backend/uploads
+      - media_uploads:/app/uploads
     depends_on:
       db:
         condition: service_healthy
@@ -48,14 +59,20 @@ services:
     container_name: alfalah-frontend
     restart: unless-stopped
     ports:
-      - "${PORT_FRONTEND:-3000}:3000"
+      - "127.0.0.1:${PORT_FRONTEND:-3000}:3000"
     environment:
       NODE_ENV: production
       PORT: 3000
-      NEXT_PUBLIC_API_URL: http://backend:4000/api/v1
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-/api/v1}
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
+      NEXT_PUBLIC_MEDIA_URL: ${NEXT_PUBLIC_MEDIA_URL:-/uploads}
+      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:-}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
     depends_on:
       - backend
 
 volumes:
   db_data:
   media_uploads:
+
