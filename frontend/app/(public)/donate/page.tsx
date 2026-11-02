@@ -99,7 +99,7 @@ function DonateContent() {
   const [amount, setAmount] = useState<number>(50);
   const [customAmount, setCustomAmount] = useState<string>('');
   const [giftAid, setGiftAid] = useState<boolean>(true);
-  const [paymentMethod, setPaymentMethod] = useState<'card' | 'bank' | 'mydona'>('card');
+  const [paymentMethod, setPaymentMethod] = useState<'mydona' | 'bank' | 'card'>('mydona');
 
   // Donor Details (HMRC Standard)
   const [donorFirstName, setDonorFirstName] = useState('');
@@ -765,30 +765,6 @@ UK Registered Charity #1150221`;
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 150px), 1fr))', gap: '0.65rem', marginBottom: '1.25rem' }}>
                     <button
                       type="button"
-                      onClick={() => setPaymentMethod('card')}
-                      style={{
-                        padding: '0.85rem 0.75rem',
-                        borderRadius: '12px',
-                        border: paymentMethod === 'card' ? '2px solid #059669' : '1.5px solid #e2e8f0',
-                        backgroundColor: paymentMethod === 'card' ? '#ecfdf5' : '#ffffff',
-                        color: paymentMethod === 'card' ? '#065f46' : '#475569',
-                        fontWeight: 700,
-                        fontSize: '0.88rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '0.45rem',
-                        cursor: 'pointer',
-                        transition: 'all 0.15s ease',
-                        boxShadow: paymentMethod === 'card' ? '0 2px 8px rgba(5, 150, 105, 0.12)' : 'none',
-                      }}
-                    >
-                      <CreditCard size={17} color={paymentMethod === 'card' ? '#059669' : '#64748b'} />
-                      Card / Stripe
-                    </button>
-
-                    <button
-                      type="button"
                       onClick={() => setPaymentMethod('mydona')}
                       style={{
                         padding: '0.85rem 0.75rem',
@@ -808,7 +784,7 @@ UK Registered Charity #1150221`;
                       }}
                     >
                       <QrCode size={17} color={paymentMethod === 'mydona' ? '#059669' : '#64748b'} />
-                      MyDona QR Code
+                      MyDona QR / Apple Pay
                     </button>
 
                     <button
@@ -832,7 +808,31 @@ UK Registered Charity #1150221`;
                       }}
                     >
                       <Building size={17} color={paymentMethod === 'bank' ? '#059669' : '#64748b'} />
-                      Bank Transfer
+                      Bank Transfer (0% Fee)
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setPaymentMethod('card')}
+                      style={{
+                        padding: '0.85rem 0.75rem',
+                        borderRadius: '12px',
+                        border: paymentMethod === 'card' ? '2px solid #059669' : '1.5px solid #e2e8f0',
+                        backgroundColor: paymentMethod === 'card' ? '#ecfdf5' : '#ffffff',
+                        color: paymentMethod === 'card' ? '#065f46' : '#475569',
+                        fontWeight: 700,
+                        fontSize: '0.88rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.45rem',
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease',
+                        boxShadow: paymentMethod === 'card' ? '0 2px 8px rgba(5, 150, 105, 0.12)' : 'none',
+                      }}
+                    >
+                      <CreditCard size={17} color={paymentMethod === 'card' ? '#059669' : '#64748b'} />
+                      Card / Stripe
                     </button>
                   </div>
 
