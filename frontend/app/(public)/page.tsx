@@ -142,13 +142,34 @@ const CORE_SERVICES = [
 export default async function HomePage() {
   const { activities } = await getHomepageData();
 
-  // Category Icon helper for Academy
+  // Distinct authentic image helper for Academy activities
+  const getActivityImage = (act: any) => {
+    if (act.slug?.includes('tafsir') || act.title?.toLowerCase().includes('tafsir')) {
+      return '/images/real/poster-tafsir-sheikh-jamal.jpg';
+    }
+    if (act.slug?.includes('essential-deen') || act.title?.toLowerCase().includes('deen')) {
+      return '/images/real/prayer-hall-library.jpg';
+    }
+    if (act.slug?.includes('robot') || act.title?.toLowerCase().includes('robot')) {
+      return '/images/real/youth-electronics-workbench.jpg';
+    }
+    if (act.slug?.includes('craft') || act.title?.toLowerCase().includes('craft')) {
+      return '/images/real/sakeena-learning-hub.jpg';
+    }
+    if (act.slug?.includes('quran') || act.title?.toLowerCase().includes('quran')) {
+      return '/images/hero-quran.jpg';
+    }
+    return act.imageUrl || '/images/hero-quran.jpg';
+  };
+
   const getCategoryIcon = (category: string) => {
-    const cat = category.toLowerCase();
-    if (cat.includes('robot') || cat.includes('stem')) return <Cpu size={18} />;
-    if (cat.includes('hand') || cat.includes('art') || cat.includes('craft')) return <Palette size={18} />;
-    if (cat.includes('quran') || cat.includes('deen') || cat.includes('din')) return <BookOpen size={18} />;
-    return <GraduationCap size={18} />;
+    const cat = category?.toLowerCase() || '';
+    if (cat.includes('robot') || cat.includes('stem')) return <Cpu size={14} />;
+    if (cat.includes('art') || cat.includes('craft')) return <Palette size={14} />;
+    if (cat.includes('quran') || cat.includes('tajweed')) return <BookOpen size={14} />;
+    if (cat.includes('scholar') || cat.includes('lecture') || cat.includes('deen')) return <GraduationCap size={14} />;
+    if (cat.includes('sister') || cat.includes('family') || cat.includes('communit')) return <Users size={14} />;
+    return <BookOpen size={14} />;
   };
 
   return (
@@ -837,7 +858,7 @@ export default async function HomePage() {
                     }}
                   >
                     <Image
-                      src={act.imageUrl || '/images/hero-quran.jpg'}
+                      src={getActivityImage(act)}
                       alt={act.title}
                       fill
                       style={{ objectFit: 'cover' }}
