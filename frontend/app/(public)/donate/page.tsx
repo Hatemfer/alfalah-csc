@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 import {
   Heart,
   ShieldCheck,
@@ -22,6 +23,8 @@ import {
   AlertCircle,
   HelpCircle,
   Calculator,
+  QrCode,
+  Sparkles,
 } from 'lucide-react';
 import { ZakatCalculatorModal } from '../../../components/ZakatCalculatorModal';
 import { calculateFeeBreakdown } from '@/utils/stripeFee';
@@ -96,7 +99,7 @@ function DonateContent() {
   const [amount, setAmount] = useState<number>(50);
   const [customAmount, setCustomAmount] = useState<string>('');
   const [giftAid, setGiftAid] = useState<boolean>(true);
-  const [paymentMethod, setPaymentMethod] = useState<'card' | 'bank'>('card');
+  const [paymentMethod, setPaymentMethod] = useState<'card' | 'bank' | 'mydona'>('card');
 
   // Donor Details (HMRC Standard)
   const [donorFirstName, setDonorFirstName] = useState('');
@@ -758,59 +761,162 @@ UK Registered Charity #1150221`;
                     4. Select Payment Method
                   </label>
                   
-                  {/* Two-option payment method switcher */}
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem', marginBottom: '1.25rem' }}>
+                  {/* Three-option payment method switcher */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 150px), 1fr))', gap: '0.65rem', marginBottom: '1.25rem' }}>
                     <button
                       type="button"
                       onClick={() => setPaymentMethod('card')}
                       style={{
-                        padding: '0.85rem 1rem',
+                        padding: '0.85rem 0.75rem',
                         borderRadius: '12px',
                         border: paymentMethod === 'card' ? '2px solid #059669' : '1.5px solid #e2e8f0',
                         backgroundColor: paymentMethod === 'card' ? '#ecfdf5' : '#ffffff',
                         color: paymentMethod === 'card' ? '#065f46' : '#475569',
                         fontWeight: 700,
-                        fontSize: '0.92rem',
+                        fontSize: '0.88rem',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        gap: '0.5rem',
+                        gap: '0.45rem',
                         cursor: 'pointer',
                         transition: 'all 0.15s ease',
                         boxShadow: paymentMethod === 'card' ? '0 2px 8px rgba(5, 150, 105, 0.12)' : 'none',
                       }}
                     >
-                      <CreditCard size={18} color={paymentMethod === 'card' ? '#059669' : '#64748b'} />
-                      Card / Apple Pay / G Pay
+                      <CreditCard size={17} color={paymentMethod === 'card' ? '#059669' : '#64748b'} />
+                      Card / Stripe
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setPaymentMethod('mydona')}
+                      style={{
+                        padding: '0.85rem 0.75rem',
+                        borderRadius: '12px',
+                        border: paymentMethod === 'mydona' ? '2px solid #059669' : '1.5px solid #e2e8f0',
+                        backgroundColor: paymentMethod === 'mydona' ? '#ecfdf5' : '#ffffff',
+                        color: paymentMethod === 'mydona' ? '#065f46' : '#475569',
+                        fontWeight: 700,
+                        fontSize: '0.88rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.45rem',
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease',
+                        boxShadow: paymentMethod === 'mydona' ? '0 2px 8px rgba(5, 150, 105, 0.12)' : 'none',
+                      }}
+                    >
+                      <QrCode size={17} color={paymentMethod === 'mydona' ? '#059669' : '#64748b'} />
+                      MyDona QR Code
                     </button>
 
                     <button
                       type="button"
                       onClick={() => setPaymentMethod('bank')}
                       style={{
-                        padding: '0.85rem 1rem',
+                        padding: '0.85rem 0.75rem',
                         borderRadius: '12px',
                         border: paymentMethod === 'bank' ? '2px solid #059669' : '1.5px solid #e2e8f0',
                         backgroundColor: paymentMethod === 'bank' ? '#ecfdf5' : '#ffffff',
                         color: paymentMethod === 'bank' ? '#065f46' : '#475569',
                         fontWeight: 700,
-                        fontSize: '0.92rem',
+                        fontSize: '0.88rem',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        gap: '0.5rem',
+                        gap: '0.45rem',
                         cursor: 'pointer',
                         transition: 'all 0.15s ease',
                         boxShadow: paymentMethod === 'bank' ? '0 2px 8px rgba(5, 150, 105, 0.12)' : 'none',
                       }}
                     >
-                      <Building size={18} color={paymentMethod === 'bank' ? '#059669' : '#64748b'} />
-                      Bank Transfer (0% Fees)
+                      <Building size={17} color={paymentMethod === 'bank' ? '#059669' : '#64748b'} />
+                      Bank Transfer
                     </button>
                   </div>
 
-                  {/* BANK TRANSFER INLINE MODE */}
-                  {paymentMethod === 'bank' ? (
+                  {/* MYDONA / QR CODE MODE */}
+                  {paymentMethod === 'mydona' ? (
+                    <div
+                      style={{
+                        backgroundColor: '#ffffff',
+                        border: '1.5px solid #059669',
+                        borderRadius: '16px',
+                        padding: '1.75rem 1.25rem',
+                        boxShadow: '0 4px 16px rgba(5, 150, 105, 0.08)',
+                        textAlign: 'center',
+                      }}
+                    >
+                      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', backgroundColor: '#ecfdf5', color: '#065f46', fontSize: '0.75rem', fontWeight: 800, padding: '4px 10px', borderRadius: '6px', textTransform: 'uppercase', marginBottom: '0.85rem', border: '1px solid #a7f3d0' }}>
+                        <Sparkles size={13} color="#059669" />
+                        Official Mosque Giving Portal • MyDona
+                      </div>
+
+                      <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.35rem' }}>
+                        Scan & Donate via MyDona
+                      </h3>
+                      <p style={{ fontSize: '0.88rem', color: '#475569', maxWidth: '420px', margin: '0 auto 1.25rem', lineHeight: 1.5 }}>
+                        Instant giving via <strong>Apple Pay</strong>, <strong>Google Pay</strong>, or <strong>UK Cards</strong> with automated <strong>HMRC Gift Aid (+25%)</strong>.
+                      </p>
+
+                      {/* QR Code Container */}
+                      <div
+                        style={{
+                          width: '230px',
+                          margin: '0 auto 1.25rem',
+                          padding: '0.75rem',
+                          backgroundColor: '#ffffff',
+                          borderRadius: '16px',
+                          border: '2px solid #e2e8f0',
+                          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.06)',
+                        }}
+                      >
+                        <Image
+                          src="/images/mydona-qr.png"
+                          alt="Official Masjid Al Falah MyDona Donation QR Code"
+                          width={210}
+                          height={210}
+                          style={{ display: 'block', margin: '0 auto', width: '100%', height: 'auto', borderRadius: '8px' }}
+                        />
+                        <div style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: 700, marginTop: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                          Scan with Phone Camera
+                        </div>
+                      </div>
+
+                      {/* Direct Clickable Button */}
+                      <a
+                        href="https://donate.mydona.com/al-falah-csc"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '0.5rem',
+                          width: '100%',
+                          maxWidth: '380px',
+                          padding: '0.85rem 1.5rem',
+                          backgroundColor: '#059669',
+                          color: '#ffffff',
+                          borderRadius: '12px',
+                          fontWeight: 800,
+                          fontSize: '0.95rem',
+                          textDecoration: 'none',
+                          boxShadow: '0 4px 14px rgba(5, 150, 105, 0.3)',
+                          transition: 'transform 0.15s ease',
+                          marginBottom: '0.75rem',
+                        }}
+                      >
+                        <span>Open MyDona Campaign Page</span>
+                        <ExternalLink size={16} />
+                      </a>
+
+                      <div style={{ fontSize: '0.78rem', color: '#64748b' }}>
+                        Direct Portal: <a href="https://donate.mydona.com/al-falah-csc" target="_blank" rel="noopener noreferrer" style={{ color: '#059669', fontWeight: 700 }}>donate.mydona.com/al-falah-csc</a>
+                      </div>
+                    </div>
+                  ) : paymentMethod === 'bank' ? (
                     <div
                       style={{
                         backgroundColor: '#f0fdf4',

@@ -452,13 +452,20 @@ export default async function HomePage() {
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                   <Link href="/donate?category=purchase" className="btn btn-accent" style={{ fontWeight: 800, padding: '0.8rem 1.6rem' }}>
                     <Heart size={16} fill="currentColor" /> Donate to Appeal Now
                   </Link>
-                  <Link href="/donate?category=purchase#bank-transfer" className="btn btn-outline" style={{ fontWeight: 700, padding: '0.8rem 1.4rem' }}>
-                    View Bank Transfer Details →
-                  </Link>
+                  <a
+                    href="https://donate.mydona.com/al-falah-csc"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-outline"
+                    style={{ fontWeight: 700, padding: '0.8rem 1.4rem', display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}
+                  >
+                    <span>Donate via MyDona</span>
+                    <ExternalLink size={14} />
+                  </a>
                 </div>
               </div>
 
