@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY frontend/package*.json ./
 
-RUN npm ci
+RUN npm install
 
 COPY frontend/ ./
 
@@ -28,7 +28,7 @@ RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
 COPY frontend/package*.json ./
-RUN npm ci --only=production && npm cache clean --force
+RUN npm install --omit=dev && npm cache clean --force
 
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next

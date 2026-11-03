@@ -6,7 +6,7 @@ WORKDIR /app
 # Copy root or backend package files
 COPY backend/package*.json ./
 
-RUN npm ci
+RUN npm install
 
 COPY backend/ ./
 
@@ -22,7 +22,7 @@ ENV PORT=4000
 
 # Install production dependencies only
 COPY backend/package*.json ./
-RUN npm ci --only=production && npm cache clean --force
+RUN npm install --omit=dev && npm cache clean --force
 
 # Copy compiled code from builder stage
 COPY --from=builder /app/dist ./dist
