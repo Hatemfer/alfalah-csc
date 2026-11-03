@@ -30,6 +30,7 @@ fi
 
 # 2. System updates & essential packages
 echo "📦 Updating system packages..."
+rm -f /etc/apt/sources.list.d/*virtuozzo* /etc/apt/sources.list.d/*ctpreset* /etc/apt/sources.list.d/*ct-preset* 2>/dev/null || true
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -y
 apt-get install -y --no-install-recommends \
