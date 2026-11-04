@@ -1,0 +1,31 @@
+{
+  "name": "ALFALAH COMMUNITY SUPPORT CENTRE",
+  "short_name": "Masjid Al Falah",
+  "description": "Official community portal and prayer timetable for Alfalah Community Support Centre, Balsall Heath, Birmingham (UK Registered Charity #1150221).",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#064e3b",
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

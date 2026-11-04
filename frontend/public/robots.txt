@@ -1,0 +1,13 @@
+# ========================================================
+# Robots.txt for ALFALAH COMMUNITY SUPPORT CENTRE
+# Domain: https://alfalahcsc.com
+# Charity Commission Registration: #1150221
+# ========================================================
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://alfalahcsc.com/sitemap.xml
