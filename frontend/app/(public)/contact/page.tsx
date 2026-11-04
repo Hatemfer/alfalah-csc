@@ -43,13 +43,13 @@ export default function ContactPage() {
   };
 
   return (
-    <div style={{ paddingBottom: '4rem' }}>
-      {/* Page Header - Clean, Prestigious & Dignified */}
+    <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', paddingBottom: '5rem' }}>
+      {/* Page Header - Clean, Luminous & Modern Brand Gradient */}
       <section
         style={{
-          backgroundColor: '#ffffff',
+          background: 'linear-gradient(180deg, #ecfdf5 0%, #f8fafc 100%)',
           borderBottom: '1px solid #e2e8f0',
-          padding: '3.5rem 1.5rem 2.75rem',
+          padding: '3rem 1.5rem 2.5rem',
           textAlign: 'center',
         }}
       >
