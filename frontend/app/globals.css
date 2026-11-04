@@ -38,7 +38,7 @@
   --text-muted:        #64748b;
   --text-inverse:      #ffffff;
 
-  --nav-bg:            rgba(255, 255, 255, 0.98);
+  --nav-bg:            #ffffff;
   --hero-gradient:     linear-gradient(135deg, #064e3b 0%, #065f46 55%, #047857 100%);
 
   /* Neutral Modern Elevation Shadows */

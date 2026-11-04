@@ -156,11 +156,9 @@ export function Header() {
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        backgroundColor: 'var(--nav-bg)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        borderBottom: '1px solid var(--border-subtle)',
-        transition: 'background-color var(--transition-normal)',
+        backgroundColor: '#ffffff',
+        borderBottom: '1px solid #e2e8f0',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
       }}
     >
       {/* Top Banner with Live Dates & Charity Registration */}

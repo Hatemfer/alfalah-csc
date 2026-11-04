@@ -21,17 +21,18 @@ fi
 
 echo "🚀 VPS is UP! Starting automated deployment over SSH..."
 
-expect -c "
+expect -c '
 set timeout 1800
-spawn ssh -o StrictHostKeyChecking=no root@$HOST \"curl -fsSL https://raw.githubusercontent.com/Hatemfer/alfalah-csc/main/deploy/setup-vps.sh | bash\"
-expect {
-    \"*password:*\" {
-        send \"$PASS\r\"
-        exp_continue
-    }
-    eof
-}
-"
+spawn scp -o StrictHostKeyChecking=no deploy/setup-vps.sh root@41.231.122.48:/root/setup-vps.sh
+expect "*password:*"
+send -- "C9\[gd\]F30l6wLI\r"
+expect eof
+
+spawn ssh -o StrictHostKeyChecking=no root@41.231.122.48 "chmod +x /root/setup-vps.sh && /bin/bash /root/setup-vps.sh"
+expect "*password:*"
+send -- "C9\[gd\]F30l6wLI\r"
+expect eof
+'
 
 echo "========================================================"
 echo "🎉 Remote setup script finished!"
