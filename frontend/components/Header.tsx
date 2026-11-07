@@ -211,7 +211,7 @@ export function Header() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '0.65rem 1.25rem',
+          padding: '0.9rem 1.5rem',
         }}
       >
         {/* Brand Logo & Emblem */}
@@ -220,9 +220,8 @@ export function Header() {
         {/* Desktop Navigation Links */}
         <nav
           style={{
-            display: 'none',
             alignItems: 'center',
-            gap: '0.4rem',
+            gap: '0.55rem',
           }}
           className="desktop-nav"
         >
@@ -241,10 +240,10 @@ export function Header() {
                     position: 'relative',
                     display: 'inline-flex',
                     alignItems: 'center',
-                    fontSize: '0.92rem',
+                    fontSize: '0.95rem',
                     fontWeight: active ? 600 : 500,
                     color: active ? '#047857' : '#475569',
-                    padding: '0.5rem 0.65rem',
+                    padding: '0.55rem 0.75rem',
                     textDecoration: 'none',
                     transition: 'color 0.15s ease',
                   }}
@@ -287,11 +286,10 @@ export function Header() {
                     alignItems: 'center',
                     gap: '0.25rem',
                     background: 'none',
-                    border: 'none',
-                    padding: '0.5rem 0.65rem',
+                    padding: '0.55rem 0.75rem',
                     cursor: 'pointer',
-                    fontSize: '0.92rem',
-                    fontWeight: active ? 600 : 500,
+                    fontSize: '0.95rem',
+                    fontWeight: active || isOpen ? 600 : 500,
                     color: active || isOpen ? '#047857' : '#475569',
                     fontFamily: 'inherit',
                     transition: 'color 0.15s ease',
@@ -311,8 +309,8 @@ export function Header() {
                       style={{
                         position: 'absolute',
                         bottom: '0',
-                        left: '0.65rem',
-                        right: '0.65rem',
+                        left: '0.75rem',
+                        right: '0.75rem',
                         height: '2.5px',
                         backgroundColor: '#059669',
                         borderRadius: '2px',
@@ -396,24 +394,25 @@ export function Header() {
         </nav>
 
         {/* Actions (Donate CTA + Mobile Toggle) */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           {/* Always visible Donate CTA on mobile and desktop */}
           <Link
             href="/donate"
             className="btn btn-accent header-donate-cta"
             style={{
-              padding: '0.5rem 1.25rem',
-              fontSize: '0.9rem',
+              padding: '0.62rem 1.45rem',
+              fontSize: '0.94rem',
               borderRadius: 'var(--radius-full)',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.45rem',
+              gap: '0.5rem',
               fontWeight: 800,
-              boxShadow: '0 2px 10px var(--color-accent-shadow)',
+              boxShadow: '0 4px 14px rgba(220, 38, 38, 0.28)',
               whiteSpace: 'nowrap',
+              letterSpacing: '0.01em',
             }}
           >
-            <Heart size={15} style={{ fill: 'currentColor' }} />
+            <Heart size={16} style={{ fill: 'currentColor' }} />
             <span>Donate</span>
           </Link>
 
