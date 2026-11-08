@@ -18,6 +18,12 @@ import {
   Send,
   AlertCircle,
   GraduationCap,
+  ShieldCheck,
+  User,
+  UserCheck,
+  Calendar,
+  Lock,
+  Check,
 } from 'lucide-react';
 
 interface Programme {
@@ -381,50 +387,65 @@ export default function ActivitiesPage() {
             })}
           </div>
 
-          {/* 3. Interactive Class Registration / Enrolment Form */}
+          {/* 3. Sleek, Modern Class Registration Form */}
           <div
             id="enrolment-form"
             style={{
+              maxWidth: '740px',
+              margin: '0 auto',
               backgroundColor: '#ffffff',
               borderRadius: '24px',
-              border: '2px solid #059669',
-              padding: '2.5rem',
-              boxShadow: '0 10px 35px rgba(5, 150, 105, 0.08)',
+              border: '1px solid #e2e8f0',
+              boxShadow: '0 20px 40px -15px rgba(15, 23, 42, 0.08)',
+              overflow: 'hidden',
+              scrollMarginTop: '100px',
             }}
           >
-            <div style={{ maxWidth: '780px', margin: '0 auto' }}>
-              <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+            {/* Minimal Emerald Top Accent */}
+            <div style={{ height: '4px', backgroundColor: '#059669' }} />
+
+            <div style={{ padding: 'clamp(1.75rem, 4vw, 2.75rem)' }}>
+              <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
                 <span
                   style={{
                     backgroundColor: '#ecfdf5',
                     color: '#047857',
-                    fontWeight: 800,
+                    fontWeight: 700,
                     fontSize: '0.75rem',
                     padding: '0.3rem 0.85rem',
                     borderRadius: '9999px',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px',
-                    display: 'inline-block',
-                    marginBottom: '0.5rem',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                    marginBottom: '0.65rem',
                   }}
                 >
-                  Online Registration
+                  <Sparkles size={13} />
+                  <span>Quick Registration</span>
                 </span>
-                <h2 style={{ fontSize: 'clamp(1.6rem, 3vw, 2.1rem)', fontWeight: 800, color: '#0f172a', marginBottom: '0.4rem' }}>
+                <h2
+                  style={{
+                    fontSize: 'clamp(1.6rem, 3vw, 2rem)',
+                    fontWeight: 800,
+                    color: '#0f172a',
+                    marginBottom: '0.4rem',
+                    letterSpacing: '-0.02em',
+                  }}
+                >
                   Register for Classes & Workshops
                 </h2>
-                <p style={{ fontSize: '0.95rem', color: '#64748b', margin: 0 }}>
-                  Fill in your details below. Our education administration team will contact you to confirm class availability, timetable, and welcome your child.
+                <p style={{ fontSize: '0.92rem', color: '#64748b', margin: 0, lineHeight: 1.5 }}>
+                  Select your programme below and fill in your details. We’ll confirm your place within 24 hours.
                 </p>
               </div>
 
               {success ? (
                 <div
                   style={{
-                    backgroundColor: '#ecfdf5',
-                    border: '1.5px solid #10b981',
+                    backgroundColor: '#f0fdf4',
+                    border: '1px solid #bbf7d0',
                     borderRadius: '16px',
-                    padding: '2rem',
+                    padding: '2.5rem 1.5rem',
                     textAlign: 'center',
                   }}
                 >
@@ -433,8 +454,8 @@ export default function ActivitiesPage() {
                       width: '56px',
                       height: '56px',
                       borderRadius: '50%',
-                      backgroundColor: '#d1fae5',
-                      color: '#059669',
+                      backgroundColor: '#dcfce7',
+                      color: '#16a34a',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -443,17 +464,17 @@ export default function ActivitiesPage() {
                   >
                     <CheckCircle2 size={32} />
                   </div>
-                  <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#065f46', marginBottom: '0.5rem' }}>
-                    Enrolment Inquiry Received!
+                  <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#166534', marginBottom: '0.5rem' }}>
+                    Registration Received!
                   </h3>
-                  <p style={{ color: '#047857', fontSize: '0.95rem', lineHeight: 1.6, maxWidth: '520px', margin: '0 auto 1.5rem' }}>
-                    Jazakallahu Khayran! We have received your registration details. Our education coordinator will reach out to you within 24–48 hours by phone or email.
+                  <p style={{ color: '#15803d', fontSize: '0.92rem', lineHeight: 1.6, maxWidth: '480px', margin: '0 auto 1.5rem' }}>
+                    Jazakallahu Khayran! We’ve received your details. Our education coordinator will contact you by phone or email within 24–48 hours to confirm class timing and welcome your child.
                   </p>
                   <button
                     type="button"
                     onClick={() => setSuccess(false)}
                     className="btn btn-primary"
-                    style={{ fontWeight: 700, padding: '0.65rem 1.5rem' }}
+                    style={{ fontWeight: 700, padding: '0.7rem 1.5rem', borderRadius: '12px' }}
                   >
                     Submit Another Registration
                   </button>
@@ -466,56 +487,68 @@ export default function ActivitiesPage() {
                         padding: '0.75rem 1rem',
                         backgroundColor: '#fee2e2',
                         color: '#991b1b',
-                        borderRadius: '10px',
+                        borderRadius: '12px',
                         border: '1px solid #fecaca',
-                        fontSize: '0.88rem',
+                        fontSize: '0.85rem',
                         fontWeight: 600,
                         display: 'flex',
                         alignItems: 'center',
                         gap: '0.5rem',
                       }}
                     >
-                      <AlertCircle size={17} style={{ flexShrink: 0 }} />
+                      <AlertCircle size={16} style={{ flexShrink: 0 }} />
                       <span>{error}</span>
                     </div>
                   )}
 
-                  {/* Programme Select Dropdown */}
+                  {/* 1. Sleek Interactive Programme Pills */}
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '0.4rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.5rem' }}>
                       Select Programme / Class *
                     </label>
-                    <select
-                      value={formData.programmeId}
-                      onChange={(e) => {
-                        setFormData({ ...formData, programmeId: e.target.value });
-                        setSelectedProgramme(e.target.value);
-                      }}
-                      required
-                      style={{
-                        width: '100%',
-                        padding: '0.8rem 1rem',
-                        borderRadius: '12px',
-                        border: '1.5px solid #cbd5e1',
-                        fontSize: '0.95rem',
-                        outline: 'none',
-                        backgroundColor: '#ffffff',
-                        fontWeight: 600,
-                      }}
-                    >
-                      {PROGRAMMES.map((p) => (
-                        <option key={p.id} value={p.id}>
-                          {p.title} ({p.schedule})
-                        </option>
-                      ))}
-                    </select>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                      {PROGRAMMES.map((p) => {
+                        const isSelected = (formData.programmeId || selectedProgramme) === p.id;
+                        const Icon = p.categoryIcon;
+                        return (
+                          <button
+                            key={p.id}
+                            type="button"
+                            onClick={() => {
+                              setSelectedProgramme(p.id);
+                              setFormData({ ...formData, programmeId: p.id });
+                            }}
+                            className="programme-pill"
+                            style={{
+                              padding: '0.55rem 0.9rem',
+                              borderRadius: '9999px',
+                              border: isSelected ? '1.5px solid #059669' : '1px solid #e2e8f0',
+                              backgroundColor: isSelected ? '#059669' : '#f8fafc',
+                              color: isSelected ? '#ffffff' : '#334155',
+                              fontSize: '0.82rem',
+                              fontWeight: 700,
+                              cursor: 'pointer',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '0.4rem',
+                              transition: 'all 0.15s ease',
+                              boxShadow: isSelected ? '0 4px 12px rgba(5, 150, 105, 0.25)' : 'none',
+                            }}
+                          >
+                            <Icon size={14} color={isSelected ? '#ffffff' : '#059669'} />
+                            <span>{p.title.split('(')[0].trim()}</span>
+                            {isSelected && <Check size={13} />}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
 
-                  {/* Student Name & Age */}
-                  <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1rem' }}>
+                  {/* 2. Student Name & Age */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '0.4rem' }}>
-                        Student / Attendee Full Name *
+                      <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+                        Student / Attendee Name *
                       </label>
                       <input
                         type="text"
@@ -523,42 +556,50 @@ export default function ActivitiesPage() {
                         placeholder="e.g. Yusuf Ahmed"
                         value={formData.studentName}
                         onChange={(e) => setFormData({ ...formData, studentName: e.target.value })}
+                        className="enrolment-input"
                         style={{
                           width: '100%',
                           padding: '0.75rem 1rem',
                           borderRadius: '12px',
-                          border: '1.5px solid #cbd5e1',
-                          fontSize: '0.95rem',
+                          border: '1.5px solid #e2e8f0',
+                          fontSize: '0.92rem',
+                          backgroundColor: '#f8fafc',
+                          color: '#0f172a',
                           outline: 'none',
+                          transition: 'all 0.2s ease',
                         }}
                       />
                     </div>
 
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '0.4rem' }}>
-                        Age
+                      <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+                        Age (Optional for adults)
                       </label>
                       <input
                         type="text"
                         placeholder="e.g. 10 yrs"
                         value={formData.studentAge}
                         onChange={(e) => setFormData({ ...formData, studentAge: e.target.value })}
+                        className="enrolment-input"
                         style={{
                           width: '100%',
                           padding: '0.75rem 1rem',
                           borderRadius: '12px',
-                          border: '1.5px solid #cbd5e1',
-                          fontSize: '0.95rem',
+                          border: '1.5px solid #e2e8f0',
+                          fontSize: '0.92rem',
+                          backgroundColor: '#f8fafc',
+                          color: '#0f172a',
                           outline: 'none',
+                          transition: 'all 0.2s ease',
                         }}
                       />
                     </div>
                   </div>
 
-                  {/* Parent Name & Phone */}
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  {/* 3. Parent Name & Phone */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '0.4rem' }}>
+                      <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
                         Parent / Guardian Name (if under 18)
                       </label>
                       <input
@@ -566,19 +607,23 @@ export default function ActivitiesPage() {
                         placeholder="e.g. Brother Ahmed"
                         value={formData.parentName}
                         onChange={(e) => setFormData({ ...formData, parentName: e.target.value })}
+                        className="enrolment-input"
                         style={{
                           width: '100%',
                           padding: '0.75rem 1rem',
                           borderRadius: '12px',
-                          border: '1.5px solid #cbd5e1',
-                          fontSize: '0.95rem',
+                          border: '1.5px solid #e2e8f0',
+                          fontSize: '0.92rem',
+                          backgroundColor: '#f8fafc',
+                          color: '#0f172a',
                           outline: 'none',
+                          transition: 'all 0.2s ease',
                         }}
                       />
                     </div>
 
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '0.4rem' }}>
+                      <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
                         Telephone / Mobile Number *
                       </label>
                       <input
@@ -587,21 +632,25 @@ export default function ActivitiesPage() {
                         placeholder="e.g. 07123 456789"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        className="enrolment-input"
                         style={{
                           width: '100%',
                           padding: '0.75rem 1rem',
                           borderRadius: '12px',
-                          border: '1.5px solid #cbd5e1',
-                          fontSize: '0.95rem',
+                          border: '1.5px solid #e2e8f0',
+                          fontSize: '0.92rem',
+                          backgroundColor: '#f8fafc',
+                          color: '#0f172a',
                           outline: 'none',
+                          transition: 'all 0.2s ease',
                         }}
                       />
                     </div>
                   </div>
 
-                  {/* Email */}
+                  {/* 4. Email */}
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '0.4rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
                       Email Address * (for confirmation)
                     </label>
                     <input
@@ -610,59 +659,72 @@ export default function ActivitiesPage() {
                       placeholder="yourname@example.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="enrolment-input"
                       style={{
                         width: '100%',
                         padding: '0.75rem 1rem',
                         borderRadius: '12px',
-                        border: '1.5px solid #cbd5e1',
-                        fontSize: '0.95rem',
+                        border: '1.5px solid #e2e8f0',
+                        fontSize: '0.92rem',
+                        backgroundColor: '#f8fafc',
+                        color: '#0f172a',
                         outline: 'none',
+                        transition: 'all 0.2s ease',
                       }}
                     />
                   </div>
 
-                  {/* Notes / Comments */}
+                  {/* 5. Notes */}
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '0.4rem' }}>
-                      Any Learning Needs, Previous Experience, or Questions (Optional)
+                    <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+                      Special Learning Needs or Questions (Optional)
                     </label>
                     <textarea
-                      rows={3}
+                      rows={2}
                       placeholder="e.g. Beginner in Tajweed, has basic electronics interest..."
                       value={formData.notes}
                       onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                      className="enrolment-input"
                       style={{
                         width: '100%',
                         padding: '0.75rem 1rem',
                         borderRadius: '12px',
-                        border: '1.5px solid #cbd5e1',
-                        fontSize: '0.95rem',
+                        border: '1.5px solid #e2e8f0',
+                        fontSize: '0.92rem',
+                        backgroundColor: '#f8fafc',
+                        color: '#0f172a',
                         outline: 'none',
                         resize: 'vertical',
+                        fontFamily: 'inherit',
+                        transition: 'all 0.2s ease',
                       }}
                     />
                   </div>
 
                   {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="btn btn-primary"
-                    style={{
-                      padding: '0.9rem',
-                      fontWeight: 800,
-                      fontSize: '1rem',
-                      justifyContent: 'center',
-                      gap: '0.5rem',
-                      borderRadius: '12px',
-                    }}
-                  >
-                    <Send size={18} />
-                    <span>{loading ? 'Submitting Registration...' : 'Complete Online Registration'}</span>
-                  </button>
+                  <div style={{ marginTop: '0.5rem' }}>
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="btn btn-primary"
+                      style={{
+                        width: '100%',
+                        padding: '0.9rem',
+                        fontWeight: 800,
+                        fontSize: '0.98rem',
+                        justifyContent: 'center',
+                        gap: '0.5rem',
+                        borderRadius: '12px',
+                        boxShadow: '0 4px 14px rgba(5, 150, 105, 0.2)',
+                      }}
+                    >
+                      <Send size={17} />
+                      <span>{loading ? 'Submitting...' : 'Complete Online Registration'}</span>
+                    </button>
 
-                  <div style={{ textAlign: 'center', fontSize: '0.8rem', color: '#64748b' }}>
-                    Need urgent assistance? Telephone our office directly at <a href="tel:07429188880" style={{ color: '#059669', fontWeight: 700 }}>07429 188880</a> or visit 89 Tindal St.
+                    <div style={{ textAlign: 'center', fontSize: '0.78rem', color: '#64748b', marginTop: '0.75rem' }}>
+                      Free registration • Questions? Call <a href="tel:07429188880" style={{ color: '#059669', fontWeight: 700 }}>07429 188880</a> or visit 89 Tindal St.
+                    </div>
                   </div>
                 </form>
               )}
@@ -675,6 +737,15 @@ export default function ActivitiesPage() {
         .programme-card:hover {
           transform: translateY(-4px);
           box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1) !important;
+        }
+        .enrolment-input:focus {
+          background-color: #ffffff !important;
+          border-color: #059669 !important;
+          box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12) !important;
+        }
+        .programme-pill:hover {
+          border-color: #10b981 !important;
+          transform: translateY(-1px);
         }
       `}</style>
     </div>
