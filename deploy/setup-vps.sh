@@ -97,8 +97,13 @@ fi
 
 # 6. Build and launch Docker containers
 echo "🚀 Building and starting Docker containers..."
-docker compose build --pull
-docker compose up -d
+if command -v docker-compose &> /dev/null; then
+    docker-compose build
+    docker-compose up -d
+else
+    docker compose build
+    docker compose up -d
+fi
 
 # 7. Configure Nginx Reverse Proxy
 echo "🌐 Configuring Nginx reverse proxy..."
