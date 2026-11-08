@@ -285,7 +285,9 @@ export function Header() {
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '0.25rem',
-                    background: 'none',
+                    background: 'transparent',
+                    border: 'none',
+                    outline: 'none',
                     padding: '0.55rem 0.75rem',
                     cursor: 'pointer',
                     fontSize: '0.95rem',
@@ -733,6 +735,12 @@ export function Header() {
             opacity: 1;
             transform: translateY(0);
           }
+        }
+        :global(.nav-link-btn) {
+          border: none !important;
+          outline: none !important;
+          background: transparent !important;
+          box-shadow: none !important;
         }
         :global(.nav-link-item:hover),
         :global(.nav-link-btn:hover) {

@@ -84,7 +84,7 @@ const schemaJsonLd = {
         longitude: -1.8897627,
       },
       sameAs: [
-        'https://register-of-charities.charitycommission.gov.uk/charity-search/-/charity-details/5033068',
+        'https://register-of-charities.charitycommission.gov.uk/en/charity-search/-/charity-details/5023502/contact-information',
         'https://donate.mydona.com/al-falah-csc',
         'https://maps.google.com/maps?cid=52.4555036,-1.8897627',
       ],

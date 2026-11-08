@@ -3,14 +3,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {
   ShieldCheck,
-  Heart,
   Users,
-  BookOpen,
   MapPin,
   Mail,
   ArrowRight,
-  Clock,
-  Cpu,
   GraduationCap,
   Sparkles,
   CheckCircle2,
@@ -161,122 +157,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* 3. The 4 Pillars of Alfalah */}
-          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.5rem' }}>
-              Our Four Core Wings
-            </h2>
-            <p style={{ fontSize: '1.05rem', color: '#64748b', maxWidth: '640px', margin: '0 auto' }}>
-              How Alfalah serves the holistic needs of individuals, youth, and families
-            </p>
-          </div>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-              gap: '1.5rem',
-              marginBottom: '4rem',
-            }}
-          >
-            <div className="card" style={{ padding: '1.75rem', backgroundColor: '#ffffff' }}>
-              <div
-                style={{
-                  width: '46px',
-                  height: '46px',
-                  borderRadius: '12px',
-                  backgroundColor: '#ecfdf5',
-                  color: '#059669',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: '1rem',
-                }}
-              >
-                <Clock size={24} />
-              </div>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.4rem' }}>
-                Daily Worship & Jumu’ah
-              </h3>
-              <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6 }}>
-                5 daily congregational prayers with precise Iqamah times, Friday Jumu’ah at 13:00, Ramadan Taraweeh, and spiritual gatherings.
-              </p>
-            </div>
-
-            <div className="card" style={{ padding: '1.75rem', backgroundColor: '#ffffff' }}>
-              <div
-                style={{
-                  width: '46px',
-                  height: '46px',
-                  borderRadius: '12px',
-                  backgroundColor: '#ecfdf5',
-                  color: '#059669',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: '1rem',
-                }}
-              >
-                <BookOpen size={24} />
-              </div>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.4rem' }}>
-                Sakeena Learning Hub
-              </h3>
-              <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6 }}>
-                Dedicated Madrasah combining Noorani Qaida, Tajweed, Quran Hifz, and foundational Islamic studies with DBS-checked mentors.
-              </p>
-            </div>
-
-            <div className="card" style={{ padding: '1.75rem', backgroundColor: '#ffffff' }}>
-              <div
-                style={{
-                  width: '46px',
-                  height: '46px',
-                  borderRadius: '12px',
-                  backgroundColor: '#ecfdf5',
-                  color: '#059669',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: '1rem',
-                }}
-              >
-                <Cpu size={24} />
-              </div>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.4rem' }}>
-                Youth STEM & Robotics
-              </h3>
-              <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6 }}>
-                Empowering children with electronics, breadboard wiring, coding logic, and mechanical problem solving every weekend.
-              </p>
-            </div>
-
-            <div className="card" style={{ padding: '1.75rem', backgroundColor: '#ffffff' }}>
-              <div
-                style={{
-                  width: '46px',
-                  height: '46px',
-                  borderRadius: '12px',
-                  backgroundColor: '#ecfdf5',
-                  color: '#059669',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: '1rem',
-                }}
-              >
-                <Heart size={24} />
-              </div>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.4rem' }}>
-                Community Welfare & Relief
-              </h3>
-              <p style={{ fontSize: '0.9rem', color: '#475569', lineHeight: 1.6 }}>
-                Direct 100% Zakat relief to eligible local poor, emergency food assistance, warm winter space, and brotherly hospital visits.
-              </p>
-            </div>
-          </div>
-
-          {/* 4. Facilities Showcase (Real Visual Grid) */}
+          {/* 3. Facilities Showcase (Real Visual Grid) */}
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.5rem' }}>
               Our Centre Facilities

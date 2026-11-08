@@ -97,7 +97,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://register-of-charities.charitycommission.gov.uk/charity-search/-/charity-details/5033068"
+                  href="https://register-of-charities.charitycommission.gov.uk/en/charity-search/-/charity-details/5023502/contact-information"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ color: 'var(--text-secondary)' }}

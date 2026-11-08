@@ -18,17 +18,13 @@ import {
   Video,
   Camera,
   Play,
-  HeartHandshake,
   Coffee,
-  Sparkles,
   HelpCircle,
-  FileCheck,
   Target,
 } from 'lucide-react';
 import HeroSlider from '../../components/HeroSlider';
 import PrayerTimetable from '../../components/PrayerTimetable';
 import VirtualTourVideo from '../../components/VirtualTourVideo';
-import { ZakatWelfareCallout } from '../../components/ZakatWelfareCallout';
 
 const CENTRE_FACILITIES = [
   {
@@ -184,184 +180,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 3. Core Mosque Services (6 Pillars of UK Mosque Community) */}
-      <section style={{ padding: '4.5rem 0', backgroundColor: '#ffffff' }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 3rem' }}>
-            <h2 style={{ fontSize: 'clamp(2rem, 3.8vw, 2.6rem)', fontWeight: 800, color: '#0f172a', marginBottom: '0.75rem' }}>
-              Serving the Community of Balsall Heath & Birmingham
-            </h2>
-            <p style={{ color: '#64748b', fontSize: '1.05rem', lineHeight: 1.6, margin: 0 }}>
-              From daily prayers and youth education to marriage, bereavement support, and local welfare, Masjid Al Falah is committed to providing standard, comprehensive mosque services.
-            </p>
-          </div>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
-              gap: '1.5rem',
-            }}
-          >
-            {CORE_SERVICES.map((service) => (
-              <div
-                key={service.id}
-                className="card"
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  padding: '1.75rem',
-                  backgroundColor: '#ffffff',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: 'var(--radius-lg)',
-                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                }}
-              >
-                <div
-                  style={{
-                    width: '46px',
-                    height: '46px',
-                    borderRadius: '12px',
-                    backgroundColor: '#ecfdf5',
-                    color: '#065f46',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '1rem',
-                  }}
-                >
-                  <service.icon size={22} />
-                </div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.5rem' }}>
-                  {service.title}
-                </h3>
-                <p style={{ fontSize: '0.92rem', color: '#64748b', lineHeight: 1.6, flex: 1, marginBottom: '1.25rem' }}>
-                  {service.desc}
-                </p>
-                <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '0.85rem' }}>
-                  <Link
-                    href={service.link}
-                    style={{
-                      fontSize: '0.88rem',
-                      fontWeight: 800,
-                      color: '#065f46',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '0.35rem',
-                      textDecoration: 'none',
-                    }}
-                  >
-                    {service.linkText} <ArrowRight size={14} />
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. INSPIRED FROM GREEN LANE MASJID: 100% Zakat & Community Welfare Relief Showcase */}
-      <section style={{ padding: '4.5rem 0', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 3rem' }}>
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.4rem',
-                backgroundColor: '#ecfdf5',
-                color: '#065f46',
-                padding: '0.35rem 0.85rem',
-                borderRadius: '9999px',
-                fontSize: '0.8rem',
-                fontWeight: 700,
-                letterSpacing: '0.3px',
-                marginBottom: '0.75rem',
-              }}
-            >
-              <HeartHandshake size={14} /> Local Community Welfare & Hardship Relief
-            </div>
-            <h2 style={{ fontSize: 'clamp(2rem, 3.8vw, 2.6rem)', fontWeight: 800, color: '#0f172a', marginBottom: '0.75rem' }}>
-              Local Zakat & Welfare Support
-            </h2>
-            <p style={{ color: '#64748b', fontSize: '1.05rem', lineHeight: 1.6, margin: 0 }}>
-              Masjid Al Falah collects and distributes Zakat al-Mal directly to eligible families and elders in Balsall Heath and Sparkbrook, ensuring your religious obligation creates immediate local impact.
-            </p>
-          </div>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              gap: '1.5rem',
-              marginBottom: '2.5rem',
-            }}
-          >
-            {[
-              {
-                title: '100% Direct Distribution',
-                desc: 'Every pound of your Zakat al-Mal goes directly to eligible individuals in accordance with Islamic principles, with zero admin deductions.',
-                icon: Coins,
-              },
-              {
-                title: 'Emergency Foodbank Parcels',
-                desc: 'Weekly distributions of non-perishable staple foods, halal provisions, and supermarket vouchers from 89 Tindal Street.',
-                icon: HeartHandshake,
-              },
-              {
-                title: 'Winter Warmth & Utility Grants',
-                desc: 'Crucial emergency hardship assistance to protect elderly and families from freezing temperatures and energy poverty.',
-                icon: Sparkles,
-              },
-              {
-                title: 'Confidential 48h Assessment',
-                desc: 'Compassionate, dignified assessment conducted promptly by our welfare committee to deliver immediate relief.',
-                icon: FileCheck,
-              },
-            ].map((pillar) => (
-              <div
-                key={pillar.title}
-                style={{
-                  backgroundColor: '#ffffff',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '16px',
-                  padding: '1.5rem',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '0.75rem',
-                  boxShadow: '0 2px 8px rgba(15, 23, 42, 0.04)',
-                }}
-              >
-                <div
-                  style={{
-                    width: '42px',
-                    height: '42px',
-                    borderRadius: '10px',
-                    backgroundColor: '#ecfdf5',
-                    color: '#065f46',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <pillar.icon size={20} />
-                </div>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0f172a', margin: 0 }}>
-                  {pillar.title}
-                </h3>
-                <p style={{ fontSize: '0.88rem', color: '#64748b', lineHeight: 1.5, margin: 0 }}>
-                  {pillar.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Action Callout for Zakat & Welfare with Interactive Calculator */}
-          <ZakatWelfareCallout />
-        </div>
-      </section>
-
-      {/* 5. Urgent £600,000 Mosque Purchase Campaign Banner */}
+      {/* 3. Urgent £600,000 Mosque Purchase Campaign Banner */}
       <section style={{ padding: '4.5rem 0', backgroundColor: '#ffffff' }}>
         <div className="container">
           <div
@@ -469,7 +288,7 @@ export default async function HomePage() {
                     Sort Code: <span style={{ fontFamily: 'monospace', color: '#065f46' }}>30-00-83</span> • Account: <span style={{ fontFamily: 'monospace', color: '#065f46' }}>01298401</span>
                   </div>
                   <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '0.2rem' }}>
-                    Beneficiary: Alfalah Community Support Centre • Reference: <strong style={{ color: '#b45309' }}>PURCHASE-MOSQUE</strong>
+                    Beneficiary: Alfalah Community Support Centre • Reference: <strong style={{ color: '#b45309' }}>MOSQUE</strong>
                   </div>
                 </div>
 
@@ -614,6 +433,82 @@ export default async function HomePage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Core Mosque Services (6 Pillars of UK Mosque Community) */}
+      <section style={{ padding: '4.5rem 0', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 3rem' }}>
+            <h2 style={{ fontSize: 'clamp(2rem, 3.8vw, 2.6rem)', fontWeight: 800, color: '#0f172a', marginBottom: '0.75rem' }}>
+              Serving the Community of Balsall Heath & Birmingham
+            </h2>
+            <p style={{ color: '#64748b', fontSize: '1.05rem', lineHeight: 1.6, margin: 0 }}>
+              From daily prayers and youth education to marriage, bereavement support, and local welfare, Masjid Al Falah is committed to providing standard, comprehensive mosque services.
+            </p>
+          </div>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+              gap: '1.5rem',
+            }}
+          >
+            {CORE_SERVICES.map((service) => (
+              <div
+                key={service.id}
+                className="card"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  padding: '1.75rem',
+                  backgroundColor: '#ffffff',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: 'var(--radius-lg)',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                }}
+              >
+                <div
+                  style={{
+                    width: '46px',
+                    height: '46px',
+                    borderRadius: '12px',
+                    backgroundColor: '#ecfdf5',
+                    color: '#065f46',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '1rem',
+                  }}
+                >
+                  <service.icon size={22} />
+                </div>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.5rem' }}>
+                  {service.title}
+                </h3>
+                <p style={{ fontSize: '0.92rem', color: '#64748b', lineHeight: 1.6, flex: 1, marginBottom: '1.25rem' }}>
+                  {service.desc}
+                </p>
+                <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '0.85rem' }}>
+                  <Link
+                    href={service.link}
+                    style={{
+                      fontSize: '0.88rem',
+                      fontWeight: 800,
+                      color: '#065f46',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.35rem',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    {service.linkText} <ArrowRight size={14} />
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
