@@ -60,7 +60,7 @@ export default function AboutPage() {
       {/* 1. Header Banner with Clean Luminous Feel */}
       <section
         style={{
-          background: 'linear-gradient(180deg, #ecfdf5 0%, #f8fafc 100%)',
+          background: 'linear-gradient(180deg, #e0f2fe 0%, #f8fafc 100%)',
           borderBottom: '1px solid #e2e8f0',
           padding: '3.5rem 1.5rem 3rem',
           textAlign: 'center',
@@ -274,8 +274,8 @@ export default function AboutPage() {
           {/* 6. Legal & Charity Registration Transparency */}
           <div
             style={{
-              backgroundColor: '#ecfdf5',
-              border: '1.5px solid #10b981',
+              backgroundColor: '#e0f2fe',
+              border: '1.5px solid #0ea5e9',
               borderRadius: '20px',
               padding: 'clamp(1.25rem, 4vw, 2rem)',
               display: 'grid',
@@ -285,7 +285,7 @@ export default function AboutPage() {
             }}
           >
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#065f46', fontWeight: 800, fontSize: '0.85rem', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#0369a1', fontWeight: 800, fontSize: '0.85rem', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
                 <ShieldCheck size={18} /> Official Charity Commission Registration
               </div>
               <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#0f172a', margin: '0 0 0.4rem' }}>

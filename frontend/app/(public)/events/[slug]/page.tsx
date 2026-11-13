@@ -49,7 +49,7 @@ export default async function EventDetailPage({
     <div style={{ paddingBottom: '4rem' }}>
       <section
         style={{
-          background: 'linear-gradient(180deg, #ecfdf5 0%, #f8fafc 100%)',
+          background: 'linear-gradient(180deg, #e0f2fe 0%, #f8fafc 100%)',
           borderBottom: '1px solid #e2e8f0',
           padding: '3rem 1.5rem 2.5rem',
         }}
@@ -61,7 +61,7 @@ export default async function EventDetailPage({
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
-              color: '#059669',
+              color: '#0284c7',
               fontWeight: 600,
               fontSize: '0.9rem',
               marginBottom: '1rem',
@@ -71,7 +71,7 @@ export default async function EventDetailPage({
           </Link>
 
           <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.75rem' }}>
-            <span className="badge" style={{ backgroundColor: '#059669', color: '#ffffff', fontWeight: 700 }}>
+            <span className="badge" style={{ backgroundColor: '#0284c7', color: '#ffffff', fontWeight: 700 }}>
               {event.category}
             </span>
             {event.isFeatured && (

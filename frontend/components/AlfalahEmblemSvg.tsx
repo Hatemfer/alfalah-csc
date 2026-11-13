@@ -25,9 +25,9 @@ export function AlfalahEmblemSvg({
       <defs>
         {/* Emerald Radial & Linear Gradients */}
         <linearGradient id="emeraldGrad" x1="10" y1="10" x2="110" y2="110" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#047857" />
-          <stop offset="50%" stopColor="#065f46" />
-          <stop offset="100%" stopColor="#022c22" />
+          <stop offset="0%" stopColor="#0284c7" />
+          <stop offset="50%" stopColor="#0369a1" />
+          <stop offset="100%" stopColor="#082f49" />
         </linearGradient>
 
         {/* Regal Gold Gradients */}
@@ -46,7 +46,7 @@ export function AlfalahEmblemSvg({
 
         {/* Soft Drop Shadow for Depth */}
         <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
-          <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.25" floodColor="#022c22" />
+          <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.25" floodColor="#082f49" />
         </filter>
       </defs>
 
@@ -65,7 +65,7 @@ export function AlfalahEmblemSvg({
            C 72 30, 87 40, 87 54 
            L 87 88 
            Z"
-        fill="#022c22"
+        fill="#082f49"
         stroke="url(#goldGrad)"
         strokeWidth="2"
         strokeLinejoin="round"
@@ -147,8 +147,8 @@ export function AlfalahEmblemSvg({
         strokeWidth="1.2"
       />
       {/* Left Scripture Lines */}
-      <path d="M 44 63 C 48 61, 54 61, 57 63" stroke="#065f46" strokeWidth="0.8" strokeLinecap="round" />
-      <path d="M 44 66 C 48 64, 54 64, 57 66" stroke="#065f46" strokeWidth="0.8" strokeLinecap="round" />
+      <path d="M 44 63 C 48 61, 54 61, 57 63" stroke="#0369a1" strokeWidth="0.8" strokeLinecap="round" />
+      <path d="M 44 66 C 48 64, 54 64, 57 66" stroke="#0369a1" strokeWidth="0.8" strokeLinecap="round" />
 
       {/* Right Quran Page */}
       <path
@@ -161,8 +161,8 @@ export function AlfalahEmblemSvg({
         strokeWidth="1.2"
       />
       {/* Right Scripture Lines */}
-      <path d="M 63 63 C 66 61, 72 61, 76 63" stroke="#065f46" strokeWidth="0.8" strokeLinecap="round" />
-      <path d="M 63 66 C 66 64, 72 64, 76 66" stroke="#065f46" strokeWidth="0.8" strokeLinecap="round" />
+      <path d="M 63 63 C 66 61, 72 61, 76 63" stroke="#0369a1" strokeWidth="0.8" strokeLinecap="round" />
+      <path d="M 63 66 C 66 64, 72 64, 76 66" stroke="#0369a1" strokeWidth="0.8" strokeLinecap="round" />
 
       {/* Central Spine of the Quran */}
       <path d="M 60 62 L 60 71" stroke="#d97706" strokeWidth="1.5" strokeLinecap="round" />

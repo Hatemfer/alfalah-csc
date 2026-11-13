@@ -42,7 +42,7 @@ export default function QuickDonateWidget() {
     <div
       style={{
         backgroundColor: '#ffffff',
-        border: '2px solid #10b981',
+        border: '2px solid #0ea5e9',
         borderRadius: 'var(--radius-lg)',
         padding: '1.75rem',
         boxShadow: '0 12px 32px -8px rgba(6, 78, 59, 0.12)',
@@ -66,7 +66,7 @@ export default function QuickDonateWidget() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
           <span
             style={{
-              backgroundColor: '#059669',
+              backgroundColor: '#0284c7',
               color: '#ffffff',
               padding: '0.2rem 0.65rem',
               borderRadius: '9999px',
@@ -82,8 +82,8 @@ export default function QuickDonateWidget() {
           </h3>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.78rem', color: '#065f46', fontWeight: 700 }}>
-          <ShieldCheck size={16} style={{ color: '#059669' }} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.78rem', color: '#0369a1', fontWeight: 700 }}>
+          <ShieldCheck size={16} style={{ color: '#0284c7' }} />
           UK Charity #1150221
         </div>
       </div>
@@ -115,7 +115,7 @@ export default function QuickDonateWidget() {
                   fontWeight: 800,
                   borderRadius: '4px',
                   backgroundColor: frequency === 'oneoff' ? '#ffffff' : 'transparent',
-                  color: frequency === 'oneoff' ? '#065f46' : '#64748b',
+                  color: frequency === 'oneoff' ? '#0369a1' : '#64748b',
                   border: 'none',
                   cursor: 'pointer',
                   boxShadow: frequency === 'oneoff' ? '0 1px 3px rgba(0,0,0,0.06)' : 'none',
@@ -132,7 +132,7 @@ export default function QuickDonateWidget() {
                   fontWeight: 800,
                   borderRadius: '4px',
                   backgroundColor: frequency === 'monthly' ? '#ffffff' : 'transparent',
-                  color: frequency === 'monthly' ? '#065f46' : '#64748b',
+                  color: frequency === 'monthly' ? '#0369a1' : '#64748b',
                   border: 'none',
                   cursor: 'pointer',
                   boxShadow: frequency === 'monthly' ? '0 1px 3px rgba(0,0,0,0.06)' : 'none',
@@ -161,9 +161,9 @@ export default function QuickDonateWidget() {
                       fontSize: '0.78rem',
                       fontWeight: 700,
                       borderRadius: 'var(--radius-sm)',
-                      backgroundColor: isSelected ? '#ecfdf5' : '#f8fafc',
-                      color: isSelected ? '#065f46' : '#334155',
-                      border: isSelected ? '1.5px solid #059669' : '1px solid #e2e8f0',
+                      backgroundColor: isSelected ? '#e0f2fe' : '#f8fafc',
+                      color: isSelected ? '#0369a1' : '#334155',
+                      border: isSelected ? '1.5px solid #0284c7' : '1px solid #e2e8f0',
                       cursor: 'pointer',
                       textAlign: 'left',
                       whiteSpace: 'nowrap',
@@ -205,9 +205,9 @@ export default function QuickDonateWidget() {
                   style={{
                     padding: '0.55rem 0.35rem',
                     borderRadius: 'var(--radius-sm)',
-                    backgroundColor: isSelected ? '#059669' : '#f8fafc',
+                    backgroundColor: isSelected ? '#0284c7' : '#f8fafc',
                     color: isSelected ? '#ffffff' : '#0f172a',
-                    border: isSelected ? '1.5px solid #047857' : '1px solid #cbd5e1',
+                    border: isSelected ? '1.5px solid #0284c7' : '1px solid #cbd5e1',
                     fontWeight: 800,
                     fontSize: '0.85rem',
                     cursor: 'pointer',
@@ -246,7 +246,7 @@ export default function QuickDonateWidget() {
                 width: '100%',
                 padding: '0.55rem 0.85rem 0.55rem 2rem',
                 borderRadius: 'var(--radius-sm)',
-                border: customAmount ? '2px solid #059669' : '1px solid #cbd5e1',
+                border: customAmount ? '2px solid #0284c7' : '1px solid #cbd5e1',
                 fontSize: '0.85rem',
                 fontWeight: 600,
                 outline: 'none',
@@ -288,9 +288,9 @@ export default function QuickDonateWidget() {
             style={{
               padding: '0.8rem 0.85rem',
               backgroundColor: '#ffffff',
-              color: '#065f46',
+              color: '#0369a1',
               borderRadius: 'var(--radius-md)',
-              border: '1.5px solid #059669',
+              border: '1.5px solid #0284c7',
               fontWeight: 800,
               fontSize: '0.82rem',
               display: 'inline-flex',

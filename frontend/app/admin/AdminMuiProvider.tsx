@@ -14,9 +14,9 @@ export function AdminMuiProvider({ children }: { children: React.ReactNode }) {
       palette: {
         mode: isDark ? 'dark' : 'light',
         primary: {
-          main: '#059669', // Emerald
-          light: '#34d399',
-          dark: '#064e3b',
+          main: '#0284c7', // Light Cerulean Blue
+          light: '#38bdf8',
+          dark: '#0c4a6e',
           contrastText: '#ffffff',
         },
         secondary: {
@@ -25,11 +25,11 @@ export function AdminMuiProvider({ children }: { children: React.ReactNode }) {
           dark: '#b45309',
         },
         background: {
-          default: isDark ? '#0b1411' : '#f8f7f4',
-          paper: isDark ? '#13211c' : '#ffffff',
+          default: isDark ? '#071018' : '#f8fafc',
+          paper: isDark ? '#0c1a29' : '#ffffff',
         },
         text: {
-          primary: isDark ? '#f0fdf4' : '#1e293b',
+          primary: isDark ? '#f0f8ff' : '#0f172a',
           secondary: isDark ? '#94a3b8' : '#64748b',
         },
       },

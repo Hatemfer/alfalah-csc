@@ -84,7 +84,7 @@ export default function AdminDashboardPage() {
       count: stats.activitiesCount,
       href: '/admin/activities',
       icon: VolunteerActivismIcon,
-      color: '#059669',
+      color: '#0284c7',
     },
     {
       title: 'Events & Courses',

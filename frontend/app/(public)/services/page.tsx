@@ -122,7 +122,7 @@ export default function ServicesPage() {
       {/* Header Banner - Clean, Luminous & Modern */}
       <section
         style={{
-          background: 'linear-gradient(180deg, #ecfdf5 0%, #f8fafc 100%)',
+          background: 'linear-gradient(180deg, #e0f2fe 0%, #f8fafc 100%)',
           borderBottom: '1px solid #e2e8f0',
           padding: '3rem 1.5rem 2.5rem',
           textAlign: 'center',
@@ -176,8 +176,8 @@ export default function ServicesPage() {
                       width: '48px',
                       height: '48px',
                       borderRadius: '12px',
-                      backgroundColor: '#ecfdf5',
-                      color: '#059669',
+                      backgroundColor: '#e0f2fe',
+                      color: '#0284c7',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -203,7 +203,7 @@ export default function ServicesPage() {
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     {srv.features.map((feat, idx) => (
                       <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.85rem', color: '#334155', lineHeight: 1.4 }}>
-                        <CheckCircle2 size={15} style={{ color: '#059669', flexShrink: 0, marginTop: '2px' }} />
+                        <CheckCircle2 size={15} style={{ color: '#0284c7', flexShrink: 0, marginTop: '2px' }} />
                         <span>{feat}</span>
                       </li>
                     ))}
@@ -233,7 +233,7 @@ export default function ServicesPage() {
             style={{
               marginTop: '3.5rem',
               backgroundColor: '#ffffff',
-              border: '2px solid #059669',
+              border: '2px solid #0284c7',
               borderRadius: 'var(--radius-lg)',
               padding: 'clamp(1.25rem, 4vw, 2rem)',
               display: 'grid',
@@ -253,11 +253,11 @@ export default function ServicesPage() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', fontSize: '0.92rem', color: '#0f172a' }}>
-                <MapPin size={18} style={{ color: '#059669', flexShrink: 0 }} />
+                <MapPin size={18} style={{ color: '#0284c7', flexShrink: 0 }} />
                 <span>89 Tindal Street, Balsall Heath, Birmingham, B12 9QU</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', fontSize: '0.92rem', color: '#0f172a' }}>
-                <ShieldCheck size={18} style={{ color: '#059669', flexShrink: 0 }} />
+                <ShieldCheck size={18} style={{ color: '#0284c7', flexShrink: 0 }} />
                 <span>Registered UK Charity <strong>#1150221</strong></span>
               </div>
               <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem', flexWrap: 'wrap' }}>

@@ -180,7 +180,7 @@ export default function GalleryPage() {
       {/* Header Banner */}
       <section
         style={{
-          background: 'linear-gradient(180deg, #ecfdf5 0%, #f8fafc 100%)',
+          background: 'linear-gradient(180deg, #e0f2fe 0%, #f8fafc 100%)',
           borderBottom: '1px solid #e2e8f0',
           padding: '3rem 1.5rem 2.5rem',
           textAlign: 'center',
@@ -234,8 +234,8 @@ export default function GalleryPage() {
                     width: '36px',
                     height: '36px',
                     borderRadius: '50%',
-                    backgroundColor: '#ecfdf5',
-                    color: '#059669',
+                    backgroundColor: '#e0f2fe',
+                    color: '#0284c7',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -257,8 +257,8 @@ export default function GalleryPage() {
                 style={{
                   fontSize: '0.78rem',
                   fontWeight: 700,
-                  color: '#047857',
-                  backgroundColor: '#ecfdf5',
+                  color: '#0284c7',
+                  backgroundColor: '#e0f2fe',
                   padding: '0.3rem 0.75rem',
                   borderRadius: '9999px',
                 }}
@@ -309,14 +309,14 @@ export default function GalleryPage() {
                   style={{
                     padding: '0.5rem 1.15rem',
                     borderRadius: '9999px',
-                    border: isSelected ? '1.5px solid #059669' : '1.5px solid #e2e8f0',
-                    backgroundColor: isSelected ? '#059669' : '#ffffff',
+                    border: isSelected ? '1.5px solid #0284c7' : '1.5px solid #e2e8f0',
+                    backgroundColor: isSelected ? '#0284c7' : '#ffffff',
                     color: isSelected ? '#ffffff' : '#475569',
                     fontSize: '0.88rem',
                     fontWeight: isSelected ? 800 : 600,
                     cursor: 'pointer',
                     transition: 'all 0.15s ease',
-                    boxShadow: isSelected ? '0 2px 8px rgba(5, 150, 105, 0.25)' : 'none',
+                    boxShadow: isSelected ? '0 2px 8px rgba(2, 132, 199, 0.25)' : 'none',
                   }}
                 >
                   {cat.label}
@@ -407,7 +407,7 @@ export default function GalleryPage() {
               marginTop: '3.5rem',
               backgroundColor: '#ffffff',
               borderRadius: '20px',
-              border: '2px solid #059669',
+              border: '2px solid #0284c7',
               padding: 'clamp(1.25rem, 4vw, 2rem)',
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
@@ -509,7 +509,7 @@ export default function GalleryPage() {
 
             {/* Modal Caption */}
             <div style={{ padding: '1.5rem' }}>
-              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#059669', textTransform: 'uppercase', marginBottom: '0.25rem' }}>
+              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', marginBottom: '0.25rem' }}>
                 {activeItem.categoryLabel}
               </div>
               <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.5rem' }}>

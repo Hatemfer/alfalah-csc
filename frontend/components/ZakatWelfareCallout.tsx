@@ -31,14 +31,14 @@ export function ZakatWelfareCallout() {
       <div
         className="zakat-callout-card"
         style={{
-          background: 'linear-gradient(135deg, #064e3b 0%, #065f46 55%, #047857 100%)',
+          background: 'linear-gradient(135deg, #0c4a6e 0%, #0369a1 55%, #0284c7 100%)',
           borderRadius: '24px',
           color: '#ffffff',
           display: 'flex',
           flexDirection: 'column',
           gap: '1.75rem',
           border: '1px solid rgba(255, 255, 255, 0.15)',
-          boxShadow: '0 20px 40px -15px rgba(6, 78, 59, 0.25)',
+          boxShadow: '0 20px 40px -15px rgba(2, 132, 199, 0.25)',
           position: 'relative',
           overflow: 'hidden',
         }}
@@ -132,7 +132,7 @@ export function ZakatWelfareCallout() {
               onClick={() => setModalOpen(true)}
               style={{
                 backgroundColor: '#ffffff',
-                color: '#065f46',
+                color: '#0369a1',
                 border: 'none',
                 borderRadius: '12px',
                 padding: '0.8rem 1.4rem',
@@ -146,7 +146,7 @@ export function ZakatWelfareCallout() {
                 transition: 'all 0.15s ease',
               }}
             >
-              <Calculator size={18} style={{ color: '#059669' }} />
+              <Calculator size={18} style={{ color: '#0284c7' }} />
               <span>Calculate Zakat</span>
             </button>
 
@@ -212,11 +212,11 @@ export function ZakatWelfareCallout() {
               Direct Bank Transfer (Al Rayan Bank):
             </span>
             <span>
-              Sort Code: <strong style={{ fontFamily: 'monospace', color: '#6ee7b7' }}>30-00-83</strong>
+              Sort Code: <strong style={{ fontFamily: 'monospace', color: '#38bdf8' }}>30-00-83</strong>
             </span>
             <span style={{ opacity: 0.5 }}>•</span>
             <span>
-              Account: <strong style={{ fontFamily: 'monospace', color: '#6ee7b7' }}>01298401</strong>
+              Account: <strong style={{ fontFamily: 'monospace', color: '#38bdf8' }}>01298401</strong>
             </span>
             <span style={{ opacity: 0.5 }}>•</span>
             <span>
@@ -229,7 +229,7 @@ export function ZakatWelfareCallout() {
             onClick={handleCopyBank}
             className="zakat-callout-bank-btn"
             style={{
-              background: copied ? '#059669' : 'rgba(255, 255, 255, 0.12)',
+              background: copied ? '#0284c7' : 'rgba(255, 255, 255, 0.12)',
               border: '1px solid rgba(255, 255, 255, 0.25)',
               color: '#ffffff',
               borderRadius: '8px',

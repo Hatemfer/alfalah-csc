@@ -242,7 +242,7 @@ export function Header() {
                     alignItems: 'center',
                     fontSize: '0.95rem',
                     fontWeight: active ? 600 : 500,
-                    color: active ? '#047857' : '#475569',
+                    color: active ? '#0284c7' : '#475569',
                     padding: '0.55rem 0.75rem',
                     textDecoration: 'none',
                     transition: 'color 0.15s ease',
@@ -257,7 +257,7 @@ export function Header() {
                         left: '0.65rem',
                         right: '0.65rem',
                         height: '2.5px',
-                        backgroundColor: '#059669',
+                        backgroundColor: '#0284c7',
                         borderRadius: '2px',
                       }}
                     />
@@ -292,7 +292,7 @@ export function Header() {
                     cursor: 'pointer',
                     fontSize: '0.95rem',
                     fontWeight: active || isOpen ? 600 : 500,
-                    color: active || isOpen ? '#047857' : '#475569',
+                    color: active || isOpen ? '#0284c7' : '#475569',
                     fontFamily: 'inherit',
                     transition: 'color 0.15s ease',
                   }}
@@ -314,7 +314,7 @@ export function Header() {
                         left: '0.75rem',
                         right: '0.75rem',
                         height: '2.5px',
-                        backgroundColor: '#059669',
+                        backgroundColor: '#0284c7',
                         borderRadius: '2px',
                       }}
                     />
@@ -366,8 +366,8 @@ export function Header() {
                               width: '32px',
                               height: '32px',
                               borderRadius: '8px',
-                              backgroundColor: isChildActive ? '#dcfce7' : '#ecfdf5',
-                              color: '#065f46',
+                              backgroundColor: isChildActive ? '#bae6fd' : '#e0f2fe',
+                              color: '#0369a1',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
@@ -378,7 +378,7 @@ export function Header() {
                             <Icon size={16} />
                           </div>
                           <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ fontSize: '0.86rem', fontWeight: 700, color: isChildActive ? '#065f46' : '#0f172a' }}>
+                            <div style={{ fontSize: '0.86rem', fontWeight: 700, color: isChildActive ? '#0369a1' : '#0f172a' }}>
                               {child.label}
                             </div>
                             <div style={{ fontSize: '0.74rem', color: '#64748b', marginTop: '0.1rem', lineHeight: 1.3 }}>
@@ -664,8 +664,8 @@ export function Header() {
                               width: '26px',
                               height: '26px',
                               borderRadius: '6px',
-                              backgroundColor: '#ecfdf5',
-                              color: '#065f46',
+                              backgroundColor: '#e0f2fe',
+                              color: '#0369a1',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
@@ -744,13 +744,13 @@ export function Header() {
         }
         :global(.nav-link-item:hover),
         :global(.nav-link-btn:hover) {
-          color: #047857 !important;
+          color: #0284c7 !important;
         }
         :global(.dropdown-item:hover) {
           background-color: #f8fafc !important;
         }
         :global(.dropdown-item:hover div) {
-          color: #064e3b !important;
+          color: #0c4a6e !important;
         }
         @media (max-width: 767px) {
           .header-meta-desktop,

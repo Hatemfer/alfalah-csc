@@ -178,7 +178,7 @@ UK Registered Charity #1150221`;
       <section
         className="no-print"
         style={{
-          background: 'linear-gradient(180deg, #ecfdf5 0%, #f8fafc 100%)',
+          background: 'linear-gradient(180deg, #e0f2fe 0%, #f8fafc 100%)',
           borderBottom: '1px solid #e2e8f0',
           padding: '2.5rem 1.5rem 2rem',
           textAlign: 'center',
@@ -190,9 +190,9 @@ UK Registered Charity #1150221`;
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.45rem',
-              backgroundColor: '#ecfdf5',
-              color: '#065f46',
-              border: '1px solid #a7f3d0',
+              backgroundColor: '#e0f2fe',
+              color: '#0369a1',
+              border: '1px solid #bae6fd',
               borderRadius: '9999px',
               padding: '0.35rem 0.95rem',
               fontSize: '0.8rem',
@@ -200,7 +200,7 @@ UK Registered Charity #1150221`;
               marginBottom: '0.75rem',
             }}
           >
-            <ShieldCheck size={15} color="#059669" />
+            <ShieldCheck size={15} color="#0284c7" />
             <span>UK Registered Charity #1150221 • 100% Secure Donations</span>
           </div>
 
@@ -266,7 +266,7 @@ UK Registered Charity #1150221`;
                   padding: '0.75rem 0.5rem',
                   borderRadius: '11px',
                   backgroundColor: frequency === 'oneoff' ? '#ffffff' : 'transparent',
-                  color: frequency === 'oneoff' ? '#047857' : '#64748b',
+                  color: frequency === 'oneoff' ? '#0284c7' : '#64748b',
                   fontWeight: 700,
                   fontSize: '0.95rem',
                   border: 'none',
@@ -288,7 +288,7 @@ UK Registered Charity #1150221`;
                   padding: '0.75rem 0.5rem',
                   borderRadius: '11px',
                   backgroundColor: frequency === 'monthly' ? '#ffffff' : 'transparent',
-                  color: frequency === 'monthly' ? '#047857' : '#64748b',
+                  color: frequency === 'monthly' ? '#0284c7' : '#64748b',
                   fontWeight: 700,
                   fontSize: '0.95rem',
                   border: 'none',
@@ -326,15 +326,15 @@ UK Registered Charity #1150221`;
                       position: 'relative',
                       padding: '0.85rem 0.4rem',
                       borderRadius: '12px',
-                      backgroundColor: isSelected ? '#ecfdf5' : '#ffffff',
-                      color: isSelected ? '#047857' : '#0f172a',
-                      border: isSelected ? '2px solid #059669' : '1.5px solid #e2e8f0',
+                      backgroundColor: isSelected ? '#e0f2fe' : '#ffffff',
+                      color: isSelected ? '#0284c7' : '#0f172a',
+                      border: isSelected ? '2px solid #0284c7' : '1.5px solid #e2e8f0',
                       cursor: 'pointer',
                       textAlign: 'center',
                       fontWeight: 800,
                       fontSize: '1.15rem',
                       transition: 'all 0.15s ease',
-                      boxShadow: isSelected ? '0 2px 8px rgba(5, 150, 105, 0.15)' : 'none',
+                      boxShadow: isSelected ? '0 2px 8px rgba(2, 132, 199, 0.15)' : 'none',
                     }}
                   >
                     {opt.label}
@@ -353,7 +353,7 @@ UK Registered Charity #1150221`;
                   transform: 'translateY(-50%)',
                   fontWeight: 800,
                   fontSize: '1.05rem',
-                  color: customAmount ? '#059669' : '#64748b',
+                  color: customAmount ? '#0284c7' : '#64748b',
                 }}
               >
                 £
@@ -368,7 +368,7 @@ UK Registered Charity #1150221`;
                   width: '100%',
                   padding: '0.75rem 1rem 0.75rem 2.25rem',
                   borderRadius: '12px',
-                  border: customAmount ? '2px solid #059669' : '1.5px solid #e2e8f0',
+                  border: customAmount ? '2px solid #0284c7' : '1.5px solid #e2e8f0',
                   fontSize: '0.95rem',
                   fontWeight: 600,
                   outline: 'none',
@@ -396,9 +396,9 @@ UK Registered Charity #1150221`;
                     style={{
                       padding: '0.95rem 1.15rem',
                       borderRadius: '14px',
-                      border: isSelected ? '2px solid #059669' : '1.5px solid #e2e8f0',
+                      border: isSelected ? '2px solid #0284c7' : '1.5px solid #e2e8f0',
                       backgroundColor: isSelected ? '#f0fdf4' : '#ffffff',
-                      color: isSelected ? '#065f46' : '#1e293b',
+                      color: isSelected ? '#0369a1' : '#1e293b',
                       cursor: 'pointer',
                       textAlign: 'left',
                       display: 'flex',
@@ -406,7 +406,7 @@ UK Registered Charity #1150221`;
                       justifyContent: 'space-between',
                       gap: '0.85rem',
                       transition: 'all 0.15s ease',
-                      boxShadow: isSelected ? '0 2px 8px rgba(5, 150, 105, 0.12)' : 'none',
+                      boxShadow: isSelected ? '0 2px 8px rgba(2, 132, 199, 0.12)' : 'none',
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flex: 1, minWidth: 0 }}>
@@ -415,7 +415,7 @@ UK Registered Charity #1150221`;
                           width: '38px',
                           height: '38px',
                           borderRadius: '10px',
-                          backgroundColor: isSelected ? '#059669' : '#f1f5f9',
+                          backgroundColor: isSelected ? '#0284c7' : '#f1f5f9',
                           color: isSelected ? '#ffffff' : '#64748b',
                           display: 'flex',
                           alignItems: 'center',
@@ -427,10 +427,10 @@ UK Registered Charity #1150221`;
                       </div>
 
                       <div style={{ minWidth: 0 }}>
-                        <div style={{ fontWeight: 800, fontSize: '0.95rem', color: isSelected ? '#065f46' : '#0f172a', lineHeight: 1.3 }}>
+                        <div style={{ fontWeight: 800, fontSize: '0.95rem', color: isSelected ? '#0369a1' : '#0f172a', lineHeight: 1.3 }}>
                           {fund.label}
                         </div>
-                        <div style={{ fontSize: '0.78rem', color: isSelected ? '#047857' : '#64748b', fontWeight: 500, marginTop: '0.15rem', lineHeight: 1.25 }}>
+                        <div style={{ fontSize: '0.78rem', color: isSelected ? '#0284c7' : '#64748b', fontWeight: 500, marginTop: '0.15rem', lineHeight: 1.25 }}>
                           {fund.sublabel}
                         </div>
                       </div>
@@ -441,8 +441,8 @@ UK Registered Charity #1150221`;
                         width: '20px',
                         height: '20px',
                         borderRadius: '50%',
-                        border: isSelected ? '2px solid #059669' : '2px solid #cbd5e1',
-                        backgroundColor: isSelected ? '#059669' : 'transparent',
+                        border: isSelected ? '2px solid #0284c7' : '2px solid #cbd5e1',
+                        backgroundColor: isSelected ? '#0284c7' : 'transparent',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -461,8 +461,8 @@ UK Registered Charity #1150221`;
               <div
                 style={{
                   marginTop: '0.85rem',
-                  backgroundColor: '#ecfdf5',
-                  border: '1px solid #a7f3d0',
+                  backgroundColor: '#e0f2fe',
+                  border: '1px solid #bae6fd',
                   borderRadius: '12px',
                   padding: '0.85rem 1.15rem',
                   display: 'flex',
@@ -473,12 +473,12 @@ UK Registered Charity #1150221`;
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                  <Calculator size={18} style={{ color: '#059669', flexShrink: 0 }} />
+                  <Calculator size={18} style={{ color: '#0284c7', flexShrink: 0 }} />
                   <div>
-                    <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#065f46' }}>
+                    <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#0369a1' }}>
                       Need help calculating your Zakat?
                     </div>
-                    <div style={{ fontSize: '0.78rem', color: '#047857', marginTop: '0.1rem' }}>
+                    <div style={{ fontSize: '0.78rem', color: '#0284c7', marginTop: '0.1rem' }}>
                       Based on UK Silver Nisab: £485.00
                     </div>
                   </div>
@@ -487,7 +487,7 @@ UK Registered Charity #1150221`;
                   type="button"
                   onClick={() => setZakatModalOpen(true)}
                   style={{
-                    backgroundColor: '#059669',
+                    backgroundColor: '#0284c7',
                     color: '#ffffff',
                     border: 'none',
                     borderRadius: '8px',
@@ -522,9 +522,9 @@ UK Registered Charity #1150221`;
                 style={{
                   padding: '1rem 1.15rem',
                   borderRadius: '14px',
-                  border: paymentMethod === 'bank' ? '2.5px solid #059669' : '1.5px solid #e2e8f0',
-                  backgroundColor: paymentMethod === 'bank' ? '#ecfdf5' : '#ffffff',
-                  color: paymentMethod === 'bank' ? '#065f46' : '#475569',
+                  border: paymentMethod === 'bank' ? '2.5px solid #0284c7' : '1.5px solid #e2e8f0',
+                  backgroundColor: paymentMethod === 'bank' ? '#e0f2fe' : '#ffffff',
+                  color: paymentMethod === 'bank' ? '#0369a1' : '#475569',
                   fontWeight: 800,
                   fontSize: '0.95rem',
                   display: 'flex',
@@ -533,7 +533,7 @@ UK Registered Charity #1150221`;
                   gap: '0.75rem',
                   cursor: 'pointer',
                   transition: 'all 0.15s ease',
-                  boxShadow: paymentMethod === 'bank' ? '0 4px 14px rgba(5, 150, 105, 0.15)' : 'none',
+                  boxShadow: paymentMethod === 'bank' ? '0 4px 14px rgba(2, 132, 199, 0.15)' : 'none',
                   textAlign: 'left',
                 }}
               >
@@ -542,7 +542,7 @@ UK Registered Charity #1150221`;
                     width: '38px',
                     height: '38px',
                     borderRadius: '10px',
-                    backgroundColor: paymentMethod === 'bank' ? '#059669' : '#f1f5f9',
+                    backgroundColor: paymentMethod === 'bank' ? '#0284c7' : '#f1f5f9',
                     color: paymentMethod === 'bank' ? '#ffffff' : '#64748b',
                     display: 'flex',
                     alignItems: 'center',
@@ -553,10 +553,10 @@ UK Registered Charity #1150221`;
                   <Building size={20} />
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.95rem', fontWeight: 800, color: paymentMethod === 'bank' ? '#065f46' : '#0f172a' }}>
+                  <div style={{ fontSize: '0.95rem', fontWeight: 800, color: paymentMethod === 'bank' ? '#0369a1' : '#0f172a' }}>
                     Bank Transfer (0% Fee)
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: paymentMethod === 'bank' ? '#047857' : '#64748b', fontWeight: 600, marginTop: '0.1rem' }}>
+                  <div style={{ fontSize: '0.75rem', color: paymentMethod === 'bank' ? '#0284c7' : '#64748b', fontWeight: 600, marginTop: '0.1rem' }}>
                     Al Rayan Bank • Direct UK Transfer
                   </div>
                 </div>
@@ -570,9 +570,9 @@ UK Registered Charity #1150221`;
                 style={{
                   padding: '1rem 1.15rem',
                   borderRadius: '14px',
-                  border: paymentMethod === 'mydona' ? '2.5px solid #059669' : '1.5px solid #e2e8f0',
-                  backgroundColor: paymentMethod === 'mydona' ? '#ecfdf5' : '#ffffff',
-                  color: paymentMethod === 'mydona' ? '#065f46' : '#475569',
+                  border: paymentMethod === 'mydona' ? '2.5px solid #0284c7' : '1.5px solid #e2e8f0',
+                  backgroundColor: paymentMethod === 'mydona' ? '#e0f2fe' : '#ffffff',
+                  color: paymentMethod === 'mydona' ? '#0369a1' : '#475569',
                   fontWeight: 800,
                   fontSize: '0.95rem',
                   display: 'flex',
@@ -581,7 +581,7 @@ UK Registered Charity #1150221`;
                   gap: '0.75rem',
                   cursor: 'pointer',
                   transition: 'all 0.15s ease',
-                  boxShadow: paymentMethod === 'mydona' ? '0 4px 14px rgba(5, 150, 105, 0.15)' : 'none',
+                  boxShadow: paymentMethod === 'mydona' ? '0 4px 14px rgba(2, 132, 199, 0.15)' : 'none',
                   textAlign: 'left',
                 }}
               >
@@ -590,7 +590,7 @@ UK Registered Charity #1150221`;
                     width: '38px',
                     height: '38px',
                     borderRadius: '10px',
-                    backgroundColor: paymentMethod === 'mydona' ? '#059669' : '#f1f5f9',
+                    backgroundColor: paymentMethod === 'mydona' ? '#0284c7' : '#f1f5f9',
                     color: paymentMethod === 'mydona' ? '#ffffff' : '#64748b',
                     display: 'flex',
                     alignItems: 'center',
@@ -601,10 +601,10 @@ UK Registered Charity #1150221`;
                   <QrCode size={20} />
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.95rem', fontWeight: 800, color: paymentMethod === 'mydona' ? '#065f46' : '#0f172a' }}>
+                  <div style={{ fontSize: '0.95rem', fontWeight: 800, color: paymentMethod === 'mydona' ? '#0369a1' : '#0f172a' }}>
                     MyDona QR / Apple Pay
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: paymentMethod === 'mydona' ? '#047857' : '#64748b', fontWeight: 600, marginTop: '0.1rem' }}>
+                  <div style={{ fontSize: '0.75rem', color: paymentMethod === 'mydona' ? '#0284c7' : '#64748b', fontWeight: 600, marginTop: '0.1rem' }}>
                     Apple Pay, Google Pay & UK Cards
                   </div>
                 </div>
@@ -617,7 +617,7 @@ UK Registered Charity #1150221`;
                 id="bank-transfer"
                 style={{
                   backgroundColor: '#ffffff',
-                  border: '1.5px solid #059669',
+                  border: '1.5px solid #0284c7',
                   borderRadius: '20px',
                   padding: '2rem 1.75rem',
                   boxShadow: '0 8px 30px rgba(5, 150, 105, 0.08)',
@@ -646,13 +646,13 @@ UK Registered Charity #1150221`;
                       fontWeight: 800,
                       borderRadius: '10px',
                       border: 'none',
-                      backgroundColor: copiedAll ? '#047857' : '#059669',
+                      backgroundColor: copiedAll ? '#0284c7' : '#0284c7',
                       color: '#ffffff',
                       cursor: 'pointer',
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '0.5rem',
-                      boxShadow: '0 2px 8px rgba(5, 150, 105, 0.2)',
+                      boxShadow: '0 2px 8px rgba(2, 132, 199, 0.2)',
                       transition: 'all 0.15s ease',
                       flexShrink: 0,
                     }}
@@ -692,7 +692,7 @@ UK Registered Charity #1150221`;
                       onClick={() => handleCopy('ALFALAH COMMUNITY SUPPORT CENTRE', 'beneficiary')}
                       style={{ padding: '0.4rem 0.75rem', borderRadius: '8px', border: '1px solid #cbd5e1', backgroundColor: '#ffffff', color: '#334155', cursor: 'pointer', fontSize: '0.76rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}
                     >
-                      {copiedField === 'beneficiary' ? <Check size={13} color="#059669" /> : <Copy size={13} />}
+                      {copiedField === 'beneficiary' ? <Check size={13} color="#0284c7" /> : <Copy size={13} />}
                       {copiedField === 'beneficiary' ? 'Copied' : 'Copy'}
                     </button>
                   </div>
@@ -713,7 +713,7 @@ UK Registered Charity #1150221`;
                       <span style={{ display: 'block', fontSize: '0.72rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                         Sort Code
                       </span>
-                      <span style={{ fontSize: '1.35rem', fontWeight: 900, fontFamily: 'monospace', color: '#059669', letterSpacing: '1px' }}>
+                      <span style={{ fontSize: '1.35rem', fontWeight: 900, fontFamily: 'monospace', color: '#0284c7', letterSpacing: '1px' }}>
                         30-00-83
                       </span>
                     </div>
@@ -722,7 +722,7 @@ UK Registered Charity #1150221`;
                       onClick={() => handleCopy('30-00-83', 'sort-code')}
                       style={{ padding: '0.4rem 0.75rem', borderRadius: '8px', border: '1px solid #cbd5e1', backgroundColor: '#ffffff', color: '#334155', cursor: 'pointer', fontSize: '0.76rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}
                     >
-                      {copiedField === 'sort-code' ? <Check size={13} color="#059669" /> : <Copy size={13} />}
+                      {copiedField === 'sort-code' ? <Check size={13} color="#0284c7" /> : <Copy size={13} />}
                       {copiedField === 'sort-code' ? 'Copied' : 'Copy'}
                     </button>
                   </div>
@@ -743,7 +743,7 @@ UK Registered Charity #1150221`;
                       <span style={{ display: 'block', fontSize: '0.72rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                         Account Number
                       </span>
-                      <span style={{ fontSize: '1.35rem', fontWeight: 900, fontFamily: 'monospace', color: '#059669', letterSpacing: '1px' }}>
+                      <span style={{ fontSize: '1.35rem', fontWeight: 900, fontFamily: 'monospace', color: '#0284c7', letterSpacing: '1px' }}>
                         01298401
                       </span>
                     </div>
@@ -752,7 +752,7 @@ UK Registered Charity #1150221`;
                       onClick={() => handleCopy('01298401', 'account-number')}
                       style={{ padding: '0.4rem 0.75rem', borderRadius: '8px', border: '1px solid #cbd5e1', backgroundColor: '#ffffff', color: '#334155', cursor: 'pointer', fontSize: '0.76rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}
                     >
-                      {copiedField === 'account-number' ? <Check size={13} color="#059669" /> : <Copy size={13} />}
+                      {copiedField === 'account-number' ? <Check size={13} color="#0284c7" /> : <Copy size={13} />}
                       {copiedField === 'account-number' ? 'Copied' : 'Copy'}
                     </button>
                   </div>
@@ -777,7 +777,7 @@ UK Registered Charity #1150221`;
                         Al Rayan Bank
                       </span>
                     </div>
-                    <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#059669', backgroundColor: '#ecfdf5', padding: '3px 8px', borderRadius: '6px' }}>
+                    <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#0284c7', backgroundColor: '#e0f2fe', padding: '3px 8px', borderRadius: '6px' }}>
                       UK Islamic Bank
                     </span>
                   </div>
@@ -807,14 +807,14 @@ UK Registered Charity #1150221`;
                       onClick={() => handleCopy(paymentReference, 'reference')}
                       style={{ padding: '0.4rem 0.75rem', borderRadius: '8px', border: '1px solid #cbd5e1', backgroundColor: '#ffffff', color: '#334155', cursor: 'pointer', fontSize: '0.76rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}
                     >
-                      {copiedField === 'reference' ? <Check size={13} color="#059669" /> : <Copy size={13} />}
+                      {copiedField === 'reference' ? <Check size={13} color="#0284c7" /> : <Copy size={13} />}
                       {copiedField === 'reference' ? 'Copied' : 'Copy'}
                     </button>
                   </div>
                 </div>
 
                 {/* Helpful Instruction Note */}
-                <div style={{ backgroundColor: '#ecfdf5', border: '1px solid #a7f3d0', borderRadius: '12px', padding: '0.85rem 1.15rem', fontSize: '0.84rem', color: '#065f46', lineHeight: 1.55 }}>
+                <div style={{ backgroundColor: '#e0f2fe', border: '1px solid #bae6fd', borderRadius: '12px', padding: '0.85rem 1.15rem', fontSize: '0.84rem', color: '#0369a1', lineHeight: 1.55 }}>
                   <strong>How to transfer:</strong> Log into your UK banking app (Barclays, Lloyds, NatWest, Monzo, HSBC, Santander, etc.), select <em>Pay Someone New</em>, enter the Sort Code and Account Number above, and quote <strong>{paymentReference}</strong> so we allocate your donation to the correct cause.
                 </div>
 
@@ -890,10 +890,10 @@ UK Registered Charity #1150221`;
                 id="mydona-portal"
                 style={{
                   backgroundColor: '#ffffff',
-                  border: '2px solid #059669',
+                  border: '2px solid #0284c7',
                   borderRadius: '20px',
                   padding: '2rem 1.75rem',
-                  boxShadow: '0 8px 30px rgba(5, 150, 105, 0.12)',
+                  boxShadow: '0 8px 30px rgba(2, 132, 199, 0.12)',
                 }}
               >
                 <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
@@ -923,7 +923,7 @@ UK Registered Charity #1150221`;
                         backgroundColor: '#ffffff',
                         borderRadius: '20px',
                         border: '2px solid #e2e8f0',
-                        boxShadow: '0 10px 30px rgba(6, 78, 59, 0.1)',
+                        boxShadow: '0 10px 30px rgba(2, 132, 199, 0.1)',
                       }}
                     >
                       <Image
@@ -948,12 +948,12 @@ UK Registered Charity #1150221`;
                           marginTop: '0.85rem',
                           fontSize: '0.78rem',
                           fontWeight: 800,
-                          color: '#065f46',
+                          color: '#0369a1',
                           textTransform: 'uppercase',
                           letterSpacing: '0.5px',
                         }}
                       >
-                        <Smartphone size={15} color="#059669" />
+                        <Smartphone size={15} color="#0284c7" />
                         <span>Scan with Phone Camera</span>
                       </div>
                     </div>
@@ -973,7 +973,7 @@ UK Registered Charity #1150221`;
                         gap: '0.6rem',
                         width: '100%',
                         padding: '1rem 1.5rem',
-                        background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
+                        background: 'linear-gradient(135deg, #0284c7 0%, #0284c7 100%)',
                         color: '#ffffff',
                         borderRadius: '14px',
                         fontWeight: 800,
@@ -1022,7 +1022,7 @@ UK Registered Charity #1150221`;
                           marginLeft: '0.5rem',
                         }}
                       >
-                        {copiedField === 'mydona-url' ? <Check size={13} color="#059669" /> : <Copy size={13} />}
+                        {copiedField === 'mydona-url' ? <Check size={13} color="#0284c7" /> : <Copy size={13} />}
                         {copiedField === 'mydona-url' ? 'Copied' : 'Copy Link'}
                       </button>
                     </div>
@@ -1051,11 +1051,11 @@ UK Registered Charity #1150221`;
                     {/* Trust bullet points */}
                     <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.8rem', color: '#64748b' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                        <ShieldCheck size={15} color="#059669" />
+                        <ShieldCheck size={15} color="#0284c7" />
                         <span>Direct official disbursement to Al-Falah CSC (Charity #1150221)</span>
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                        <Check size={15} color="#059669" />
+                        <Check size={15} color="#0284c7" />
                         <span>Instant digital donation receipt delivered to your email</span>
                       </div>
                     </div>
@@ -1087,7 +1087,7 @@ UK Registered Charity #1150221`;
               gap: '0.85rem',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#065f46', fontWeight: 800, fontSize: '0.95rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#0369a1', fontWeight: 800, fontSize: '0.95rem' }}>
               <ShieldCheck size={20} />
               <span>UK Charity Commission Verified</span>
             </div>
@@ -1098,15 +1098,15 @@ UK Registered Charity #1150221`;
 
             <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.82rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#334155' }}>
-                <Building size={14} style={{ color: '#059669' }} />
+                <Building size={14} style={{ color: '#0284c7' }} />
                 <span>89 Tindal Street, Balsall Heath, Birmingham B12 9QU</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#334155' }}>
-                <Phone size={14} style={{ color: '#059669' }} />
+                <Phone size={14} style={{ color: '#0284c7' }} />
                 <a href="tel:07429188880" style={{ color: 'inherit', textDecoration: 'none' }}>07429 188880</a>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#334155' }}>
-                <Mail size={14} style={{ color: '#059669' }} />
+                <Mail size={14} style={{ color: '#0284c7' }} />
                 <a href="mailto:alfalahcsc@hotmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>alfalahcsc@hotmail.com</a>
               </div>
             </div>
@@ -1118,7 +1118,7 @@ UK Registered Charity #1150221`;
               style={{
                 fontSize: '0.82rem',
                 fontWeight: 700,
-                color: '#059669',
+                color: '#0284c7',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.3rem',
@@ -1141,7 +1141,7 @@ UK Registered Charity #1150221`;
             }}
           >
             <div style={{ fontSize: '0.9rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-              <HelpCircle size={16} style={{ color: '#059669' }} />
+              <HelpCircle size={16} style={{ color: '#0284c7' }} />
               Donation FAQs
             </div>
 
@@ -1179,7 +1179,7 @@ function DonateLoading() {
   return (
     <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f8fafc' }}>
       <div style={{ textAlign: 'center' }}>
-        <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#065f46', marginBottom: '0.5rem' }}>
+        <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0369a1', marginBottom: '0.5rem' }}>
           Loading Secure Donation Form...
         </div>
         <p style={{ color: '#64748b', fontSize: '0.85rem' }}>

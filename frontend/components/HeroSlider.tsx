@@ -148,7 +148,7 @@ export default function HeroSlider() {
       style={{
         position: 'relative',
         minHeight: '620px',
-        backgroundColor: '#064e3b',
+        backgroundColor: '#0c4a6e',
         color: '#ffffff',
         overflow: 'hidden',
         display: 'flex',
@@ -180,13 +180,13 @@ export default function HeroSlider() {
                 sizes="100vw"
                 style={{ objectFit: 'cover', objectPosition: 'center' }}
               />
-              {/* Luminous Light Green & Ocean Blue Gradient Filter (Zero Black) */}
+              {/* Luminous Light Royal & Ocean Sky Blue Gradient Filter */}
               <div
                 style={{
                   position: 'absolute',
                   inset: 0,
                   background:
-                    'linear-gradient(135deg, rgba(6, 95, 70, 0.72) 0%, rgba(13, 148, 136, 0.52) 48%, rgba(2, 132, 199, 0.22) 85%, transparent 100%)',
+                    'linear-gradient(135deg, rgba(12, 74, 110, 0.78) 0%, rgba(3, 105, 161, 0.58) 48%, rgba(2, 132, 199, 0.32) 85%, transparent 100%)',
                 }}
               />
               <div
@@ -194,7 +194,7 @@ export default function HeroSlider() {
                   position: 'absolute',
                   inset: 0,
                   background:
-                    'linear-gradient(to top, rgba(6, 78, 59, 0.65) 0%, transparent 45%)',
+                    'linear-gradient(to top, rgba(8, 47, 73, 0.75) 0%, transparent 45%)',
                 }}
               />
             </div>
@@ -234,7 +234,7 @@ export default function HeroSlider() {
             style={{
               margin: '1rem 0 1.25rem',
               padding: '0.95rem 1.35rem',
-              backgroundColor: 'rgba(6, 78, 59, 0.45)',
+              backgroundColor: 'rgba(12, 74, 110, 0.65)',
               border: '1px solid rgba(255, 255, 255, 0.18)',
               borderLeft: '4px solid #fbbf24',
               borderRadius: '0 10px 10px 0',
@@ -324,7 +324,7 @@ export default function HeroSlider() {
         style={{
           position: 'relative',
           zIndex: 10,
-          background: 'rgba(6, 78, 59, 0.78)',
+          background: 'rgba(8, 47, 73, 0.88)',
           backdropFilter: 'blur(16px)',
           borderTop: '1px solid rgba(255, 255, 255, 0.2)',
           padding: '1.25rem 1.5rem',

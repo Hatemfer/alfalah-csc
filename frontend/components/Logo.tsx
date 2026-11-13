@@ -81,7 +81,7 @@ export function Logo({
               style={{
                 fontFamily: 'Amiri, Georgia, serif',
                 fontSize: dimensions.arabicSize,
-                color: '#047857',
+                color: '#0284c7',
                 fontWeight: 700,
                 letterSpacing: '0.02em',
               }}

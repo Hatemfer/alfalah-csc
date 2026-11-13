@@ -3,22 +3,22 @@
   <circle cx="50" cy="50" r="48" fill="#ffffff" />
 
   <!-- Outer Royal Heritage Forest Emerald Ring -->
-  <circle cx="50" cy="50" r="46.5" stroke="#064e3b" stroke-width="2.6" />
+  <circle cx="50" cy="50" r="46.5" stroke="#0c4a6e" stroke-width="2.6" />
 
   <!-- Inner Refined Polished Gold Ring -->
   <circle cx="50" cy="50" r="43.5" stroke="#c59b27" stroke-width="1.1" />
 
   <!-- Sacred Subtle Architectural Gateway Tint -->
-  <circle cx="50" cy="50" r="40" fill="#f8faf9" />
+  <circle cx="50" cy="50" r="40" fill="#f0f9ff" />
 
   <!-- Foundation Plinth Base -->
-  <line x1="28" y1="74" x2="72" y2="74" stroke="#064e3b" stroke-width="2.8" stroke-linecap="round" />
+  <line x1="28" y1="74" x2="72" y2="74" stroke="#0c4a6e" stroke-width="2.8" stroke-linecap="round" />
   <line x1="33" y1="71.5" x2="67" y2="71.5" stroke="#c59b27" stroke-width="1.2" stroke-linecap="round" />
 
   <!-- The Great Moorish Horseshoe Arch (Outer Emerald Silhouette) -->
   <path
     d="M 35 71.5 L 35 52 C 32 46, 34 38, 41 30 C 45 25, 48 22, 50 19 C 52 22, 55 25, 59 30 C 66 38, 68 46, 65 52 L 65 71.5"
-    stroke="#064e3b"
+    stroke="#0c4a6e"
     stroke-width="3"
     stroke-linejoin="round"
     stroke-linecap="round"
@@ -38,7 +38,7 @@
   <!-- Sanctuary Dome within the Archway -->
   <path
     d="M 40 71.5 C 40 57, 44 50, 50 46 C 56 50, 60 57, 60 71.5 Z"
-    fill="#064e3b"
+    fill="#0c4a6e"
   />
 
   <!-- Inner Light Gateway Doorway -->

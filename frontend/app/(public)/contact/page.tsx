@@ -47,7 +47,7 @@ export default function ContactPage() {
       {/* Page Header - Clean, Luminous & Modern Brand Gradient */}
       <section
         style={{
-          background: 'linear-gradient(180deg, #ecfdf5 0%, #f8fafc 100%)',
+          background: 'linear-gradient(180deg, #e0f2fe 0%, #f8fafc 100%)',
           borderBottom: '1px solid #e2e8f0',
           padding: '3rem 1.5rem 2.5rem',
           textAlign: 'center',
@@ -104,9 +104,9 @@ export default function ContactPage() {
                         width: '42px',
                         height: '42px',
                         borderRadius: '12px',
-                        backgroundColor: '#ecfdf5',
+                        backgroundColor: '#e0f2fe',
                         border: '1px solid #d1fae5',
-                        color: '#065f46',
+                        color: '#0369a1',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -136,9 +136,9 @@ export default function ContactPage() {
                         width: '42px',
                         height: '42px',
                         borderRadius: '12px',
-                        backgroundColor: '#ecfdf5',
+                        backgroundColor: '#e0f2fe',
                         border: '1px solid #d1fae5',
-                        color: '#065f46',
+                        color: '#0369a1',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -167,9 +167,9 @@ export default function ContactPage() {
                         width: '42px',
                         height: '42px',
                         borderRadius: '12px',
-                        backgroundColor: '#ecfdf5',
+                        backgroundColor: '#e0f2fe',
                         border: '1px solid #d1fae5',
-                        color: '#065f46',
+                        color: '#0369a1',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -184,7 +184,7 @@ export default function ContactPage() {
                       </span>
                       <a
                         href="mailto:alfalahcsc@hotmail.com"
-                        style={{ color: '#065f46', fontWeight: 700, fontSize: '0.96rem', textDecoration: 'none' }}
+                        style={{ color: '#0369a1', fontWeight: 700, fontSize: '0.96rem', textDecoration: 'none' }}
                       >
                         alfalahcsc@hotmail.com
                       </a>
@@ -198,9 +198,9 @@ export default function ContactPage() {
                         width: '42px',
                         height: '42px',
                         borderRadius: '12px',
-                        backgroundColor: '#ecfdf5',
+                        backgroundColor: '#e0f2fe',
                         border: '1px solid #d1fae5',
-                        color: '#065f46',
+                        color: '#0369a1',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -276,7 +276,7 @@ export default function ContactPage() {
                   href="https://www.google.com/maps/place/Alfalah+Community+Support+Centre/@52.4555036,-1.8897627,17z"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ fontSize: '0.84rem', fontWeight: 700, color: '#065f46', textDecoration: 'none' }}
+                  style={{ fontSize: '0.84rem', fontWeight: 700, color: '#0369a1', textDecoration: 'none' }}
                 >
                   Open in Google Maps ↗
                 </a>
@@ -307,8 +307,8 @@ export default function ContactPage() {
                       padding: '1rem 1.25rem',
                       borderRadius: '12px',
                       backgroundColor: '#f0fdf4',
-                      border: '1px solid #86efac',
-                      color: '#065f46',
+                      border: '1px solid #7dd3fc',
+                      color: '#0369a1',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.75rem',
@@ -317,7 +317,7 @@ export default function ContactPage() {
                       fontWeight: 600,
                     }}
                   >
-                    <CheckCircle2 size={18} style={{ color: '#059669', flexShrink: 0 }} />
+                    <CheckCircle2 size={18} style={{ color: '#0284c7', flexShrink: 0 }} />
                     {successMessage}
                   </div>
                 )}
@@ -465,7 +465,7 @@ export default function ContactPage() {
                       fontSize: '1rem',
                       fontWeight: 700,
                       width: '100%',
-                      backgroundColor: '#065f46',
+                      backgroundColor: '#0369a1',
                       color: '#ffffff',
                       borderRadius: '12px',
                       border: 'none',
@@ -474,7 +474,7 @@ export default function ContactPage() {
                       alignItems: 'center',
                       justifyContent: 'center',
                       gap: '0.5rem',
-                      boxShadow: '0 4px 14px rgba(6, 95, 70, 0.25)',
+                      boxShadow: '0 4px 14px rgba(3, 105, 161, 0.25)',
                       transition: 'all 0.15s ease',
                     }}
                   >

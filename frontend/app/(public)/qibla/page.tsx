@@ -14,7 +14,7 @@ export default function QiblaPage() {
       {/* Page Header - Clean, Luminous & Modern */}
       <section
         style={{
-          background: 'linear-gradient(180deg, #ecfdf5 0%, #f8fafc 100%)',
+          background: 'linear-gradient(180deg, #e0f2fe 0%, #f8fafc 100%)',
           borderBottom: '1px solid #e2e8f0',
           padding: '3rem 1.5rem 2.5rem',
           textAlign: 'center',

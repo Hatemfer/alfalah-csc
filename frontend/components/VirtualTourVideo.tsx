@@ -107,7 +107,7 @@ export default function VirtualTourVideo() {
                   width: '74px',
                   height: '74px',
                   borderRadius: '50%',
-                  backgroundColor: '#064e3b',
+                  backgroundColor: '#0c4a6e',
                   color: '#ffffff',
                   display: 'flex',
                   alignItems: 'center',

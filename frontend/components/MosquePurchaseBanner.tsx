@@ -17,25 +17,35 @@ import {
 const PLEDGE_TIERS = [
   {
     amount: 250,
-    title: 'One Brick',
-    subtitle: 'Foundational Sadaqah Jariyah',
+    title: 'Pray Mat',
+    subtitle: 'Sponsor 1 Prayer Space',
     tag: 'Sadaqah Jariyah',
     href: '/donate?amount=250&category=purchase',
   },
   {
     amount: 500,
-    title: 'One Prayer Mat',
-    subtitle: 'Sponsor 1 Worshipper’s Space',
+    title: 'Pray Mat',
+    subtitle: 'Sponsor 2 Prayer Spaces',
     tag: 'Community Impact',
     href: '/donate?amount=500&category=purchase',
   },
   {
     amount: 1000,
-    title: 'Full Musalla Space',
-    subtitle: 'Permanent House in Paradise',
+    title: 'Pray Mat',
+    subtitle: 'Full Musalla Sponsor',
     tag: 'Most Popular',
     featured: true,
+    badge: 'Popular',
     href: '/donate?amount=1000&category=purchase',
+  },
+  {
+    amount: 5000,
+    title: 'First Row Pray Mat',
+    subtitle: 'First Row Saf Honour',
+    tag: 'First Row Saf',
+    highlight: true,
+    badge: 'First Row',
+    href: '/donate?amount=5000&category=purchase',
   },
 ];
 
@@ -103,7 +113,7 @@ UK Registered Charity #1150221`;
                     fontSize: '0.76rem',
                     fontWeight: 800,
                     letterSpacing: '0.4px',
-                    border: '1px solid #a7f3d0',
+                    border: '1px solid #bae6fd',
                   }}
                 >
                   <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#059669' }} />
@@ -164,8 +174,8 @@ UK Registered Charity #1150221`;
                 <div
                   style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
-                    gap: '0.75rem',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(115px, 1fr))',
+                    gap: '0.65rem',
                   }}
                 >
                   {PLEDGE_TIERS.map((tier) => (
@@ -177,24 +187,40 @@ UK Registered Charity #1150221`;
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
-                        padding: '1rem 0.85rem',
-                        backgroundColor: tier.featured ? '#fffbeb' : '#f8fafc',
-                        border: tier.featured ? '2px solid #f59e0b' : '1.5px solid #e2e8f0',
+                        padding: '0.95rem 0.75rem',
+                        backgroundColor: tier.featured
+                          ? '#fffbeb'
+                          : tier.highlight
+                          ? '#e0f2fe'
+                          : '#f8fafc',
+                        border: tier.featured
+                          ? '2px solid #f59e0b'
+                          : tier.highlight
+                          ? '2px solid #059669'
+                          : '1.5px solid #e2e8f0',
                         borderRadius: '14px',
                         textDecoration: 'none',
                         transition: 'all 0.15s ease',
-                        boxShadow: tier.featured ? '0 4px 14px rgba(245, 158, 11, 0.12)' : 'none',
+                        boxShadow: tier.featured
+                          ? '0 4px 14px rgba(245, 158, 11, 0.12)'
+                          : tier.highlight
+                          ? '0 4px 14px rgba(5, 150, 105, 0.12)'
+                          : 'none',
                       }}
                     >
-                      {tier.featured && (
+                      {tier.badge && (
                         <span
                           style={{
                             position: 'absolute',
                             top: '-9px',
                             right: '10px',
-                            backgroundColor: '#f59e0b',
-                            color: '#0f172a',
-                            fontSize: '0.65rem',
+                            backgroundColor: tier.featured
+                              ? '#f59e0b'
+                              : tier.highlight
+                              ? '#059669'
+                              : '#64748b',
+                            color: tier.featured ? '#0f172a' : '#ffffff',
+                            fontSize: '0.62rem',
                             fontWeight: 800,
                             padding: '1px 7px',
                             borderRadius: '9999px',
@@ -202,30 +228,45 @@ UK Registered Charity #1150221`;
                             letterSpacing: '0.3px',
                           }}
                         >
-                          Featured
+                          {tier.badge}
                         </span>
                       )}
 
                       <div>
-                        <div style={{ fontSize: '0.72rem', fontWeight: 700, color: tier.featured ? '#92400e' : '#64748b' }}>
+                        <div
+                          style={{
+                            fontSize: '0.72rem',
+                            fontWeight: 700,
+                            color: tier.featured
+                              ? '#92400e'
+                              : tier.highlight
+                              ? '#065f46'
+                              : '#64748b',
+                            lineHeight: 1.2,
+                          }}
+                        >
                           {tier.title}
                         </div>
                         <div
                           style={{
-                            fontSize: '1.4rem',
+                            fontSize: '1.35rem',
                             fontWeight: 900,
-                            color: tier.featured ? '#b45309' : '#059669',
+                            color: tier.featured
+                              ? '#b45309'
+                              : tier.highlight
+                              ? '#047857'
+                              : '#059669',
                             fontFamily: 'monospace',
                             margin: '0.2rem 0',
                           }}
                         >
-                          £{tier.amount}
+                          £{tier.amount.toLocaleString('en-GB')}
                         </div>
                       </div>
 
                       <div
                         style={{
-                          fontSize: '0.72rem',
+                          fontSize: '0.7rem',
                           color: '#475569',
                           lineHeight: 1.25,
                           marginTop: '0.35rem',

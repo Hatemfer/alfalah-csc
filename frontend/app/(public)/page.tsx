@@ -222,8 +222,8 @@ export default async function HomePage() {
                     width: '46px',
                     height: '46px',
                     borderRadius: '12px',
-                    backgroundColor: '#ecfdf5',
-                    color: '#065f46',
+                    backgroundColor: '#e0f2fe',
+                    color: '#0369a1',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -244,7 +244,7 @@ export default async function HomePage() {
                     style={{
                       fontSize: '0.88rem',
                       fontWeight: 800,
-                      color: '#065f46',
+                      color: '#0369a1',
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '0.35rem',
@@ -279,7 +279,7 @@ export default async function HomePage() {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.35rem',
-                  color: '#065f46',
+                  color: '#0369a1',
                   fontWeight: 700,
                   fontSize: '0.82rem',
                   textTransform: 'uppercase',
@@ -371,8 +371,8 @@ export default async function HomePage() {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.4rem',
-                  backgroundColor: '#ecfdf5',
-                  color: '#065f46',
+                  backgroundColor: '#e0f2fe',
+                  color: '#0369a1',
                   fontSize: '0.8rem',
                   fontWeight: 800,
                   padding: '0.3rem 0.75rem',
@@ -395,7 +395,7 @@ export default async function HomePage() {
               {/* Key Features */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', marginBottom: '1.75rem' }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
-                  <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#ecfdf5', color: '#065f46', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#e0f2fe', color: '#0369a1', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Coffee size={16} />
                   </div>
                   <div>
@@ -405,7 +405,7 @@ export default async function HomePage() {
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
-                  <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#ecfdf5', color: '#065f46', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#e0f2fe', color: '#0369a1', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Users size={16} />
                   </div>
                   <div>
@@ -415,7 +415,7 @@ export default async function HomePage() {
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
-                  <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#ecfdf5', color: '#065f46', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: '#e0f2fe', color: '#0369a1', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <HelpCircle size={16} />
                   </div>
                   <div>
@@ -561,8 +561,8 @@ export default async function HomePage() {
                           alignItems: 'center',
                           gap: '0.5rem',
                           fontSize: '0.85rem',
-                          color: '#065f46',
-                          backgroundColor: '#ecfdf5',
+                          color: '#0369a1',
+                          backgroundColor: '#e0f2fe',
                           padding: '0.5rem 0.85rem',
                           borderRadius: 'var(--radius-sm)',
                           marginBottom: '1.25rem',
@@ -576,14 +576,14 @@ export default async function HomePage() {
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.75rem', borderTop: '1px solid #f1f5f9' }}>
                       <span style={{ fontSize: '0.8rem', color: '#64748b', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-                        <MapPin size={12} style={{ color: '#065f46' }} /> {act.location || 'Alfalah Centre'}
+                        <MapPin size={12} style={{ color: '#0369a1' }} /> {act.location || 'Alfalah Centre'}
                       </span>
                       <Link
                         href={`/activities/${act.slug}`}
                         style={{
                           fontSize: '0.88rem',
                           fontWeight: 800,
-                          color: '#065f46',
+                          color: '#0369a1',
                           textDecoration: 'none',
                           display: 'inline-flex',
                           alignItems: 'center',
@@ -630,7 +630,7 @@ export default async function HomePage() {
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '0.4rem',
-                    color: '#065f46',
+                    color: '#0369a1',
                     fontSize: '0.8rem',
                     fontWeight: 800,
                     textTransform: 'uppercase',
@@ -695,7 +695,7 @@ export default async function HomePage() {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2rem' }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
-                  <MapPin size={22} style={{ color: '#065f46', flexShrink: 0, marginTop: '0.2rem' }} />
+                  <MapPin size={22} style={{ color: '#0369a1', flexShrink: 0, marginTop: '0.2rem' }} />
                   <div>
                     <strong style={{ fontSize: '1.05rem', color: '#0f172a' }}>89 Tindal Street</strong><br />
                     Balsall Heath, Birmingham<br />
@@ -703,7 +703,7 @@ export default async function HomePage() {
                   </div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  <ShieldCheck size={22} style={{ color: '#065f46', flexShrink: 0 }} />
+                  <ShieldCheck size={22} style={{ color: '#0369a1', flexShrink: 0 }} />
                   <div style={{ color: '#0f172a' }}>Charity Commission Registration: <strong>#1150221</strong></div>
                 </div>
               </div>

@@ -166,8 +166,8 @@ export function ZakatCalculatorModal({ isOpen, onClose }: ZakatCalculatorModalPr
                 width: '42px',
                 height: '42px',
                 borderRadius: '12px',
-                backgroundColor: '#ecfdf5',
-                color: '#065f46',
+                backgroundColor: '#e0f2fe',
+                color: '#0369a1',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -227,7 +227,7 @@ export function ZakatCalculatorModal({ isOpen, onClose }: ZakatCalculatorModalPr
             className="zakat-modal-nisab-box"
             style={{
               backgroundColor: '#f0fdf4',
-              border: '1px solid #bbf7d0',
+              border: '1px solid #bae6fd',
               borderRadius: '14px',
               padding: '1rem 1.25rem',
             }}
@@ -243,12 +243,12 @@ export function ZakatCalculatorModal({ isOpen, onClose }: ZakatCalculatorModalPr
             >
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#065f46' }}>
+                  <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0369a1' }}>
                     Current UK Nisab Benchmark:
                   </span>
                   <span
                     style={{
-                      backgroundColor: '#059669',
+                      backgroundColor: '#0284c7',
                       color: '#ffffff',
                       fontSize: '0.85rem',
                       fontWeight: 800,
@@ -260,7 +260,7 @@ export function ZakatCalculatorModal({ isOpen, onClose }: ZakatCalculatorModalPr
                     £{currentNisab.toLocaleString('en-GB', { minimumFractionDigits: 2 })}
                   </span>
                 </div>
-                <div className="zakat-modal-nisab-desc" style={{ fontSize: '0.78rem', color: '#047857', marginTop: '0.25rem' }}>
+                <div className="zakat-modal-nisab-desc" style={{ fontSize: '0.78rem', color: '#0284c7', marginTop: '0.25rem' }}>
                   {nisabType === 'silver'
                     ? 'Silver Standard (612.36g) — Recommended by UK Scholars to maximize benefit for the needy'
                     : 'Gold Standard (87.48g) — For wealth primarily held in gold bullion or jewelry'}
@@ -273,7 +273,7 @@ export function ZakatCalculatorModal({ isOpen, onClose }: ZakatCalculatorModalPr
                   style={{
                     display: 'flex',
                     backgroundColor: '#ffffff',
-                    border: '1px solid #a7f3d0',
+                    border: '1px solid #bae6fd',
                     borderRadius: '8px',
                     padding: '2px',
                   }}
@@ -282,8 +282,8 @@ export function ZakatCalculatorModal({ isOpen, onClose }: ZakatCalculatorModalPr
                     type="button"
                     onClick={() => setNisabType('silver')}
                     style={{
-                      background: nisabType === 'silver' ? '#059669' : 'transparent',
-                      color: nisabType === 'silver' ? '#ffffff' : '#065f46',
+                      background: nisabType === 'silver' ? '#0284c7' : 'transparent',
+                      color: nisabType === 'silver' ? '#ffffff' : '#0369a1',
                       border: 'none',
                       borderRadius: '6px',
                       padding: '0.35rem 0.75rem',
@@ -298,8 +298,8 @@ export function ZakatCalculatorModal({ isOpen, onClose }: ZakatCalculatorModalPr
                     type="button"
                     onClick={() => setNisabType('gold')}
                     style={{
-                      background: nisabType === 'gold' ? '#059669' : 'transparent',
-                      color: nisabType === 'gold' ? '#ffffff' : '#065f46',
+                      background: nisabType === 'gold' ? '#0284c7' : 'transparent',
+                      color: nisabType === 'gold' ? '#ffffff' : '#0369a1',
                       border: 'none',
                       borderRadius: '6px',
                       padding: '0.35rem 0.75rem',
@@ -319,7 +319,7 @@ export function ZakatCalculatorModal({ isOpen, onClose }: ZakatCalculatorModalPr
                   style={{
                     background: 'none',
                     border: 'none',
-                    color: '#047857',
+                    color: '#0284c7',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
@@ -337,9 +337,9 @@ export function ZakatCalculatorModal({ isOpen, onClose }: ZakatCalculatorModalPr
                 style={{
                   marginTop: '0.75rem',
                   paddingTop: '0.75rem',
-                  borderTop: '1px dashed #86efac',
+                  borderTop: '1px dashed #7dd3fc',
                   fontSize: '0.8rem',
-                  color: '#064e3b',
+                  color: '#0c4a6e',
                   lineHeight: 1.5,
                 }}
               >
@@ -367,7 +367,7 @@ export function ZakatCalculatorModal({ isOpen, onClose }: ZakatCalculatorModalPr
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.85rem' }}>
-                <Coins size={18} style={{ color: '#059669' }} />
+                <Coins size={18} style={{ color: '#0284c7' }} />
                 <h3 style={{ fontSize: '0.95rem', fontWeight: 800, margin: 0, color: '#0f172a' }}>
                   1. Cash & Bank Balances
                 </h3>
@@ -696,13 +696,13 @@ export function ZakatCalculatorModal({ isOpen, onClose }: ZakatCalculatorModalPr
               {isEligible ? (
                 <span
                   style={{
-                    backgroundColor: '#ecfdf5',
-                    color: '#065f46',
+                    backgroundColor: '#e0f2fe',
+                    color: '#0369a1',
                     fontSize: '0.75rem',
                     fontWeight: 800,
                     padding: '0.2rem 0.55rem',
                     borderRadius: '9999px',
-                    border: '1px solid #a7f3d0',
+                    border: '1px solid #bae6fd',
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '0.25rem',
@@ -728,14 +728,14 @@ export function ZakatCalculatorModal({ isOpen, onClose }: ZakatCalculatorModalPr
             </div>
 
             <div className="zakat-modal-due" style={{ borderLeft: '1px solid #cbd5e1', paddingLeft: '1.25rem' }}>
-              <div style={{ fontSize: '0.75rem', color: '#047857', fontWeight: 700 }}>
+              <div style={{ fontSize: '0.75rem', color: '#0284c7', fontWeight: 700 }}>
                 Zakat Payable (2.5%):
               </div>
               <div
                 style={{
                   fontSize: '1.65rem',
                   fontWeight: 900,
-                  color: isEligible ? '#059669' : '#64748b',
+                  color: isEligible ? '#0284c7' : '#64748b',
                   fontFamily: 'monospace',
                 }}
               >
@@ -766,7 +766,7 @@ export function ZakatCalculatorModal({ isOpen, onClose }: ZakatCalculatorModalPr
               onClick={handleProceedToDonate}
               disabled={zakatDue <= 0 && netZakatableWealth > 0 && !isEligible}
               style={{
-                backgroundColor: isEligible ? '#059669' : '#0f172a',
+                backgroundColor: isEligible ? '#0284c7' : '#0f172a',
                 color: '#ffffff',
                 border: 'none',
                 borderRadius: '10px',
@@ -777,7 +777,7 @@ export function ZakatCalculatorModal({ isOpen, onClose }: ZakatCalculatorModalPr
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.45rem',
-                boxShadow: isEligible ? '0 4px 14px rgba(5, 150, 105, 0.3)' : 'none',
+                boxShadow: isEligible ? '0 4px 14px rgba(2, 132, 199, 0.3)' : 'none',
                 transition: 'all 0.15s ease',
               }}
             >

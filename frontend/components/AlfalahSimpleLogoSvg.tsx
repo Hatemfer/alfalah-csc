@@ -25,8 +25,8 @@ export function AlfalahSimpleLogoSvg({
       <defs>
         {/* Modern Emerald Gradient */}
         <linearGradient id="emblemGreen" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#059669" />
-          <stop offset="100%" stopColor="#064e3b" />
+          <stop offset="0%" stopColor="#0284c7" />
+          <stop offset="100%" stopColor="#0c4a6e" />
         </linearGradient>
 
         {/* Warm Golden Accent Gradient */}
@@ -62,7 +62,7 @@ export function AlfalahSimpleLogoSvg({
            C 58 30, 66 37, 66 48 
            L 66 74 
            Z"
-        fill="#064e3b"
+        fill="#0c4a6e"
       />
 
       {/* Upward Crescent & Star of Guidance at the Top */}

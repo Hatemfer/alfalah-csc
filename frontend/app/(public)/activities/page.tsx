@@ -204,7 +204,7 @@ export default function ActivitiesPage() {
       {/* 1. Header Banner */}
       <section
         style={{
-          background: 'linear-gradient(180deg, #ecfdf5 0%, #f8fafc 100%)',
+          background: 'linear-gradient(180deg, #e0f2fe 0%, #f8fafc 100%)',
           borderBottom: '1px solid #e2e8f0',
           padding: '3rem 1.5rem 2.5rem',
           textAlign: 'center',
@@ -336,11 +336,11 @@ export default function ActivitiesPage() {
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                        <Clock size={15} style={{ color: '#059669', flexShrink: 0 }} />
+                        <Clock size={15} style={{ color: '#0284c7', flexShrink: 0 }} />
                         <span><strong>Schedule:</strong> {prog.schedule}</span>
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                        <MapPin size={15} style={{ color: '#059669', flexShrink: 0 }} />
+                        <MapPin size={15} style={{ color: '#0284c7', flexShrink: 0 }} />
                         <span>{prog.location}</span>
                       </div>
                     </div>
@@ -353,7 +353,7 @@ export default function ActivitiesPage() {
                       <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
                         {prog.features.map((feat, idx) => (
                           <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.45rem', fontSize: '0.83rem', color: '#334155', lineHeight: 1.4 }}>
-                            <CheckCircle2 size={14} style={{ color: '#059669', flexShrink: 0, marginTop: '2px' }} />
+                            <CheckCircle2 size={14} style={{ color: '#0284c7', flexShrink: 0, marginTop: '2px' }} />
                             <span>{feat}</span>
                           </li>
                         ))}
@@ -402,14 +402,14 @@ export default function ActivitiesPage() {
             }}
           >
             {/* Minimal Emerald Top Accent */}
-            <div style={{ height: '4px', backgroundColor: '#059669' }} />
+            <div style={{ height: '4px', backgroundColor: '#0284c7' }} />
 
             <div style={{ padding: 'clamp(1.75rem, 4vw, 2.75rem)' }}>
               <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
                 <span
                   style={{
-                    backgroundColor: '#ecfdf5',
-                    color: '#047857',
+                    backgroundColor: '#e0f2fe',
+                    color: '#0284c7',
                     fontWeight: 700,
                     fontSize: '0.75rem',
                     padding: '0.3rem 0.85rem',
@@ -443,7 +443,7 @@ export default function ActivitiesPage() {
                 <div
                   style={{
                     backgroundColor: '#f0fdf4',
-                    border: '1px solid #bbf7d0',
+                    border: '1px solid #bae6fd',
                     borderRadius: '16px',
                     padding: '2.5rem 1.5rem',
                     textAlign: 'center',
@@ -454,7 +454,7 @@ export default function ActivitiesPage() {
                       width: '56px',
                       height: '56px',
                       borderRadius: '50%',
-                      backgroundColor: '#dcfce7',
+                      backgroundColor: '#bae6fd',
                       color: '#16a34a',
                       display: 'flex',
                       alignItems: 'center',
@@ -464,10 +464,10 @@ export default function ActivitiesPage() {
                   >
                     <CheckCircle2 size={32} />
                   </div>
-                  <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#166534', marginBottom: '0.5rem' }}>
+                  <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#075985', marginBottom: '0.5rem' }}>
                     Registration Received!
                   </h3>
-                  <p style={{ color: '#15803d', fontSize: '0.92rem', lineHeight: 1.6, maxWidth: '480px', margin: '0 auto 1.5rem' }}>
+                  <p style={{ color: '#0369a1', fontSize: '0.92rem', lineHeight: 1.6, maxWidth: '480px', margin: '0 auto 1.5rem' }}>
                     Jazakallahu Khayran! We’ve received your details. Our education coordinator will contact you by phone or email within 24–48 hours to confirm class timing and welcome your child.
                   </p>
                   <button
@@ -522,8 +522,8 @@ export default function ActivitiesPage() {
                             style={{
                               padding: '0.55rem 0.9rem',
                               borderRadius: '9999px',
-                              border: isSelected ? '1.5px solid #059669' : '1px solid #e2e8f0',
-                              backgroundColor: isSelected ? '#059669' : '#f8fafc',
+                              border: isSelected ? '1.5px solid #0284c7' : '1px solid #e2e8f0',
+                              backgroundColor: isSelected ? '#0284c7' : '#f8fafc',
                               color: isSelected ? '#ffffff' : '#334155',
                               fontSize: '0.82rem',
                               fontWeight: 700,
@@ -532,10 +532,10 @@ export default function ActivitiesPage() {
                               alignItems: 'center',
                               gap: '0.4rem',
                               transition: 'all 0.15s ease',
-                              boxShadow: isSelected ? '0 4px 12px rgba(5, 150, 105, 0.25)' : 'none',
+                              boxShadow: isSelected ? '0 4px 12px rgba(2, 132, 199, 0.25)' : 'none',
                             }}
                           >
-                            <Icon size={14} color={isSelected ? '#ffffff' : '#059669'} />
+                            <Icon size={14} color={isSelected ? '#ffffff' : '#0284c7'} />
                             <span>{p.title.split('(')[0].trim()}</span>
                             {isSelected && <Check size={13} />}
                           </button>
@@ -715,7 +715,7 @@ export default function ActivitiesPage() {
                         justifyContent: 'center',
                         gap: '0.5rem',
                         borderRadius: '12px',
-                        boxShadow: '0 4px 14px rgba(5, 150, 105, 0.2)',
+                        boxShadow: '0 4px 14px rgba(2, 132, 199, 0.2)',
                       }}
                     >
                       <Send size={17} />
@@ -723,7 +723,7 @@ export default function ActivitiesPage() {
                     </button>
 
                     <div style={{ textAlign: 'center', fontSize: '0.78rem', color: '#64748b', marginTop: '0.75rem' }}>
-                      Free registration • Questions? Call <a href="tel:07429188880" style={{ color: '#059669', fontWeight: 700 }}>07429 188880</a> or visit 89 Tindal St.
+                      Free registration • Questions? Call <a href="tel:07429188880" style={{ color: '#0284c7', fontWeight: 700 }}>07429 188880</a> or visit 89 Tindal St.
                     </div>
                   </div>
                 </form>
@@ -740,11 +740,11 @@ export default function ActivitiesPage() {
         }
         .enrolment-input:focus {
           background-color: #ffffff !important;
-          border-color: #059669 !important;
-          box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12) !important;
+          border-color: #0284c7 !important;
+          box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12) !important;
         }
         .programme-pill:hover {
-          border-color: #10b981 !important;
+          border-color: #0ea5e9 !important;
           transform: translateY(-1px);
         }
       `}</style>

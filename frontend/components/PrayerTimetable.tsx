@@ -134,19 +134,19 @@ export default function PrayerTimetable({
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
             <span
               style={{
-                backgroundColor: '#ecfdf5',
-                color: '#047857',
+                backgroundColor: '#e0f2fe',
+                color: '#0284c7',
                 fontSize: '0.75rem',
                 fontWeight: 800,
                 padding: '0.3rem 0.75rem',
                 borderRadius: '9999px',
-                border: '1px solid #a7f3d0',
+                border: '1px solid #bae6fd',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.4rem',
               }}
             >
-              <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#10b981' }} />
+              <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#0ea5e9' }} />
               Live Timetable
             </span>
             <span style={{ fontSize: '1rem', fontWeight: 800, color: '#0f172a' }} suppressHydrationWarning>
@@ -185,7 +185,7 @@ export default function PrayerTimetable({
             <Link
               href="/prayer-times"
               style={{
-                color: '#047857',
+                color: '#0284c7',
                 fontSize: '0.88rem',
                 fontWeight: 700,
                 textDecoration: 'none',
@@ -220,12 +220,12 @@ export default function PrayerTimetable({
               key={p.id}
               className="prayer-pill"
               style={{
-                backgroundColor: p.isNext ? '#f0fdf4' : '#ffffff',
-                border: p.isNext ? '2px solid #065f46' : '1px solid #e2e8f0',
+                backgroundColor: p.isNext ? '#f0f9ff' : '#ffffff',
+                border: p.isNext ? '2px solid #0284c7' : '1px solid #e2e8f0',
                 borderRadius: 'var(--radius-md)',
                 padding: '0.85rem 0.5rem',
                 textAlign: 'center',
-                boxShadow: p.isNext ? '0 4px 12px rgba(6, 95, 70, 0.1)' : '0 1px 3px rgba(15, 23, 42, 0.04)',
+                boxShadow: p.isNext ? '0 6px 18px rgba(2, 132, 199, 0.16)' : '0 1px 3px rgba(15, 23, 42, 0.04)',
                 transition: 'all 0.2s ease',
               }}
             >
@@ -235,7 +235,7 @@ export default function PrayerTimetable({
                     fontSize: '0.62rem',
                     fontWeight: 800,
                     letterSpacing: '0.05em',
-                    color: '#065f46',
+                    color: '#0284c7',
                     textTransform: 'uppercase',
                     marginBottom: '0.2rem',
                   }}
@@ -244,7 +244,7 @@ export default function PrayerTimetable({
                 </div>
               )}
               <div style={{ marginBottom: '0.25rem' }}>
-                <span style={{ fontSize: '0.98rem', fontWeight: 800, color: p.isNext ? '#065f46' : '#0f172a' }}>
+                <span style={{ fontSize: '0.98rem', fontWeight: 800, color: p.isNext ? '#0284c7' : '#0f172a' }}>
                   {p.name}
                 </span>
               </div>
@@ -259,7 +259,7 @@ export default function PrayerTimetable({
                   fontSize: '1.35rem',
                   fontWeight: 800,
                   fontFamily: 'monospace',
-                  color: p.iqamah === '—' ? '#94a3b8' : (p.isNext ? '#065f46' : '#0f172a'),
+                  color: p.iqamah === '—' ? '#94a3b8' : (p.isNext ? '#0284c7' : '#0f172a'),
                   marginTop: '0.25rem',
                 }}
               >
@@ -298,7 +298,7 @@ export default function PrayerTimetable({
           }}
         >
           <span>
-            <strong>Friday Congregational Service (Jumu’ah)</strong>: Khutbah & Salah at <strong style={{ color: '#047857' }}>13:00 (1:00 PM)</strong>
+            <strong>Friday Congregational Service (Jumu’ah)</strong>: Khutbah & Salah at <strong style={{ color: '#0284c7' }}>13:00 (1:00 PM)</strong>
           </span>
           <span style={{ color: '#b45309', fontWeight: 600 }}>
             Weekly Tafsir Lecture: Every Saturday after Maghrib with Sheikh Jamal Al-Jabarti
@@ -332,7 +332,7 @@ export default function PrayerTimetable({
             >
               <Clock size={13} style={{ color: '#fde68a' }} /> Live Mosque Timetable
             </span>
-            <span style={{ fontSize: '0.85rem', color: '#a7f3d0', fontWeight: 600 }}>
+            <span style={{ fontSize: '0.85rem', color: '#bae6fd', fontWeight: 600 }}>
               {todaySchedule.hijriStr}
             </span>
           </div>
