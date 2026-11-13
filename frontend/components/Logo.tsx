@@ -20,6 +20,7 @@ export function Logo({
 
   const content = (
     <div
+      className="logo-wrapper"
       style={{
         display: 'inline-flex',
         alignItems: 'center',
@@ -30,6 +31,7 @@ export function Logo({
     >
       {/* Authentic Al Falah Historical Emblem */}
       <div
+        className="logo-emblem-box"
         style={{
           width: dimensions.imgSize,
           height: dimensions.imgSize,
@@ -39,8 +41,8 @@ export function Logo({
           alignItems: 'center',
           justifyContent: 'center',
           background: '#ffffff',
-          boxShadow: '0 3px 12px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04)',
-          border: '1.5px solid #e2e8f0',
+          boxShadow: '0 3px 12px rgba(24, 51, 79, 0.08), 0 1px 4px rgba(24, 51, 79, 0.04)',
+          border: '1.5px solid #E4EDF5',
           overflow: 'hidden',
           position: 'relative',
           padding: '2px',
@@ -64,14 +66,16 @@ export function Logo({
       {/* Typography: Prestigious, British Registered Charity Aesthetic */}
       {variant !== 'compact' && (
         <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.15 }}>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.65rem' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.45rem', flexWrap: 'nowrap' }}>
             <span
+              className="logo-title-text"
               style={{
                 fontSize: dimensions.titleSize,
                 fontWeight: 800,
-                color: '#0f172a',
+                color: '#18334F',
                 letterSpacing: '-0.025em',
                 fontFamily: 'inherit',
+                whiteSpace: 'nowrap',
               }}
             >
               AL FALAH
@@ -81,22 +85,25 @@ export function Logo({
               style={{
                 fontFamily: 'Amiri, Georgia, serif',
                 fontSize: dimensions.arabicSize,
-                color: '#0284c7',
+                color: '#3988CA',
                 fontWeight: 700,
                 letterSpacing: '0.02em',
+                whiteSpace: 'nowrap',
               }}
             >
               مركز الفلاح
             </span>
           </div>
           <span
+            className="logo-sub-text"
             style={{
               fontSize: dimensions.subSize,
               fontWeight: 700,
-              letterSpacing: '0.14em',
-              color: '#475569',
+              letterSpacing: '0.12em',
+              color: '#657B91',
               textTransform: 'uppercase',
               marginTop: '2px',
+              whiteSpace: 'nowrap',
             }}
           >
             Community Support Centre

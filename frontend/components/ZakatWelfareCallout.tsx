@@ -31,14 +31,14 @@ export function ZakatWelfareCallout() {
       <div
         className="zakat-callout-card"
         style={{
-          background: 'linear-gradient(135deg, #0c4a6e 0%, #0369a1 55%, #0284c7 100%)',
+          background: 'linear-gradient(135deg, #18334F 0%, #245C91 55%, #3988CA 100%)',
           borderRadius: '24px',
           color: '#ffffff',
           display: 'flex',
           flexDirection: 'column',
           gap: '1.75rem',
           border: '1px solid rgba(255, 255, 255, 0.15)',
-          boxShadow: '0 20px 40px -15px rgba(2, 132, 199, 0.25)',
+          boxShadow: '0 20px 40px -15px rgba(57, 136, 202, 0.25)',
           position: 'relative',
           overflow: 'hidden',
         }}
@@ -52,7 +52,7 @@ export function ZakatWelfareCallout() {
             width: '220px',
             height: '220px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(56, 189, 248, 0.35) 0%, transparent 70%)',
             pointerEvents: 'none',
           }}
         />
@@ -132,7 +132,7 @@ export function ZakatWelfareCallout() {
               onClick={() => setModalOpen(true)}
               style={{
                 backgroundColor: '#ffffff',
-                color: '#0369a1',
+                color: '#245C91',
                 border: 'none',
                 borderRadius: '12px',
                 padding: '0.8rem 1.4rem',
@@ -146,7 +146,7 @@ export function ZakatWelfareCallout() {
                 transition: 'all 0.15s ease',
               }}
             >
-              <Calculator size={18} style={{ color: '#0284c7' }} />
+              <Calculator size={18} style={{ color: '#3988CA' }} />
               <span>Calculate Zakat</span>
             </button>
 
@@ -229,7 +229,7 @@ export function ZakatWelfareCallout() {
             onClick={handleCopyBank}
             className="zakat-callout-bank-btn"
             style={{
-              background: copied ? '#0284c7' : 'rgba(255, 255, 255, 0.12)',
+              background: copied ? '#3988CA' : 'rgba(255, 255, 255, 0.12)',
               border: '1px solid rgba(255, 255, 255, 0.25)',
               color: '#ffffff',
               borderRadius: '8px',

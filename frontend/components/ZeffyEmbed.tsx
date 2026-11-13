@@ -121,8 +121,8 @@ export default function ZeffyEmbed({ formUrl: customFormUrl, onSelectBankTransfe
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
           gap: '0.75rem',
-          backgroundColor: '#f0fdf4',
-          border: '1px solid #bae6fd',
+          backgroundColor: '#F0F7FE',
+          border: '1px solid #BADAFA',
           borderRadius: '16px',
           padding: '0.9rem 1.15rem',
           marginBottom: '1.5rem',
@@ -134,7 +134,7 @@ export default function ZeffyEmbed({ formUrl: customFormUrl, onSelectBankTransfe
               width: '28px',
               height: '28px',
               borderRadius: '50%',
-              backgroundColor: '#0284c7',
+              backgroundColor: '#3988CA',
               color: '#ffffff',
               display: 'flex',
               alignItems: 'center',
@@ -145,10 +145,10 @@ export default function ZeffyEmbed({ formUrl: customFormUrl, onSelectBankTransfe
             <CheckCircle2 size={16} />
           </div>
           <div>
-            <div style={{ fontWeight: 800, fontSize: '0.82rem', color: '#0369a1' }}>
+            <div style={{ fontWeight: 800, fontSize: '0.82rem', color: '#245C91' }}>
               100% Free for Mosque
             </div>
-            <div style={{ fontSize: '0.74rem', color: '#0284c7' }}>
+            <div style={{ fontSize: '0.74rem', color: '#3988CA' }}>
               0% platform & card fees deducted
             </div>
           </div>
@@ -160,7 +160,7 @@ export default function ZeffyEmbed({ formUrl: customFormUrl, onSelectBankTransfe
               width: '28px',
               height: '28px',
               borderRadius: '50%',
-              backgroundColor: '#0284c7',
+              backgroundColor: '#3988CA',
               color: '#ffffff',
               display: 'flex',
               alignItems: 'center',
@@ -171,10 +171,10 @@ export default function ZeffyEmbed({ formUrl: customFormUrl, onSelectBankTransfe
             <ShieldCheck size={16} />
           </div>
           <div>
-            <div style={{ fontWeight: 800, fontSize: '0.82rem', color: '#0369a1' }}>
+            <div style={{ fontWeight: 800, fontSize: '0.82rem', color: '#245C91' }}>
               UK Gift Aid Included
             </div>
-            <div style={{ fontSize: '0.74rem', color: '#0284c7' }}>
+            <div style={{ fontSize: '0.74rem', color: '#3988CA' }}>
               +25% HMRC free tax reclaim
             </div>
           </div>
@@ -186,7 +186,7 @@ export default function ZeffyEmbed({ formUrl: customFormUrl, onSelectBankTransfe
               width: '28px',
               height: '28px',
               borderRadius: '50%',
-              backgroundColor: '#0284c7',
+              backgroundColor: '#3988CA',
               color: '#ffffff',
               display: 'flex',
               alignItems: 'center',
@@ -197,10 +197,10 @@ export default function ZeffyEmbed({ formUrl: customFormUrl, onSelectBankTransfe
             <RefreshCw size={15} />
           </div>
           <div>
-            <div style={{ fontWeight: 800, fontSize: '0.82rem', color: '#0369a1' }}>
+            <div style={{ fontWeight: 800, fontSize: '0.82rem', color: '#245C91' }}>
               Single & Monthly Giving
             </div>
-            <div style={{ fontSize: '0.74rem', color: '#0284c7' }}>
+            <div style={{ fontSize: '0.74rem', color: '#3988CA' }}>
               Custom & preset amounts supported
             </div>
           </div>
@@ -232,7 +232,7 @@ export default function ZeffyEmbed({ formUrl: customFormUrl, onSelectBankTransfe
               height: '44px',
               borderRadius: '50%',
               border: '3px solid #d1fae5',
-              borderTopColor: '#0284c7',
+              borderTopColor: '#3988CA',
               animation: 'spin 0.9s linear infinite',
             }}
           />
@@ -281,7 +281,7 @@ export default function ZeffyEmbed({ formUrl: customFormUrl, onSelectBankTransfe
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                backgroundColor: '#0284c7',
+                backgroundColor: '#3988CA',
                 color: '#ffffff',
                 padding: '0.65rem 1.15rem',
                 borderRadius: '8px',
@@ -302,8 +302,8 @@ export default function ZeffyEmbed({ formUrl: customFormUrl, onSelectBankTransfe
                 onClick={onSelectBankTransfer}
                 style={{
                   backgroundColor: '#ffffff',
-                  color: '#0369a1',
-                  border: '1.5px solid #0284c7',
+                  color: '#245C91',
+                  border: '1.5px solid #3988CA',
                   padding: '0.65rem 1.15rem',
                   borderRadius: '8px',
                   fontWeight: 700,
@@ -414,7 +414,7 @@ export default function ZeffyEmbed({ formUrl: customFormUrl, onSelectBankTransfe
             <ol style={{ paddingLeft: '1.25rem', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
               <li>
                 Log into your free account at{' '}
-                <a href="https://www.zeffy.com/en-GB" target="_blank" rel="noopener noreferrer" style={{ color: '#0284c7', fontWeight: 700 }}>
+                <a href="https://www.zeffy.com/en-GB" target="_blank" rel="noopener noreferrer" style={{ color: '#3988CA', fontWeight: 700 }}>
                   zeffy.com/en-GB
                 </a>{' '}
                 (registered with UK Charity #1150221).

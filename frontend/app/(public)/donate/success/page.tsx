@@ -10,7 +10,6 @@ import {
   Building,
   Printer,
   ArrowRight,
-  Sparkles,
   Share2,
   Mail,
   Calendar,
@@ -98,12 +97,12 @@ function SuccessContent() {
               width: '60px',
               height: '60px',
               borderRadius: '50%',
-              backgroundColor: '#e0f2fe',
-              color: '#0284c7',
+              backgroundColor: '#DCEEFF',
+              color: '#3988CA',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 8px 24px rgba(5, 150, 105, 0.22)',
+              boxShadow: '0 8px 24px rgba(2, 132, 199, 0.22)',
               marginBottom: '1rem',
             }}
           >
@@ -113,7 +112,7 @@ function SuccessContent() {
           <div
             style={{
               fontSize: 'clamp(0.95rem, 2.8vw, 1.15rem)',
-              color: '#0284c7',
+              color: '#3988CA',
               fontWeight: 800,
               marginBottom: '0.35rem',
             }}
@@ -233,11 +232,11 @@ function SuccessContent() {
 
               {/* Fee Coverage */}
               {queryCoverFee && feeAmount > 0 && (
-                <div className="receipt-row" style={{ color: '#0284c7' }}>
-                  <span className="receipt-row-label" style={{ color: '#0284c7' }}>
+                <div className="receipt-row" style={{ color: '#3988CA' }}>
+                  <span className="receipt-row-label" style={{ color: '#3988CA' }}>
                     Card Processing Fee Covered
                   </span>
-                  <span className="receipt-row-val" style={{ color: '#0284c7' }}>
+                  <span className="receipt-row-val" style={{ color: '#3988CA' }}>
                     +£{feeAmount.toFixed(2)}
                   </span>
                 </div>
@@ -255,8 +254,8 @@ function SuccessContent() {
           {isGiftAid && (
             <div
               style={{
-                backgroundColor: '#e0f2fe',
-                border: '1.5px solid #bae6fd',
+                backgroundColor: '#DCEEFF',
+                border: '1.5px solid #BADAFA',
                 borderRadius: '14px',
                 padding: '0.9rem 1rem',
                 marginBottom: '1.5rem',
@@ -265,12 +264,12 @@ function SuccessContent() {
                 gap: '0.65rem',
               }}
             >
-              <Sparkles size={20} style={{ color: '#0284c7', flexShrink: 0, marginTop: '2px' }} />
+              <ShieldCheck size={20} style={{ color: '#3988CA', flexShrink: 0, marginTop: '2px' }} />
               <div>
-                <div style={{ fontWeight: 800, color: '#0369a1', fontSize: '0.9rem' }}>
+                <div style={{ fontWeight: 800, color: '#245C91', fontSize: '0.9rem' }}>
                   UK Gift Aid Claimed: +£{giftAidAmount.toFixed(2)} from HMRC
                 </div>
-                <p style={{ margin: '0.2rem 0 0', fontSize: '0.78rem', color: '#0284c7', lineHeight: 1.45 }}>
+                <p style={{ margin: '0.2rem 0 0', fontSize: '0.78rem', color: '#3988CA', lineHeight: 1.45 }}>
                   Because you declared Gift Aid, Masjid Al Falah will claim 25p on every £1 from HMRC at zero extra cost to you. Total charity benefit: <strong>£{totalBenefit.toFixed(2)}</strong>.
                 </p>
               </div>
@@ -288,11 +287,11 @@ function SuccessContent() {
             }}
           >
             Alfalah Community Support Centre is registered and audited under the UK Charities Act. For questions regarding your donation or tax receipts, email us at{' '}
-            <a href="mailto:alfalahcsc@hotmail.com" style={{ color: '#0284c7', fontWeight: 700, wordBreak: 'break-all' }}>
+            <a href="mailto:alfalahcsc@hotmail.com" style={{ color: '#3988CA', fontWeight: 700, wordBreak: 'break-all' }}>
               alfalahcsc@hotmail.com
             </a>{' '}
             or phone{' '}
-            <a href="tel:07429188880" style={{ color: '#0284c7', fontWeight: 700, whiteSpace: 'nowrap' }}>
+            <a href="tel:07429188880" style={{ color: '#3988CA', fontWeight: 700, whiteSpace: 'nowrap' }}>
               07429 188880
             </a>.
           </div>
@@ -327,7 +326,7 @@ function SuccessContent() {
             style={{
               padding: '0.85rem 1.75rem',
               borderRadius: '14px',
-              backgroundColor: '#0284c7',
+              backgroundColor: '#3988CA',
               color: '#ffffff',
               fontWeight: 800,
               fontSize: '0.92rem',
@@ -336,7 +335,7 @@ function SuccessContent() {
               alignItems: 'center',
               justifyContent: 'center',
               gap: '0.5rem',
-              boxShadow: '0 4px 14px rgba(2, 132, 199, 0.3)',
+              boxShadow: '0 4px 14px rgba(57, 136, 202, 0.3)',
             }}
           >
             Return to Homepage <ArrowRight size={17} />
@@ -351,7 +350,7 @@ function LoadingFallback() {
   return (
     <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f8fafc' }}>
       <div style={{ textAlign: 'center' }}>
-        <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0369a1', marginBottom: '0.5rem' }}>
+        <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#245C91', marginBottom: '0.5rem' }}>
           Generating Donation Receipt...
         </div>
         <p style={{ color: '#64748b', fontSize: '0.85rem' }}>

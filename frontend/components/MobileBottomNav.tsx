@@ -65,8 +65,8 @@ export default function MobileBottomNav() {
       >
         {navItems.map((item) => {
           const Icon = item.icon;
-          const activeColor = item.highlight ? '#dc2626' : '#0284c7';
-          const activeBg = item.highlight ? '#fee2e2' : '#e0f2fe';
+          const activeColor = item.highlight ? '#DC2626' : '#0284C7';
+          const activeBg = item.highlight ? '#FEE2E2' : '#E0F2FE';
 
           return (
             <Link

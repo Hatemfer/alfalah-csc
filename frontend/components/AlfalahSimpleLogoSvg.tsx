@@ -23,10 +23,10 @@ export function AlfalahSimpleLogoSvg({
       aria-label="Alfalah Community Support Centre Crest"
     >
       <defs>
-        {/* Modern Emerald Gradient */}
-        <linearGradient id="emblemGreen" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#0284c7" />
-          <stop offset="100%" stopColor="#0c4a6e" />
+        {/* Modern Sky Blue Gradient */}
+        <linearGradient id="emblemBlue" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#3988CA" />
+          <stop offset="100%" stopColor="#18334F" />
         </linearGradient>
 
         {/* Warm Golden Accent Gradient */}
@@ -36,8 +36,8 @@ export function AlfalahSimpleLogoSvg({
         </linearGradient>
       </defs>
 
-      {/* Outer Emerald Roundel */}
-      <circle cx="50" cy="50" r="47" fill="url(#emblemGreen)" />
+      {/* Outer Sky Blue Roundel */}
+      <circle cx="50" cy="50" r="47" fill="url(#emblemBlue)" />
 
       {/* Clean Golden Ring */}
       <circle cx="50" cy="50" r="44.5" stroke="url(#emblemGold)" strokeWidth="1.5" opacity="0.9" />
@@ -62,7 +62,7 @@ export function AlfalahSimpleLogoSvg({
            C 58 30, 66 37, 66 48 
            L 66 74 
            Z"
-        fill="#0c4a6e"
+        fill="#18334F"
       />
 
       {/* Upward Crescent & Star of Guidance at the Top */}

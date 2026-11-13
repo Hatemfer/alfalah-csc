@@ -8,7 +8,6 @@ import {
   Compass,
   ExternalLink,
   ChevronRight,
-  Sparkles,
   Monitor,
   ArrowRight,
   Printer,
@@ -113,8 +112,8 @@ export default function PrayerTimetable({
           color: 'var(--text-primary)',
           borderRadius: 'var(--radius-lg)',
           padding: '1.5rem 1.75rem',
-          boxShadow: '0 4px 20px -2px rgba(6, 78, 59, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)',
-          border: '1px solid rgba(16, 185, 129, 0.25)',
+          boxShadow: '0 4px 20px -2px rgba(24, 51, 79, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.02)',
+          border: '1px solid #E4EDF5',
         }}
       >
         <div
@@ -126,44 +125,47 @@ export default function PrayerTimetable({
             flexWrap: 'wrap',
             gap: '1.25rem',
             marginBottom: '1.25rem',
-            borderBottom: '1px solid #f1f5f9',
+            borderBottom: '1px solid #EEF4FA',
             paddingBottom: '0.85rem',
           }}
         >
           {/* Left: Date & Mosque Name */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
             <span
               style={{
-                backgroundColor: '#e0f2fe',
-                color: '#0284c7',
+                backgroundColor: '#DCEEFF',
+                color: '#245C91',
                 fontSize: '0.75rem',
                 fontWeight: 800,
-                padding: '0.3rem 0.75rem',
+                padding: '0.25rem 0.65rem',
                 borderRadius: '9999px',
-                border: '1px solid #bae6fd',
+                border: '1px solid #BADAFA',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.4rem',
+                flexShrink: 0,
               }}
             >
-              <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#0ea5e9' }} />
+              <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#3988CA' }} />
               Live Timetable
             </span>
-            <span style={{ fontSize: '1rem', fontWeight: 800, color: '#0f172a' }} suppressHydrationWarning>
-              {todaySchedule.dateStr}
-            </span>
-            <span style={{ fontSize: '0.88rem', color: '#64748b', fontWeight: 600 }} suppressHydrationWarning>
-              • {todaySchedule.hijriStr}
-            </span>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
+              <span style={{ fontSize: '0.95rem', fontWeight: 800, color: '#18334F' }} suppressHydrationWarning>
+                {todaySchedule.dateStr}
+              </span>
+              <span style={{ fontSize: '0.85rem', color: '#657B91', fontWeight: 600 }} suppressHydrationWarning>
+                • {todaySchedule.hijriStr}
+              </span>
+            </div>
           </div>
 
           {/* Right: Next Prayer Countdown Badge & Full Link */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
             <div
               style={{
-                backgroundColor: '#fffbeb',
-                border: '1px solid #fde68a',
-                color: '#92400e',
+                backgroundColor: '#FFFBEB',
+                border: '1px solid #FDE68A',
+                color: '#92400E',
                 padding: '0.35rem 0.85rem',
                 borderRadius: 'var(--radius-sm)',
                 fontSize: '0.82rem',
@@ -175,7 +177,7 @@ export default function PrayerTimetable({
             >
               <span suppressHydrationWarning>Next: {nextPrayerInfo.name} ({nextPrayerInfo.time})</span>
               <span
-                style={{ fontFamily: 'monospace', color: '#b45309', fontWeight: 800 }}
+                style={{ fontFamily: 'monospace', color: '#B45309', fontWeight: 800 }}
                 suppressHydrationWarning
               >
                 {mounted ? `in ${nextPrayerInfo.countdown}` : 'calculating...'}
@@ -185,7 +187,7 @@ export default function PrayerTimetable({
             <Link
               href="/prayer-times"
               style={{
-                color: '#0284c7',
+                color: '#3988CA',
                 fontSize: '0.88rem',
                 fontWeight: 700,
                 textDecoration: 'none',
@@ -218,54 +220,40 @@ export default function PrayerTimetable({
           ].map((p) => (
             <div
               key={p.id}
-              className="prayer-pill"
+              className={`prayer-pill ${p.isNext ? 'is-next' : ''}`}
               style={{
-                backgroundColor: p.isNext ? '#f0f9ff' : '#ffffff',
-                border: p.isNext ? '2px solid #0284c7' : '1px solid #e2e8f0',
+                backgroundColor: p.isNext ? '#F0F9FF' : '#FFFFFF',
+                border: p.isNext ? '2px solid #0284C7' : '1px solid #E4EDF5',
                 borderRadius: 'var(--radius-md)',
                 padding: '0.85rem 0.5rem',
                 textAlign: 'center',
-                boxShadow: p.isNext ? '0 6px 18px rgba(2, 132, 199, 0.16)' : '0 1px 3px rgba(15, 23, 42, 0.04)',
+                boxShadow: p.isNext ? '0 6px 18px rgba(2, 132, 199, 0.16)' : '0 1px 3px rgba(24, 51, 79, 0.04)',
                 transition: 'all 0.2s ease',
               }}
             >
-              {p.isNext && (
-                <div
-                  style={{
-                    fontSize: '0.62rem',
-                    fontWeight: 800,
-                    letterSpacing: '0.05em',
-                    color: '#0284c7',
-                    textTransform: 'uppercase',
-                    marginBottom: '0.2rem',
-                  }}
-                >
-                  Active
-                </div>
-              )}
-              <div style={{ marginBottom: '0.25rem' }}>
-                <span style={{ fontSize: '0.98rem', fontWeight: 800, color: p.isNext ? '#0284c7' : '#0f172a' }}>
+              <div style={{ marginBottom: '0.2rem' }}>
+                <span className="prayer-pill-name" style={{ fontSize: '0.96rem', fontWeight: 800, color: p.isNext ? '#0284C7' : '#0F172A' }}>
                   {p.name}
                 </span>
               </div>
 
-              <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 600 }}>
+              <div className="prayer-pill-begins" style={{ fontSize: '0.74rem', color: '#657B91', fontWeight: 600 }}>
                 Begins {p.adhan}
               </div>
 
               <div
                 className="prayer-pill-time"
                 style={{
-                  fontSize: '1.35rem',
+                  fontSize: '1.32rem',
                   fontWeight: 800,
                   fontFamily: 'monospace',
-                  color: p.iqamah === '—' ? '#94a3b8' : (p.isNext ? '#0284c7' : '#0f172a'),
-                  marginTop: '0.25rem',
+                  color: p.iqamah === '—' ? '#94A3B8' : (p.isNext ? '#0284C7' : '#0F172A'),
+                  marginTop: '0.2rem',
                 }}
               >
                 {p.iqamah === '—' ? p.adhan : p.iqamah}
               </div>
-              <div style={{ fontSize: '0.68rem', color: '#64748b', textTransform: 'uppercase', fontWeight: 700, letterSpacing: '0.04em' }}>
+              <div style={{ fontSize: '0.68rem', color: '#657B91', textTransform: 'uppercase', fontWeight: 700, letterSpacing: '0.04em' }}>
                 {p.iqamah === '—' ? 'Sunrise' : 'Jama’ah'}
               </div>
             </div>
@@ -276,7 +264,19 @@ export default function PrayerTimetable({
           @media (max-width: 640px) {
             .prayer-pills-grid {
               grid-template-columns: repeat(3, 1fr) !important;
-              gap: 0.5rem !important;
+              gap: 0.45rem !important;
+            }
+            :global(.prayer-pill) {
+              padding: 0.65rem 0.25rem !important;
+            }
+            :global(.prayer-pill-name) {
+              font-size: 0.86rem !important;
+            }
+            :global(.prayer-pill-begins) {
+              font-size: 0.68rem !important;
+            }
+            :global(.prayer-pill-time) {
+              font-size: 1.14rem !important;
             }
           }
         `}</style>
@@ -287,20 +287,20 @@ export default function PrayerTimetable({
           style={{
             marginTop: '1rem',
             paddingTop: '0.75rem',
-            borderTop: '1px solid #f1f5f9',
+            borderTop: '1px solid #EEF4FA',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             flexWrap: 'wrap',
             gap: '0.75rem',
             fontSize: '0.85rem',
-            color: '#334155',
+            color: '#0F172A',
           }}
         >
           <span>
-            <strong>Friday Congregational Service (Jumu’ah)</strong>: Khutbah & Salah at <strong style={{ color: '#0284c7' }}>13:00 (1:00 PM)</strong>
+            <strong>Friday Congregational Service (Jumu’ah)</strong>: Khutbah & Salah at <strong style={{ color: '#0284C7' }}>13:00 (1:00 PM)</strong>
           </span>
-          <span style={{ color: '#b45309', fontWeight: 600 }}>
+          <span style={{ color: '#B45309', fontWeight: 600 }}>
             Weekly Tafsir Lecture: Every Saturday after Maghrib with Sheikh Jamal Al-Jabarti
           </span>
         </div>
@@ -332,7 +332,7 @@ export default function PrayerTimetable({
             >
               <Clock size={13} style={{ color: '#fde68a' }} /> Live Mosque Timetable
             </span>
-            <span style={{ fontSize: '0.85rem', color: '#bae6fd', fontWeight: 600 }}>
+            <span style={{ fontSize: '0.85rem', color: '#BADAFA', fontWeight: 600 }}>
               {todaySchedule.hijriStr}
             </span>
           </div>
@@ -445,7 +445,7 @@ export default function PrayerTimetable({
                       key={pr.id}
                       style={{
                         borderBottom: '1px solid var(--border-color)',
-                        backgroundColor: isCurrentNext ? 'rgba(5, 150, 105, 0.08)' : 'transparent',
+                        backgroundColor: isCurrentNext ? 'rgba(2, 132, 199, 0.08)' : 'transparent',
                       }}
                     >
                       <td style={{ padding: '0.85rem 1rem', fontWeight: 700, fontSize: '0.95rem' }}>
@@ -487,7 +487,7 @@ export default function PrayerTimetable({
           >
             <div
               style={{
-                backgroundColor: 'rgba(5, 150, 105, 0.08)',
+                backgroundColor: 'rgba(2, 132, 199, 0.08)',
                 border: '1.5px solid var(--color-primary-600)',
                 borderRadius: 'var(--radius-md)',
                 padding: '1.25rem',
@@ -646,7 +646,7 @@ export default function PrayerTimetable({
                       key={ds.day}
                       style={{
                         borderBottom: '1px solid var(--border-color)',
-                        backgroundColor: isToday ? 'rgba(5, 150, 105, 0.1)' : 'transparent',
+                        backgroundColor: isToday ? 'rgba(2, 132, 199, 0.1)' : 'transparent',
                         fontWeight: isToday ? 800 : 500,
                       }}
                     >

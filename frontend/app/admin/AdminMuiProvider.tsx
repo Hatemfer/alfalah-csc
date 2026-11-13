@@ -14,9 +14,9 @@ export function AdminMuiProvider({ children }: { children: React.ReactNode }) {
       palette: {
         mode: isDark ? 'dark' : 'light',
         primary: {
-          main: '#0284c7', // Light Cerulean Blue
+          main: '#3988CA', // Light Cerulean Blue
           light: '#38bdf8',
-          dark: '#0c4a6e',
+          dark: '#18334F',
           contrastText: '#ffffff',
         },
         secondary: {

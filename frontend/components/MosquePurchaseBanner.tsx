@@ -10,7 +10,6 @@ import {
   Check,
   Building,
   ShieldCheck,
-  Sparkles,
   ArrowRight,
 } from 'lucide-react';
 
@@ -75,22 +74,22 @@ UK Registered Charity #1150221`;
             backgroundColor: '#ffffff',
             borderRadius: '24px',
             border: '1px solid #e2e8f0',
-            boxShadow: '0 20px 45px -12px rgba(6, 78, 59, 0.09), 0 4px 16px rgba(0, 0, 0, 0.04)',
+            boxShadow: '0 20px 45px -12px rgba(24, 51, 79, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04)',
             overflow: 'hidden',
           }}
         >
           {/* Top Decorative Gradient Accent Bar */}
           <div
             style={{
-              height: '5px',
-              background: 'linear-gradient(90deg, #059669 0%, #10b981 40%, #f59e0b 80%, #d97706 100%)',
+              height: '4px',
+              background: 'linear-gradient(90deg, #0284C7 0%, #38BDF8 50%, #0284C7 100%)',
               width: '100%',
             }}
           />
 
           <div
             style={{
-              padding: 'clamp(1.75rem, 4vw, 3rem)',
+              padding: 'clamp(1.25rem, 4vw, 3rem)',
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 360px), 1fr))',
               gap: '2.5rem',
@@ -105,19 +104,20 @@ UK Registered Charity #1150221`;
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '0.4rem',
-                    backgroundColor: '#ecfdf5',
-                    color: '#065f46',
+                    gap: '0.45rem',
+                    backgroundColor: '#F0F9FF',
+                    color: '#0369A1',
                     padding: '0.35rem 0.85rem',
                     borderRadius: '9999px',
-                    fontSize: '0.76rem',
+                    fontSize: '0.74rem',
                     fontWeight: 800,
-                    letterSpacing: '0.4px',
-                    border: '1px solid #bae6fd',
+                    letterSpacing: '0.3px',
+                    border: '1px solid #BAE6FD',
+                    whiteSpace: 'nowrap',
                   }}
                 >
-                  <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#059669' }} />
-                  URGENT COMMUNITY APPEAL • TARGET £600K
+                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#0284C7', flexShrink: 0 }} />
+                  Urgent Appeal • Target £600k
                 </span>
 
                 <span
@@ -125,16 +125,17 @@ UK Registered Charity #1150221`;
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '0.35rem',
-                    backgroundColor: '#f8fafc',
+                    backgroundColor: '#FFFFFF',
                     color: '#475569',
                     padding: '0.35rem 0.75rem',
                     borderRadius: '9999px',
                     fontSize: '0.74rem',
                     fontWeight: 700,
-                    border: '1px solid #e2e8f0',
+                    border: '1px solid #E2E8F0',
+                    whiteSpace: 'nowrap',
                   }}
                 >
-                  <ShieldCheck size={14} color="#059669" />
+                  <ShieldCheck size={14} color="#0284C7" />
                   100% Donation Policy
                 </span>
               </div>
@@ -142,11 +143,11 @@ UK Registered Charity #1150221`;
               {/* Headline */}
               <h2
                 style={{
-                  fontSize: 'clamp(1.9rem, 3.6vw, 2.5rem)',
+                  fontSize: 'clamp(1.45rem, 3.8vw, 2.5rem)',
                   fontWeight: 800,
                   color: '#0f172a',
                   marginBottom: '0.75rem',
-                  lineHeight: 1.2,
+                  lineHeight: 1.25,
                   letterSpacing: '-0.025em',
                 }}
               >
@@ -189,23 +190,23 @@ UK Registered Charity #1150221`;
                         justifyContent: 'space-between',
                         padding: '0.95rem 0.75rem',
                         backgroundColor: tier.featured
-                          ? '#fffbeb'
+                          ? '#FFFBEB'
                           : tier.highlight
-                          ? '#e0f2fe'
-                          : '#f8fafc',
+                          ? '#F0F7FE'
+                          : '#FFFFFF',
                         border: tier.featured
-                          ? '2px solid #f59e0b'
+                          ? '2px solid #F59E0B'
                           : tier.highlight
-                          ? '2px solid #059669'
-                          : '1.5px solid #e2e8f0',
+                          ? '2px solid #0284C7'
+                          : '1.5px solid #E4EDF5',
                         borderRadius: '14px',
                         textDecoration: 'none',
                         transition: 'all 0.15s ease',
                         boxShadow: tier.featured
                           ? '0 4px 14px rgba(245, 158, 11, 0.12)'
                           : tier.highlight
-                          ? '0 4px 14px rgba(5, 150, 105, 0.12)'
-                          : 'none',
+                          ? '0 4px 14px rgba(2, 132, 199, 0.15)'
+                          : '0 2px 6px rgba(24, 51, 79, 0.03)',
                       }}
                     >
                       {tier.badge && (
@@ -215,11 +216,11 @@ UK Registered Charity #1150221`;
                             top: '-9px',
                             right: '10px',
                             backgroundColor: tier.featured
-                              ? '#f59e0b'
+                              ? '#F59E0B'
                               : tier.highlight
-                              ? '#059669'
-                              : '#64748b',
-                            color: tier.featured ? '#0f172a' : '#ffffff',
+                              ? '#0284C7'
+                              : '#657B91',
+                            color: tier.featured ? '#0F172A' : '#FFFFFF',
                             fontSize: '0.62rem',
                             fontWeight: 800,
                             padding: '1px 7px',
@@ -238,10 +239,10 @@ UK Registered Charity #1150221`;
                             fontSize: '0.72rem',
                             fontWeight: 700,
                             color: tier.featured
-                              ? '#92400e'
+                              ? '#B45309'
                               : tier.highlight
-                              ? '#065f46'
-                              : '#64748b',
+                              ? '#0369A1'
+                              : '#657B91',
                             lineHeight: 1.2,
                           }}
                         >
@@ -252,10 +253,10 @@ UK Registered Charity #1150221`;
                             fontSize: '1.35rem',
                             fontWeight: 900,
                             color: tier.featured
-                              ? '#b45309'
+                              ? '#B45309'
                               : tier.highlight
-                              ? '#047857'
-                              : '#059669',
+                              ? '#0369A1'
+                              : '#0284C7',
                             fontFamily: 'monospace',
                             margin: '0.2rem 0',
                           }}
@@ -267,10 +268,10 @@ UK Registered Charity #1150221`;
                       <div
                         style={{
                           fontSize: '0.7rem',
-                          color: '#475569',
+                          color: '#657B91',
                           lineHeight: 1.25,
                           marginTop: '0.35rem',
-                          borderTop: '1px dashed #cbd5e1',
+                          borderTop: '1px dashed #E4EDF5',
                           paddingTop: '0.4rem',
                         }}
                       >
@@ -332,8 +333,8 @@ UK Registered Charity #1150221`;
               {/* Modern Bank Transfer Bar with 1-Click Copy */}
               <div
                 style={{
-                  backgroundColor: '#f8fafc',
-                  border: '1px solid #e2e8f0',
+                  backgroundColor: '#F0F7FE',
+                  border: '1px solid #DCEEFF',
                   borderRadius: '14px',
                   padding: '0.85rem 1.15rem',
                   display: 'flex',
@@ -349,8 +350,8 @@ UK Registered Charity #1150221`;
                       width: '34px',
                       height: '34px',
                       borderRadius: '8px',
-                      backgroundColor: '#ecfdf5',
-                      color: '#059669',
+                      backgroundColor: '#E0F2FE',
+                      color: '#0284C7',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -361,11 +362,11 @@ UK Registered Charity #1150221`;
                   </div>
 
                   <div>
-                    <div style={{ fontSize: '0.72rem', fontWeight: 800, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
+                    <div style={{ fontSize: '0.72rem', fontWeight: 800, color: '#657B91', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
                       Bank Transfer (0% Fee) • Al Rayan Bank
                     </div>
-                    <div style={{ fontSize: '0.88rem', fontWeight: 800, color: '#0f172a', marginTop: '0.1rem' }}>
-                      Sort Code: <span style={{ fontFamily: 'monospace', color: '#059669' }}>30-00-83</span> • Account: <span style={{ fontFamily: 'monospace', color: '#059669' }}>01298401</span> • Ref: <span style={{ fontFamily: 'monospace', color: '#b45309' }}>MOSQUE</span>
+                    <div style={{ fontSize: '0.88rem', fontWeight: 800, color: '#18334F', marginTop: '0.1rem' }}>
+                      Sort Code: <span style={{ fontFamily: 'monospace', color: '#0284C7' }}>30-00-83</span> • Account: <span style={{ fontFamily: 'monospace', color: '#0284C7' }}>01298401</span> • Ref: <span style={{ fontFamily: 'monospace', color: '#B45309' }}>MOSQUE</span>
                     </div>
                   </div>
                 </div>
@@ -375,9 +376,9 @@ UK Registered Charity #1150221`;
                   onClick={handleCopyBank}
                   style={{
                     padding: '0.5rem 0.85rem',
-                    backgroundColor: copied ? '#059669' : '#ffffff',
-                    color: copied ? '#ffffff' : '#334155',
-                    border: copied ? '1px solid #059669' : '1px solid #cbd5e1',
+                    backgroundColor: copied ? '#0284C7' : '#FFFFFF',
+                    color: copied ? '#FFFFFF' : '#18334F',
+                    border: copied ? '1px solid #0284C7' : '1px solid #BAE6FD',
                     borderRadius: '8px',
                     fontSize: '0.78rem',
                     fontWeight: 700,
@@ -404,8 +405,8 @@ UK Registered Charity #1150221`;
                   maxWidth: '380px',
                   borderRadius: '18px',
                   overflow: 'hidden',
-                  boxShadow: '0 14px 35px rgba(15, 23, 42, 0.14)',
-                  border: '1.5px solid #e2e8f0',
+                  boxShadow: '0 14px 35px rgba(24, 51, 79, 0.12)',
+                  border: '1.5px solid #E4EDF5',
                   backgroundColor: '#ffffff',
                   transition: 'transform 0.2s ease, box-shadow 0.2s ease',
                 }}
@@ -431,7 +432,7 @@ UK Registered Charity #1150221`;
                   <div
                     style={{
                       padding: '0.85rem 1rem',
-                      background: 'linear-gradient(180deg, #064e3b 0%, #065f46 100%)',
+                      background: 'linear-gradient(135deg, #0C4A6E 0%, #0284C7 100%)',
                       color: '#ffffff',
                       display: 'flex',
                       alignItems: 'center',
@@ -440,10 +441,10 @@ UK Registered Charity #1150221`;
                     }}
                   >
                     <div>
-                      <div style={{ fontSize: '0.72rem', fontWeight: 800, color: '#f59e0b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                      <div style={{ fontSize: '0.72rem', fontWeight: 800, color: '#F59E0B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                         Official Campaign Document
                       </div>
-                      <div style={{ fontSize: '0.84rem', fontWeight: 700, color: '#f0fdf4' }}>
+                      <div style={{ fontSize: '0.84rem', fontWeight: 700, color: '#F0F7FE' }}>
                         89 Tindal St Freehold Purchase
                       </div>
                     </div>
@@ -478,15 +479,15 @@ UK Registered Charity #1150221`;
                   flexWrap: 'wrap',
                   marginTop: '1rem',
                   fontSize: '0.78rem',
-                  color: '#64748b',
+                  color: '#657B91',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                  <ShieldCheck size={14} color="#059669" />
+                  <ShieldCheck size={14} color="#0284C7" />
                   <span>UK Charity #1150221</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                  <Building size={14} color="#059669" />
+                  <Building size={14} color="#0284C7" />
                   <span>89 Tindal St, Birmingham</span>
                 </div>
               </div>

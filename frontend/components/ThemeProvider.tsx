@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-type Theme = 'light' | 'dark';
+export type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
   theme: Theme;
@@ -18,24 +18,25 @@ const ThemeContext = createContext<ThemeContextType>({
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('light');
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    const saved = localStorage.getItem('alfalah_theme') as Theme | null;
-    if (saved) {
-      setThemeState(saved);
-      document.documentElement.setAttribute('data-theme', saved);
-    } else {
-      setThemeState('light');
+    // Al Falah Community Centre visual identity is strictly light, bright, and welcoming
+    try {
+      localStorage.removeItem('alfalah_theme');
       document.documentElement.setAttribute('data-theme', 'light');
+    } catch {
+      // ignore
     }
   }, []);
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
-    localStorage.setItem('alfalah_theme', newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
+    try {
+      localStorage.setItem('alfalah_theme', newTheme);
+      document.documentElement.setAttribute('data-theme', newTheme);
+    } catch {
+      // ignore
+    }
   };
 
   const toggleTheme = () => {

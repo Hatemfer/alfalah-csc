@@ -116,7 +116,7 @@ export default function AdminLoginPage() {
             </Button>
 
             <Box sx={{ mt: 2, textAlign: 'center' }}>
-              <Link href="/" style={{ fontSize: '0.85rem', color: '#0284c7', textDecoration: 'none' }}>
+              <Link href="/" style={{ fontSize: '0.85rem', color: '#3988CA', textDecoration: 'none' }}>
                 ← Return to Public Website
               </Link>
             </Box>

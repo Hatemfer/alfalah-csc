@@ -25,8 +25,8 @@ export function AlfalahEmblemSvg({
       <defs>
         {/* Emerald Radial & Linear Gradients */}
         <linearGradient id="emeraldGrad" x1="10" y1="10" x2="110" y2="110" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#0284c7" />
-          <stop offset="50%" stopColor="#0369a1" />
+          <stop offset="0%" stopColor="#3988CA" />
+          <stop offset="50%" stopColor="#245C91" />
           <stop offset="100%" stopColor="#082f49" />
         </linearGradient>
 
@@ -147,8 +147,8 @@ export function AlfalahEmblemSvg({
         strokeWidth="1.2"
       />
       {/* Left Scripture Lines */}
-      <path d="M 44 63 C 48 61, 54 61, 57 63" stroke="#0369a1" strokeWidth="0.8" strokeLinecap="round" />
-      <path d="M 44 66 C 48 64, 54 64, 57 66" stroke="#0369a1" strokeWidth="0.8" strokeLinecap="round" />
+      <path d="M 44 63 C 48 61, 54 61, 57 63" stroke="#245C91" strokeWidth="0.8" strokeLinecap="round" />
+      <path d="M 44 66 C 48 64, 54 64, 57 66" stroke="#245C91" strokeWidth="0.8" strokeLinecap="round" />
 
       {/* Right Quran Page */}
       <path
@@ -161,8 +161,8 @@ export function AlfalahEmblemSvg({
         strokeWidth="1.2"
       />
       {/* Right Scripture Lines */}
-      <path d="M 63 63 C 66 61, 72 61, 76 63" stroke="#0369a1" strokeWidth="0.8" strokeLinecap="round" />
-      <path d="M 63 66 C 66 64, 72 64, 76 66" stroke="#0369a1" strokeWidth="0.8" strokeLinecap="round" />
+      <path d="M 63 63 C 66 61, 72 61, 76 63" stroke="#245C91" strokeWidth="0.8" strokeLinecap="round" />
+      <path d="M 63 66 C 66 64, 72 64, 76 66" stroke="#245C91" strokeWidth="0.8" strokeLinecap="round" />
 
       {/* Central Spine of the Quran */}
       <path d="M 60 62 L 60 71" stroke="#d97706" strokeWidth="1.5" strokeLinecap="round" />

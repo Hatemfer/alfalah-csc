@@ -7,7 +7,6 @@ import {
   Building,
   Coins,
   GraduationCap,
-  Sparkles,
   Lock,
   ArrowRight,
   Info,
@@ -201,9 +200,9 @@ export default function StripeDonationForm({
             style={{
               padding: '0.9rem 1.25rem',
               borderRadius: '14px',
-              backgroundColor: frequency === 'oneoff' ? '#0284c7' : '#ffffff',
+              backgroundColor: frequency === 'oneoff' ? '#3988CA' : '#ffffff',
               color: frequency === 'oneoff' ? '#ffffff' : '#1e293b',
-              border: frequency === 'oneoff' ? '2px solid #0284c7' : '1.5px solid #e2e8f0',
+              border: frequency === 'oneoff' ? '2px solid #3988CA' : '1.5px solid #e2e8f0',
               fontWeight: 800,
               fontSize: '0.92rem',
               cursor: 'pointer',
@@ -212,7 +211,7 @@ export default function StripeDonationForm({
               justifyContent: 'center',
               gap: '0.5rem',
               transition: 'all 0.15s ease',
-              boxShadow: frequency === 'oneoff' ? '0 4px 12px rgba(2, 132, 199, 0.25)' : 'none',
+              boxShadow: frequency === 'oneoff' ? '0 4px 12px rgba(57, 136, 202, 0.25)' : 'none',
             }}
           >
             <Heart size={16} fill={frequency === 'oneoff' ? 'currentColor' : 'none'} />
@@ -225,9 +224,9 @@ export default function StripeDonationForm({
             style={{
               padding: '0.9rem 1.25rem',
               borderRadius: '14px',
-              backgroundColor: frequency === 'monthly' ? '#0284c7' : '#ffffff',
+              backgroundColor: frequency === 'monthly' ? '#3988CA' : '#ffffff',
               color: frequency === 'monthly' ? '#ffffff' : '#1e293b',
-              border: frequency === 'monthly' ? '2px solid #0284c7' : '1.5px solid #e2e8f0',
+              border: frequency === 'monthly' ? '2px solid #3988CA' : '1.5px solid #e2e8f0',
               fontWeight: 800,
               fontSize: '0.92rem',
               cursor: 'pointer',
@@ -236,7 +235,7 @@ export default function StripeDonationForm({
               justifyContent: 'center',
               gap: '0.5rem',
               transition: 'all 0.15s ease',
-              boxShadow: frequency === 'monthly' ? '0 4px 12px rgba(2, 132, 199, 0.25)' : 'none',
+              boxShadow: frequency === 'monthly' ? '0 4px 12px rgba(57, 136, 202, 0.25)' : 'none',
             }}
           >
             <RefreshCw size={16} />
@@ -244,8 +243,8 @@ export default function StripeDonationForm({
             <span
               style={{
                 fontSize: '0.68rem',
-                backgroundColor: frequency === 'monthly' ? '#0c4a6e' : '#e0f2fe',
-                color: frequency === 'monthly' ? '#bae6fd' : '#0284c7',
+                backgroundColor: frequency === 'monthly' ? '#18334F' : '#DCEEFF',
+                color: frequency === 'monthly' ? '#BADAFA' : '#3988CA',
                 padding: '2px 7px',
                 borderRadius: '9999px',
                 fontWeight: 700,
@@ -290,8 +289,8 @@ export default function StripeDonationForm({
                 style={{
                   padding: '0.9rem 1rem',
                   borderRadius: '14px',
-                  backgroundColor: isSelected ? '#e0f2fe' : '#ffffff',
-                  border: isSelected ? '2px solid #0284c7' : '1.5px solid #e2e8f0',
+                  backgroundColor: isSelected ? '#DCEEFF' : '#ffffff',
+                  border: isSelected ? '2px solid #3988CA' : '1.5px solid #e2e8f0',
                   textAlign: 'left',
                   cursor: 'pointer',
                   display: 'flex',
@@ -305,7 +304,7 @@ export default function StripeDonationForm({
                     width: '34px',
                     height: '34px',
                     borderRadius: '10px',
-                    backgroundColor: isSelected ? '#0284c7' : '#f1f5f9',
+                    backgroundColor: isSelected ? '#3988CA' : '#f1f5f9',
                     color: isSelected ? '#ffffff' : '#64748b',
                     display: 'flex',
                     alignItems: 'center',
@@ -317,7 +316,7 @@ export default function StripeDonationForm({
                   <Icon size={18} />
                 </div>
                 <div>
-                  <div style={{ fontWeight: 800, fontSize: '0.88rem', color: isSelected ? '#0369a1' : '#0f172a' }}>
+                  <div style={{ fontWeight: 800, fontSize: '0.88rem', color: isSelected ? '#245C91' : '#0f172a' }}>
                     {cause.title}
                   </div>
                   <div style={{ fontSize: '0.74rem', color: '#64748b', marginTop: '2px', lineHeight: 1.3 }}>
@@ -367,16 +366,16 @@ export default function StripeDonationForm({
                 style={{
                   padding: '0.75rem 0.5rem',
                   borderRadius: '12px',
-                  backgroundColor: isSelected ? '#0284c7' : '#ffffff',
+                  backgroundColor: isSelected ? '#3988CA' : '#ffffff',
                   color: isSelected ? '#ffffff' : '#0f172a',
-                  border: isSelected ? '2px solid #0284c7' : '1.5px solid #e2e8f0',
+                  border: isSelected ? '2px solid #3988CA' : '1.5px solid #e2e8f0',
                   fontWeight: 800,
                   fontSize: '0.98rem',
                   cursor: 'pointer',
                   textAlign: 'center',
                   position: 'relative',
                   transition: 'all 0.15s ease',
-                  boxShadow: isSelected ? '0 4px 12px rgba(2, 132, 199, 0.2)' : 'none',
+                  boxShadow: isSelected ? '0 4px 12px rgba(57, 136, 202, 0.2)' : 'none',
                 }}
               >
                 {p.popular && (
@@ -404,7 +403,7 @@ export default function StripeDonationForm({
                     style={{
                       fontSize: '0.68rem',
                       fontWeight: 700,
-                      color: isSelected ? '#bae6fd' : '#0284c7',
+                      color: isSelected ? '#BADAFA' : '#3988CA',
                       marginTop: '2px',
                     }}
                   >
@@ -426,7 +425,7 @@ export default function StripeDonationForm({
               transform: 'translateY(-50%)',
               fontWeight: 800,
               fontSize: '1.05rem',
-              color: '#0284c7',
+              color: '#3988CA',
             }}
           >
             £
@@ -443,12 +442,12 @@ export default function StripeDonationForm({
               width: '100%',
               padding: '0.8rem 1rem 0.8rem 2.25rem',
               borderRadius: '12px',
-              border: customAmount ? '2px solid #0284c7' : '1.5px solid #cbd5e1',
+              border: customAmount ? '2px solid #3988CA' : '1.5px solid #cbd5e1',
               fontSize: '0.95rem',
               fontWeight: 600,
               outline: 'none',
               backgroundColor: '#ffffff',
-              boxShadow: customAmount ? '0 0 0 3px rgba(5, 150, 105, 0.1)' : 'none',
+              boxShadow: customAmount ? '0 0 0 3px rgba(2, 132, 199, 0.15)' : 'none',
             }}
           />
         </div>
@@ -457,7 +456,7 @@ export default function StripeDonationForm({
       {/* 4. Optional Fee Recovery Toggle (Cover Transaction Fees) */}
       <div
         style={{
-          backgroundColor: coverFee ? '#f0fdf4' : '#f8fafc',
+          backgroundColor: coverFee ? '#F0F7FE' : '#f8fafc',
           border: coverFee ? '1.5px solid #7dd3fc' : '1px solid #e2e8f0',
           borderRadius: '16px',
           padding: '1.15rem 1.25rem',
@@ -481,7 +480,7 @@ export default function StripeDonationForm({
               width: '20px',
               height: '20px',
               marginTop: '2px',
-              accentColor: '#0284c7',
+              accentColor: '#3988CA',
               cursor: 'pointer',
               flexShrink: 0,
             }}
@@ -495,8 +494,8 @@ export default function StripeDonationForm({
                 style={{
                   fontSize: '0.7rem',
                   fontWeight: 800,
-                  backgroundColor: '#bae6fd',
-                  color: '#0369a1',
+                  backgroundColor: '#BADAFA',
+                  color: '#245C91',
                   padding: '2px 7px',
                   borderRadius: '9999px',
                 }}
@@ -513,7 +512,7 @@ export default function StripeDonationForm({
               style={{
                 marginTop: '0.5rem',
                 fontSize: '0.78rem',
-                color: '#0369a1',
+                color: '#245C91',
                 fontWeight: 700,
                 display: 'flex',
                 alignItems: 'center',
@@ -532,8 +531,8 @@ export default function StripeDonationForm({
       {/* 5. UK Gift Aid Declaration (+25% Free from HMRC) */}
       <div
         style={{
-          backgroundColor: giftAid ? '#e0f2fe' : '#ffffff',
-          border: giftAid ? '1.5px solid #0284c7' : '1px solid #e2e8f0',
+          backgroundColor: giftAid ? '#DCEEFF' : '#ffffff',
+          border: giftAid ? '1.5px solid #3988CA' : '1px solid #e2e8f0',
           borderRadius: '16px',
           padding: '1.25rem',
           transition: 'all 0.15s ease',
@@ -556,7 +555,7 @@ export default function StripeDonationForm({
               width: '20px',
               height: '20px',
               marginTop: '2px',
-              accentColor: '#0284c7',
+              accentColor: '#3988CA',
               cursor: 'pointer',
               flexShrink: 0,
             }}
@@ -570,7 +569,7 @@ export default function StripeDonationForm({
                 style={{
                   fontSize: '0.7rem',
                   fontWeight: 800,
-                  backgroundColor: '#0284c7',
+                  backgroundColor: '#3988CA',
                   color: '#ffffff',
                   padding: '2px 7px',
                   borderRadius: '9999px',
@@ -598,7 +597,7 @@ export default function StripeDonationForm({
               gap: '0.85rem',
             }}
           >
-            <div style={{ fontSize: '0.8rem', color: '#0369a1', fontWeight: 700, lineHeight: 1.4 }}>
+            <div style={{ fontSize: '0.8rem', color: '#245C91', fontWeight: 700, lineHeight: 1.4 }}>
               HMRC requires your full name and UK home address to validate this declaration:
             </div>
 
@@ -673,7 +672,7 @@ export default function StripeDonationForm({
             <div
               style={{
                 backgroundColor: '#ffffff',
-                border: '1px solid #bae6fd',
+                border: '1px solid #BADAFA',
                 borderRadius: '8px',
                 padding: '0.75rem',
                 fontSize: '0.73rem',
@@ -738,7 +737,7 @@ export default function StripeDonationForm({
             width: '100%',
             padding: '1.1rem 1.5rem',
             borderRadius: '16px',
-            backgroundColor: '#0284c7',
+            backgroundColor: '#3988CA',
             color: '#ffffff',
             border: 'none',
             fontWeight: 800,
@@ -748,7 +747,7 @@ export default function StripeDonationForm({
             alignItems: 'center',
             justifyContent: 'center',
             gap: '0.6rem',
-            boxShadow: '0 8px 24px rgba(5, 150, 105, 0.35)',
+            boxShadow: '0 8px 24px rgba(2, 132, 199, 0.25)',
             transition: 'all 0.15s ease',
             opacity: isLoading || activeAmount < 1 ? 0.7 : 1,
           }}
@@ -783,7 +782,7 @@ export default function StripeDonationForm({
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-            <ShieldCheck size={16} style={{ color: '#0284c7' }} />
+            <ShieldCheck size={16} style={{ color: '#3988CA' }} />
             <span>256-bit SSL Encrypted • Powered by <strong>Stripe</strong></span>
           </div>
 
@@ -812,7 +811,7 @@ export default function StripeDonationForm({
             style={{
               background: 'none',
               border: 'none',
-              color: '#0284c7',
+              color: '#3988CA',
               fontWeight: 700,
               fontSize: '0.84rem',
               cursor: 'pointer',

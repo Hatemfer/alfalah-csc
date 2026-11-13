@@ -15,7 +15,7 @@ export default function PrayerTimesPage() {
       {/* Header Banner - Clean, Luminous & Modern */}
       <section
         style={{
-          background: 'linear-gradient(180deg, #e0f2fe 0%, #f8fafc 100%)',
+          background: 'linear-gradient(180deg, #DCEEFF 0%, #f8fafc 100%)',
           borderBottom: '1px solid #e2e8f0',
           padding: 'clamp(2rem, 5vw, 3rem) 1rem clamp(1.5rem, 3.5vw, 2.5rem)',
           textAlign: 'center',

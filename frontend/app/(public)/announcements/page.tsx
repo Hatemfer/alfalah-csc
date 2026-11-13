@@ -29,34 +29,34 @@ export default async function AnnouncementsPage() {
       {/* Page Header - Clean, Luminous & Modern */}
       <section
         style={{
-          background: 'linear-gradient(180deg, #e0f2fe 0%, #f8fafc 100%)',
-          borderBottom: '1px solid #e2e8f0',
-          padding: '3rem 1.5rem 2.5rem',
+          background: 'linear-gradient(180deg, #E0F2FE 0%, #F8FAFC 100%)',
+          borderBottom: '1px solid #E2E8F0',
+          padding: '2.5rem 1.25rem 2rem',
           textAlign: 'center',
         }}
       >
         <div className="container" style={{ maxWidth: '800px' }}>
           <h1
             style={{
-              fontSize: 'clamp(2.1rem, 4vw, 2.75rem)',
+              fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
               fontWeight: 800,
-              marginBottom: '0.6rem',
-              color: '#0f172a',
+              marginBottom: '0.5rem',
+              color: '#0F172A',
               letterSpacing: '-0.025em',
             }}
           >
             Community Announcements
           </h1>
-          <p style={{ fontSize: '1.05rem', color: '#475569', lineHeight: 1.6, maxWidth: '680px', margin: '0 auto' }}>
+          <p style={{ fontSize: '0.95rem', color: '#475569', lineHeight: 1.55, maxWidth: '640px', margin: '0 auto' }}>
             Stay updated with official statements, seasonal timetables, Eid arrangements, and centre notices.
           </p>
         </div>
       </section>
 
-      <section style={{ padding: '3.5rem 0' }}>
+      <section style={{ padding: '2rem 0 3rem' }}>
         <div className="container" style={{ maxWidth: '850px' }}>
           {announcements.length > 0 ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               {announcements.map((a: any) => {
                 const publishedDate = new Date(a.publishedAt).toLocaleDateString('en-GB', {
                   day: 'numeric',
@@ -69,8 +69,11 @@ export default async function AnnouncementsPage() {
                     key={a.id}
                     className="card"
                     style={{
-                      borderLeft: a.isPinned ? '4px solid var(--color-accent-500)' : '1px solid var(--border-color)',
-                      padding: '2rem',
+                      borderLeft: a.isPinned ? '4px solid #0284C7' : '1px solid #E2E8F0',
+                      padding: '1.5rem',
+                      borderRadius: '16px',
+                      backgroundColor: '#FFFFFF',
+                      boxShadow: '0 2px 10px rgba(15, 23, 42, 0.04)',
                     }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
@@ -78,16 +81,16 @@ export default async function AnnouncementsPage() {
                         {a.isPinned && <span className="badge badge-gold">Pinned</span>}
                         {a.badgeText && <span className="badge">{a.badgeText}</span>}
                       </div>
-                      <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                      <div style={{ fontSize: '0.82rem', color: '#64748B', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                         <Calendar size={14} /> {publishedDate}
                       </div>
                     </div>
 
-                    <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--color-primary-800)', marginBottom: '0.75rem' }}>
+                    <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', marginBottom: '0.6rem' }}>
                       {a.title}
                     </h2>
 
-                    <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', lineHeight: 1.7, whiteSpace: 'pre-line' }}>
+                    <p style={{ fontSize: '0.92rem', color: '#475569', lineHeight: 1.65, whiteSpace: 'pre-line' }}>
                       {a.content}
                     </p>
                   </div>
@@ -95,14 +98,54 @@ export default async function AnnouncementsPage() {
               })}
             </div>
           ) : (
-            <div className="card" style={{ padding: '3rem', textAlign: 'center' }}>
-              <Bell size={36} style={{ color: 'var(--color-primary-600)', margin: '0 auto 1rem' }} />
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.5rem' }}>
-                No active announcements at present
+            <div
+              className="card"
+              style={{
+                padding: '2.5rem 1.5rem',
+                textAlign: 'center',
+                backgroundColor: '#FFFFFF',
+                borderRadius: '16px',
+                border: '1px solid #E2E8F0',
+                boxShadow: '0 4px 16px rgba(15, 23, 42, 0.04)',
+                maxWidth: '600px',
+                margin: '0 auto',
+              }}
+            >
+              <div
+                style={{
+                  width: '54px',
+                  height: '54px',
+                  borderRadius: '50%',
+                  backgroundColor: '#E0F2FE',
+                  color: '#0284C7',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 1rem',
+                }}
+              >
+                <Bell size={26} />
+              </div>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0F172A', marginBottom: '0.35rem' }}>
+                No Active Announcements
               </h3>
-              <p style={{ color: 'var(--text-muted)' }}>
-                Please check back soon for updates from Alfalah Community Support Centre.
+              <p style={{ color: '#64748B', fontSize: '0.88rem', lineHeight: 1.55, maxWidth: '420px', margin: '0 auto 1.5rem' }}>
+                All current notices have concluded. Please check back soon for upcoming Eid, seasonal prayer timetables, and community notices.
               </p>
+              <Link
+                href="/"
+                className="btn btn-primary"
+                style={{
+                  fontSize: '0.85rem',
+                  fontWeight: 700,
+                  padding: '0.6rem 1.25rem',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                }}
+              >
+                Return to Homepage →
+              </Link>
             </div>
           )}
         </div>
