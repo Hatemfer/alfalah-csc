@@ -85,6 +85,7 @@ export default function VirtualTourVideo() {
             onPlay={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            controls={false}
           />
 
           {/* Clean Cinematic Play Overlay (visible when paused) */}

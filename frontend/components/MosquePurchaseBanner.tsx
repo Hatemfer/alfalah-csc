@@ -117,7 +117,7 @@ UK Registered Charity #1150221`;
                   }}
                 >
                   <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#0284C7', flexShrink: 0 }} />
-                  Urgent Appeal • Target £600k
+                  Appeal • £600k Target
                 </span>
 
                 <span
