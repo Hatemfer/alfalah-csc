@@ -174,7 +174,19 @@ const PROGRAMMES: Programme[] = [
   },
 ];
 
+function getCategoryIcon(cat: string) {
+  const c = (cat || '').toLowerCase();
+  if (c.includes('stem') || c.includes('robot')) return Cpu;
+  if (c.includes('first aid') || c.includes('safeguard')) return ShieldCheck;
+  if (c.includes('quran') || c.includes('tajweed') || c.includes('madrasah')) return BookOpen;
+  if (c.includes('tafsir') || c.includes('scholar') || c.includes('lecture')) return GraduationCap;
+  if (c.includes('craft') || c.includes('art')) return Palette;
+  if (c.includes('sister') || c.includes('family') || c.includes('community')) return Users;
+  return ShieldCheck;
+}
+
 export default function ActivitiesPage() {
+  const [programmes, setProgrammes] = useState<Programme[]>(PROGRAMMES);
   const [selectedProgramme, setSelectedProgramme] = useState<string>('youth-stem-lab');
   const [formData, setFormData] = useState({
     studentName: '',
@@ -189,6 +201,55 @@ export default function ActivitiesPage() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Fetch live activities from database
+  React.useEffect(() => {
+    async function loadLiveActivities() {
+      try {
+        const res = await fetch('/api/v1/activities');
+        if (res.ok) {
+          const live = await res.json();
+          if (Array.isArray(live) && live.length > 0) {
+            const mapped: Programme[] = live.map((item: any) => {
+              const cat = item.category || 'Community';
+              const isCertified = cat.includes('Certified') || cat.includes('First Aid') || cat.includes('Safeguarding');
+              const isStem = cat.includes('STEM') || cat.includes('Robotics');
+              
+              let age = 'Open to Community';
+              if (isStem) age = 'Ages 7 – 16 (Boys & Girls)';
+              else if (cat.includes('First Aid')) age = 'Ages 16+ (Youth, Adults & Volunteers)';
+              else if (cat.includes('Safeguarding')) age = 'Ages 18+ (Teachers, Volunteers, Parents)';
+              else if (cat.includes('Quran') || cat.includes('Madrasah')) age = 'Ages 5 – 16';
+              else if (cat.includes('Arts') || cat.includes('Crafts')) age = 'Ages 8 – 16';
+              else if (cat.includes('Sisters')) age = 'Sisters of All Ages';
+
+              const features = item.fullDescription
+                ? item.fullDescription.split('\n').map((l: string) => l.trim()).filter(Boolean)
+                : [item.shortDescription];
+
+              return {
+                id: item.slug || item.id,
+                title: item.title,
+                category: item.category,
+                categoryIcon: getCategoryIcon(item.category),
+                badge: isCertified ? '100% Free • Certificate Included' : undefined,
+                ageGroup: age,
+                schedule: item.scheduleInfo || 'See timetable',
+                location: item.location || 'Alfalah Community Support Centre, 89 Tindal St',
+                image: item.imageUrl || '/images/real/youth-electronics-workbench.jpg',
+                shortDesc: item.shortDescription,
+                features: features.length > 0 ? features : [item.shortDescription],
+              };
+            });
+            setProgrammes(mapped);
+          }
+        }
+      } catch (err) {
+        console.warn('Could not fetch live activities, using initial list:', err);
+      }
+    }
+    loadLiveActivities();
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -196,8 +257,7 @@ export default function ActivitiesPage() {
     setSuccess(false);
 
     try {
-      const chosen = PROGRAMMES.find((p) => p.id === formData.programmeId)?.title || formData.programmeId;
-      const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
+      const chosen = programmes.find((p) => p.id === formData.programmeId)?.title || formData.programmeId;
 
       const payload = {
         name: formData.parentName ? `${formData.parentName} (for student: ${formData.studentName})` : formData.studentName,
@@ -212,7 +272,7 @@ export default function ActivitiesPage() {
 - Additional Notes: ${formData.notes || 'None'}`,
       };
 
-      const res = await fetch(`${apiBase}/contact`, {
+      const res = await fetch('/api/v1/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -280,7 +340,7 @@ export default function ActivitiesPage() {
               marginBottom: '4rem',
             }}
           >
-            {PROGRAMMES.map((prog) => {
+            {programmes.map((prog) => {
               const Icon = prog.categoryIcon;
               return (
                 <div
@@ -576,7 +636,7 @@ export default function ActivitiesPage() {
                       Select Programme / Class *
                     </label>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                      {PROGRAMMES.map((p) => {
+                      {programmes.map((p) => {
                         const isSelected = (formData.programmeId || selectedProgramme) === p.id;
                         const Icon = p.categoryIcon;
                         return (
