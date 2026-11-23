@@ -630,7 +630,7 @@ export default function AdminEventsPage() {
         title="Delete Scheduled Event"
         itemName={deleteModal.title}
         loading={deleteModal.loading}
-        confirmText="Yes, Delete Event"
+        confirmText="Delete Event"
       />
     </Box>
   );

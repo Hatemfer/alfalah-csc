@@ -695,7 +695,7 @@ export default function AdminActivitiesPage() {
         title="Delete Community Programme"
         itemName={deleteModal.title}
         loading={deleteModal.loading}
-        confirmText="Yes, Delete Programme"
+        confirmText="Delete Programme"
       />
     </Box>
   );

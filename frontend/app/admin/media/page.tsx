@@ -260,7 +260,7 @@ export default function AdminMediaPage() {
         title="Delete Media Asset"
         itemName={deleteModal.name}
         loading={deleteModal.loading}
-        confirmText="Yes, Delete File"
+        confirmText="Delete File"
       />
     </Box>
   );

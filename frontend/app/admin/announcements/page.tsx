@@ -540,7 +540,7 @@ export default function AdminAnnouncementsPage() {
         title="Delete Community Announcement"
         itemName={deleteModal.title}
         loading={deleteModal.loading}
-        confirmText="Yes, Delete Notice"
+        confirmText="Delete Notice"
       />
     </Box>
   );

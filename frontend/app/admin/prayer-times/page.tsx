@@ -399,7 +399,7 @@ export default function AdminPrayerTimesPage() {
         itemName={deleteModal.date}
         description={`Remove timetable override for ${deleteModal.date}? Astronomical prayer calculations will automatically resume for this day.`}
         loading={deleteModal.loading}
-        confirmText="Yes, Remove Override"
+        confirmText="Remove Override"
       />
     </Box>
   );

@@ -9,8 +9,11 @@ import {
   Button,
   Box,
   CircularProgress,
+  IconButton,
 } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import CloseIcon from '@mui/icons-material/Close';
+import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
 
 interface ConfirmDeleteModalProps {
   open: boolean;
@@ -37,67 +40,149 @@ export function ConfirmDeleteModal({
     <Dialog
       open={open}
       onClose={loading ? undefined : onClose}
-      maxWidth="xs"
+      maxWidth="sm"
       fullWidth
       PaperProps={{
         sx: {
           borderRadius: '16px',
-          p: 1,
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+          boxShadow: '0 25px 50px -12px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(15, 23, 42, 0.05)',
+          overflow: 'hidden',
+          m: 2,
         },
       }}
     >
-      <DialogContent sx={{ pt: 3, pb: 2, textAlign: 'center' }}>
-        <Box
-          sx={{
-            width: 56,
-            height: 56,
-            borderRadius: '50%',
-            backgroundColor: '#FEE2E2',
-            color: '#DC2626',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            mx: 'auto',
-            mb: 2,
-          }}
-        >
-          <DeleteOutlineIcon sx={{ fontSize: 30 }} />
+      {/* Top Header Bar */}
+      <Box
+        sx={{
+          p: 2.5,
+          pb: 2,
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'space-between',
+          borderBottom: '1px solid #F1F5F9',
+        }}
+      >
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.75 }}>
+          <Box
+            sx={{
+              width: 44,
+              height: 44,
+              borderRadius: '12px',
+              backgroundColor: '#FEF2F2',
+              border: '1px solid #FEE2E2',
+              color: '#DC2626',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+            }}
+          >
+            <DeleteOutlineIcon sx={{ fontSize: 24 }} />
+          </Box>
+          <Box>
+            <Typography variant="h6" sx={{ fontWeight: 800, color: '#0F172A', fontSize: '1.1rem', lineHeight: 1.3 }}>
+              {title}
+            </Typography>
+            <Typography variant="caption" sx={{ color: '#64748B', display: 'block', mt: 0.25 }}>
+              Confirm permanent deletion of this record
+            </Typography>
+          </Box>
         </Box>
 
-        <Typography variant="h6" sx={{ fontWeight: 800, color: '#0F172A', mb: 1 }}>
-          {title}
+        <IconButton
+          size="small"
+          onClick={onClose}
+          disabled={loading}
+          sx={{
+            color: '#94A3B8',
+            '&:hover': { color: '#0F172A', backgroundColor: '#F1F5F9' },
+          }}
+        >
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      </Box>
+
+      {/* Content & Warning Card */}
+      <DialogContent sx={{ p: 3, pt: 2.5, pb: 2 }}>
+        <Typography variant="body2" sx={{ color: '#475569', lineHeight: 1.6, mb: 2 }}>
+          {description || 'Are you sure you want to permanently delete this item from the database? This action cannot be undone and will immediately remove it from public view.'}
         </Typography>
 
-        <Typography variant="body2" sx={{ color: '#64748B', lineHeight: 1.6, px: 1 }}>
-          {description ? (
-            description
-          ) : (
-            <>
-              Are you sure you want to delete{' '}
-              {itemName ? <strong style={{ color: '#0F172A' }}>&ldquo;{itemName}&rdquo;</strong> : 'this item'}?
-              This action cannot be undone and will be immediately removed from the live website.
-            </>
-          )}
-        </Typography>
+        {/* Item Preview Card */}
+        {itemName && (
+          <Box
+            sx={{
+              p: 2,
+              borderRadius: '10px',
+              backgroundColor: '#F8FAFC',
+              border: '1px solid #E2E8F0',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1.5,
+              mb: 1,
+            }}
+          >
+            <Box
+              sx={{
+                width: 32,
+                height: 32,
+                borderRadius: '8px',
+                backgroundColor: '#FEF3C7',
+                color: '#D97706',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}
+            >
+              <WarningAmberRoundedIcon sx={{ fontSize: 20 }} />
+            </Box>
+            <Box sx={{ minWidth: 0, flex: 1 }}>
+              <Typography variant="caption" sx={{ fontWeight: 600, color: '#64748B', display: 'block', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                Item to be removed
+              </Typography>
+              <Typography
+                variant="subtitle2"
+                sx={{
+                  fontWeight: 800,
+                  color: '#0F172A',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {itemName}
+              </Typography>
+            </Box>
+          </Box>
+        )}
       </DialogContent>
 
-      <DialogActions sx={{ p: 2, pt: 1, gap: 1.5, justifyContent: 'center' }}>
+      {/* Footer Actions (Right-aligned enterprise standard) */}
+      <DialogActions
+        sx={{
+          p: 2.5,
+          pt: 1.5,
+          borderTop: '1px solid #F1F5F9',
+          backgroundColor: '#FAFAFA',
+          display: 'flex',
+          justifyContent: 'flex-end',
+          gap: 1.5,
+        }}
+      >
         <Button
           onClick={onClose}
           disabled={loading}
-          variant="outlined"
           sx={{
-            flex: 1,
-            py: 1.1,
+            px: 2.5,
+            py: 0.9,
             color: '#475569',
-            borderColor: '#CBD5E1',
             borderRadius: '8px',
             fontWeight: 600,
             textTransform: 'none',
+            fontSize: '0.88rem',
             '&:hover': {
-              borderColor: '#94A3B8',
-              backgroundColor: '#F8FAFC',
+              backgroundColor: '#F1F5F9',
             },
           }}
         >
@@ -109,21 +194,30 @@ export function ConfirmDeleteModal({
           disabled={loading}
           variant="contained"
           sx={{
-            flex: 1,
-            py: 1.1,
+            px: 3,
+            py: 0.9,
             backgroundColor: '#DC2626',
             color: '#FFFFFF',
             borderRadius: '8px',
             fontWeight: 700,
             textTransform: 'none',
-            boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+            fontSize: '0.88rem',
+            whiteSpace: 'nowrap',
+            boxShadow: '0 1px 3px rgba(220, 38, 38, 0.25)',
             '&:hover': {
               backgroundColor: '#B91C1C',
-              boxShadow: '0 4px 6px -1px rgba(220, 38, 38, 0.2)',
+              boxShadow: '0 4px 6px -1px rgba(220, 38, 38, 0.3)',
             },
           }}
         >
-          {loading ? <CircularProgress size={20} color="inherit" /> : confirmText}
+          {loading ? (
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <CircularProgress size={16} color="inherit" />
+              <span>Deleting...</span>
+            </Box>
+          ) : (
+            confirmText
+          )}
         </Button>
       </DialogActions>
     </Dialog>
