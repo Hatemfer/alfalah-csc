@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Calendar, Clock, MapPin, ArrowRight } from 'lucide-react';
+import { getApiBaseUrl } from '@/lib/api';
 
 export const metadata = {
   title: 'Upcoming Events & Courses | AL FALAH COMMUNITY SUPPORT CENTRE',
@@ -9,7 +10,7 @@ export const metadata = {
 };
 
 async function getEvents() {
-  const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
+  const apiBase = getApiBaseUrl();
   try {
     const res = await fetch(`${apiBase}/events`, { cache: 'no-store' });
     if (res.ok) {

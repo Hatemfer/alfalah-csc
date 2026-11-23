@@ -54,8 +54,10 @@ const FALLBACK_ACTIVITIES: Record<string, any> = {
   },
 };
 
+import { getApiBaseUrl } from '@/lib/api';
+
 async function getActivity(slug: string) {
-  const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
+  const apiBase = getApiBaseUrl();
   try {
     const res = await fetch(`${apiBase}/activities/${slug}`, { cache: 'no-store' });
     if (res.ok) {

@@ -26,6 +26,7 @@ import HeroSlider from '../../components/HeroSlider';
 import PrayerTimetable from '../../components/PrayerTimetable';
 import VirtualTourVideo from '../../components/VirtualTourVideo';
 import { MosquePurchaseBanner } from '../../components/MosquePurchaseBanner';
+import { getApiBaseUrl } from '@/lib/api';
 
 const CENTRE_FACILITIES = [
   {
@@ -130,7 +131,7 @@ const DEFAULT_HOMEPAGE_ACTIVITIES = [
 ];
 
 async function getHomepageData() {
-  const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
+  const apiBase = getApiBaseUrl();
   try {
     const res = await fetch(`${apiBase}/activities`, { cache: 'no-store' });
     const activities = res.ok ? await res.json() : [];

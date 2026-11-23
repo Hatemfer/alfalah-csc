@@ -1,10 +1,16 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
+export function getApiBaseUrl(): string {
+  if (typeof window === 'undefined') {
+    return process.env.INTERNAL_API_URL || 'http://backend:4000/api/v1';
+  }
+  return process.env.NEXT_PUBLIC_API_URL || '/api/v1';
+}
 
 export async function fetchApi<T>(
   endpoint: string,
   options: RequestInit = {},
 ): Promise<T> {
-  const url = `${API_BASE}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
+  const base = getApiBaseUrl();
+  const url = `${base}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
   
   const headers = {
     'Content-Type': 'application/json',

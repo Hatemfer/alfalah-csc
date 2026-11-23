@@ -2,9 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Calendar, Clock, MapPin, ArrowLeft, ExternalLink } from 'lucide-react';
+import { getApiBaseUrl } from '@/lib/api';
 
 async function getEvent(slug: string) {
-  const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
+  const apiBase = getApiBaseUrl();
   try {
     const res = await fetch(`${apiBase}/events/${slug}`, { cache: 'no-store' });
     if (res.ok) {
