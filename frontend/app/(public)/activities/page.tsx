@@ -37,6 +37,7 @@ interface Programme {
   leadInstructor?: string;
   shortDesc: string;
   features: string[];
+  badge?: string;
 }
 
 const PROGRAMMES: Programme[] = [
@@ -56,6 +57,44 @@ const PROGRAMMES: Programme[] = [
       'Introduction to microcontroller coding and computing logic',
       'Teamwork engineering challenges and mechanical problem solving',
       'All tools, safety equipment, and electronics kits provided',
+    ],
+  },
+  {
+    id: 'first-aid-training',
+    title: 'Accredited First Aid & CPR Training',
+    category: 'Certified Training',
+    categoryIcon: ShieldCheck,
+    badge: 'Free of Charge • Certificate Included',
+    ageGroup: 'Ages 16+ (Youth, Adults & Volunteers)',
+    schedule: 'Monthly Saturday Intensive: 10:00 AM – 3:30 PM',
+    location: 'Alfalah Community Hall, 89 Tindal St',
+    image: '/images/real/sakeena-learning-hub.jpg',
+    leadInstructor: 'Certified UK Emergency First Aid Trainers',
+    shortDesc: 'Fully funded, certified emergency first aid course covering life-saving CPR, AED automated defibrillator use, recovery position, choking relief, and emergency wound care for our community.',
+    features: [
+      'Official accredited First Aid & CPR certificate awarded upon completion',
+      'Hands-on practical training with CPR mannequins and live AED trainers',
+      'Vital emergency skills for parents, sports coaches, carers, and youth',
+      '100% Free of charge — fully funded for Balsall Heath community members',
+    ],
+  },
+  {
+    id: 'safeguarding-training',
+    title: 'Certified Community Safeguarding Training',
+    category: 'Certified Workshop',
+    categoryIcon: ShieldCheck,
+    badge: 'Free of Charge • Certificate Included',
+    ageGroup: 'Ages 18+ (Teachers, Volunteers, Parents & Youth Leaders)',
+    schedule: 'Bi-Monthly Sunday Session: 1:30 PM – 4:30 PM',
+    location: 'Sakeena Learning Hub, 89 Tindal St',
+    image: '/images/real/sakeena-learning-hub.jpg',
+    leadInstructor: 'Accredited UK Safeguarding Practitioners',
+    shortDesc: 'Comprehensive accredited safeguarding course ensuring safe spaces for our children and vulnerable adults. Learn indicators of harm, disclosure handling, and UK regulatory compliance.',
+    features: [
+      'Official accredited Safeguarding Awareness Certificate issued',
+      'Recognising signs of abuse, emotional neglect, and online safety risks',
+      'Clear reporting protocols and safe practice in faith institutions',
+      '100% Free of charge — supporting volunteer leaders and local families',
     ],
   },
   {
@@ -219,10 +258,10 @@ export default function ActivitiesPage() {
               letterSpacing: '-0.025em',
             }}
           >
-            Alfalah Academy & Youth Programmes
+            Alfalah Academy, Certified Training & Youth Programmes
           </h1>
-          <p style={{ fontSize: '1.05rem', color: '#475569', lineHeight: 1.6, maxWidth: '700px', margin: '0 auto' }}>
-            Empowering the next generation through our pioneering Youth STEM & Electronics Lab, accredited Sakeena Learning Hub (Madrasah), and Sheikh Jamal Al-Jabarti’s weekly Tafsir circle in Balsall Heath.
+          <p style={{ fontSize: '1.05rem', color: '#475569', lineHeight: 1.6, maxWidth: '720px', margin: '0 auto' }}>
+            Empowering our community through accredited youth STEM robotics, Sakeena Learning Hub (Madrasah), Sheikh Jamal Al-Jabarti’s weekly Tafsir, and free accredited community training in First Aid &amp; Safeguarding.
           </p>
         </div>
       </section>
@@ -293,6 +332,30 @@ export default function ActivitiesPage() {
                       <Icon size={14} />
                       {prog.category}
                     </div>
+
+                    {prog.badge && (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: '12px',
+                          right: '12px',
+                          background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
+                          border: '1px solid rgba(255, 255, 255, 0.3)',
+                          boxShadow: '0 2px 8px rgba(5, 150, 105, 0.4)',
+                          color: '#ffffff',
+                          fontSize: '0.72rem',
+                          fontWeight: 800,
+                          padding: '0.25rem 0.65rem',
+                          borderRadius: '9999px',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.3rem',
+                          backdropFilter: 'blur(4px)',
+                        }}
+                      >
+                        ✓ {prog.badge}
+                      </div>
+                    )}
 
                     <div
                       style={{
@@ -378,9 +441,10 @@ export default function ActivitiesPage() {
                         fontSize: '0.85rem',
                         justifyContent: 'center',
                         gap: '0.4rem',
+                        background: prog.badge ? 'linear-gradient(135deg, #0284C7 0%, #047857 100%)' : undefined,
                       }}
                     >
-                      Register / Enrol in this Class <ArrowRight size={14} />
+                      {prog.badge ? 'Register Free for this Training' : 'Register / Enrol in this Class'} <ArrowRight size={14} />
                     </button>
                   </div>
                 </div>

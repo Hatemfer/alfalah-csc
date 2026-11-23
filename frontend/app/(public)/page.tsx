@@ -72,6 +72,63 @@ const CENTRE_FACILITIES = [
   },
 ];
 
+const DEFAULT_HOMEPAGE_ACTIVITIES = [
+  {
+    id: 'youth-stem-lab',
+    title: 'Youth Electronics & STEM Robotics Lab',
+    category: 'STEM & Robotics',
+    slug: 'youth-stem-lab',
+    shortDescription: 'Hands-on technical workshop where youth build electronic circuits, solder, and program robotics in a supportive Islamic environment.',
+    scheduleInfo: 'Every Saturday: 10:00 AM – 12:00 PM',
+    location: '89 Tindal St',
+  },
+  {
+    id: 'first-aid-training',
+    title: 'Accredited First Aid & CPR Training',
+    category: 'Certified Training • Free',
+    slug: 'first-aid-training',
+    shortDescription: 'Accredited life-saving CPR, AED defibrillator use, and emergency wound care with an official certificate. 100% free of charge for the community.',
+    scheduleInfo: 'Monthly Intensive: 10:00 AM – 3:30 PM',
+    location: '89 Tindal St',
+  },
+  {
+    id: 'safeguarding-training',
+    title: 'Certified Community Safeguarding Training',
+    category: 'Certified Workshop • Free',
+    slug: 'safeguarding-training',
+    shortDescription: 'Comprehensive accredited safeguarding course covering child protection, vulnerability awareness, and UK charity safety standards with an official certificate. 100% free.',
+    scheduleInfo: 'Bi-Monthly: 1:30 PM – 4:30 PM',
+    location: '89 Tindal St',
+  },
+  {
+    id: 'sakeena-madrasah',
+    title: 'Sakeena Learning Hub (Madrasah & Tajweed)',
+    category: 'Quran & Tajweed',
+    slug: 'sakeena-madrasah',
+    shortDescription: 'Accredited after-school Madrasah covering Noorani Qaida, Quranic Tajweed, Juz Amma memorisation, and Islamic manners.',
+    scheduleInfo: 'Mon, Tue & Wed: 5:00 PM – 7:00 PM',
+    location: '89 Tindal St',
+  },
+  {
+    id: 'weekly-tafsir',
+    title: 'Weekly Tafsir with Sheikh Jamal Al-Jabarti',
+    category: 'Scholar Lecture',
+    slug: 'weekly-tafsir',
+    shortDescription: 'In-depth Quranic Tafsir lecture connecting classical scholarship with practical British life. Refreshments and tea served.',
+    scheduleInfo: 'Every Saturday: After Maghrib',
+    location: '89 Tindal St',
+  },
+  {
+    id: 'handmade-crafts',
+    title: 'Handmade Crafts & Artisanal Workshop',
+    category: 'Handmade & Arts',
+    slug: 'handmade-crafts',
+    shortDescription: 'Artisanal workshop combining traditional Islamic calligraphy, woodworking, sewing, and model making for youth.',
+    scheduleInfo: 'Every Sunday: 11:00 AM – 1:00 PM',
+    location: '89 Tindal St',
+  },
+];
+
 async function getHomepageData() {
   const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
   try {
@@ -140,9 +197,16 @@ const CORE_SERVICES = [
 
 export default async function HomePage() {
   const { activities } = await getHomepageData();
+  const displayActivities = activities && activities.length >= 4 ? activities : DEFAULT_HOMEPAGE_ACTIVITIES;
 
   // Distinct authentic image helper for Academy activities
   const getActivityImage = (act: any) => {
+    if (act.slug?.includes('first-aid') || act.title?.toLowerCase().includes('first aid')) {
+      return '/images/real/sakeena-learning-hub.jpg';
+    }
+    if (act.slug?.includes('safeguard') || act.title?.toLowerCase().includes('safeguard')) {
+      return '/images/real/sakeena-learning-hub.jpg';
+    }
     if (act.slug?.includes('tafsir') || act.title?.toLowerCase().includes('tafsir')) {
       return '/images/real/poster-tafsir-sheikh-jamal.jpg';
     }
@@ -163,6 +227,7 @@ export default async function HomePage() {
 
   const getCategoryIcon = (category: string) => {
     const cat = category?.toLowerCase() || '';
+    if (cat.includes('first aid') || cat.includes('safeguard') || cat.includes('train')) return <ShieldCheck size={14} />;
     if (cat.includes('robot') || cat.includes('stem')) return <Cpu size={14} />;
     if (cat.includes('art') || cat.includes('craft')) return <Palette size={14} />;
     if (cat.includes('quran') || cat.includes('tajweed')) return <BookOpen size={14} />;
@@ -530,8 +595,7 @@ export default async function HomePage() {
               gap: '1.5rem',
             }}
           >
-            {activities.length > 0 ? (
-              activities.slice(0, 6).map((act: any) => (
+            {displayActivities.slice(0, 6).map((act: any) => (
                 <div
                   key={act.id}
                   className="card"
@@ -624,7 +688,7 @@ export default async function HomePage() {
                       </div>
                     )}
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem', paddingTop: '0.75rem', borderTop: '1px solid #EEF4FA' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem', paddingTop: '0.75rem', borderTop: '1px solid #EEF4FA', flexWrap: 'wrap' }}>
                       <span
                         style={{
                           fontSize: '0.78rem',
@@ -664,8 +728,7 @@ export default async function HomePage() {
                     </div>
                   </div>
                 </div>
-              ))
-            ) : null}
+              ))}
           </div>
         </div>
       </section>

@@ -3,17 +3,69 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Clock, MapPin, ArrowLeft, ShieldCheck, Mail } from 'lucide-react';
 
+const FALLBACK_ACTIVITIES: Record<string, any> = {
+  'first-aid-training': {
+    title: 'Accredited First Aid & CPR Training',
+    category: 'Certified Training • 100% Free',
+    shortDescription: 'Free accredited emergency first aid course covering life-saving CPR, AED automated defibrillator use, recovery position, choking relief, and emergency wound care with an official certificate.',
+    fullDescription: 'Masjid Al Falah & Community Support Centre is pleased to offer 100% free, accredited Emergency First Aid at Work & CPR training for local community members, volunteers, parents, and youth. Led by certified UK emergency medical trainers, this intensive course provides practical hands-on experience using CPR training mannequins and live AED defibrillator trainers. Every successful participant receives an official accredited certificate of completion.',
+    scheduleInfo: 'Monthly Saturday Intensive: 10:00 AM – 3:30 PM',
+    location: 'Sakeena Learning Hub, 89 Tindal St, Balsall Heath, Birmingham, B12 9QU',
+  },
+  'safeguarding-training': {
+    title: 'Certified Community Safeguarding Training',
+    category: 'Certified Workshop • 100% Free',
+    shortDescription: 'Comprehensive accredited safeguarding course ensuring safe spaces for our children and vulnerable adults. Learn indicators of harm, disclosure handling, and UK regulatory compliance with an official certificate.',
+    fullDescription: 'Protecting the vulnerable is a sacred duty and a legal requirement for faith and community organisations. This comprehensive course covers safeguarding legislation, identifying signs of neglect or abuse, emotional wellbeing, online safety for youth, and clear escalation protocols. Open to all parents, community leaders, madrasah teachers, and volunteers free of charge, with an accredited certificate awarded upon completion.',
+    scheduleInfo: 'Bi-Monthly Sunday Session: 1:30 PM – 4:30 PM',
+    location: 'Sakeena Learning Hub, 89 Tindal St, Balsall Heath, Birmingham, B12 9QU',
+  },
+  'youth-stem-lab': {
+    title: 'Youth Electronics & STEM Robotics Lab',
+    category: 'STEM & Robotics',
+    shortDescription: 'A pioneering hands-on technical workshop where young Muslims build electronic circuits, solder components, program microcontrollers, and construct robotics in a supportive Islamic environment.',
+    fullDescription: 'Our Youth STEM Lab empowers the next generation with practical skills in engineering, electronics, and coding. Students learn hands-on circuit design, solder safely, work with microcontrollers, and develop problem-solving habits grounded in Islamic teamwork (Ta’awun).',
+    scheduleInfo: 'Every Saturday: 10:00 AM – 12:00 PM',
+    location: 'Sakeena Learning Hub, 89 Tindal St, Balsall Heath',
+  },
+  'sakeena-madrasah': {
+    title: 'Sakeena Learning Hub (Quran & Tajweed Madrasah)',
+    category: 'Quran & Tajweed',
+    shortDescription: 'Accredited after-school Madrasah covering Noorani Qaida, precise Quranic Tajweed, Juz Amma memorisation, daily Duas, and foundational Islamic manners (Adab).',
+    fullDescription: 'The Sakeena Learning Hub provides systematic Islamic education for children aged 5–16. Qualified teachers guide students through Quran reading with Tajweed, Hifz memorisation, practical Fiqh of Salah, and character development in small, focused groups.',
+    scheduleInfo: 'Monday, Tuesday & Wednesday: 5:00 PM – 7:00 PM',
+    location: 'Sakeena Hub Classrooms, 89 Tindal St, Balsall Heath',
+  },
+  'weekly-tafsir': {
+    title: 'Weekly Tafsir with Sheikh Jamal Al-Jabarti',
+    category: 'Scholar Lecture Series',
+    shortDescription: 'An in-depth, verse-by-verse exploration of the Holy Quran, translating classical scholarship into practical reflections for contemporary daily life in Britain.',
+    fullDescription: 'Join Sheikh Jamal bin Saeed Al-Jabarti every Saturday evening for an authentic journey through the Quran. Exploring classical Tafsir with insights directly applicable to modern challenges in the UK. Open to brothers and sisters with tea served.',
+    scheduleInfo: 'Every Saturday: After Maghrib Prayer',
+    location: 'Main Prayer Hall, 89 Tindal St, Balsall Heath',
+  },
+  'handmade-crafts': {
+    title: 'Handmade Crafts & Creative Workshop',
+    category: 'Handmade & Arts',
+    shortDescription: 'Hands-on creative workshop combining traditional Islamic calligraphy, woodworking, sewing, and model making to foster patience, creative focus, and craftsmanship.',
+    fullDescription: 'Students develop artisanal craft skills through woodworking, geometric art, and calligraphy, producing physical projects they take home while developing focus, discipline, and artistic appreciation.',
+    scheduleInfo: 'Every Sunday: 11:00 AM – 1:00 PM',
+    location: 'Creative Workshop Room, 89 Tindal St, Balsall Heath',
+  },
+};
+
 async function getActivity(slug: string) {
   const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
   try {
     const res = await fetch(`${apiBase}/activities/${slug}`, { cache: 'no-store' });
     if (res.ok) {
-      return res.json();
+      const data = await res.json();
+      if (data) return data;
     }
   } catch (err) {
     console.warn(`Could not fetch activity ${slug}:`, err);
   }
-  return null;
+  return FALLBACK_ACTIVITIES[slug] || null;
 }
 
 export default async function ActivityDetailPage({

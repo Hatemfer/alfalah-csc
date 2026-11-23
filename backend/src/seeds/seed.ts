@@ -179,24 +179,52 @@ async function seed() {
   }
   console.log('✅ Homepage sections seeded.');
 
-  // 5. Initial Published Activity
+  // 5. Initial Published Activities
   const existingActivity = await activityRepo.find();
-  if (existingActivity.length === 0) {
-    await activityRepo.save(
-      activityRepo.create({
-        id: uuidv4(),
-        title: 'Weekly Community Circle & Quran Study',
-        slug: 'weekly-community-circle',
-        category: 'Education',
-        shortDescription: 'Weekly study circle focused on Tajweed, reflection, and community learning.',
-        fullDescription: 'Open to community members of all levels. Held in the main hall of the centre.',
-        scheduleInfo: 'Every Saturday after Asr prayer',
-        location: 'Alfalah Centre, 89 Tindal Street, Birmingham',
+  if (existingActivity.length <= 1) {
+    const defaultActivities = [
+      {
+        title: 'Accredited First Aid & CPR Training',
+        slug: 'first-aid-training',
+        category: 'Certified Training',
+        shortDescription: 'Free accredited emergency first aid course covering life-saving CPR, AED defibrillators, recovery position, and wound care with an official certificate.',
+        fullDescription: 'Fully funded accredited training for community members, volunteers, parents, and youth. Led by certified UK emergency trainers with official certificates awarded upon completion.',
+        scheduleInfo: 'Monthly Saturday Intensive: 10:00 AM – 3:30 PM',
+        location: 'Alfalah Community Hall, 89 Tindal St, Birmingham',
         isPublished: true,
         displayOrder: 1,
-      }),
-    );
-    console.log('✅ Initial activity seeded.');
+      },
+      {
+        title: 'Certified Community Safeguarding Training',
+        slug: 'safeguarding-training',
+        category: 'Certified Workshop',
+        shortDescription: 'Comprehensive accredited safeguarding course ensuring safe spaces for children and vulnerable adults with an official certificate. 100% free of charge.',
+        fullDescription: 'Essential accredited safeguarding course covering child protection, vulnerability awareness, and UK charity safety standards. Open to all volunteers and parents.',
+        scheduleInfo: 'Bi-Monthly Sunday: 1:30 PM – 4:30 PM',
+        location: 'Sakeena Learning Hub, 89 Tindal St, Birmingham',
+        isPublished: true,
+        displayOrder: 2,
+      },
+      {
+        title: 'Youth Electronics & STEM Robotics Lab',
+        slug: 'youth-stem-lab',
+        category: 'STEM & Robotics',
+        shortDescription: 'Hands-on technical workshop where young Muslims build circuits, solder components, and program robotics.',
+        fullDescription: 'Pioneering practical engineering and coding workshop for youth aged 7-16 in a supportive Islamic environment.',
+        scheduleInfo: 'Every Saturday: 10:00 AM – 12:00 PM',
+        location: 'Sakeena Learning Hub, 89 Tindal St, Birmingham',
+        isPublished: true,
+        displayOrder: 3,
+      },
+    ];
+
+    for (const act of defaultActivities) {
+      const found = await activityRepo.findOne({ where: { slug: act.slug } });
+      if (!found) {
+        await activityRepo.save(activityRepo.create({ id: uuidv4(), ...act }));
+      }
+    }
+    console.log('✅ Initial activities seeded.');
   }
 
   // 6. Initial Announcement
