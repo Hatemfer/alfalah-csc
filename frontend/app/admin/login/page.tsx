@@ -64,11 +64,8 @@ export default function AdminLoginPage() {
             }}
           />
 
-          <Typography variant="h5" component="h1" sx={{ fontWeight: 800, mb: 0.5, textAlign: 'center' }}>
+          <Typography variant="h5" component="h1" sx={{ fontWeight: 800, mb: 2.5, textAlign: 'center' }}>
             ALFALAH CMS
-          </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 3, textAlign: 'center' }}>
-            Authorised Staff & Administrator Login
           </Typography>
 
           {error && (
