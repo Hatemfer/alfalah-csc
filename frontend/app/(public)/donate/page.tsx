@@ -158,11 +158,11 @@ function DonateContent() {
   };
 
   const handleCopyAll = () => {
-    const fullDetails = `ALFALAH COMMUNITY SUPPORT CENTRE — Official Bank Donation Details
+    const fullDetails = `AL FALAH COMMUNITY SUPPORT CENTRE — Official Bank Donation Details
 Bank: Al Rayan Bank
 Sort Code: 30-00-83
 Account Number: 01298401
-Account Name: ALFALAH COMMUNITY SUPPORT CENTRE
+Account Name: AL FALAH COMMUNITY SUPPORT CENTRE
 Payment Reference: ${paymentReference}
 Cause: ${currentFund.label}${frequency === 'monthly' ? ' (Monthly Standing Order)' : ''}
 UK Registered Charity #1150221`;
@@ -206,7 +206,7 @@ UK Registered Charity #1150221`;
 
           <h1
             style={{
-              fontSize: 'clamp(2rem, 4vw, 2.75rem)',
+              fontSize: 'clamp(1.5rem, 3.8vw, 2.5rem)',
               fontWeight: 800,
               marginBottom: '0.5rem',
               color: '#0f172a',
@@ -218,7 +218,7 @@ UK Registered Charity #1150221`;
 
           <p
             style={{
-              fontSize: '1rem',
+              fontSize: 'clamp(0.88rem, 2vw, 1rem)',
               color: '#475569',
               lineHeight: 1.6,
               maxWidth: '680px',
@@ -498,50 +498,22 @@ UK Registered Charity #1150221`;
             </label>
 
             {/* Two-option payment method switcher: 1st Bank Transfer, 2nd MyDona QR */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem', marginBottom: '1.5rem' }}>
+            <div className="pay-method-switcher">
               {/* Option 1: Bank Transfer (First option as requested) */}
               <button
                 id="pay-method-bank"
                 type="button"
                 onClick={() => setPaymentMethod('bank')}
-                style={{
-                  padding: '1rem 1.15rem',
-                  borderRadius: '14px',
-                  border: paymentMethod === 'bank' ? '2.5px solid #0284C7' : '1.5px solid #e2e8f0',
-                  backgroundColor: paymentMethod === 'bank' ? '#F0F9FF' : '#ffffff',
-                  color: paymentMethod === 'bank' ? '#0F172A' : '#475569',
-                  fontWeight: 800,
-                  fontSize: '0.95rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  gap: '0.75rem',
-                  cursor: 'pointer',
-                  transition: 'all 0.15s ease',
-                  boxShadow: paymentMethod === 'bank' ? '0 4px 14px rgba(2, 132, 199, 0.15)' : 'none',
-                  textAlign: 'left',
-                }}
+                className={`pay-method-btn ${paymentMethod === 'bank' ? 'selected' : ''}`}
               >
-                <div
-                  style={{
-                    width: '38px',
-                    height: '38px',
-                    borderRadius: '10px',
-                    backgroundColor: paymentMethod === 'bank' ? '#0284C7' : '#f1f5f9',
-                    color: paymentMethod === 'bank' ? '#ffffff' : '#64748b',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                  }}
-                >
-                  <Building size={20} />
+                <div className={`pay-method-icon ${paymentMethod === 'bank' ? 'icon-active' : ''}`}>
+                  <Building size={18} />
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.95rem', fontWeight: 800, color: paymentMethod === 'bank' ? '#0F172A' : '#0f172a' }}>
+                  <div className="pay-method-label">
                     Bank Transfer (0% Fee)
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: paymentMethod === 'bank' ? '#0284C7' : '#64748b', fontWeight: 600, marginTop: '0.1rem' }}>
+                  <div className="pay-method-desc">
                     Al Rayan Bank • Direct UK Transfer
                   </div>
                 </div>
@@ -552,44 +524,16 @@ UK Registered Charity #1150221`;
                 id="pay-method-mydona"
                 type="button"
                 onClick={() => setPaymentMethod('mydona')}
-                style={{
-                  padding: '1rem 1.15rem',
-                  borderRadius: '14px',
-                  border: paymentMethod === 'mydona' ? '2.5px solid #0284C7' : '1.5px solid #e2e8f0',
-                  backgroundColor: paymentMethod === 'mydona' ? '#F0F9FF' : '#ffffff',
-                  color: paymentMethod === 'mydona' ? '#0F172A' : '#475569',
-                  fontWeight: 800,
-                  fontSize: '0.95rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  gap: '0.75rem',
-                  cursor: 'pointer',
-                  transition: 'all 0.15s ease',
-                  boxShadow: paymentMethod === 'mydona' ? '0 4px 14px rgba(2, 132, 199, 0.15)' : 'none',
-                  textAlign: 'left',
-                }}
+                className={`pay-method-btn ${paymentMethod === 'mydona' ? 'selected' : ''}`}
               >
-                <div
-                  style={{
-                    width: '38px',
-                    height: '38px',
-                    borderRadius: '10px',
-                    backgroundColor: paymentMethod === 'mydona' ? '#0284C7' : '#f1f5f9',
-                    color: paymentMethod === 'mydona' ? '#ffffff' : '#64748b',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                  }}
-                >
-                  <QrCode size={20} />
+                <div className={`pay-method-icon ${paymentMethod === 'mydona' ? 'icon-active' : ''}`}>
+                  <QrCode size={18} />
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.95rem', fontWeight: 800, color: paymentMethod === 'mydona' ? '#0F172A' : '#0f172a' }}>
+                  <div className="pay-method-label">
                     MyDona QR / Apple Pay
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: paymentMethod === 'mydona' ? '#0284C7' : '#64748b', fontWeight: 600, marginTop: '0.1rem' }}>
+                  <div className="pay-method-desc">
                     Apple Pay, Google Pay & UK Cards
                   </div>
                 </div>
@@ -670,6 +614,7 @@ UK Registered Charity #1150221`;
 
                 {/* Cohesive Receipt Card (100% Width Rows — No Broken Wrapping) */}
                 <div
+                  className="bank-receipt-box"
                   style={{
                     backgroundColor: '#f8fafc',
                     borderRadius: '12px',
@@ -679,6 +624,7 @@ UK Registered Charity #1150221`;
                 >
                   {/* Row 1: Sort Code */}
                   <div
+                    className="bank-row"
                     style={{
                       padding: '0.75rem 1rem',
                       display: 'flex',
@@ -700,6 +646,7 @@ UK Registered Charity #1150221`;
                       type="button"
                       onClick={() => handleCopy('30-00-83', 'sort-code')}
                       aria-label="Copy Sort Code"
+                      className="bank-copy-btn"
                       style={{ padding: '0.4rem 0.75rem', borderRadius: '6px', border: '1px solid #cbd5e1', backgroundColor: '#ffffff', color: '#334155', cursor: 'pointer', fontSize: '0.74rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.3rem', flexShrink: 0 }}
                     >
                       {copiedField === 'sort-code' ? <Check size={13} color="#0284C7" /> : <Copy size={13} />}
@@ -709,6 +656,7 @@ UK Registered Charity #1150221`;
 
                   {/* Row 2: Account Number */}
                   <div
+                    className="bank-row"
                     style={{
                       padding: '0.75rem 1rem',
                       display: 'flex',
@@ -730,6 +678,7 @@ UK Registered Charity #1150221`;
                       type="button"
                       onClick={() => handleCopy('01298401', 'account-number')}
                       aria-label="Copy Account Number"
+                      className="bank-copy-btn"
                       style={{ padding: '0.4rem 0.75rem', borderRadius: '6px', border: '1px solid #cbd5e1', backgroundColor: '#ffffff', color: '#334155', cursor: 'pointer', fontSize: '0.74rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.3rem', flexShrink: 0 }}
                     >
                       {copiedField === 'account-number' ? <Check size={13} color="#0284C7" /> : <Copy size={13} />}
@@ -737,69 +686,71 @@ UK Registered Charity #1150221`;
                     </button>
                   </div>
 
-                  {/* Row 3: Beneficiary Name */}
+                  {/* Row 3: Beneficiary Name — Two-Tier Layout for full width on mobile */}
                   <div
+                    className="bank-row bank-row-beneficiary"
                     style={{
                       padding: '0.75rem 1rem',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
                       borderBottom: '1px solid #e2e8f0',
-                      gap: '0.5rem',
                     }}
                   >
-                    <div style={{ minWidth: 0 }}>
-                      <span style={{ display: 'block', fontSize: '0.67rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '2px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '0.67rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.4px' }}>
                         Beneficiary Account Name
                       </span>
-                      <span style={{ fontSize: '0.9rem', fontWeight: 800, color: '#0f172a', wordBreak: 'break-word', lineHeight: 1.3 }}>
-                        ALFALAH COMMUNITY SUPPORT CENTRE
-                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleCopy('AL FALAH COMMUNITY SUPPORT CENTRE', 'beneficiary')}
+                        aria-label="Copy Beneficiary Name"
+                        className="bank-copy-btn"
+                        style={{ padding: '0.35rem 0.75rem', borderRadius: '6px', border: '1px solid #cbd5e1', backgroundColor: '#ffffff', color: '#334155', cursor: 'pointer', fontSize: '0.74rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.3rem', flexShrink: 0 }}
+                      >
+                        {copiedField === 'beneficiary' ? <Check size={13} color="#0284C7" /> : <Copy size={13} />}
+                        <span>{copiedField === 'beneficiary' ? 'Copied' : 'Copy'}</span>
+                      </button>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => handleCopy('ALFALAH COMMUNITY SUPPORT CENTRE', 'beneficiary')}
-                      aria-label="Copy Beneficiary Name"
-                      style={{ padding: '0.4rem 0.75rem', borderRadius: '6px', border: '1px solid #cbd5e1', backgroundColor: '#ffffff', color: '#334155', cursor: 'pointer', fontSize: '0.74rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.3rem', flexShrink: 0 }}
-                    >
-                      {copiedField === 'beneficiary' ? <Check size={13} color="#0284C7" /> : <Copy size={13} />}
-                      <span>{copiedField === 'beneficiary' ? 'Copied' : 'Copy'}</span>
-                    </button>
+                    <div style={{ fontSize: '0.96rem', fontWeight: 800, color: '#0f172a', lineHeight: 1.35, letterSpacing: '-0.01em' }}>
+                      AL FALAH COMMUNITY SUPPORT CENTRE
+                    </div>
                   </div>
 
-                  {/* Row 4: Payment Reference (Highlighted) */}
+                  {/* Row 4: Payment Reference (Highlighted) — Two-Tier Layout */}
                   <div
+                    className="bank-row bank-row-reference"
                     style={{
                       padding: '0.75rem 1rem',
                       backgroundColor: '#FFFBEB',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
                       borderBottom: '1px solid #FDE68A',
-                      gap: '0.5rem',
                     }}
                   >
-                    <div style={{ minWidth: 0 }}>
-                      <span style={{ display: 'block', fontSize: '0.67rem', color: '#92400E', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '2px' }}>
-                        Payment Reference (Quote in your App)
-                      </span>
-                      <span style={{ fontSize: '1.1rem', fontWeight: 900, fontFamily: 'monospace', color: '#B45309', letterSpacing: '0.5px' }}>
-                        {paymentReference}
-                      </span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem', gap: '0.5rem' }}>
+                      <div style={{ display: 'inline-flex', alignItems: 'baseline', gap: '0.35rem', flexWrap: 'wrap' }}>
+                        <span style={{ fontSize: '0.67rem', color: '#92400E', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.4px' }}>
+                          Payment Reference
+                        </span>
+                        <span style={{ fontSize: '0.67rem', color: '#B45309', fontWeight: 600 }}>
+                          (Quote in your app)
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleCopy(paymentReference, 'reference')}
+                        aria-label="Copy Payment Reference"
+                        className="bank-copy-btn"
+                        style={{ padding: '0.35rem 0.75rem', borderRadius: '6px', border: '1px solid #FCD34D', backgroundColor: '#ffffff', color: '#92400E', cursor: 'pointer', fontSize: '0.74rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.3rem', flexShrink: 0 }}
+                      >
+                        {copiedField === 'reference' ? <Check size={13} color="#B45309" /> : <Copy size={13} />}
+                        <span>{copiedField === 'reference' ? 'Copied' : 'Copy'}</span>
+                      </button>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => handleCopy(paymentReference, 'reference')}
-                      aria-label="Copy Payment Reference"
-                      style={{ padding: '0.4rem 0.75rem', borderRadius: '6px', border: '1px solid #FCD34D', backgroundColor: '#ffffff', color: '#92400E', cursor: 'pointer', fontSize: '0.74rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.3rem', flexShrink: 0 }}
-                    >
-                      {copiedField === 'reference' ? <Check size={13} color="#B45309" /> : <Copy size={13} />}
-                      <span>{copiedField === 'reference' ? 'Copied' : 'Copy'}</span>
-                    </button>
+                    <div style={{ fontSize: '1.25rem', fontWeight: 900, fontFamily: 'monospace', color: '#B45309', letterSpacing: '0.5px' }}>
+                      {paymentReference}
+                    </div>
                   </div>
 
                   {/* Row 5: Bank Name */}
                   <div
+                    className="bank-row"
                     style={{
                       padding: '0.65rem 1rem',
                       display: 'flex',
@@ -824,7 +775,7 @@ UK Registered Charity #1150221`;
 
                 {/* Helpful Instruction Note */}
                 <div style={{ backgroundColor: '#F0F9FF', border: '1px solid #BAE6FD', borderRadius: '10px', padding: '0.75rem 1rem', fontSize: '0.8rem', color: '#0369A1', lineHeight: 1.5 }}>
-                  <strong>How to transfer:</strong> In your UK banking app, select <em>Pay Someone New</em>, enter Sort Code <strong>30-00-83</strong>, Account <strong>01298401</strong>, and quote <strong>{paymentReference}</strong> as payment reference.
+                  <strong>How to transfer:</strong> In your UK banking app, select <em>Pay Someone New</em>, enter Account Name <strong>Al Falah Community Support Centre</strong>, Sort Code <strong>30-00-83</strong>, Account <strong>01298401</strong>, and quote <strong>{paymentReference}</strong> as payment reference.
                 </div>
 
                 {/* WhatsApp Confirmation Row */}
@@ -897,177 +848,104 @@ UK Registered Charity #1150221`;
               /* TAB CONTENT: 2. MYDONA QR / APPLE PAY (HIGH-END MODERN UX) */
               <div
                 id="mydona-portal"
-                className="bank-transfer-card"
-                style={{
-                  backgroundColor: '#ffffff',
-                  border: '1px solid #e2e8f0',
-                  borderTop: '3px solid #0284C7',
-                  borderRadius: '16px',
-                  padding: '1.75rem',
-                  boxShadow: '0 4px 20px rgba(15, 23, 42, 0.06)',
-                }}
+                className="mydona-portal-card"
               >
-                <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
-                  <h3 style={{ fontSize: '1.45rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.4rem', letterSpacing: '-0.02em' }}>
+                <div className="mydona-header">
+                  <h3 className="mydona-title">
                     Instant Giving via MyDona
                   </h3>
-                  <p style={{ fontSize: '0.92rem', color: '#475569', maxWidth: '520px', margin: '0 auto', lineHeight: 1.55 }}>
+                  <p className="mydona-subtitle">
                     Give securely in seconds with <strong>Apple Pay</strong>, <strong>Google Pay</strong>, or <strong>UK Debit/Credit Cards</strong> via our official MyDona giving portal.
                   </p>
                 </div>
 
-                {/* Two-Column Responsive Layout: Left QR Code, Right Actions & Details */}
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                    gap: '1.75rem',
-                    alignItems: 'center',
-                  }}
-                >
-                  {/* Column 1: Crisp QR Code Presentation */}
-                  <div style={{ textAlign: 'center' }}>
-                    <div
-                      style={{
-                        display: 'inline-block',
-                        padding: '1.15rem',
-                        backgroundColor: '#ffffff',
-                        borderRadius: '20px',
-                        border: '2px solid #e2e8f0',
-                        boxShadow: '0 10px 30px rgba(57, 136, 202, 0.1)',
-                      }}
-                    >
-                      <Image
-                        src="/images/mydona-qr.png"
-                        alt="Masjid Al Falah MyDona Official QR Code"
-                        width={240}
-                        height={240}
-                        priority
-                        style={{
-                          display: 'block',
-                          width: '220px',
-                          height: '220px',
-                          borderRadius: '12px',
-                        }}
-                      />
-                      <div
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '0.4rem',
-                          marginTop: '0.85rem',
-                          fontSize: '0.78rem',
-                          fontWeight: 800,
-                          color: '#245C91',
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.5px',
-                        }}
-                      >
-                        <Smartphone size={15} color="#0284C7" />
-                        <span>Scan with Phone Camera</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Column 2: Direct Actions & Assurance */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                {/* Two-Column Responsive Layout: Action Column First on Mobile, QR Column Second */}
+                <div className="mydona-layout-grid">
+                  {/* Column: Direct Actions & Quick Links */}
+                  <div className="mydona-actions-col">
                     {/* Primary Direct Giving CTA */}
                     <a
                       href={MYDONA_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '0.6rem',
-                        width: '100%',
-                        padding: '1rem 1.5rem',
-                        background: 'linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%)',
-                        color: '#ffffff',
-                        borderRadius: '14px',
-                        fontWeight: 800,
-                        fontSize: '1.05rem',
-                        textDecoration: 'none',
-                        boxShadow: '0 4px 16px rgba(2, 132, 199, 0.25)',
-                        transition: 'transform 0.15s ease',
-                      }}
+                      className="mydona-open-btn"
                     >
                       <span>Open MyDona Giving Page</span>
-                      <ExternalLink size={18} />
+                      <ExternalLink size={17} />
                     </a>
 
                     {/* Quick Link Copy Box */}
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        padding: '0.65rem 0.85rem',
-                        backgroundColor: '#f8fafc',
-                        borderRadius: '10px',
-                        border: '1px solid #e2e8f0',
-                        fontSize: '0.82rem',
-                      }}
-                    >
-                      <span style={{ color: '#64748b', fontFamily: 'monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <div className="mydona-copy-box">
+                      <span className="mydona-copy-url">
                         donate.mydona.com/al-falah-csc
                       </span>
                       <button
                         type="button"
                         onClick={() => handleCopy(MYDONA_URL, 'mydona-url')}
-                        style={{
-                          padding: '0.35rem 0.65rem',
-                          borderRadius: '6px',
-                          border: '1px solid #cbd5e1',
-                          backgroundColor: '#ffffff',
-                          color: '#0f172a',
-                          fontWeight: 700,
-                          fontSize: '0.75rem',
-                          cursor: 'pointer',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '0.3rem',
-                          flexShrink: 0,
-                          marginLeft: '0.5rem',
-                        }}
+                        className="mydona-copy-btn"
                       >
                         {copiedField === 'mydona-url' ? <Check size={13} color="#0284C7" /> : <Copy size={13} />}
-                        {copiedField === 'mydona-url' ? 'Copied' : 'Copy Link'}
+                        <span>{copiedField === 'mydona-url' ? 'Copied' : 'Copy Link'}</span>
                       </button>
                     </div>
 
                     {/* Supported Payment Badges */}
                     <div>
-                      <div style={{ fontSize: '0.74rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.45rem' }}>
+                      <div className="mydona-badges-title">
                         Supported Instant Payment Methods
                       </div>
-                      <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', alignItems: 'center' }}>
-                        <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#000000', backgroundColor: '#f1f5f9', padding: '4px 10px', borderRadius: '7px', border: '1px solid #cbd5e1' }}>
+                      <div className="mydona-badges-row">
+                        <span className="badge-apple">
                            Apple Pay
                         </span>
-                        <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#1a73e8', backgroundColor: '#e8f0fe', padding: '4px 10px', borderRadius: '7px', border: '1px solid #c2e7ff' }}>
+                        <span className="badge-gpay">
                           G Pay
                         </span>
-                        <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#1e40af', backgroundColor: '#dbeafe', padding: '4px 10px', borderRadius: '7px' }}>
+                        <span className="badge-visa">
                           VISA
                         </span>
-                        <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#b91c1c', backgroundColor: '#fee2e2', padding: '4px 10px', borderRadius: '7px' }}>
+                        <span className="badge-mastercard">
                           Mastercard
                         </span>
                       </div>
                     </div>
 
                     {/* Trust bullet points */}
-                    <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.8rem', color: '#64748b' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                        <ShieldCheck size={15} color="#0284C7" />
+                    <div className="mydona-trust-box">
+                      <div className="mydona-trust-item">
+                        <ShieldCheck size={14} color="#0284C7" style={{ flexShrink: 0 }} />
                         <span>Direct official disbursement to Al-Falah CSC (Charity #1150221)</span>
                       </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                        <Check size={15} color="#0284C7" />
+                      <div className="mydona-trust-item">
+                        <Check size={14} color="#0284C7" style={{ flexShrink: 0 }} />
                         <span>Instant digital donation receipt delivered to your email</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Column: Clean QR Code Presentation */}
+                  <div className="mydona-qr-col">
+                    <div className="mydona-qr-wrapper">
+                      <div className="mydona-qr-img-box">
+                        <Image
+                          src="/images/mydona-qr-blue.png"
+                          alt="Masjid Al Falah MyDona Official QR Code"
+                          width={200}
+                          height={200}
+                          priority
+                          style={{
+                            width: '100%',
+                            height: 'auto',
+                            maxWidth: '180px',
+                            display: 'block',
+                            margin: '0 auto',
+                            borderRadius: '10px',
+                          }}
+                        />
+                      </div>
+                      <div className="mydona-qr-caption">
+                        <Smartphone size={14} color="#0284C7" />
+                        <span>Scan with Phone Camera</span>
                       </div>
                     </div>
                   </div>
@@ -1104,7 +982,7 @@ UK Registered Charity #1150221`;
             </div>
 
             <div style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.6 }}>
-              <strong>ALFALAH COMMUNITY SUPPORT CENTRE</strong> is an officially registered UK charity (No. <strong>1150221</strong>) operating in Balsall Heath, Birmingham.
+              <strong>AL FALAH COMMUNITY SUPPORT CENTRE</strong> is an officially registered UK charity (No. <strong>1150221</strong>) operating in Balsall Heath, Birmingham.
             </div>
 
             <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.82rem' }}>
@@ -1182,6 +1060,320 @@ UK Registered Charity #1150221`;
 
       {/* Interactive Zakat Calculator Modal */}
       <ZakatCalculatorModal isOpen={zakatModalOpen} onClose={() => setZakatModalOpen(false)} />
+
+      <style jsx>{`
+        .pay-method-switcher {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          gap: 0.65rem;
+          margin-bottom: 1.25rem;
+        }
+        .pay-method-btn {
+          padding: 0.85rem 1rem;
+          border-radius: 14px;
+          border: 1.5px solid #e2e8f0;
+          background-color: #ffffff;
+          color: #475569;
+          font-weight: 800;
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          cursor: pointer;
+          transition: all 0.15s ease;
+          text-align: left;
+        }
+        .pay-method-btn.selected {
+          border: 2px solid #0284C7;
+          background-color: #F0F9FF;
+          color: #0F172A;
+          box-shadow: 0 4px 14px rgba(2, 132, 199, 0.12);
+        }
+        .pay-method-icon {
+          width: 36px;
+          height: 36px;
+          border-radius: 10px;
+          background-color: #f1f5f9;
+          color: #64748b;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          transition: all 0.15s ease;
+        }
+        .pay-method-icon.icon-active {
+          background-color: #0284C7;
+          color: #ffffff;
+        }
+        .pay-method-label {
+          font-size: 0.92rem;
+          font-weight: 800;
+          color: #0f172a;
+          line-height: 1.2;
+        }
+        .pay-method-desc {
+          font-size: 0.74rem;
+          color: #64748b;
+          font-weight: 600;
+          margin-top: 0.1rem;
+        }
+        .pay-method-btn.selected .pay-method-desc {
+          color: #0284C7;
+        }
+
+        .mydona-portal-card {
+          background-color: #ffffff;
+          border: 1px solid #e2e8f0;
+          border-top: 3px solid #0284C7;
+          border-radius: 16px;
+          padding: 1.5rem;
+          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        }
+        .mydona-header {
+          text-align: center;
+          margin-bottom: 1.25rem;
+        }
+        .mydona-title {
+          font-size: 1.35rem;
+          font-weight: 800;
+          color: #0f172a;
+          margin-bottom: 0.35rem;
+          letter-spacing: -0.02em;
+        }
+        .mydona-subtitle {
+          font-size: 0.9rem;
+          color: #475569;
+          max-width: 520px;
+          margin: 0 auto;
+          line-height: 1.5;
+        }
+        .mydona-layout-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1.5rem;
+          align-items: center;
+        }
+        .mydona-actions-col {
+          display: flex;
+          flex-direction: column;
+          gap: 0.85rem;
+          min-width: 0;
+        }
+        .mydona-open-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          width: 100%;
+          padding: 0.75rem 1.25rem;
+          background: linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%);
+          color: #ffffff;
+          border-radius: 12px;
+          font-weight: 800;
+          font-size: 0.95rem;
+          text-decoration: none;
+          box-shadow: 0 3px 14px rgba(2, 132, 199, 0.25);
+          transition: transform 0.15s ease;
+        }
+        .mydona-open-btn:hover {
+          transform: translateY(-1px);
+        }
+        .mydona-copy-box {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0.55rem 0.75rem;
+          background-color: #f8fafc;
+          border-radius: 10px;
+          border: 1px solid #e2e8f0;
+          font-size: 0.8rem;
+          min-width: 0;
+        }
+        .mydona-copy-url {
+          color: #64748b;
+          font-family: monospace;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          min-width: 0;
+          flex: 1;
+        }
+        .mydona-copy-btn {
+          padding: 0.35rem 0.6rem;
+          border-radius: 6px;
+          border: 1px solid #cbd5e1;
+          background-color: #ffffff;
+          color: #0f172a;
+          font-weight: 700;
+          font-size: 0.72rem;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.3rem;
+          flex-shrink: 0;
+          margin-left: 0.5rem;
+        }
+        .mydona-badges-title {
+          font-size: 0.72rem;
+          font-weight: 800;
+          color: #475569;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-bottom: 0.4rem;
+        }
+        .mydona-badges-row {
+          display: flex;
+          gap: 0.35rem;
+          flex-wrap: wrap;
+          align-items: center;
+        }
+        .badge-apple {
+          font-size: 0.74rem;
+          font-weight: 800;
+          color: #000000;
+          background-color: #f1f5f9;
+          padding: 3px 8px;
+          border-radius: 6px;
+          border: 1px solid #cbd5e1;
+        }
+        .badge-gpay {
+          font-size: 0.74rem;
+          font-weight: 800;
+          color: #1a73e8;
+          background-color: #e8f0fe;
+          padding: 3px 8px;
+          border-radius: 6px;
+          border: 1px solid #c2e7ff;
+        }
+        .badge-visa {
+          font-size: 0.74rem;
+          font-weight: 800;
+          color: #1e40af;
+          background-color: #dbeafe;
+          padding: 3px 8px;
+          border-radius: 6px;
+        }
+        .badge-mastercard {
+          font-size: 0.74rem;
+          font-weight: 800;
+          color: #b91c1c;
+          background-color: #fee2e2;
+          padding: 3px 8px;
+          border-radius: 6px;
+        }
+        .mydona-trust-box {
+          border-top: 1px solid #f1f5f9;
+          padding-top: 0.65rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.35rem;
+          font-size: 0.76rem;
+          color: #64748b;
+        }
+        .mydona-trust-item {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+        }
+        .mydona-qr-col {
+          text-align: center;
+          display: flex;
+          justify-content: center;
+        }
+        .mydona-qr-wrapper {
+          display: inline-block;
+          padding: 0.85rem;
+          background-color: #ffffff;
+          border-radius: 16px;
+          border: 1.5px solid #e2e8f0;
+          box-shadow: 0 6px 20px rgba(57, 136, 202, 0.08);
+          max-width: 220px;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        .mydona-qr-img-box {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+        }
+        .mydona-qr-caption {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.35rem;
+          margin-top: 0.65rem;
+          font-size: 0.72rem;
+          font-weight: 800;
+          color: #245C91;
+          text-transform: uppercase;
+          letter-spacing: 0.4px;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 680px) {
+          .donate-card {
+            padding: 1rem 0.65rem !important;
+            border-radius: 16px !important;
+          }
+          .bank-transfer-card {
+            padding: 0.85rem 0.65rem !important;
+            border-radius: 14px !important;
+          }
+          .bank-row {
+            padding: 0.65rem 0.75rem !important;
+          }
+          .bank-receipt-box {
+            border-radius: 10px !important;
+          }
+          .bank-copy-btn {
+            padding: 0.32rem 0.6rem !important;
+            font-size: 0.72rem !important;
+          }
+          .pay-method-switcher {
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+          }
+          .pay-method-btn {
+            padding: 0.7rem 0.85rem;
+          }
+          .pay-method-icon {
+            width: 32px;
+            height: 32px;
+          }
+          .pay-method-label {
+            font-size: 0.88rem;
+          }
+          .pay-method-desc {
+            font-size: 0.7rem;
+          }
+          .mydona-portal-card {
+            padding: 1.15rem 0.95rem;
+          }
+          .mydona-title {
+            font-size: 1.2rem;
+          }
+          .mydona-subtitle {
+            font-size: 0.82rem;
+          }
+          .mydona-layout-grid {
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+          }
+          .mydona-actions-col {
+            order: 1;
+          }
+          .mydona-qr-col {
+            order: 2;
+          }
+          .mydona-open-btn {
+            padding: 0.7rem 1rem;
+            font-size: 0.9rem;
+          }
+          .mydona-qr-wrapper {
+            max-width: 170px;
+            padding: 0.65rem;
+          }
+        }
+      `}</style>
     </div>
   );
 }

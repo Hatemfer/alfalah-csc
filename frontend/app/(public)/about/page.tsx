@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 export const metadata = {
-  title: 'About Us | ALFALAH COMMUNITY SUPPORT CENTRE (Birmingham)',
+  title: 'About Us | AL FALAH COMMUNITY SUPPORT CENTRE (Birmingham)',
   description:
     'Discover the story, mission, and facilities of Alfalah Community Support Centre (Charity #1150221) at 89 Tindal Street, Balsall Heath, Birmingham. Home to the Sakeena Learning Hub, Youth STEM Lab, and 5 daily prayers.',
 };
@@ -67,30 +67,30 @@ export default function AboutPage() {
         style={{
           background: 'linear-gradient(180deg, #F0F7FE 0%, #FFFFFF 100%)',
           borderBottom: '1px solid #E4EDF5',
-          padding: '3.5rem 1.5rem 3rem',
+          padding: 'clamp(2rem, 4vw, 3.25rem) 1rem clamp(1.5rem, 3vw, 2.5rem)',
           textAlign: 'center',
         }}
       >
         <div className="container" style={{ maxWidth: '880px' }}>
           <h1
             style={{
-              fontSize: 'clamp(2.1rem, 4.5vw, 3rem)',
+              fontSize: 'clamp(1.5rem, 4vw, 2.75rem)',
               fontWeight: 800,
-              marginBottom: '0.75rem',
+              marginBottom: '0.65rem',
               color: '#18334F',
               letterSpacing: '-0.025em',
             }}
           >
             About Alfalah Community Support Centre
           </h1>
-          <p style={{ fontSize: '1.1rem', color: '#657B91', lineHeight: 1.6, maxWidth: '720px', margin: '0 auto' }}>
+          <p style={{ fontSize: 'clamp(0.92rem, 2vw, 1.05rem)', color: '#657B91', lineHeight: 1.6, maxWidth: '720px', margin: '0 auto' }}>
             Rooted at 89 Tindal Street, Balsall Heath, Birmingham (Charity #1150221) — dedicated to daily worship, the pioneering Sakeena Learning Hub, Youth STEM education, and local welfare.
           </p>
         </div>
       </section>
 
       {/* 2. Centre Mission & Real Building Story */}
-      <section style={{ padding: '3.5rem 0' }}>
+      <section style={{ padding: 'clamp(2rem, 4vw, 3.5rem) 0' }}>
         <div className="container" style={{ maxWidth: '1050px' }}>
           <div
             className="card"
@@ -116,7 +116,7 @@ export default function AboutPage() {
                   Our Mission & Identity
                 </h2>
                 <p style={{ fontSize: '1.02rem', color: '#657B91', lineHeight: 1.8, marginBottom: '1rem' }}>
-                  <strong style={{ color: '#18334F' }}>ALFALAH COMMUNITY SUPPORT CENTRE (مركز الفلاح)</strong> was established to fulfill essential spiritual, educational, and social welfare needs in South Birmingham.
+                  <strong style={{ color: '#18334F' }}>AL FALAH COMMUNITY SUPPORT CENTRE (مركز الفلاح)</strong> was established to fulfill essential spiritual, educational, and social welfare needs in South Birmingham.
                 </p>
                 <p style={{ fontSize: '1.02rem', color: '#657B91', lineHeight: 1.8, marginBottom: '1rem' }}>
                   Unlike conventional prayer halls, Alfalah combines traditional Islamic scholarship with forward-looking youth empowerment. Alongside five daily prayers and Friday Jumu’ah, we operate the <strong style={{ color: '#18334F' }}>Sakeena Community Learning Hub</strong> and the groundbreaking <strong style={{ color: '#18334F' }}>Youth STEM & Robotics Lab</strong>, giving young Muslims the confidence and technical skills to excel in modern Britain.

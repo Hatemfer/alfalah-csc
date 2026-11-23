@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Calendar, Clock, MapPin, ArrowRight } from 'lucide-react';
 
 export const metadata = {
-  title: 'Upcoming Events & Courses | ALFALAH COMMUNITY SUPPORT CENTRE',
+  title: 'Upcoming Events & Courses | AL FALAH COMMUNITY SUPPORT CENTRE',
   description:
     'Upcoming events, community lectures, educational courses, and study circles at Alfalah Community Support Centre in Birmingham.',
 };
@@ -31,14 +31,14 @@ export default async function EventsPage() {
         style={{
           background: 'linear-gradient(180deg, #DCEEFF 0%, #f8fafc 100%)',
           borderBottom: '1px solid #e2e8f0',
-          padding: '3rem 1.5rem 2.5rem',
+          padding: 'clamp(2rem, 4vw, 3rem) 1rem clamp(1.5rem, 3vw, 2.5rem)',
           textAlign: 'center',
         }}
       >
         <div className="container" style={{ maxWidth: '800px' }}>
           <h1
             style={{
-              fontSize: 'clamp(2.1rem, 4vw, 2.75rem)',
+              fontSize: 'clamp(1.5rem, 4vw, 2.75rem)',
               fontWeight: 800,
               marginBottom: '0.6rem',
               color: '#0f172a',
@@ -47,13 +47,13 @@ export default async function EventsPage() {
           >
             Upcoming Events & Courses
           </h1>
-          <p style={{ fontSize: '1.05rem', color: '#475569', lineHeight: 1.6, maxWidth: '680px', margin: '0 auto' }}>
+          <p style={{ fontSize: 'clamp(0.92rem, 2vw, 1.05rem)', color: '#475569', lineHeight: 1.6, maxWidth: '680px', margin: '0 auto' }}>
             Stay connected with educational courses, spiritual reminders, and community gatherings hosted at Alfalah Centre.
           </p>
         </div>
       </section>
 
-      <section style={{ padding: '3.5rem 0' }}>
+      <section style={{ padding: 'clamp(2rem, 4vw, 3.5rem) 0' }}>
         <div className="container">
           {events.length > 0 ? (
             <div

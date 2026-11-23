@@ -123,8 +123,10 @@ const CORE_SERVICES = [
     title: 'Janazah & Bereavement Support',
     icon: ShieldCheck,
     desc: 'Compassionate 24/7 bereavement guidance, coordination of ritual Ghusl and Kafan, Janazah prayer, and liaison with Birmingham Muslim cemeteries.',
-    link: '/services',
+    link: '/services#janazah',
     linkText: 'Bereavement Guide',
+    badge: 'Coming Soon Insha’Allah',
+    notice: 'This service will be available in the near future, Insha’Allah.',
   },
   {
     id: 'dawah',
@@ -185,10 +187,10 @@ export default async function HomePage() {
       <MosquePurchaseBanner />
 
       {/* 4. Core Mosque Services (6 Pillars of UK Mosque Community) */}
-      <section style={{ padding: '4.5rem 0', backgroundColor: '#F7FAFE', borderTop: '1px solid #E4EDF5', borderBottom: '1px solid #E4EDF5' }}>
+      <section className="home-feature-section" style={{ padding: '4.5rem 0', backgroundColor: '#F7FAFE', borderTop: '1px solid #E4EDF5', borderBottom: '1px solid #E4EDF5' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 3rem' }}>
-            <h2 style={{ fontSize: 'clamp(2rem, 3.8vw, 2.6rem)', fontWeight: 800, color: '#18334F', marginBottom: '0.75rem' }}>
+          <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 3rem' }} className="home-section-header">
+            <h2 style={{ fontSize: 'clamp(1.5rem, 3.8vw, 2.5rem)', fontWeight: 800, color: '#18334F', marginBottom: '0.75rem' }}>
               Serving the Community of Balsall Heath & Birmingham
             </h2>
             <p style={{ color: '#657B91', fontSize: '1.05rem', lineHeight: 1.6, margin: 0 }}>
@@ -210,48 +212,88 @@ export default async function HomePage() {
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  padding: '1.75rem',
+                  padding: 'clamp(1.2rem, 2.5vw, 1.75rem)',
                   backgroundColor: '#ffffff',
                   border: '1px solid #E4EDF5',
                   borderRadius: 'var(--radius-lg)',
                   transition: 'transform 0.2s ease, box-shadow 0.2s ease',
                 }}
               >
-                <div
-                  style={{
-                    width: '46px',
-                    height: '46px',
-                    borderRadius: '12px',
-                    backgroundColor: '#DCEEFF',
-                    color: '#245C91',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '1rem',
-                  }}
-                >
-                  <service.icon size={22} />
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.85rem' }}>
+                  <div
+                    style={{
+                      width: '44px',
+                      height: '44px',
+                      borderRadius: '12px',
+                      backgroundColor: '#DCEEFF',
+                      color: '#245C91',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <service.icon size={22} />
+                  </div>
+                  {service.badge && (
+                    <span
+                      style={{
+                        fontSize: '0.72rem',
+                        fontWeight: 700,
+                        color: '#0369A1',
+                        backgroundColor: '#E0F2FE',
+                        border: '1px solid #BAE6FD',
+                        padding: '0.25rem 0.65rem',
+                        borderRadius: '9999px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.3rem',
+                      }}
+                    >
+                      <Clock size={12} />
+                      {service.badge}
+                    </span>
+                  )}
                 </div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#18334F', marginBottom: '0.5rem' }}>
+                <h3 style={{ fontSize: 'clamp(1.08rem, 2.2vw, 1.25rem)', fontWeight: 800, color: '#18334F', marginBottom: '0.45rem', lineHeight: 1.3 }}>
                   {service.title}
                 </h3>
-                <p style={{ fontSize: '0.92rem', color: '#657B91', lineHeight: 1.6, flex: 1, marginBottom: '1.25rem' }}>
+                <p style={{ fontSize: 'clamp(0.85rem, 1.6vw, 0.92rem)', color: '#657B91', lineHeight: 1.55, flex: 1, marginBottom: '1.1rem' }}>
                   {service.desc}
                 </p>
-                <div style={{ borderTop: '1px solid #EEF4FA', paddingTop: '0.85rem' }}>
+                {service.notice && (
+                  <div
+                    style={{
+                      backgroundColor: '#F0F9FF',
+                      border: '1px solid #BAE6FD',
+                      borderRadius: '6px',
+                      padding: '0.45rem 0.7rem',
+                      fontSize: '0.78rem',
+                      color: '#0369A1',
+                      marginBottom: '0.9rem',
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '0.4rem',
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    <span style={{ fontSize: '0.82rem' }}>⏳</span>
+                    <span>{service.notice}</span>
+                  </div>
+                )}
+                <div style={{ borderTop: '1px solid #EEF4FA', paddingTop: '0.75rem' }}>
                   <Link
                     href={service.link}
                     style={{
-                      fontSize: '0.88rem',
+                      fontSize: '0.84rem',
                       fontWeight: 800,
                       color: '#3988CA',
                       display: 'inline-flex',
                       alignItems: 'center',
-                      gap: '0.35rem',
+                      gap: '0.3rem',
                       textDecoration: 'none',
                     }}
                   >
-                    {service.linkText} <ArrowRight size={14} />
+                    {service.linkText} <ArrowRight size={13} />
                   </Link>
                 </div>
               </div>
@@ -261,7 +303,7 @@ export default async function HomePage() {
       </section>
 
       {/* 6. Real Centre Facilities & Interactive Video Tour Showcase (Using Real Video Walkthrough) */}
-      <section style={{ padding: '4.5rem 0', backgroundColor: '#F0F7FE', borderTop: '1px solid #E4EDF5', borderBottom: '1px solid #E4EDF5' }}>
+      <section className="home-feature-section" style={{ padding: '4.5rem 0', backgroundColor: '#F0F7FE', borderTop: '1px solid #E4EDF5', borderBottom: '1px solid #E4EDF5' }}>
         <div className="container">
           <div
             style={{
@@ -288,7 +330,7 @@ export default async function HomePage() {
               >
                 <Video size={16} /> Authentic Walkthrough Tour & Photos
               </div>
-              <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.5rem)', fontWeight: 800, color: '#0F172A', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
+              <h2 style={{ fontSize: 'clamp(1.4rem, 3.5vw, 2.5rem)', fontWeight: 800, color: '#0F172A', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
                 Explore Our Centre & Facilities
               </h2>
               <p style={{ color: '#475569', fontSize: '0.98rem', maxWidth: '680px', margin: 0, lineHeight: 1.6 }}>
@@ -312,9 +354,10 @@ export default async function HomePage() {
       </section>
 
       {/* 7. INSPIRED FROM GREEN LANE MASJID: Weekly Tafsir Series & Resident Scholars Spotlight */}
-      <section style={{ padding: '4.5rem 0', backgroundColor: '#ffffff' }}>
+      <section className="home-feature-section" style={{ padding: '4.5rem 0', backgroundColor: '#ffffff' }}>
         <div className="container">
           <div
+            className="home-card-inner"
             style={{
               backgroundColor: '#F7FAFE',
               borderRadius: '24px',
@@ -453,7 +496,7 @@ export default async function HomePage() {
       </section>
 
       {/* 8. Alfalah Academy & Educational Activities (Robotics, Handmade, Deen, Quran) */}
-      <section style={{ padding: '4.5rem 0', backgroundColor: '#F7FAFE', borderTop: '1px solid #E4EDF5' }}>
+      <section className="home-feature-section" style={{ padding: '4.5rem 0', backgroundColor: '#F7FAFE', borderTop: '1px solid #E4EDF5' }}>
         <div className="container">
           <div
             style={{
@@ -466,7 +509,7 @@ export default async function HomePage() {
             }}
           >
             <div>
-              <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', fontWeight: 800, color: '#18334F', marginBottom: '0.5rem' }}>
+              <h2 style={{ fontSize: 'clamp(1.4rem, 3.5vw, 2.5rem)', fontWeight: 800, color: '#18334F', marginBottom: '0.5rem' }}>
                 Alfalah Academy & Creative Lessons
               </h2>
               <p style={{ color: '#657B91', fontSize: '1rem', maxWidth: '680px', margin: 0 }}>
@@ -547,53 +590,76 @@ export default async function HomePage() {
                   </div>
 
                   {/* Body Content */}
-                  <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                    <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.5rem', color: '#18334F' }}>
+                  <div className="activity-card-body" style={{ padding: 'clamp(1rem, 2.5vw, 1.35rem)', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                    <h3 style={{ fontSize: 'clamp(1.05rem, 2.2vw, 1.2rem)', fontWeight: 800, marginBottom: '0.45rem', color: '#18334F', lineHeight: 1.3 }}>
                       {act.title}
                     </h3>
 
-                    <p style={{ fontSize: '0.92rem', color: '#657B91', lineHeight: 1.6, flex: 1, marginBottom: '1.25rem' }}>
+                    <p style={{ fontSize: 'clamp(0.84rem, 1.6vw, 0.9rem)', color: '#657B91', lineHeight: 1.5, flex: 1, marginBottom: '1rem' }}>
                       {act.shortDescription}
                     </p>
 
                     {/* Schedule Pill */}
                     {act.scheduleInfo && (
                       <div
+                        className="activity-card-pill"
                         style={{
                           display: 'flex',
                           alignItems: 'center',
-                          gap: '0.5rem',
-                          fontSize: '0.85rem',
+                          gap: '0.45rem',
+                          fontSize: 'clamp(0.76rem, 1.5vw, 0.82rem)',
                           color: '#245C91',
                           backgroundColor: '#DCEEFF',
-                          padding: '0.5rem 0.85rem',
+                          padding: '0.4rem 0.7rem',
                           borderRadius: 'var(--radius-sm)',
-                          marginBottom: '1.25rem',
+                          marginBottom: '1rem',
                           fontWeight: 600,
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
                         }}
                       >
-                        <Clock size={16} style={{ flexShrink: 0 }} />
-                        <span>{act.scheduleInfo}</span>
+                        <Clock size={14} style={{ flexShrink: 0 }} />
+                        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{act.scheduleInfo}</span>
                       </div>
                     )}
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.75rem', borderTop: '1px solid #EEF4FA' }}>
-                      <span style={{ fontSize: '0.8rem', color: '#657B91', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-                        <MapPin size={12} style={{ color: '#3988CA' }} /> {act.location || 'Alfalah Centre'}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem', paddingTop: '0.75rem', borderTop: '1px solid #EEF4FA' }}>
+                      <span
+                        style={{
+                          fontSize: '0.78rem',
+                          color: '#657B91',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.25rem',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          minWidth: 0,
+                          flex: 1,
+                        }}
+                        title={act.location || '89 Tindal St, Balsall Heath'}
+                      >
+                        <MapPin size={13} style={{ color: '#3988CA', flexShrink: 0 }} />
+                        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {act.location ? (act.location.includes('89 Tindal') || act.location.includes('Alfalah') ? '89 Tindal St' : act.location) : '89 Tindal St'}
+                        </span>
                       </span>
                       <Link
                         href={`/activities/${act.slug}`}
                         style={{
-                          fontSize: '0.88rem',
+                          fontSize: '0.82rem',
                           fontWeight: 800,
                           color: '#3988CA',
                           textDecoration: 'none',
                           display: 'inline-flex',
                           alignItems: 'center',
-                          gap: '0.3rem',
+                          gap: '0.25rem',
+                          whiteSpace: 'nowrap',
+                          flexShrink: 0,
                         }}
                       >
-                        Details & Enrol <ArrowRight size={14} />
+                        Details & Enrol <ArrowRight size={13} />
                       </Link>
                     </div>
                   </div>
@@ -605,9 +671,10 @@ export default async function HomePage() {
       </section>
 
       {/* 9. INSPIRED FROM GREEN LANE MASJID: Welcoming Non-Muslim Neighbours, Schools & Reverts */}
-      <section style={{ padding: '4rem 0', backgroundColor: '#ffffff', borderTop: '1px solid #E4EDF5' }}>
+      <section className="home-feature-section" style={{ padding: '4rem 0', backgroundColor: '#ffffff', borderTop: '1px solid #E4EDF5' }}>
         <div className="container">
           <div
+            className="home-card-inner"
             style={{
               backgroundColor: '#F7FAFE',
               border: '1.5px solid #E4EDF5',
@@ -642,7 +709,7 @@ export default async function HomePage() {
                 >
                   <Compass size={15} /> Community Outreach & Welcome
                 </div>
-                <h3 style={{ fontSize: 'clamp(1.5rem, 2.5vw, 1.85rem)', fontWeight: 800, color: '#18334F', margin: '0 0 0.5rem' }}>
+                <h3 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 1.85rem)', fontWeight: 800, color: '#18334F', margin: '0 0 0.5rem' }}>
                   Visiting Alfalah for the First Time?
                 </h3>
                 <p style={{ color: '#657B91', fontSize: '0.98rem', lineHeight: 1.6, margin: 0 }}>
@@ -673,6 +740,7 @@ export default async function HomePage() {
 
       {/* 10. Verified Location & Map Section */}
       <section
+        className="home-feature-section"
         style={{
           padding: '4.5rem 0',
           backgroundColor: '#F7FAFE',
@@ -689,7 +757,7 @@ export default async function HomePage() {
             }}
           >
             <div>
-              <h2 style={{ fontSize: 'clamp(1.45rem, 3.5vw, 2.2rem)', fontWeight: 800, marginBottom: '0.75rem', color: '#0F172A', lineHeight: 1.25 }}>
+              <h2 style={{ fontSize: 'clamp(1.35rem, 3.5vw, 2.2rem)', fontWeight: 800, marginBottom: '0.75rem', color: '#0F172A', lineHeight: 1.25 }}>
                 Location & Accessibility
               </h2>
               <p style={{ fontSize: '0.98rem', color: '#475569', marginBottom: '1.5rem', lineHeight: 1.6 }}>
@@ -711,7 +779,7 @@ export default async function HomePage() {
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                 <a
                   href="https://www.google.com/maps/place/Alfalah+Community+Support+Centre/@52.4555036,-1.8897627,17z"
                   target="_blank"
@@ -729,6 +797,7 @@ export default async function HomePage() {
 
             {/* Embedded Google Map (52.4555036, -1.8897627) */}
             <div
+              className="home-map-frame"
               style={{
                 borderRadius: 'var(--radius-lg)',
                 overflow: 'hidden',

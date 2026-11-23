@@ -58,9 +58,6 @@ export function Footer() {
                 <Link href="/services#nikah" className="footer-nav-link">Nikah Marriage Solemnisation</Link>
               </li>
               <li>
-                <Link href="/services#janazah" className="footer-nav-link">Janazah & Bereavement Support</Link>
-              </li>
-              <li>
                 <Link href="/services#visits" className="footer-nav-link">School & Neighbour Visits</Link>
               </li>
               <li>
@@ -174,7 +171,7 @@ export function Footer() {
           }}
         >
           <div>
-            © {currentYear} ALFALAH COMMUNITY SUPPORT CENTRE. All rights reserved.
+            © {currentYear} AL FALAH COMMUNITY SUPPORT CENTRE. All rights reserved.
           </div>
           <div style={{ display: 'flex', gap: '1.5rem' }}>
             <Link href="/privacy" className="footer-bottom-link">Privacy Notice & Cookies</Link>

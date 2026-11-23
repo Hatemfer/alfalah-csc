@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Bell, Calendar, ArrowRight } from 'lucide-react';
 
 export const metadata = {
-  title: 'Community Announcements & Notices | ALFALAH COMMUNITY SUPPORT CENTRE',
+  title: 'Community Announcements & Notices | AL FALAH COMMUNITY SUPPORT CENTRE',
   description:
     'Important updates, announcements, and administrative notices from Alfalah Community Support Centre in Balsall Heath, Birmingham.',
 };

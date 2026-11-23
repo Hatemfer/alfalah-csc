@@ -205,14 +205,14 @@ export default function ActivitiesPage() {
         style={{
           background: 'linear-gradient(180deg, #DCEEFF 0%, #f8fafc 100%)',
           borderBottom: '1px solid #e2e8f0',
-          padding: '3rem 1.5rem 2.5rem',
+          padding: 'clamp(2rem, 4vw, 3rem) 1rem clamp(1.5rem, 3vw, 2.5rem)',
           textAlign: 'center',
         }}
       >
         <div className="container" style={{ maxWidth: '850px' }}>
           <h1
             style={{
-              fontSize: 'clamp(2.1rem, 4.5vw, 2.85rem)',
+              fontSize: 'clamp(1.5rem, 4vw, 2.75rem)',
               fontWeight: 800,
               marginBottom: '0.6rem',
               color: '#0f172a',
@@ -312,12 +312,12 @@ export default function ActivitiesPage() {
                   </div>
 
                   {/* Body Content */}
-                  <div style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                    <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.5rem' }}>
+                  <div style={{ padding: 'clamp(1.15rem, 2.5vw, 1.65rem)', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                    <h2 style={{ fontSize: 'clamp(1.08rem, 2.2vw, 1.25rem)', fontWeight: 800, color: '#0f172a', marginBottom: '0.45rem', lineHeight: 1.3 }}>
                       {prog.title}
                     </h2>
 
-                    <p style={{ fontSize: '0.92rem', color: '#475569', lineHeight: 1.6, marginBottom: '1.25rem', flex: 1 }}>
+                    <p style={{ fontSize: 'clamp(0.85rem, 1.6vw, 0.92rem)', color: '#475569', lineHeight: 1.55, marginBottom: '1.1rem', flex: 1 }}>
                       {prog.shortDesc}
                     </p>
 
@@ -327,34 +327,34 @@ export default function ActivitiesPage() {
                         backgroundColor: '#f8fafc',
                         border: '1px solid #e2e8f0',
                         borderRadius: '12px',
-                        padding: '0.85rem 1rem',
+                        padding: '0.75rem 0.85rem',
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: '0.4rem',
-                        fontSize: '0.82rem',
+                        gap: '0.35rem',
+                        fontSize: '0.8rem',
                         color: '#334155',
-                        marginBottom: '1.25rem',
+                        marginBottom: '1.1rem',
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                        <Clock size={15} style={{ color: '#3988CA', flexShrink: 0 }} />
-                        <span><strong>Schedule:</strong> {prog.schedule}</span>
+                        <Clock size={14} style={{ color: '#3988CA', flexShrink: 0 }} />
+                        <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><strong>Schedule:</strong> {prog.schedule}</span>
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                        <MapPin size={15} style={{ color: '#3988CA', flexShrink: 0 }} />
-                        <span>{prog.location}</span>
+                        <MapPin size={14} style={{ color: '#3988CA', flexShrink: 0 }} />
+                        <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{prog.location}</span>
                       </div>
                     </div>
 
                     {/* Key Features */}
-                    <div style={{ marginBottom: '1.5rem', borderTop: '1px solid #f1f5f9', paddingTop: '1rem' }}>
-                      <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#64748b', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+                    <div style={{ marginBottom: '1.25rem', borderTop: '1px solid #f1f5f9', paddingTop: '0.85rem' }}>
+                      <div style={{ fontSize: '0.72rem', fontWeight: 800, color: '#64748b', textTransform: 'uppercase', marginBottom: '0.45rem' }}>
                         Highlights & Skills:
                       </div>
-                      <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+                      <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                         {prog.features.map((feat, idx) => (
-                          <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.45rem', fontSize: '0.83rem', color: '#334155', lineHeight: 1.4 }}>
-                            <CheckCircle2 size={14} style={{ color: '#3988CA', flexShrink: 0, marginTop: '2px' }} />
+                          <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.45rem', fontSize: '0.8rem', color: '#334155', lineHeight: 1.4 }}>
+                            <CheckCircle2 size={13} style={{ color: '#3988CA', flexShrink: 0, marginTop: '2px' }} />
                             <span>{feat}</span>
                           </li>
                         ))}
@@ -373,14 +373,14 @@ export default function ActivitiesPage() {
                       className="btn btn-primary"
                       style={{
                         width: '100%',
-                        padding: '0.75rem',
+                        padding: '0.72rem 1rem',
                         fontWeight: 800,
-                        fontSize: '0.88rem',
+                        fontSize: '0.85rem',
                         justifyContent: 'center',
                         gap: '0.4rem',
                       }}
                     >
-                      Register / Enrol in this Class <ArrowRight size={15} />
+                      Register / Enrol in this Class <ArrowRight size={14} />
                     </button>
                   </div>
                 </div>

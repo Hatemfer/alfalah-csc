@@ -132,12 +132,10 @@ export default function VirtualTourVideo() {
                   bottom: '12px',
                   left: '12px',
                   display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.4rem',
                   backgroundColor: 'rgba(15, 23, 42, 0.75)',
                   backdropFilter: 'blur(8px)',
                   WebkitBackdropFilter: 'blur(8px)',
-                  padding: '0.35rem 0.7rem',
+                  padding: '0.35rem 0.75rem',
                   borderRadius: '9999px',
                   border: '1px solid rgba(255, 255, 255, 0.2)',
                   color: '#ffffff',
@@ -145,7 +143,6 @@ export default function VirtualTourVideo() {
                   fontWeight: 700,
                 }}
               >
-                <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#38BDF8', flexShrink: 0 }} />
                 <span>Centre Walkthrough Tour</span>
               </div>
 

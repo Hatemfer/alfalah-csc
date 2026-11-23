@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ALFALAH COMMUNITY SUPPORT CENTRE — DESIGN SYSTEM TOKENS & STYLES
+   AL FALAH COMMUNITY SUPPORT CENTRE — DESIGN SYSTEM TOKENS & STYLES
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Sans+Arabic:wght@400;600;700&display=swap');
@@ -273,6 +273,22 @@ img {
   border-color: var(--color-primary-600);
 }
 
+@media (max-width: 640px) {
+  .btn {
+    padding: 0.6rem 1.1rem;
+    font-size: 0.86rem;
+    border-radius: 10px;
+    gap: 0.35rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .btn {
+    padding: 0.55rem 0.85rem;
+    font-size: 0.82rem;
+  }
+}
+
 /* Cards */
 .card {
   background: var(--bg-surface);
@@ -300,16 +316,20 @@ img {
 }
 
 @media (max-width: 640px) {
+  .card {
+    padding: 1.15rem 1rem !important;
+    border-radius: 16px !important;
+  }
   .donate-card {
-    padding: 1.25rem 1rem !important;
-    border-radius: 18px !important;
+    padding: 1rem 0.65rem !important;
+    border-radius: 16px !important;
   }
 }
 
 @media (max-width: 380px) {
   .donate-card {
-    padding: 1rem 0.75rem !important;
-    border-radius: 16px !important;
+    padding: 0.85rem 0.5rem !important;
+    border-radius: 14px !important;
   }
 }
 
@@ -1159,4 +1179,61 @@ img {
     padding: 0.55rem 0.4rem !important;
   }
 }
+
+/* Home Page & Global Mobile Helpers */
+@media (max-width: 640px) {
+  /* Tame oversized card paddings on mobile */
+  .card {
+    padding: 1.15rem 1rem !important;
+  }
+
+  .activity-card-body {
+    padding: 1.1rem 0.95rem !important;
+  }
+
+  .activity-card-pill {
+    font-size: 0.76rem !important;
+    padding: 0.35rem 0.65rem !important;
+  }
+
+  /* Headings fluid scaling on mobile */
+  h1 {
+    font-size: clamp(1.4rem, 5.5vw, 1.95rem) !important;
+    line-height: 1.22 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  h2 {
+    font-size: clamp(1.18rem, 4.2vw, 1.55rem) !important;
+    line-height: 1.26 !important;
+    letter-spacing: -0.015em !important;
+  }
+
+  h3 {
+    font-size: clamp(1.04rem, 3.6vw, 1.22rem) !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Paragraphs on mobile */
+  p {
+    font-size: clamp(0.85rem, 2.4vw, 0.92rem);
+    line-height: 1.52;
+  }
+
+  .home-feature-section {
+    padding: 2.25rem 0 !important;
+  }
+  .home-card-inner {
+    padding: 1.15rem 1rem !important;
+    border-radius: 16px !important;
+    gap: 1.25rem !important;
+  }
+  .home-map-frame {
+    height: 250px !important;
+  }
+  .home-section-header {
+    margin-bottom: 1.75rem !important;
+  }
+}
+
 

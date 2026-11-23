@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ShieldCheck, ArrowLeft } from 'lucide-react';
 
 export const metadata = {
-  title: 'Privacy Notice & Legal Disclosures | ALFALAH COMMUNITY SUPPORT CENTRE',
+  title: 'Privacy Notice & Legal Disclosures | AL FALAH COMMUNITY SUPPORT CENTRE',
   description:
     'Privacy notice, cookie policy, accessibility information, and charity disclosures for Alfalah Community Support Centre (Charity No. 1150221).',
 };
@@ -15,14 +15,14 @@ export default function PrivacyPage() {
         style={{
           background: 'linear-gradient(180deg, #DCEEFF 0%, #f8fafc 100%)',
           borderBottom: '1px solid #e2e8f0',
-          padding: '3rem 1.5rem 2.5rem',
+          padding: 'clamp(2rem, 4vw, 3rem) 1rem clamp(1.5rem, 3vw, 2.5rem)',
           textAlign: 'center',
         }}
       >
         <div className="container" style={{ maxWidth: '800px' }}>
           <h1
             style={{
-              fontSize: 'clamp(2.1rem, 4vw, 2.75rem)',
+              fontSize: 'clamp(1.5rem, 4vw, 2.75rem)',
               fontWeight: 800,
               marginBottom: '0.6rem',
               color: '#0f172a',
@@ -32,12 +32,12 @@ export default function PrivacyPage() {
             Privacy Notice & Legal Information
           </h1>
           <p style={{ fontSize: '1rem', color: '#475569' }}>
-            ALFALAH COMMUNITY SUPPORT CENTRE | UK Registered Charity No. 1150221
+            AL FALAH COMMUNITY SUPPORT CENTRE | UK Registered Charity No. 1150221
           </p>
         </div>
       </section>
 
-      <section style={{ padding: '3.5rem 0' }}>
+      <section style={{ padding: 'clamp(2rem, 4vw, 3.5rem) 0' }}>
         <div className="container" style={{ maxWidth: '850px' }}>
           <div className="card" style={{ padding: '2.5rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             <div>
@@ -45,7 +45,7 @@ export default function PrivacyPage() {
                 1. Data Controller Information
               </h2>
               <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>
-                ALFALAH COMMUNITY SUPPORT CENTRE (Charity No. 1150221), located at 89 Tindal Street, Balsall Heath, Birmingham, B12 9QU, United Kingdom, is the Data Controller for personal data processed through this website. Contact: <a href="mailto:alfalahcsc@hotmail.com" style={{ textDecoration: 'underline' }}>alfalahcsc@hotmail.com</a>.
+                AL FALAH COMMUNITY SUPPORT CENTRE (Charity No. 1150221), located at 89 Tindal Street, Balsall Heath, Birmingham, B12 9QU, United Kingdom, is the Data Controller for personal data processed through this website. Contact: <a href="mailto:alfalahcsc@hotmail.com" style={{ textDecoration: 'underline' }}>alfalahcsc@hotmail.com</a>.
               </p>
             </div>
 

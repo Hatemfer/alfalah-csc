@@ -12,8 +12,14 @@ export interface PrayerEntry {
 
 export interface DayPrayerSchedule {
   day: number;
+  dayOfWeek: string;
+  dayOfWeekFull: string;
+  isFriday: boolean;
   dateStr: string;
   hijriStr: string;
+  hijriShort: string;
+  hijriDay: string;
+  hijriMonth: string;
   prayers: PrayerEntry[];
   fajr: { adhan: string; iqamah: string };
   sunrise: string;
@@ -22,6 +28,32 @@ export interface DayPrayerSchedule {
   maghrib: { adhan: string; iqamah: string };
   isha: { adhan: string; iqamah: string };
   jumua: string;
+}
+
+// Ordinal helper: 1 -> "st", 2 -> "nd", 3 -> "rd", 13 -> "th"
+export function getOrdinal(n: number): string {
+  const s = ['th', 'st', 'nd', 'rd'];
+  const v = n % 100;
+  return s[(v - 20) % 10] || s[v] || s[0];
+}
+
+// Convert 24-hour time "05:47" or "13:00" to 12-hour "5:47 AM" or "1:00 PM"
+export function to12Hour(time24: string): string {
+  if (!time24 || time24 === '—' || time24 === '-' || time24 === ' ') return '—';
+  const parts = time24.split(':');
+  if (parts.length < 2) return time24;
+  let hour = parseInt(parts[0], 10);
+  const min = parts[1];
+  if (isNaN(hour)) return time24;
+  const ampm = hour >= 12 ? 'PM' : 'AM';
+  hour = hour % 12;
+  if (hour === 0) hour = 12;
+  return `${hour}:${min} ${ampm}`;
+}
+
+export function formatTimeWithMode(time24: string, is24h: boolean): string {
+  if (is24h) return time24;
+  return to12Hour(time24);
 }
 
 // Approximate Hijri month names
@@ -106,10 +138,38 @@ export function getDaySchedule(date: Date = new Date()): DayPrayerSchedule {
     year: 'numeric',
   });
 
+  const dayOfWeek = date.toLocaleDateString('en-GB', { weekday: 'short' });
+  const dayOfWeekFull = date.toLocaleDateString('en-GB', { weekday: 'long' });
+  const isFriday = date.getDay() === 5;
+
+  let hijriDay = '';
+  let hijriMonth = '';
+  let hijriShort = '';
+  try {
+    const parts = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    }).formatToParts(date);
+    const dVal = parts.find((p) => p.type === 'day')?.value || '';
+    const mVal = parts.find((p) => p.type === 'month')?.value || '';
+    hijriDay = dVal;
+    hijriMonth = mVal;
+    hijriShort = `${dVal} ${mVal}`.trim();
+  } catch {
+    hijriShort = '';
+  }
+
   return {
     day,
+    dayOfWeek,
+    dayOfWeekFull,
+    isFriday,
     dateStr,
     hijriStr: getHijriDate(date),
+    hijriShort,
+    hijriDay,
+    hijriMonth,
     prayers,
     fajr: { adhan: fajrAdhan, iqamah: fajrIqamah },
     sunrise,

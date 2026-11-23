@@ -18,9 +18,9 @@ import {
 } from 'lucide-react';
 
 export const metadata = {
-  title: 'Mosque Services | ALFALAH COMMUNITY SUPPORT CENTRE (Birmingham)',
+  title: 'Mosque Services | AL FALAH COMMUNITY SUPPORT CENTRE (Birmingham)',
   description:
-    'Comprehensive Islamic and community services at Masjid Al Falah Birmingham (Charity #1150221): Daily Prayers, Jumu’ah, Alfalah Academy, Nikah Marriage, Janazah Funeral, Zakat Relief, and School Visits.',
+    'Comprehensive Islamic and community services at Masjid Al Falah Birmingham (Charity #1150221): Daily Prayers, Jumu’ah, Alfalah Academy, Nikah Marriage, Zakat Relief, and School Visits.',
 };
 
 const SERVICES = [
@@ -86,17 +86,18 @@ const SERVICES = [
   },
   {
     id: 'janazah',
-    title: 'Janazah & Bereavement Guidance',
+    title: 'Janazah & Bereavement Support',
     icon: ShieldCheck,
-    badge: '24/7 Bereavement',
-    desc: 'Compassionate, step-by-step guidance for grieving families during times of bereavement. Coordination of Islamic washing (Ghusl), shrouding (Kafan), Janazah prayer, and cemetery arrangements.',
+    badge: 'Coming Soon Insha’Allah',
+    desc: 'Compassionate 24/7 bereavement guidance, coordination of ritual Ghusl and Kafan, Janazah prayer, and liaison with Birmingham Muslim cemeteries.',
+    notice: 'This service will be available in the near future, Insha’Allah.',
     features: [
       'Step-by-step guidance on registering a death in Birmingham',
-      'Facilities and coordination for ritual Ghusl and Kafan',
-      'Congregational Salat al-Janazah (Funeral Prayer) at the mosque',
-      'Liaison with Birmingham cemeteries (Handsworth, Sutton New Hall)',
+      'Coordination and guidance for ritual washing (Ghusl) and shrouding (Kafan)',
+      'Salat al-Janazah (Funeral Prayer) held at Masjid Al Falah',
+      'Liaison with Birmingham Muslim cemeteries and bereavement registries',
     ],
-    ctaText: 'Bereavement Support Info',
+    ctaText: 'Bereavement Enquiries',
     ctaLink: '/contact',
   },
   {
@@ -124,14 +125,14 @@ export default function ServicesPage() {
         style={{
           background: 'linear-gradient(180deg, #DCEEFF 0%, #f8fafc 100%)',
           borderBottom: '1px solid #e2e8f0',
-          padding: '3rem 1.5rem 2.5rem',
+          padding: 'clamp(2rem, 4vw, 3rem) 1rem clamp(1.5rem, 3vw, 2.5rem)',
           textAlign: 'center',
         }}
       >
         <div className="container" style={{ maxWidth: '850px' }}>
           <h1
             style={{
-              fontSize: 'clamp(2.1rem, 4.5vw, 2.85rem)',
+              fontSize: 'clamp(1.5rem, 4vw, 2.75rem)',
               fontWeight: 800,
               marginBottom: '0.6rem',
               color: '#0f172a',
@@ -140,14 +141,14 @@ export default function ServicesPage() {
           >
             Mosque & Community Services
           </h1>
-          <p style={{ fontSize: '1.05rem', color: '#475569', lineHeight: 1.6, maxWidth: '680px', margin: '0 auto' }}>
+          <p style={{ fontSize: 'clamp(0.92rem, 2vw, 1.05rem)', color: '#475569', lineHeight: 1.6, maxWidth: '680px', margin: '0 auto' }}>
             Masjid Al Falah provides dedicated spiritual, educational, welfare, and family services to nurture our community at 89 Tindal Street, Birmingham.
           </p>
         </div>
       </section>
 
       {/* Services Grid */}
-      <section style={{ padding: '3.5rem 0' }}>
+      <section style={{ padding: 'clamp(2rem, 4vw, 3.5rem) 0' }}>
         <div className="container">
           <div
             style={{
@@ -159,22 +160,23 @@ export default function ServicesPage() {
             {SERVICES.map((srv) => (
               <div
                 key={srv.id}
+                id={srv.id}
                 className="card"
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  padding: '2rem',
+                  padding: 'clamp(1.2rem, 2.5vw, 1.85rem)',
                   backgroundColor: '#ffffff',
                   border: '1px solid #e2e8f0',
                   borderRadius: 'var(--radius-lg)',
                   boxShadow: 'var(--shadow-sm)',
                 }}
               >
-                <div style={{ marginBottom: '1.25rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
                   <div
                     style={{
-                      width: '48px',
-                      height: '48px',
+                      width: '44px',
+                      height: '44px',
                       borderRadius: '12px',
                       backgroundColor: '#DCEEFF',
                       color: '#3988CA',
@@ -183,17 +185,59 @@ export default function ServicesPage() {
                       justifyContent: 'center',
                     }}
                   >
-                    <srv.icon size={24} />
+                    <srv.icon size={22} />
                   </div>
+                  {srv.badge && (
+                    <span
+                      style={{
+                        fontSize: '0.72rem',
+                        fontWeight: 700,
+                        color: '#0369A1',
+                        backgroundColor: '#E0F2FE',
+                        border: '1px solid #BAE6FD',
+                        padding: '0.25rem 0.65rem',
+                        borderRadius: '9999px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.3rem',
+                      }}
+                    >
+                      <Clock size={12} />
+                      {srv.badge}
+                    </span>
+                  )}
                 </div>
 
-                <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.65rem' }}>
+                <h2 style={{ fontSize: 'clamp(1.1rem, 2.3vw, 1.3rem)', fontWeight: 800, color: '#0f172a', marginBottom: '0.5rem', lineHeight: 1.3 }}>
                   {srv.title}
                 </h2>
 
-                <p style={{ fontSize: '0.92rem', color: '#475569', lineHeight: 1.6, marginBottom: '1.5rem', flex: 1 }}>
+                <p style={{ fontSize: 'clamp(0.85rem, 1.6vw, 0.92rem)', color: '#475569', lineHeight: 1.55, marginBottom: '1.15rem', flex: 1 }}>
                   {srv.desc}
                 </p>
+
+                {srv.notice && (
+                  <div
+                    style={{
+                      backgroundColor: '#F0F9FF',
+                      border: '1px solid #BAE6FD',
+                      borderRadius: '8px',
+                      padding: '0.65rem 0.85rem',
+                      fontSize: '0.82rem',
+                      color: '#0369A1',
+                      marginBottom: '1.25rem',
+                      lineHeight: 1.45,
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '0.5rem',
+                    }}
+                  >
+                    <span style={{ fontSize: '0.95rem', lineHeight: 1 }}>⏳</span>
+                    <div>
+                      <strong>Upcoming Service:</strong> {srv.notice}
+                    </div>
+                  </div>
+                )}
 
                 {/* Key Features Bullet List */}
                 <div style={{ marginBottom: '1.75rem', borderTop: '1px solid #f1f5f9', paddingTop: '1rem' }}>
@@ -247,7 +291,7 @@ export default function ServicesPage() {
                 Need Assistance or Pastoral Guidance?
               </h3>
               <p style={{ fontSize: '0.92rem', color: '#475569', lineHeight: 1.6, margin: 0 }}>
-                Our Imams and community administration team are here to assist with Nikah solemnisation, bereavement guidance, welfare applications, and school visits.
+                Our Imams and community administration team are here to assist with Nikah solemnisation, welfare applications, and school visits.
               </p>
             </div>
 

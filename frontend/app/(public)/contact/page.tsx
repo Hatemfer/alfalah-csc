@@ -49,14 +49,14 @@ export default function ContactPage() {
         style={{
           background: 'linear-gradient(180deg, #DCEEFF 0%, #f8fafc 100%)',
           borderBottom: '1px solid #e2e8f0',
-          padding: '3rem 1.5rem 2.5rem',
+          padding: 'clamp(2rem, 4vw, 3rem) 1rem clamp(1.5rem, 3vw, 2.5rem)',
           textAlign: 'center',
         }}
       >
         <div className="container" style={{ maxWidth: '780px' }}>
           <h1
             style={{
-              fontSize: 'clamp(2.1rem, 4vw, 2.75rem)',
+              fontSize: 'clamp(1.5rem, 4vw, 2.75rem)',
               fontWeight: 800,
               marginBottom: '0.65rem',
               color: '#0f172a',
@@ -65,13 +65,13 @@ export default function ContactPage() {
           >
             Contact Alfalah Centre
           </h1>
-          <p style={{ fontSize: '1.05rem', color: '#475569', lineHeight: 1.6, maxWidth: '650px', margin: '0 auto' }}>
+          <p style={{ fontSize: 'clamp(0.92rem, 2vw, 1.05rem)', color: '#475569', lineHeight: 1.6, maxWidth: '650px', margin: '0 auto' }}>
             We welcome inquiries from community members, families, and neighbours across Birmingham.
           </p>
         </div>
       </section>
 
-      <section style={{ padding: '3.5rem 0' }}>
+      <section style={{ padding: 'clamp(2rem, 4vw, 3.5rem) 0' }}>
         <div className="container">
           <div
             style={{
@@ -87,6 +87,7 @@ export default function ContactPage() {
               </h2>
 
               <div
+                className="contact-info-card"
                 style={{
                   backgroundColor: '#ffffff',
                   border: '1px solid #e2e8f0',
@@ -96,17 +97,17 @@ export default function ContactPage() {
                   boxShadow: '0 4px 20px rgba(15, 23, 42, 0.04)',
                 }}
               >
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                   {/* Location */}
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.85rem' }}>
                     <div
                       style={{
-                        width: '42px',
-                        height: '42px',
+                        width: '40px',
+                        height: '40px',
                         borderRadius: '12px',
-                        backgroundColor: '#DCEEFF',
-                        border: '1px solid #d1fae5',
-                        color: '#245C91',
+                        backgroundColor: '#E0F2FE',
+                        border: '1px solid #BAE6FD',
+                        color: '#0284C7',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -117,43 +118,43 @@ export default function ContactPage() {
                       <MapPin size={20} />
                     </div>
                     <div>
-                      <span style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>
+                      <span style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>
                         Physical Location
                       </span>
-                      <div style={{ color: '#0f172a', fontWeight: 700, fontSize: '0.98rem' }}>
-                        ALFALAH COMMUNITY SUPPORT CENTRE
+                      <div style={{ color: '#0f172a', fontWeight: 800, fontSize: '0.96rem', lineHeight: 1.35 }}>
+                        AL FALAH COMMUNITY SUPPORT CENTRE
                       </div>
-                      <div style={{ color: '#475569', fontSize: '0.92rem', lineHeight: 1.5, marginTop: '0.15rem' }}>
+                      <div style={{ color: '#475569', fontSize: '0.88rem', lineHeight: 1.5, marginTop: '0.2rem' }}>
                         89 Tindal Street, Balsall Heath, Birmingham, B12 9QU
                       </div>
                     </div>
                   </div>
 
                   {/* Telephone */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
                     <div
                       style={{
-                        width: '42px',
-                        height: '42px',
+                        width: '40px',
+                        height: '40px',
                         borderRadius: '12px',
-                        backgroundColor: '#DCEEFF',
-                        border: '1px solid #d1fae5',
-                        color: '#245C91',
+                        backgroundColor: '#E0F2FE',
+                        border: '1px solid #BAE6FD',
+                        color: '#0284C7',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         flexShrink: 0,
                       }}
                     >
-                      <Phone size={20} />
+                      <Phone size={19} />
                     </div>
                     <div>
-                      <span style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>
+                      <span style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.15rem' }}>
                         Telephone
                       </span>
                       <a
                         href="tel:07429188880"
-                        style={{ color: '#0f172a', fontWeight: 800, fontSize: '1.05rem', textDecoration: 'none' }}
+                        style={{ color: '#0f172a', fontWeight: 800, fontSize: '1.02rem', textDecoration: 'none' }}
                       >
                         07429 188880
                       </a>
@@ -161,30 +162,30 @@ export default function ContactPage() {
                   </div>
 
                   {/* Email */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
                     <div
                       style={{
-                        width: '42px',
-                        height: '42px',
+                        width: '40px',
+                        height: '40px',
                         borderRadius: '12px',
-                        backgroundColor: '#DCEEFF',
-                        border: '1px solid #d1fae5',
-                        color: '#245C91',
+                        backgroundColor: '#E0F2FE',
+                        border: '1px solid #BAE6FD',
+                        color: '#0284C7',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         flexShrink: 0,
                       }}
                     >
-                      <Mail size={20} />
+                      <Mail size={19} />
                     </div>
                     <div>
-                      <span style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>
+                      <span style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.15rem' }}>
                         Email Inquiries
                       </span>
                       <a
                         href="mailto:alfalahcsc@hotmail.com"
-                        style={{ color: '#245C91', fontWeight: 700, fontSize: '0.96rem', textDecoration: 'none' }}
+                        style={{ color: '#0284C7', fontWeight: 700, fontSize: '0.94rem', textDecoration: 'none', wordBreak: 'break-all' }}
                       >
                         alfalahcsc@hotmail.com
                       </a>
@@ -192,59 +193,61 @@ export default function ContactPage() {
                   </div>
 
                   {/* Charity Reg */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
                     <div
                       style={{
-                        width: '42px',
-                        height: '42px',
+                        width: '40px',
+                        height: '40px',
                         borderRadius: '12px',
-                        backgroundColor: '#DCEEFF',
-                        border: '1px solid #d1fae5',
-                        color: '#245C91',
+                        backgroundColor: '#E0F2FE',
+                        border: '1px solid #BAE6FD',
+                        color: '#0284C7',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         flexShrink: 0,
                       }}
                     >
-                      <ShieldCheck size={20} />
+                      <ShieldCheck size={19} />
                     </div>
                     <div>
-                      <span style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.2rem' }}>
+                      <span style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.15rem' }}>
                         UK Charity Status
                       </span>
-                      <span style={{ color: '#0f172a', fontWeight: 700, fontSize: '0.96rem' }}>
+                      <span style={{ color: '#0f172a', fontWeight: 700, fontSize: '0.92rem' }}>
                         Registered Charity No. 1150221
                       </span>
                     </div>
                   </div>
 
-                  {/* Direct WhatsApp Action Button (Modern Sky Blue) */}
-                  <div style={{ marginTop: '0.25rem', paddingTop: '1.25rem', borderTop: '1px solid #f1f5f9' }}>
+                  {/* Direct WhatsApp Action Button */}
+                  <div style={{ marginTop: '0.25rem', paddingTop: '1rem', borderTop: '1px solid #f1f5f9' }}>
                     <a
                       href="https://wa.me/447429188880"
                       target="_blank"
                       rel="noopener noreferrer"
+                      className="contact-whatsapp-btn"
                       style={{
                         width: '100%',
                         background: 'linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%)',
                         color: '#ffffff',
                         fontWeight: 700,
-                        fontSize: '0.92rem',
+                        fontSize: '0.9rem',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        gap: '0.55rem',
+                        gap: '0.45rem',
                         borderRadius: '12px',
-                        padding: '0.85rem 1.25rem',
+                        padding: '0.75rem 1rem',
                         textDecoration: 'none',
                         border: 'none',
-                        boxShadow: '0 4px 14px rgba(2, 132, 199, 0.25)',
+                        boxShadow: '0 4px 14px rgba(2, 132, 199, 0.22)',
                         transition: 'all 0.15s ease',
+                        boxSizing: 'border-box',
                       }}
                     >
-                      <MessageSquare size={18} />
-                      <span>Chat on WhatsApp (07429 188880)</span>
+                      <MessageSquare size={17} style={{ flexShrink: 0 }} />
+                      <span style={{ whiteSpace: 'nowrap' }}>Chat on WhatsApp</span>
                     </a>
                   </div>
                 </div>
@@ -286,6 +289,7 @@ export default function ContactPage() {
             {/* Interactive Form */}
             <div>
               <div
+                className="contact-form-card"
                 style={{
                   backgroundColor: '#ffffff',
                   border: '1px solid #e2e8f0',
@@ -358,14 +362,17 @@ export default function ContactPage() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g. Brother / Sister Ahmed"
+                      className="contact-input"
                       style={{
                         width: '100%',
-                        padding: '0.8rem 1rem',
+                        boxSizing: 'border-box',
+                        padding: '0.75rem 1rem',
                         borderRadius: '10px',
                         border: '1.5px solid #cbd5e1',
                         backgroundColor: '#ffffff',
                         color: '#0f172a',
-                        fontSize: '0.95rem',
+                        fontSize: '0.92rem',
+                        fontFamily: 'inherit',
                         outline: 'none',
                       }}
                     />
@@ -385,14 +392,17 @@ export default function ContactPage() {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="e.g. name@example.com"
+                      className="contact-input"
                       style={{
                         width: '100%',
-                        padding: '0.8rem 1rem',
+                        boxSizing: 'border-box',
+                        padding: '0.75rem 1rem',
                         borderRadius: '10px',
                         border: '1.5px solid #cbd5e1',
                         backgroundColor: '#ffffff',
                         color: '#0f172a',
-                        fontSize: '0.95rem',
+                        fontSize: '0.92rem',
+                        fontFamily: 'inherit',
                         outline: 'none',
                       }}
                     />
@@ -411,15 +421,18 @@ export default function ContactPage() {
                       required
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      placeholder="e.g. Inquiry regarding community programmes"
+                      placeholder="e.g. General Inquiry, Madrasah, etc."
+                      className="contact-input"
                       style={{
                         width: '100%',
-                        padding: '0.8rem 1rem',
+                        boxSizing: 'border-box',
+                        padding: '0.75rem 1rem',
                         borderRadius: '10px',
                         border: '1.5px solid #cbd5e1',
                         backgroundColor: '#ffffff',
                         color: '#0f172a',
-                        fontSize: '0.95rem',
+                        fontSize: '0.92rem',
+                        fontFamily: 'inherit',
                         outline: 'none',
                       }}
                     />
@@ -438,17 +451,21 @@ export default function ContactPage() {
                       required
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Please write your message here..."
+                      placeholder="Write your message here..."
+                      className="contact-input"
                       style={{
                         width: '100%',
-                        padding: '0.8rem 1rem',
+                        boxSizing: 'border-box',
+                        padding: '0.75rem 1rem',
                         borderRadius: '10px',
                         border: '1.5px solid #cbd5e1',
                         backgroundColor: '#ffffff',
                         color: '#0f172a',
-                        fontSize: '0.95rem',
+                        fontSize: '0.92rem',
+                        fontFamily: 'inherit',
                         resize: 'vertical',
                         outline: 'none',
+                        lineHeight: 1.5,
                       }}
                     />
                   </div>
@@ -461,11 +478,11 @@ export default function ContactPage() {
                     type="submit"
                     disabled={loading}
                     style={{
-                      padding: '0.9rem 1.5rem',
-                      fontSize: '1rem',
-                      fontWeight: 700,
+                      padding: '0.85rem 1.5rem',
+                      fontSize: '0.98rem',
+                      fontWeight: 800,
                       width: '100%',
-                      backgroundColor: '#245C91',
+                      background: 'linear-gradient(135deg, #0284C7 0%, #0369A1 100%)',
                       color: '#ffffff',
                       borderRadius: '12px',
                       border: 'none',
@@ -474,7 +491,7 @@ export default function ContactPage() {
                       alignItems: 'center',
                       justifyContent: 'center',
                       gap: '0.5rem',
-                      boxShadow: '0 4px 14px rgba(36, 92, 145, 0.25)',
+                      boxShadow: '0 4px 14px rgba(2, 132, 199, 0.28)',
                       transition: 'all 0.15s ease',
                     }}
                   >
@@ -492,6 +509,25 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      <style jsx global>{`
+        .contact-input:focus {
+          border-color: #0284C7 !important;
+          box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
+        }
+        @media (max-width: 640px) {
+          .contact-info-card,
+          .contact-form-card {
+            padding: 1.25rem 1rem !important;
+            border-radius: 16px !important;
+            margin-bottom: 1.25rem !important;
+          }
+          .contact-whatsapp-btn {
+            padding: 0.75rem 0.85rem !important;
+            font-size: 0.84rem !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

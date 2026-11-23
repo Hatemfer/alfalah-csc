@@ -181,14 +181,14 @@ export default function GalleryPage() {
         style={{
           background: 'linear-gradient(180deg, #DCEEFF 0%, #f8fafc 100%)',
           borderBottom: '1px solid #e2e8f0',
-          padding: '3rem 1.5rem 2.5rem',
+          padding: 'clamp(2rem, 4vw, 3rem) 1rem clamp(1.5rem, 3vw, 2.5rem)',
           textAlign: 'center',
         }}
       >
         <div className="container" style={{ maxWidth: '850px' }}>
           <h1
             style={{
-              fontSize: 'clamp(2.1rem, 4.5vw, 2.85rem)',
+              fontSize: 'clamp(1.5rem, 4vw, 2.75rem)',
               fontWeight: 800,
               marginBottom: '0.6rem',
               color: '#0f172a',
@@ -287,41 +287,58 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* Category Filter Pills */}
-      <section style={{ padding: '1.5rem 0' }}>
+      {/* Category Filter Pills — Smooth Horizontal Scroll on Mobile, Centered on Desktop */}
+      <section style={{ padding: '0.85rem 0 1.25rem' }}>
         <div className="container" style={{ maxWidth: '1100px' }}>
-          <div
-            style={{
-              display: 'flex',
-              gap: '0.5rem',
-              justifyContent: 'center',
-              flexWrap: 'wrap',
-            }}
-          >
-            {CATEGORIES.map((cat) => {
-              const isSelected = selectedCategory === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  type="button"
-                  onClick={() => setSelectedCategory(cat.id)}
-                  style={{
-                    padding: '0.5rem 1.15rem',
-                    borderRadius: '9999px',
-                    border: isSelected ? '1.5px solid #3988CA' : '1.5px solid #e2e8f0',
-                    backgroundColor: isSelected ? '#3988CA' : '#ffffff',
-                    color: isSelected ? '#ffffff' : '#475569',
-                    fontSize: '0.88rem',
-                    fontWeight: isSelected ? 800 : 600,
-                    cursor: 'pointer',
-                    transition: 'all 0.15s ease',
-                    boxShadow: isSelected ? '0 2px 8px rgba(57, 136, 202, 0.25)' : 'none',
-                  }}
-                >
-                  {cat.label}
-                </button>
-              );
-            })}
+          <div className="gallery-filter-scroll-wrapper">
+            <div className="gallery-filter-bar">
+              {CATEGORIES.map((cat) => {
+                const isSelected = selectedCategory === cat.id;
+                const count = cat.id === 'all'
+                  ? GALLERY_ITEMS.length
+                  : GALLERY_ITEMS.filter((item) => item.category === cat.id).length;
+
+                return (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => setSelectedCategory(cat.id)}
+                    className={`gallery-filter-btn ${isSelected ? 'active' : ''}`}
+                    style={{
+                      padding: '0.45rem 0.95rem',
+                      borderRadius: '9999px',
+                      border: isSelected ? '1.5px solid #0284C7' : '1.5px solid #e2e8f0',
+                      backgroundColor: isSelected ? '#0284C7' : '#ffffff',
+                      color: isSelected ? '#ffffff' : '#475569',
+                      fontSize: '0.82rem',
+                      fontWeight: isSelected ? 800 : 600,
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease',
+                      boxShadow: isSelected ? '0 2px 8px rgba(2, 132, 199, 0.25)' : 'none',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.45rem',
+                      whiteSpace: 'nowrap',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <span>{cat.label}</span>
+                    <span
+                      style={{
+                        fontSize: '0.7rem',
+                        fontWeight: 800,
+                        padding: '1px 6px',
+                        borderRadius: '9999px',
+                        backgroundColor: isSelected ? 'rgba(255, 255, 255, 0.25)' : '#F1F5F9',
+                        color: isSelected ? '#ffffff' : '#64748B',
+                      }}
+                    >
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
@@ -526,6 +543,30 @@ export default function GalleryPage() {
         .gallery-card:hover {
           transform: translateY(-4px);
           box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1) !important;
+        }
+        .gallery-filter-scroll-wrapper {
+          width: 100%;
+          overflow: hidden;
+        }
+        .gallery-filter-bar {
+          display: flex;
+          gap: 0.5rem;
+          overflow-x: auto;
+          padding: 0.25rem 0.5rem;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          -webkit-overflow-scrolling: touch;
+        }
+        .gallery-filter-bar::-webkit-scrollbar {
+          display: none;
+        }
+        @media (min-width: 768px) {
+          .gallery-filter-bar {
+            justify-content: center;
+            flex-wrap: wrap;
+            overflow-x: visible;
+            padding: 0;
+          }
         }
       `}</style>
     </div>

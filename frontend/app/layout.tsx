@@ -5,7 +5,7 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 
 export const metadata: Metadata = {
-  title: 'ALFALAH COMMUNITY SUPPORT CENTRE | Birmingham, UK (Charity #1150221)',
+  title: 'AL FALAH COMMUNITY SUPPORT CENTRE | Birmingham, UK (Charity #1150221)',
   description:
     'Official website for Alfalah Community Support Centre at 89 Tindal Street, Balsall Heath, Birmingham B12 9QU. Live prayer times, community programmes, educational circles, and notices.',
   keywords: [
@@ -33,13 +33,13 @@ export const metadata: Metadata = {
   },
   manifest: '/site.webmanifest',
   openGraph: {
-    title: 'ALFALAH COMMUNITY SUPPORT CENTRE — Balsall Heath, Birmingham',
+    title: 'AL FALAH COMMUNITY SUPPORT CENTRE — Balsall Heath, Birmingham',
     description:
       'Serving faith, family, and community in Birmingham. Daily prayer timetable, youth programmes, and community support.',
     type: 'website',
     locale: 'en_GB',
     url: 'https://alfalahcsc.com',
-    siteName: 'ALFALAH COMMUNITY SUPPORT CENTRE',
+    siteName: 'AL FALAH COMMUNITY SUPPORT CENTRE',
     images: [
       {
         url: '/images/real/mosque-exterior-main.jpg',
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ALFALAH COMMUNITY SUPPORT CENTRE — Balsall Heath, Birmingham',
+    title: 'AL FALAH COMMUNITY SUPPORT CENTRE — Balsall Heath, Birmingham',
     description:
       'Official community portal and prayer timetable for Alfalah Community Support Centre (Charity #1150221).',
     images: ['/images/real/mosque-exterior-main.jpg'],

@@ -4,21 +4,156 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import {
   Clock,
-  Calendar,
-  Compass,
-  ExternalLink,
-  ChevronRight,
-  Monitor,
   ArrowRight,
-  Printer,
+  Download,
 } from 'lucide-react';
-import { getDaySchedule, getMonthSchedule, DayPrayerSchedule } from '@/utils/prayerTimes';
+import {
+  getDaySchedule,
+  DayPrayerSchedule,
+  to12Hour,
+  getOrdinal,
+  formatTimeWithMode,
+} from '@/utils/prayerTimes';
+
+// Bespoke Green Lane Masjid inspired prayer icons
+function PrayerIcon({
+  id,
+  size = 20,
+  color = 'currentColor',
+}: {
+  id: string;
+  size?: number;
+  color?: string;
+}) {
+  switch (id) {
+    case 'fajr':
+      return (
+        <svg
+          width={size}
+          height={size}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 2v4M4.93 10.93l2.83-2.83M2 18h20" />
+          <path d="M17 18a5 5 0 0 0-10 0" />
+          <path d="M19.07 10.93l-2.83-2.83" />
+        </svg>
+      );
+    case 'sunrise':
+      return (
+        <svg
+          width={size}
+          height={size}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 2v6M4.93 4.93l4.24 4.24M2 18h20M20 18a8 8 0 1 0-16 0" />
+          <path d="M19.07 4.93l-4.24 4.24" />
+        </svg>
+      );
+    case 'dhuhr':
+      return (
+        <svg
+          width={size}
+          height={size}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+        </svg>
+      );
+    case 'asr':
+      return (
+        <svg
+          width={size}
+          height={size}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 3v3M3 12h3M5.64 5.64l2.12 2.12M18.36 18.36l2.12 2.12M2 20h20" />
+        </svg>
+      );
+    case 'maghrib':
+      return (
+        <svg
+          width={size}
+          height={size}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 10v4M4.93 10.93l2.83 2.83M2 18h20" />
+          <path d="M20 18a8 8 0 0 0-16 0" />
+          <path d="M19.07 10.93l-2.83 2.83" />
+        </svg>
+      );
+    case 'isha':
+    default:
+      return (
+        <svg
+          width={size}
+          height={size}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          <circle cx="17" cy="8" r="1" fill={color} />
+        </svg>
+      );
+  }
+}
 
 interface PrayerTimetableProps {
   initialDate?: string;
   showTabs?: boolean;
-  variant?: 'compact-strip' | 'full';
+  variant?: 'compact-strip' | 'widget' | 'full';
 }
+
+const MONTH_NAMES = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 
 export default function PrayerTimetable({
   showTabs = true,
@@ -26,8 +161,7 @@ export default function PrayerTimetable({
 }: PrayerTimetableProps) {
   const [now, setNow] = useState<Date>(new Date());
   const [mounted, setMounted] = useState(false);
-  const [activeTab, setActiveTab] = useState<'today' | 'month' | 'mawaqit-screen'>('today');
-  const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth());
+  const [use24Hour, setUse24Hour] = useState<boolean>(false);
 
   useEffect(() => {
     setMounted(true);
@@ -41,22 +175,18 @@ export default function PrayerTimetable({
     return getDaySchedule(now);
   }, [now]);
 
-  const monthSchedule = useMemo(() => {
-    return getMonthSchedule(now.getFullYear(), selectedMonth);
-  }, [now, selectedMonth]);
-
-  // Compute next prayer and countdown
+  // Compute next prayer and real-time countdown
   const nextPrayerInfo = useMemo(() => {
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
     const currentSeconds = now.getSeconds();
 
     const prayerOrder = [
-      { id: 'fajr', name: 'Fajr', time: todaySchedule.fajr.adhan },
-      { id: 'sunrise', name: 'Sunrise', time: todaySchedule.sunrise },
-      { id: 'dhuhr', name: 'Dhuhr', time: todaySchedule.dhuhr.adhan },
-      { id: 'asr', name: 'Asr', time: todaySchedule.asr.adhan },
-      { id: 'maghrib', name: 'Maghrib', time: todaySchedule.maghrib.adhan },
-      { id: 'isha', name: 'Isha', time: todaySchedule.isha.adhan },
+      { id: 'fajr', name: 'Fajr', time: todaySchedule.fajr.adhan, iqamah: todaySchedule.fajr.iqamah },
+      { id: 'sunrise', name: 'Sunrise', time: todaySchedule.sunrise, iqamah: '—' },
+      { id: 'dhuhr', name: 'Dhuhr', time: todaySchedule.dhuhr.adhan, iqamah: todaySchedule.dhuhr.iqamah },
+      { id: 'asr', name: 'Asr', time: todaySchedule.asr.adhan, iqamah: todaySchedule.asr.iqamah },
+      { id: 'maghrib', name: 'Maghrib', time: todaySchedule.maghrib.adhan, iqamah: todaySchedule.maghrib.iqamah },
+      { id: 'isha', name: 'Isha', time: todaySchedule.isha.adhan, iqamah: todaySchedule.isha.iqamah },
     ];
 
     for (const p of prayerOrder) {
@@ -67,11 +197,17 @@ export default function PrayerTimetable({
         const diffSeconds = 60 - currentSeconds;
         const hours = Math.floor(diffMinutes / 60);
         const mins = diffMinutes % 60;
+        const countdownStr = hours > 0
+          ? `${hours}h ${String(mins).padStart(2, '0')}m ${String(diffSeconds % 60).padStart(2, '0')}s`
+          : `${mins}m ${String(diffSeconds % 60).padStart(2, '0')}s`;
+
         return {
           id: p.id,
           name: p.name,
           time: p.time,
-          countdown: `${String(hours).padStart(2, '0')}h ${String(mins).padStart(2, '0')}m ${String(diffSeconds % 60).padStart(2, '0')}s`,
+          formattedTime: use24Hour ? p.time : to12Hour(p.time),
+          iqamah: p.iqamah,
+          countdown: countdownStr,
         };
       }
     }
@@ -86,19 +222,463 @@ export default function PrayerTimetable({
     const diffSeconds = 60 - currentSeconds;
     const hours = Math.floor(diffMinutes / 60);
     const mins = diffMinutes % 60;
+    const countdownStr = hours > 0
+      ? `${hours}h ${String(mins).padStart(2, '0')}m ${String(diffSeconds % 60).padStart(2, '0')}s`
+      : `${mins}m ${String(diffSeconds % 60).padStart(2, '0')}s`;
 
     return {
       id: 'fajr',
       name: "Tomorrow's Fajr",
       time: tomSchedule.fajr.adhan,
-      countdown: `${String(hours).padStart(2, '0')}h ${String(mins).padStart(2, '0')}m ${String(diffSeconds % 60).padStart(2, '0')}s`,
+      formattedTime: use24Hour ? tomSchedule.fajr.adhan : to12Hour(tomSchedule.fajr.adhan),
+      iqamah: tomSchedule.fajr.iqamah,
+      countdown: countdownStr,
     };
-  }, [now, todaySchedule]);
+  }, [now, todaySchedule, use24Hour]);
 
-  const monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
+  // Format live ticking clock for Green Lane Masjid header (e.g. "6:18:03 PM")
+  const formattedLiveClock = useMemo(() => {
+    if (!mounted) return '--:--:--';
+    return now.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: !use24Hour,
+    });
+  }, [now, mounted, use24Hour]);
+
+  const monthName = MONTH_NAMES[now.getMonth()];
+  const dayNumber = now.getDate();
+  const dayOrdinal = getOrdinal(dayNumber);
+
+  // -------------------------------------------------------------
+  // REUSABLE COMPONENT: GREEN LANE MASJID DAILY SALAT WIDGET
+  // -------------------------------------------------------------
+  const renderGLMSalatWidget = () => (
+    <aside
+      className="glm-prayer-widget"
+      style={{
+        backgroundColor: '#ffffff',
+        borderRadius: '16px',
+        border: '1px solid #E2E8F0',
+        boxShadow: '0 10px 30px -5px rgba(2, 132, 199, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.03)',
+        overflow: 'hidden',
+        width: '100%',
+      }}
+    >
+      {/* Widget Header with Green Lane Masjid Title */}
+      <div
+        className="glm-widget-header"
+        style={{
+          backgroundColor: '#0284C7',
+          backgroundImage: 'linear-gradient(135deg, #0369A1 0%, #0284C7 100%)',
+          color: '#ffffff',
+          padding: '1.15rem 1.4rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          borderBottom: '2px solid #0284C7',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+          <Clock size={20} style={{ color: '#FDE047' }} />
+          <h3
+            style={{
+              fontSize: '1.18rem',
+              fontWeight: 800,
+              margin: 0,
+              letterSpacing: '-0.01em',
+              color: '#ffffff',
+            }}
+          >
+            Daily Prayer Times
+          </h3>
+        </div>
+
+        {/* 12h / 24h toggle pill */}
+        <button
+          type="button"
+          onClick={() => setUse24Hour(!use24Hour)}
+          className="glm-time-mode-btn"
+          style={{
+            background: 'rgba(255, 255, 255, 0.16)',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
+            color: '#ffffff',
+            borderRadius: '9999px',
+            fontSize: '0.72rem',
+            fontWeight: 800,
+            padding: '0.2rem 0.6rem',
+            cursor: 'pointer',
+            transition: 'all 0.15s ease',
+          }}
+          title="Toggle 12h / 24h time format"
+        >
+          {use24Hour ? '24-Hour' : '12-Hour'}
+        </button>
+      </div>
+
+      {/* Date & Live Clock Banner (Green Lane Masjid Style) */}
+      <div
+        className="glm-date-clock-row"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          padding: '1.1rem 1.4rem',
+          backgroundColor: '#F8FAFC',
+          borderBottom: '1px solid #E2E8F0',
+          gap: '1rem',
+          alignItems: 'center',
+        }}
+      >
+        {/* Left: Month + Big Day Number */}
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <span
+            style={{
+              fontSize: '0.82rem',
+              fontWeight: 800,
+              color: '#64748B',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+            }}
+            suppressHydrationWarning
+          >
+            {monthName}
+          </span>
+          <span
+            className="day-num"
+            style={{
+              fontSize: '1.9rem',
+              fontWeight: 900,
+              color: '#0369A1',
+              lineHeight: 1.1,
+              fontFeatureSettings: '"tnum"',
+            }}
+            suppressHydrationWarning
+          >
+            {dayNumber}
+            <small
+              style={{
+                fontSize: '0.9rem',
+                fontWeight: 700,
+                color: '#64748B',
+                verticalAlign: 'super',
+                marginLeft: '2px',
+              }}
+            >
+              {dayOrdinal}
+            </small>
+          </span>
+        </div>
+
+        {/* Right: Current Time + Live Ticking Clock */}
+        <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column' }}>
+          <span
+            style={{
+              fontSize: '0.82rem',
+              fontWeight: 800,
+              color: '#64748B',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+            }}
+          >
+            Current Time
+          </span>
+          <span
+            id="clockbox"
+            style={{
+              fontSize: '1.65rem',
+              fontWeight: 900,
+              color: '#0F172A',
+              fontFamily: 'system-ui, -apple-system, monospace',
+              lineHeight: 1.1,
+            }}
+            suppressHydrationWarning
+          >
+            {formattedLiveClock}
+          </span>
+        </div>
+      </div>
+
+      {/* Next Prayer Live Countdown Bar */}
+      <div
+        className="glm-countdown-bar"
+        style={{
+          backgroundColor: '#FEF3C7',
+          borderBottom: '1px solid #FDE68A',
+          padding: '0.55rem 1.25rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          fontSize: '0.82rem',
+          color: '#92400E',
+          fontWeight: 700,
+        }}
+      >
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }} suppressHydrationWarning>
+          <span
+            style={{
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              backgroundColor: '#D97706',
+              display: 'inline-block',
+              animation: 'pulse 1.8s infinite',
+            }}
+          />
+          Next: <strong>{nextPrayerInfo.name}</strong> ({nextPrayerInfo.formattedTime})
+        </span>
+        <span style={{ fontFamily: 'monospace', fontWeight: 800, color: '#B45309' }} suppressHydrationWarning>
+          {mounted ? `in ${nextPrayerInfo.countdown}` : 'calculating...'}
+        </span>
+      </div>
+
+      {/* Main Prayer Times Table (Green Lane Masjid Table Format: Start & Jamat) */}
+      <div style={{ padding: '0.5rem 0' }}>
+        <table
+          className="glm-prayer-table"
+          style={{
+            width: '100%',
+            borderCollapse: 'collapse',
+            fontSize: '0.94rem',
+          }}
+        >
+          <thead>
+            <tr
+              style={{
+                borderBottom: '1px solid #E2E8F0',
+                color: '#64748B',
+                fontSize: '0.76rem',
+                fontWeight: 800,
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+              }}
+            >
+              <th style={{ padding: '0.65rem 1rem', textAlign: 'left' }}>Prayer</th>
+              <th style={{ padding: '0.65rem 0.5rem', textAlign: 'center', width: '36px' }}></th>
+              <th style={{ padding: '0.65rem 0.75rem', textAlign: 'center', fontWeight: 800 }}>Start</th>
+              <th style={{ padding: '0.65rem 1rem', textAlign: 'center', fontWeight: 800, color: '#0369A1' }}>
+                Jamat
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              {
+                id: 'fajr',
+                name: 'Fajr',
+                start: todaySchedule.fajr.adhan,
+                jamat: todaySchedule.fajr.iqamah,
+                isNext: nextPrayerInfo.id === 'fajr',
+              },
+              {
+                id: 'sunrise',
+                name: 'Sunrise',
+                start: todaySchedule.sunrise,
+                jamat: '—',
+                isNext: nextPrayerInfo.id === 'sunrise',
+              },
+              {
+                id: 'dhuhr',
+                name: 'Dhuhr',
+                start: todaySchedule.dhuhr.adhan,
+                jamat: todaySchedule.dhuhr.iqamah,
+                isNext: nextPrayerInfo.id === 'dhuhr',
+              },
+              {
+                id: 'asr',
+                name: 'Asr',
+                start: todaySchedule.asr.adhan,
+                jamat: todaySchedule.asr.iqamah,
+                isNext: nextPrayerInfo.id === 'asr',
+              },
+              {
+                id: 'maghrib',
+                name: 'Maghrib',
+                start: todaySchedule.maghrib.adhan,
+                jamat: todaySchedule.maghrib.iqamah,
+                isNext: nextPrayerInfo.id === 'maghrib',
+              },
+              {
+                id: 'isha',
+                name: 'Isha',
+                start: todaySchedule.isha.adhan,
+                jamat: todaySchedule.isha.iqamah,
+                isNext: nextPrayerInfo.id === 'isha',
+              },
+            ].map((p, index) => {
+              const formattedStart = formatTimeWithMode(p.start, use24Hour);
+              const formattedJamat = p.jamat === '—' ? '—' : formatTimeWithMode(p.jamat, use24Hour);
+
+              return (
+                <tr
+                  key={p.id}
+                  style={{
+                    borderBottom: index < 5 ? '1px solid #F1F5F9' : 'none',
+                    backgroundColor: p.isNext ? '#F0F9FF' : index % 2 === 1 ? '#FAFCFF' : 'transparent',
+                    transition: 'background-color 0.15s ease',
+                  }}
+                >
+                  {/* Prayer Name */}
+                  <td
+                    style={{
+                      padding: '0.75rem 1rem',
+                      fontWeight: p.isNext ? 800 : 700,
+                      color: p.isNext ? '#0284C7' : '#1E293B',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                    }}
+                  >
+                    <span>{p.name}</span>
+                    {p.isNext && (
+                      <span
+                        style={{
+                          fontSize: '0.65rem',
+                          fontWeight: 800,
+                          backgroundColor: '#0284C7',
+                          color: '#ffffff',
+                          padding: '0.15rem 0.45rem',
+                          borderRadius: '9999px',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        Next
+                      </span>
+                    )}
+                  </td>
+
+                  {/* Prayer Icon */}
+                  <td style={{ padding: '0.75rem 0.5rem', textAlign: 'center' }}>
+                    <span style={{ color: p.isNext ? '#0284C7' : '#64748B', display: 'inline-block' }}>
+                      <PrayerIcon id={p.id} size={18} />
+                    </span>
+                  </td>
+
+                  {/* Start / Adhan */}
+                  <td
+                    style={{
+                      padding: '0.75rem 0.75rem',
+                      textAlign: 'center',
+                      fontWeight: 700,
+                      fontFamily: 'monospace',
+                      fontSize: '0.98rem',
+                      color: p.isNext ? '#0284C7' : '#334155',
+                    }}
+                  >
+                    {formattedStart}
+                  </td>
+
+                  {/* Jamat / Iqamah */}
+                  <td
+                    style={{
+                      padding: '0.75rem 1rem',
+                      textAlign: 'center',
+                      fontWeight: 800,
+                      fontFamily: 'monospace',
+                      fontSize: '1.05rem',
+                      color: p.jamat === '—' ? '#94A3B8' : p.isNext ? '#0369A1' : '#0284C7',
+                    }}
+                  >
+                    {formattedJamat}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Jumu'ah Khutbah Box (Green Lane Masjid Style) */}
+      <div
+        className="glm-jumuah-box"
+        style={{
+          margin: '0.75rem 1rem 1rem',
+          padding: '0.9rem 1.1rem',
+          backgroundColor: '#F0F9FF',
+          border: '1.5px dashed #BAE6FD',
+          borderRadius: '12px',
+        }}
+      >
+        <div
+          style={{
+            fontSize: '0.75rem',
+            fontWeight: 800,
+            textTransform: 'uppercase',
+            color: '#0369A1',
+            letterSpacing: '0.04em',
+            marginBottom: '0.2rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+          }}
+        >
+          <span>🕌</span> Jumu&apos;ah Khutbah
+        </div>
+        <p
+          style={{
+            margin: 0,
+            fontSize: '0.86rem',
+            color: '#1E293B',
+            lineHeight: 1.45,
+          }}
+        >
+          Friday Congregational Service in <strong>English & Arabic</strong> at{' '}
+          <strong style={{ color: '#0284C7' }}>13:00 (1:00 PM)</strong> sharp.
+        </p>
+      </div>
+
+      {/* Full Prayer Times CTA Button (Direct PDF like Green Lane Masjid) */}
+      <div className="glm-actions-box" style={{ padding: '0 1rem 1.25rem', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+        <a
+          href="/downloads/AlFalah-Prayer-Timetable.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="glm-full-btn"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.5rem',
+            width: '100%',
+            backgroundColor: '#0284C7',
+            color: '#ffffff',
+            padding: '0.85rem 1.25rem',
+            borderRadius: '10px',
+            fontWeight: 800,
+            fontSize: '0.95rem',
+            textDecoration: 'none',
+            boxShadow: '0 4px 14px rgba(2, 132, 199, 0.28)',
+            transition: 'all 0.2s ease',
+          }}
+          title="Open official PDF timetable in browser (GLM style)"
+        >
+          <span>Full Prayer Times (PDF)</span>
+          <ArrowRight size={17} />
+        </a>
+
+        <Link
+          href="/prayer-times"
+          style={{
+            textAlign: 'center',
+            fontSize: '0.82rem',
+            color: '#0369A1',
+            fontWeight: 700,
+            textDecoration: 'none',
+            padding: '0.2rem 0',
+          }}
+        >
+          View Full Interactive Monthly Timetable &rarr;
+        </Link>
+      </div>
+    </aside>
+  );
+
+  // -------------------------------------------------------------
+  // VARIANT: WIDGET ONLY
+  // -------------------------------------------------------------
+  if (variant === 'widget') {
+    return renderGLMSalatWidget();
+  }
 
   // -------------------------------------------------------------
   // VARIANT: COMPACT STRIP (Clean, sleek prayer bar for Homepage)
@@ -116,89 +696,121 @@ export default function PrayerTimetable({
           border: '1px solid #E4EDF5',
         }}
       >
+        {/* ROW 1: Live Badge & Full Timetable Link */}
         <div
-          className="prayer-compact-header"
+          className="prayer-compact-top-bar"
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '1.25rem',
-            marginBottom: '1.25rem',
-            borderBottom: '1px solid #EEF4FA',
-            paddingBottom: '0.85rem',
+            gap: '0.5rem',
+            marginBottom: '0.4rem',
           }}
         >
-          {/* Left: Date & Mosque Name */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
-            <span
-              style={{
-                backgroundColor: '#DCEEFF',
-                color: '#245C91',
-                fontSize: '0.75rem',
-                fontWeight: 800,
-                padding: '0.25rem 0.65rem',
-                borderRadius: '9999px',
-                border: '1px solid #BADAFA',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.4rem',
-                flexShrink: 0,
-              }}
-            >
-              <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#3988CA' }} />
-              Live Timetable
-            </span>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '0.95rem', fontWeight: 800, color: '#18334F' }} suppressHydrationWarning>
-                {todaySchedule.dateStr}
-              </span>
-              <span style={{ fontSize: '0.85rem', color: '#657B91', fontWeight: 600 }} suppressHydrationWarning>
-                • {todaySchedule.hijriStr}
-              </span>
-            </div>
-          </div>
+          <span
+            style={{
+              backgroundColor: '#DCEEFF',
+              color: '#245C91',
+              fontSize: '0.72rem',
+              fontWeight: 800,
+              padding: '0.2rem 0.6rem',
+              borderRadius: '9999px',
+              border: '1px solid #BADAFA',
+              display: 'inline-flex',
+              alignItems: 'center',
+              flexShrink: 0,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Live Timetable
+          </span>
 
-          {/* Right: Next Prayer Countdown Badge & Full Link */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-            <div
-              style={{
-                backgroundColor: '#FFFBEB',
-                border: '1px solid #FDE68A',
-                color: '#92400E',
-                padding: '0.35rem 0.85rem',
-                borderRadius: 'var(--radius-sm)',
-                fontSize: '0.82rem',
-                fontWeight: 800,
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-              }}
-            >
-              <span suppressHydrationWarning>Next: {nextPrayerInfo.name} ({nextPrayerInfo.time})</span>
-              <span
-                style={{ fontFamily: 'monospace', color: '#B45309', fontWeight: 800 }}
-                suppressHydrationWarning
-              >
-                {mounted ? `in ${nextPrayerInfo.countdown}` : 'calculating...'}
-              </span>
-            </div>
+          <Link
+            href="/prayer-times"
+            style={{
+              color: '#0284C7',
+              fontSize: '0.78rem',
+              fontWeight: 800,
+              textDecoration: 'none',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.25rem',
+              whiteSpace: 'nowrap',
+              flexShrink: 0,
+            }}
+          >
+            Full Timetable <ArrowRight size={13} />
+          </Link>
+        </div>
 
-            <Link
-              href="/prayer-times"
-              style={{
-                color: '#3988CA',
-                fontSize: '0.88rem',
-                fontWeight: 700,
-                textDecoration: 'none',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.3rem',
-              }}
-            >
-              Full Timetable <ArrowRight size={14} />
-            </Link>
-          </div>
+        {/* ROW 2: Gregorian Date & Hijri Date */}
+        <div
+          className="prayer-compact-date-row"
+          style={{
+            display: 'flex',
+            alignItems: 'baseline',
+            gap: '0.4rem',
+            flexWrap: 'wrap',
+            marginBottom: '0.75rem',
+          }}
+        >
+          <span
+            style={{
+              fontSize: 'clamp(0.92rem, 2.5vw, 1.05rem)',
+              fontWeight: 800,
+              color: '#18334F',
+              letterSpacing: '-0.015em',
+            }}
+            suppressHydrationWarning
+          >
+            {todaySchedule.dateStr}
+          </span>
+          <span
+            style={{
+              fontSize: '0.78rem',
+              color: '#657B91',
+              fontWeight: 600,
+            }}
+            suppressHydrationWarning
+          >
+            • {todaySchedule.hijriStr}
+          </span>
+        </div>
+
+        {/* ROW 3: Next Prayer Countdown Bar */}
+        <div
+          className="prayer-countdown-bar"
+          style={{
+            backgroundColor: '#FFFBEB',
+            border: '1px solid #FDE68A',
+            color: '#92400E',
+            padding: '0.45rem 0.75rem',
+            borderRadius: '10px',
+            fontSize: '0.8rem',
+            fontWeight: 800,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '0.5rem',
+            marginBottom: '1rem',
+          }}
+        >
+          <span style={{ whiteSpace: 'nowrap', flexShrink: 0 }} suppressHydrationWarning>
+            Next: <strong>{nextPrayerInfo.name}</strong> ({nextPrayerInfo.time})
+          </span>
+          <span
+            style={{
+              fontFamily: 'system-ui, -apple-system, sans-serif',
+              fontVariantNumeric: 'tabular-nums',
+              color: '#B45309',
+              fontWeight: 800,
+              whiteSpace: 'nowrap',
+              flexShrink: 0,
+            }}
+            suppressHydrationWarning
+          >
+            {mounted ? `in ${nextPrayerInfo.countdown}` : 'calculating...'}
+          </span>
         </div>
 
         {/* 6 Responsive Clean Prayer Pills */}
@@ -309,415 +921,354 @@ export default function PrayerTimetable({
   }
 
   // -------------------------------------------------------------
-  // VARIANT: FULL (Complete Tabbed Schedule for /prayer-times)
+  // VARIANT: FULL (Clean, Complete Production Timetable)
   // -------------------------------------------------------------
   return (
-    <div className="prayer-timetable-container">
-      {/* Top Header Card: Dates & Next Prayer Countdown */}
-      <div className="prayer-full-hero">
-        <div className="prayer-full-hero-content">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.4rem', flexWrap: 'wrap' }}>
+    <div className="prayer-full-wrapper" style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+      {/* SECTION 1: TODAY'S LIVE CONGREGATION STRIP */}
+      <div
+        className="prayer-compact-strip"
+        style={{
+          backgroundColor: '#ffffff',
+          color: 'var(--text-primary)',
+          borderRadius: '16px',
+          padding: '1.25rem 1.5rem',
+          boxShadow: '0 4px 20px -2px rgba(24, 51, 79, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.02)',
+          border: '1px solid #E4EDF5',
+        }}
+      >
+        {/* ROW 1: Date & 12h/24h toggle */}
+        <div
+          className="prayer-compact-header-row1"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '0.75rem',
+            marginBottom: '0.75rem',
+          }}
+        >
+          {/* Left: Badge + Date */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', minWidth: 0 }}>
             <span
               style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                backdropFilter: 'blur(6px)',
-                padding: '0.25rem 0.75rem',
+                backgroundColor: '#DCEEFF',
+                color: '#245C91',
+                fontSize: '0.72rem',
+                fontWeight: 800,
+                padding: '0.2rem 0.6rem',
                 borderRadius: '9999px',
-                fontSize: '0.78rem',
-                fontWeight: 700,
+                border: '1px solid #BADAFA',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.35rem',
+                flexShrink: 0,
+                whiteSpace: 'nowrap',
               }}
             >
-              <Clock size={13} style={{ color: '#fde68a' }} /> Live Mosque Timetable
+              Today&apos;s Prayers
             </span>
-            <span style={{ fontSize: '0.85rem', color: '#BADAFA', fontWeight: 600 }}>
-              {todaySchedule.hijriStr}
-            </span>
+            <div className="prayer-date-text" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', flexWrap: 'wrap' }}>
+              <span style={{ fontSize: '0.9rem', fontWeight: 800, color: '#18334F', whiteSpace: 'nowrap' }} suppressHydrationWarning>
+                {todaySchedule.dateStr}
+              </span>
+              <span className="prayer-hijri-text" style={{ fontSize: '0.8rem', color: '#657B91', fontWeight: 600, whiteSpace: 'nowrap' }} suppressHydrationWarning>
+                • {todaySchedule.hijriStr}
+              </span>
+            </div>
           </div>
 
-          <h2
+          {/* Right: 12h/24h toggle */}
+          <button
+            type="button"
+            onClick={() => setUse24Hour(!use24Hour)}
+            className="btn btn-outline prayer-format-btn"
             style={{
-              fontSize: 'clamp(1.35rem, 4vw, 1.9rem)',
-              fontWeight: 800,
-              color: '#ffffff',
-              margin: '0 0 0.25rem',
-              lineHeight: 1.25,
+              fontSize: '0.74rem',
+              padding: '0.25rem 0.65rem',
+              fontWeight: 700,
+              flexShrink: 0,
+              whiteSpace: 'nowrap',
             }}
+            title="Toggle 12h / 24h time format"
           >
-            {todaySchedule.dateStr}
-          </h2>
-          <p style={{ margin: 0, color: '#d1fae5', fontSize: '0.85rem', lineHeight: 1.4 }}>
-            Masjid Al Falah • 89 Tindal Street, Balsall Heath, Birmingham (B12 9QU)
-          </p>
+            {use24Hour ? '24h' : '12h'}
+          </button>
         </div>
 
-        {/* Next Prayer Countdown Callout */}
-        <div className="prayer-full-hero-countdown">
-          <div className="prayer-full-countdown-label" suppressHydrationWarning>
-            Next: {nextPrayerInfo.name} ({nextPrayerInfo.time})
-          </div>
-          <div
-            className="prayer-full-countdown-time"
+        {/* ROW 2: Next Prayer Countdown Bar */}
+        <div
+          className="prayer-countdown-bar"
+          style={{
+            backgroundColor: '#FFFBEB',
+            border: '1px solid #FDE68A',
+            color: '#92400E',
+            padding: '0.45rem 0.85rem',
+            borderRadius: '10px',
+            fontSize: '0.82rem',
+            fontWeight: 800,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '0.5rem',
+            marginBottom: '1rem',
+          }}
+        >
+          <span style={{ whiteSpace: 'nowrap', flexShrink: 0 }} suppressHydrationWarning>
+            Next: <strong>{nextPrayerInfo.name}</strong> ({nextPrayerInfo.formattedTime})
+          </span>
+          <span
+            style={{
+              fontFamily: 'system-ui, -apple-system, sans-serif',
+              fontVariantNumeric: 'tabular-nums',
+              color: '#B45309',
+              fontWeight: 800,
+              whiteSpace: 'nowrap',
+              flexShrink: 0,
+            }}
             suppressHydrationWarning
           >
-            {mounted ? nextPrayerInfo.countdown : '--:--:--'}
-          </div>
+            {mounted ? `in ${nextPrayerInfo.countdown}` : 'calculating...'}
+          </span>
+        </div>
+
+        {/* ROW 3: 6 Responsive Clean Prayer Pills */}
+        <div
+          className="prayer-pills-grid"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(6, 1fr)',
+            gap: '0.65rem',
+          }}
+        >
+          {[
+            { id: 'fajr', name: 'Fajr', adhan: todaySchedule.fajr.adhan, iqamah: todaySchedule.fajr.iqamah, isNext: nextPrayerInfo.id === 'fajr' },
+            { id: 'sunrise', name: 'Sunrise', adhan: todaySchedule.sunrise, iqamah: '—', isNext: nextPrayerInfo.id === 'sunrise' },
+            { id: 'dhuhr', name: 'Dhuhr', adhan: todaySchedule.dhuhr.adhan, iqamah: todaySchedule.dhuhr.iqamah, isNext: nextPrayerInfo.id === 'dhuhr' },
+            { id: 'asr', name: 'Asr', adhan: todaySchedule.asr.adhan, iqamah: todaySchedule.asr.iqamah, isNext: nextPrayerInfo.id === 'asr' },
+            { id: 'maghrib', name: 'Maghrib', adhan: todaySchedule.maghrib.adhan, iqamah: todaySchedule.maghrib.iqamah, isNext: nextPrayerInfo.id === 'maghrib' },
+            { id: 'isha', name: 'Isha', adhan: todaySchedule.isha.adhan, iqamah: todaySchedule.isha.iqamah, isNext: nextPrayerInfo.id === 'isha' },
+          ].map((p) => (
+            <div
+              key={p.id}
+              className={`prayer-pill ${p.isNext ? 'is-next' : ''}`}
+              style={{
+                backgroundColor: p.isNext ? '#F0F9FF' : '#FFFFFF',
+                border: p.isNext ? '2px solid #0284C7' : '1px solid #E4EDF5',
+                borderRadius: '12px',
+                padding: '0.75rem 0.35rem',
+                textAlign: 'center',
+                boxShadow: p.isNext ? '0 4px 14px rgba(2, 132, 199, 0.14)' : '0 1px 3px rgba(24, 51, 79, 0.04)',
+                transition: 'all 0.2s ease',
+                minWidth: 0,
+              }}
+            >
+              <div style={{ marginBottom: '0.15rem' }}>
+                <span className="prayer-pill-name" style={{ fontSize: '0.92rem', fontWeight: 800, color: p.isNext ? '#0284C7' : '#0F172A', whiteSpace: 'nowrap' }}>
+                  {p.name}
+                </span>
+              </div>
+
+              <div className="prayer-pill-begins" style={{ fontSize: '0.7rem', color: '#657B91', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                Begins {formatTimeWithMode(p.adhan, use24Hour)}
+              </div>
+
+              <div
+                className="prayer-pill-time"
+                style={{
+                  fontSize: '1.15rem',
+                  fontWeight: 800,
+                  fontFamily: 'system-ui, -apple-system, sans-serif',
+                  fontVariantNumeric: 'tabular-nums',
+                  letterSpacing: '-0.02em',
+                  color: p.iqamah === '—' ? '#94A3B8' : (p.isNext ? '#0284C7' : '#0F172A'),
+                  marginTop: '0.2rem',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {p.iqamah === '—' ? formatTimeWithMode(p.adhan, use24Hour) : formatTimeWithMode(p.iqamah, use24Hour)}
+              </div>
+              <div className="prayer-pill-label" style={{ fontSize: '0.64rem', color: '#657B91', textTransform: 'uppercase', fontWeight: 700, letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>
+                {p.iqamah === '—' ? 'Sunrise' : 'Jama’ah'}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Friday Jumu'ah reminder strip */}
+        <div
+          className="prayer-jumuah-strip"
+          style={{
+            marginTop: '0.85rem',
+            paddingTop: '0.65rem',
+            borderTop: '1px solid #EEF4FA',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: '0.82rem',
+            color: '#0F172A',
+            textAlign: 'center',
+          }}
+        >
+          <span>
+            <strong>Friday Jumu’ah Service</strong>: Khutbah &amp; Salah at <strong style={{ color: '#0284C7' }}>13:00 (1:00 PM)</strong> sharp
+          </span>
         </div>
       </div>
 
-      {/* Tab Controls */}
-      {showTabs && (
-        <div className="prayer-tabs-container">
-          <div className="prayer-tabs-list">
-            <button
-              type="button"
-              onClick={() => setActiveTab('today')}
-              className={`prayer-tab-btn ${activeTab === 'today' ? 'active' : ''}`}
-            >
-              <Clock size={15} /> Today&apos;s Schedule
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab('month')}
-              className={`prayer-tab-btn ${activeTab === 'month' ? 'active' : ''}`}
-            >
-              <Calendar size={15} /> Monthly ({monthNames[selectedMonth]})
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab('mawaqit-screen')}
-              className={`prayer-tab-btn ${activeTab === 'mawaqit-screen' ? 'active' : ''}`}
-            >
-              <Monitor size={15} /> Live TV Screen
-            </button>
-
-            <Link
-              href="/qibla"
-              className="prayer-tab-btn"
-              style={{ textDecoration: 'none' }}
-            >
-              <Compass size={15} /> Qibla Direction
-            </Link>
-          </div>
-        </div>
-      )}
-
-      {/* TAB 1: TODAY'S TIMETABLE */}
-      {activeTab === 'today' && (
-        <div>
-          {/* Detailed Timetable Table */}
-          <div
-            className="card prayer-full-card"
+      {/* SECTION 2: OFFICIAL BI-MONTHLY TIMETABLE PDF */}
+      <div
+        className="official-timetable-card"
+        style={{
+          backgroundColor: '#ffffff',
+          borderRadius: '16px',
+          border: '1px solid #E2E8F0',
+          boxShadow: '0 2px 10px rgba(0, 0, 0, 0.03)',
+          padding: 'clamp(1rem, 2.5vw, 1.35rem)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '1rem',
+        }}
+      >
+        <div style={{ maxWidth: '580px', flex: 1, minWidth: '220px' }}>
+          <h3
+            className="timetable-card-title"
             style={{
-              overflowX: 'auto',
+              fontSize: 'clamp(1rem, 2.2vw, 1.18rem)',
+              fontWeight: 800,
+              margin: '0 0 0.25rem',
+              color: '#0F172A',
+              letterSpacing: '-0.015em',
+              lineHeight: 1.3,
             }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-              <div>
-                <h3 style={{ fontSize: 'clamp(1.05rem, 3.5vw, 1.25rem)', fontWeight: 800, margin: 0, color: 'var(--text-primary)', lineHeight: 1.3 }}>
-                  Today&apos;s Complete Congregation Schedule
-                </h3>
-                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '0.2rem 0 0' }}>
-                  Verified times for Masjid Al Falah (Birmingham B12 9QU)
-                </p>
-              </div>
-            </div>
-
-            <table className="prayer-table-responsive" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '480px' }}>
-              <thead>
-                <tr style={{ borderBottom: '2px solid var(--border-color)', backgroundColor: 'var(--bg-surface-alt)' }}>
-                  <th style={{ padding: '0.85rem 1rem', fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-secondary)' }}>SALAH (PRAYER)</th>
-                  <th style={{ padding: '0.85rem 1rem', fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-secondary)' }}>ARABIC</th>
-                  <th style={{ padding: '0.85rem 1rem', fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-secondary)' }}>BEGINS (ADHAN)</th>
-                  <th style={{ padding: '0.85rem 1rem', fontSize: '0.85rem', fontWeight: 800, color: 'var(--color-primary-700)' }}>JAMA&apos;AH (IQAMAH)</th>
-                  <th style={{ padding: '0.85rem 1rem', fontSize: '0.85rem', fontWeight: 800, color: 'var(--text-secondary)' }}>STATUS</th>
-                </tr>
-              </thead>
-              <tbody>
-                {todaySchedule.prayers.map((pr) => {
-                  const isCurrentNext = nextPrayerInfo.id === pr.id;
-                  return (
-                    <tr
-                      key={pr.id}
-                      style={{
-                        borderBottom: '1px solid var(--border-color)',
-                        backgroundColor: isCurrentNext ? 'rgba(2, 132, 199, 0.08)' : 'transparent',
-                      }}
-                    >
-                      <td style={{ padding: '0.85rem 1rem', fontWeight: 700, fontSize: '0.95rem' }}>
-                        {pr.nameEn}
-                      </td>
-                      <td style={{ padding: '0.85rem 1rem', color: 'var(--text-secondary)', fontSize: '1rem', fontFamily: 'serif' }}>
-                        {pr.nameAr}
-                      </td>
-                      <td style={{ padding: '0.85rem 1rem', fontWeight: 700, fontFamily: 'monospace', fontSize: '1.05rem' }}>
-                        {pr.adhan}
-                      </td>
-                      <td style={{ padding: '0.85rem 1rem', fontWeight: 800, fontFamily: 'monospace', fontSize: '1.15rem', color: 'var(--color-primary-700)' }}>
-                        {pr.iqamah}
-                      </td>
-                      <td style={{ padding: '0.85rem 1rem' }}>
-                        {isCurrentNext ? (
-                          <span className="badge badge-primary" style={{ fontSize: '0.75rem' }}>
-                            Next Prayer
-                          </span>
-                        ) : (
-                          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Scheduled</span>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Jumu'ah & Tafsir notices */}
-          <div
+            Download Official Bi-Monthly Timetable
+          </h3>
+          <p
+            className="timetable-card-desc"
             style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '1.25rem',
-              marginBottom: '2rem',
+              fontSize: '0.84rem',
+              color: '#64748B',
+              margin: 0,
             }}
           >
-            <div
-              style={{
-                backgroundColor: 'rgba(2, 132, 199, 0.08)',
-                border: '1.5px solid var(--color-primary-600)',
-                borderRadius: 'var(--radius-md)',
-                padding: '1.25rem',
-                display: 'flex',
-                gap: '1rem',
-                alignItems: 'center',
-              }}
-            >
-              <div
-                style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  backgroundColor: 'var(--color-primary-600)',
-                  color: '#ffffff',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.3rem',
-                  flexShrink: 0,
-                }}
-              >
-                🕌
-              </div>
-              <div>
-                <div style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--color-primary-700)', textTransform: 'uppercase' }}>
-                  Friday Congregational Service
-                </div>
-                <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-                  Jumu&apos;ah Khutbah: 13:00 (1:00 PM)
-                </div>
-                <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                  English Reminder & Arabic Khutbah followed immediately by Salah.
-                </div>
-              </div>
-            </div>
-
-            <div
-              style={{
-                backgroundColor: 'var(--bg-surface-alt)',
-                border: '1px solid var(--border-color)',
-                borderRadius: 'var(--radius-md)',
-                padding: '1.25rem',
-                display: 'flex',
-                gap: '1rem',
-                alignItems: 'center',
-              }}
-            >
-              <div
-                style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  backgroundColor: 'var(--color-accent-500)',
-                  color: '#1a180e',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.3rem',
-                  flexShrink: 0,
-                }}
-              >
-                📖
-              </div>
-              <div>
-                <div style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--color-accent-600)', textTransform: 'uppercase' }}>
-                  Weekly Tafsir Lesson
-                </div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-                  With Sheikh Jamal bin Saeed Al-Jabarti
-                </div>
-                <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                  Every Saturday after Maghrib prayer. Open to all brothers & sisters.
-                </div>
-              </div>
-            </div>
-          </div>
+            Printable PDF schedule for your home or workplace.
+          </p>
         </div>
-      )}
 
-      {/* TAB 2: MONTHLY TIMETABLE SCHEDULE */}
-      {activeTab === 'month' && (
-        <div className="card prayer-full-card" style={{ marginBottom: '2rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.75rem' }}>
-            <div>
-              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, margin: 0, color: 'var(--text-primary)' }}>
-                {monthNames[selectedMonth]} 2026 Timetable
-              </h3>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: '0.2rem 0 0' }}>
-                Full daily schedule for Masjid Al Falah (Birmingham B12 9QU)
-              </p>
-            </div>
-
-            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
-              <button
-                type="button"
-                onClick={() => setSelectedMonth(9)}
-                className={`btn ${selectedMonth === 9 ? 'btn-primary' : 'btn-outline'}`}
-                style={{ fontSize: '0.85rem', padding: '0.45rem 0.85rem' }}
-              >
-                October
-              </button>
-              <button
-                type="button"
-                onClick={() => setSelectedMonth(10)}
-                className={`btn ${selectedMonth === 10 ? 'btn-primary' : 'btn-outline'}`}
-                style={{ fontSize: '0.85rem', padding: '0.45rem 0.85rem' }}
-              >
-                November
-              </button>
-              <button
-                type="button"
-                onClick={() => window.print()}
-                className="btn btn-outline"
-                style={{ fontSize: '0.85rem', padding: '0.45rem 0.85rem', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}
-                title="Print Timetable for Home / Fridge"
-              >
-                <Printer size={15} />
-                <span>Print Timetable</span>
-              </button>
-            </div>
-          </div>
-
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'center', fontSize: '0.88rem' }}>
-              <thead>
-                <tr style={{ backgroundColor: 'var(--bg-surface-alt)', borderBottom: '2px solid var(--border-color)' }}>
-                  <th style={{ padding: '0.75rem', textAlign: 'left' }}>Date</th>
-                  <th colSpan={2} style={{ padding: '0.75rem', borderLeft: '1px solid var(--border-color)' }}>Fajr</th>
-                  <th style={{ padding: '0.75rem', borderLeft: '1px solid var(--border-color)' }}>Sunrise</th>
-                  <th colSpan={2} style={{ padding: '0.75rem', borderLeft: '1px solid var(--border-color)' }}>Dhuhr</th>
-                  <th colSpan={2} style={{ padding: '0.75rem', borderLeft: '1px solid var(--border-color)' }}>Asr</th>
-                  <th colSpan={2} style={{ padding: '0.75rem', borderLeft: '1px solid var(--border-color)' }}>Maghrib</th>
-                  <th colSpan={2} style={{ padding: '0.75rem', borderLeft: '1px solid var(--border-color)' }}>Isha</th>
-                </tr>
-                <tr style={{ backgroundColor: 'var(--bg-surface-alt)', borderBottom: '1px solid var(--border-color)', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                  <th style={{ padding: '0.4rem', textAlign: 'left' }}>Day</th>
-                  <th style={{ padding: '0.4rem', borderLeft: '1px solid var(--border-color)' }}>Adhan</th>
-                  <th style={{ padding: '0.4rem', color: 'var(--color-primary-700)' }}>Iqamah</th>
-                  <th style={{ padding: '0.4rem', borderLeft: '1px solid var(--border-color)' }}>—</th>
-                  <th style={{ padding: '0.4rem', borderLeft: '1px solid var(--border-color)' }}>Adhan</th>
-                  <th style={{ padding: '0.4rem', color: 'var(--color-primary-700)' }}>Iqamah</th>
-                  <th style={{ padding: '0.4rem', borderLeft: '1px solid var(--border-color)' }}>Adhan</th>
-                  <th style={{ padding: '0.4rem', color: 'var(--color-primary-700)' }}>Iqamah</th>
-                  <th style={{ padding: '0.4rem', borderLeft: '1px solid var(--border-color)' }}>Adhan</th>
-                  <th style={{ padding: '0.4rem', color: 'var(--color-primary-700)' }}>Iqamah</th>
-                  <th style={{ padding: '0.4rem', borderLeft: '1px solid var(--border-color)' }}>Adhan</th>
-                  <th style={{ padding: '0.4rem', color: 'var(--color-primary-700)' }}>Iqamah</th>
-                </tr>
-              </thead>
-              <tbody>
-                {monthSchedule.map((ds) => {
-                  const isToday = ds.day === now.getDate() && selectedMonth === now.getMonth();
-                  return (
-                    <tr
-                      key={ds.day}
-                      style={{
-                        borderBottom: '1px solid var(--border-color)',
-                        backgroundColor: isToday ? 'rgba(2, 132, 199, 0.1)' : 'transparent',
-                        fontWeight: isToday ? 800 : 500,
-                      }}
-                    >
-                      <td style={{ padding: '0.65rem 0.75rem', textAlign: 'left' }}>
-                        {ds.day} {monthNames[selectedMonth].slice(0, 3)} {isToday && '⭐'}
-                      </td>
-                      <td style={{ padding: '0.65rem', borderLeft: '1px solid var(--border-color)', fontFamily: 'monospace' }}>{ds.fajr.adhan}</td>
-                      <td style={{ padding: '0.65rem', color: 'var(--color-primary-700)', fontWeight: 700, fontFamily: 'monospace' }}>{ds.fajr.iqamah}</td>
-                      <td style={{ padding: '0.65rem', borderLeft: '1px solid var(--border-color)', fontFamily: 'monospace' }}>{ds.sunrise}</td>
-                      <td style={{ padding: '0.65rem', borderLeft: '1px solid var(--border-color)', fontFamily: 'monospace' }}>{ds.dhuhr.adhan}</td>
-                      <td style={{ padding: '0.65rem', color: 'var(--color-primary-700)', fontWeight: 700, fontFamily: 'monospace' }}>{ds.dhuhr.iqamah}</td>
-                      <td style={{ padding: '0.65rem', borderLeft: '1px solid var(--border-color)', fontFamily: 'monospace' }}>{ds.asr.adhan}</td>
-                      <td style={{ padding: '0.65rem', color: 'var(--color-primary-700)', fontWeight: 700, fontFamily: 'monospace' }}>{ds.asr.iqamah}</td>
-                      <td style={{ padding: '0.65rem', borderLeft: '1px solid var(--border-color)', fontFamily: 'monospace' }}>{ds.maghrib.adhan}</td>
-                      <td style={{ padding: '0.65rem', color: 'var(--color-primary-700)', fontWeight: 700, fontFamily: 'monospace' }}>{ds.maghrib.iqamah}</td>
-                      <td style={{ padding: '0.65rem', borderLeft: '1px solid var(--border-color)', fontFamily: 'monospace' }}>{ds.isha.adhan}</td>
-                      <td style={{ padding: '0.65rem', color: 'var(--color-primary-700)', fontWeight: 700, fontFamily: 'monospace' }}>{ds.isha.iqamah}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
-
-      {/* TAB 3: LIVE MAWAQIT SCREEN EMBED */}
-      {activeTab === 'mawaqit-screen' && (
-        <div className="card prayer-full-card" style={{ marginBottom: '2rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-            <div>
-              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, margin: 0, color: 'var(--text-primary)' }}>
-                Mosque Live TV Screen
-              </h3>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: '0.2rem 0 0' }}>
-                Full TV screen view synced live with the mosque prayer hall display
-              </p>
-            </div>
-            <a
-              href="https://mawaqit.net/en/al-falah-community-support-centre-birmingham-b12-9qu-united-kingdom"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-outline"
-              style={{ fontSize: '0.85rem', padding: '0.45rem 0.85rem' }}
-            >
-              Open on Mawaqit.net <ExternalLink size={13} />
-            </a>
-          </div>
-
-          <div
+        <div className="timetable-card-actions">
+          <a
+            href="/downloads/AlFalah-Prayer-Timetable.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-primary timetable-card-btn"
             style={{
-              position: 'relative',
-              width: '100%',
-              minHeight: '680px',
-              borderRadius: 'var(--radius-md)',
-              overflow: 'hidden',
-              backgroundColor: '#0f172a',
+              padding: '0.65rem 1.25rem',
+              fontWeight: 800,
+              fontSize: '0.86rem',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.45rem',
+              textDecoration: 'none',
+              boxShadow: '0 4px 14px rgba(2, 132, 199, 0.28)',
+              whiteSpace: 'nowrap',
             }}
           >
-            <iframe
-              src="https://mawaqit.net/en/w/al-falah-community-support-centre-birmingham-b12-9qu-united-kingdom"
-              title="Masjid Al Falah Mawaqit Display"
-              width="100%"
-              height="680"
-              frameBorder="0"
-              scrolling="no"
-              style={{ border: 'none', display: 'block', width: '100%', height: '680px' }}
-            />
-          </div>
+            <Download size={15} /> Open Official Timetable (PDF)
+          </a>
         </div>
-      )}
+      </div>
+
+      {/* Responsive Styles for Clean Mobile Layout */}
+      <style jsx global>{`
+        @media (max-width: 640px) {
+          .prayer-full-wrapper {
+            gap: 0.85rem !important;
+          }
+          .prayer-compact-strip {
+            padding: 0.75rem 0.65rem !important;
+            border-radius: 12px !important;
+          }
+          .prayer-compact-top-bar {
+            margin-bottom: 0.35rem !important;
+          }
+          .prayer-compact-date-row {
+            margin-bottom: 0.5rem !important;
+          }
+          .prayer-compact-header-row1 {
+            gap: 0.4rem !important;
+            margin-bottom: 0.5rem !important;
+          }
+          .prayer-date-text span {
+            font-size: 0.82rem !important;
+          }
+          .prayer-hijri-text {
+            font-size: 0.74rem !important;
+          }
+          .prayer-format-btn {
+            font-size: 0.7rem !important;
+            padding: 0.2rem 0.5rem !important;
+          }
+          .prayer-countdown-bar {
+            padding: 0.4rem 0.65rem !important;
+            font-size: 0.76rem !important;
+            margin-bottom: 0.65rem !important;
+            border-radius: 8px !important;
+          }
+          .prayer-pills-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 0.35rem !important;
+          }
+          .prayer-pill {
+            padding: 0.45rem 0.15rem !important;
+            border-radius: 8px !important;
+          }
+          .prayer-pill-name {
+            font-size: 0.8rem !important;
+          }
+          .prayer-pill-begins {
+            font-size: 0.62rem !important;
+            white-space: nowrap !important;
+          }
+          .prayer-pill-time {
+            font-size: 0.95rem !important;
+            white-space: nowrap !important;
+            letter-spacing: -0.03em !important;
+          }
+          .prayer-pill-label {
+            font-size: 0.58rem !important;
+          }
+          .prayer-jumuah-strip {
+            font-size: 0.74rem !important;
+            margin-top: 0.6rem !important;
+            padding-top: 0.5rem !important;
+            gap: 0.2rem !important;
+          }
+          .official-timetable-card {
+            padding: 0.85rem 0.75rem !important;
+            border-radius: 12px !important;
+            gap: 0.75rem !important;
+          }
+          .timetable-card-title {
+            font-size: 1rem !important;
+            margin-bottom: 0.2rem !important;
+          }
+          .timetable-card-desc {
+            font-size: 0.78rem !important;
+            line-height: 1.4 !important;
+          }
+          .timetable-card-actions {
+            width: 100% !important;
+          }
+          .timetable-card-btn {
+            width: 100% !important;
+            justify-content: center !important;
+            font-size: 0.82rem !important;
+            padding: 0.55rem 0.75rem !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
