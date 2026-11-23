@@ -127,7 +127,7 @@ export function Footer() {
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, color: '#0F172A' }}>
                 <Phone size={18} style={{ color: '#0284C7', flexShrink: 0 }} />
-                <a href="tel:07429188880" className="footer-nav-link" style={{ color: '#0F172A' }}>07429 188880</a>
+                <a href="tel:07782958305" className="footer-nav-link" style={{ color: '#0F172A' }}>07782 958305</a>
               </div>
               <div style={{ marginTop: '0.5rem' }}>
                 <Link

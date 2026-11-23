@@ -310,7 +310,7 @@ export default function AboutPage() {
               <div><strong>Registered Office:</strong> 89 Tindal St, Birmingham, B12 9QU</div>
               <div><strong>Bank:</strong> Al Rayan Bank (Sort: 30-00-83, Acc: 01298401)</div>
               <div><strong>Email:</strong> <a href="mailto:alfalahcsc@hotmail.com" style={{ textDecoration: 'underline', color: '#245C91' }}>alfalahcsc@hotmail.com</a></div>
-              <div><strong>Telephone:</strong> <a href="tel:07429188880" style={{ fontWeight: 700, color: '#245C91' }}>07429 188880</a></div>
+              <div><strong>Telephone:</strong> <a href="tel:07782958305" style={{ fontWeight: 700, color: '#245C91' }}>07782 958305</a></div>
             </div>
           </div>
         </div>

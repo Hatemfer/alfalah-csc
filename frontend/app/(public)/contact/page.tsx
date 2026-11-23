@@ -153,10 +153,10 @@ export default function ContactPage() {
                         Telephone
                       </span>
                       <a
-                        href="tel:07429188880"
+                        href="tel:07782958305"
                         style={{ color: '#0f172a', fontWeight: 800, fontSize: '1.02rem', textDecoration: 'none' }}
                       >
-                        07429 188880
+                        07782 958305
                       </a>
                     </div>
                   </div>
@@ -223,7 +223,7 @@ export default function ContactPage() {
                   {/* Direct WhatsApp Action Button */}
                   <div style={{ marginTop: '0.25rem', paddingTop: '1rem', borderTop: '1px solid #f1f5f9' }}>
                     <a
-                      href="https://wa.me/447429188880"
+                      href="https://wa.me/447782958305"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="contact-whatsapp-btn"

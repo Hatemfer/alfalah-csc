@@ -38,6 +38,7 @@ interface Programme {
   shortDesc: string;
   features: string[];
   badge?: string;
+  imagePosition?: string;
 }
 
 const PROGRAMMES: Programme[] = [
@@ -64,11 +65,12 @@ const PROGRAMMES: Programme[] = [
     title: 'Accredited First Aid & CPR Training',
     category: 'Certified Training',
     categoryIcon: ShieldCheck,
-    badge: 'Free of Charge • Certificate Included',
+    badge: '100% Free • Certificate Included',
     ageGroup: 'Ages 16+ (Youth, Adults & Volunteers)',
     schedule: 'Monthly Saturday Intensive: 10:00 AM – 3:30 PM',
     location: 'Alfalah Community Hall, 89 Tindal St',
     image: '/images/real/first-aid-training.jpg',
+    imagePosition: 'center 28%',
     leadInstructor: 'Certified UK Emergency First Aid Trainers',
     shortDesc: 'Fully funded, certified emergency first aid course covering life-saving CPR, AED automated defibrillator use, recovery position, choking relief, and emergency wound care for our community.',
     features: [
@@ -83,11 +85,12 @@ const PROGRAMMES: Programme[] = [
     title: 'Certified Community Safeguarding Training',
     category: 'Certified Workshop',
     categoryIcon: ShieldCheck,
-    badge: 'Free of Charge • Certificate Included',
+    badge: '100% Free • Certificate Included',
     ageGroup: 'Ages 18+ (Teachers, Volunteers, Parents & Youth Leaders)',
     schedule: 'Bi-Monthly Sunday Session: 1:30 PM – 4:30 PM',
     location: 'Sakeena Learning Hub, 89 Tindal St',
     image: '/images/real/safeguarding-training.jpg',
+    imagePosition: 'center 22%',
     leadInstructor: 'Accredited UK Safeguarding Practitioners',
     shortDesc: 'Comprehensive accredited safeguarding course ensuring safe spaces for our children and vulnerable adults. Learn indicators of harm, disclosure handling, and UK regulatory compliance.',
     features: [
@@ -231,7 +234,7 @@ export default function ActivitiesPage() {
         notes: '',
       });
     } catch (err: any) {
-      setError(err.message || 'An error occurred. Please telephone 07429 188880.');
+      setError(err.message || 'An error occurred. Please telephone 07782 958305.');
     } finally {
       setLoading(false);
     }
@@ -244,7 +247,7 @@ export default function ActivitiesPage() {
         style={{
           background: 'linear-gradient(180deg, #DCEEFF 0%, #f8fafc 100%)',
           borderBottom: '1px solid #e2e8f0',
-          padding: 'clamp(2rem, 4vw, 3rem) 1rem clamp(1.5rem, 3vw, 2.5rem)',
+          padding: 'clamp(2.75rem, 5vw, 4rem) 1rem clamp(1.75rem, 3vw, 2.5rem)',
           textAlign: 'center',
         }}
       >
@@ -307,7 +310,7 @@ export default function ActivitiesPage() {
                       src={prog.image}
                       alt={prog.title}
                       fill
-                      style={{ objectFit: 'cover' }}
+                      style={{ objectFit: 'cover', objectPosition: prog.imagePosition || 'center' }}
                       sizes="(max-width: 768px) 100vw, 400px"
                     />
                     <div
@@ -333,30 +336,6 @@ export default function ActivitiesPage() {
                       {prog.category}
                     </div>
 
-                    {prog.badge && (
-                      <div
-                        style={{
-                          position: 'absolute',
-                          top: '12px',
-                          right: '12px',
-                          background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
-                          border: '1px solid rgba(255, 255, 255, 0.3)',
-                          boxShadow: '0 2px 8px rgba(5, 150, 105, 0.4)',
-                          color: '#ffffff',
-                          fontSize: '0.72rem',
-                          fontWeight: 800,
-                          padding: '0.25rem 0.65rem',
-                          borderRadius: '9999px',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '0.3rem',
-                          backdropFilter: 'blur(4px)',
-                        }}
-                      >
-                        ✓ {prog.badge}
-                      </div>
-                    )}
-
                     <div
                       style={{
                         position: 'absolute',
@@ -376,6 +355,27 @@ export default function ActivitiesPage() {
 
                   {/* Body Content */}
                   <div style={{ padding: 'clamp(1.15rem, 2.5vw, 1.65rem)', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                    {prog.badge && (
+                      <div style={{ marginBottom: '0.65rem' }}>
+                        <span
+                          style={{
+                            background: '#ECFDF5',
+                            border: '1px solid #A7F3D0',
+                            color: '#065F46',
+                            fontSize: '0.74rem',
+                            fontWeight: 800,
+                            padding: '0.25rem 0.65rem',
+                            borderRadius: '9999px',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.35rem',
+                          }}
+                        >
+                          <CheckCircle2 size={13} style={{ color: '#059669' }} /> {prog.badge}
+                        </span>
+                      </div>
+                    )}
+
                     <h2 style={{ fontSize: 'clamp(1.08rem, 2.2vw, 1.25rem)', fontWeight: 800, color: '#0f172a', marginBottom: '0.45rem', lineHeight: 1.3 }}>
                       {prog.title}
                     </h2>
@@ -399,13 +399,13 @@ export default function ActivitiesPage() {
                         marginBottom: '1.1rem',
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                        <Clock size={14} style={{ color: '#3988CA', flexShrink: 0 }} />
-                        <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}><strong>Schedule:</strong> {prog.schedule}</span>
+                      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.45rem' }}>
+                        <Clock size={14} style={{ color: '#3988CA', flexShrink: 0, marginTop: '2px' }} />
+                        <span style={{ lineHeight: 1.4 }}><strong>Schedule:</strong> {prog.schedule}</span>
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
                         <MapPin size={14} style={{ color: '#3988CA', flexShrink: 0 }} />
-                        <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{prog.location}</span>
+                        <span>{prog.location}</span>
                       </div>
                     </div>
 
@@ -435,8 +435,9 @@ export default function ActivitiesPage() {
                       }}
                       className="btn btn-primary"
                       style={{
+                        marginTop: 'auto',
                         width: '100%',
-                        padding: '0.72rem 1rem',
+                        padding: '0.75rem 1rem',
                         fontWeight: 800,
                         fontSize: '0.85rem',
                         justifyContent: 'center',
@@ -788,7 +789,7 @@ export default function ActivitiesPage() {
                     </button>
 
                     <div style={{ textAlign: 'center', fontSize: '0.78rem', color: '#64748b', marginTop: '0.75rem' }}>
-                      Free registration • Questions? Call <a href="tel:07429188880" style={{ color: '#3988CA', fontWeight: 700 }}>07429 188880</a> or visit 89 Tindal St.
+                      Free registration • Questions? Call <a href="tel:07782958305" style={{ color: '#3988CA', fontWeight: 700 }}>07782 958305</a> or visit 89 Tindal St.
                     </div>
                   </div>
                 </form>

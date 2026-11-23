@@ -69,7 +69,7 @@ const schemaJsonLd = {
       url: 'https://alfalahcsc.com',
       logo: 'https://alfalahcsc.com/icon.svg',
       image: 'https://alfalahcsc.com/images/real/mosque-exterior-main.jpg',
-      telephone: '+44 7429 188880',
+      telephone: '+44 7782 958305',
       email: 'alfalahcsc@hotmail.com',
       address: {
         '@type': 'PostalAddress',

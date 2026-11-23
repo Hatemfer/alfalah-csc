@@ -992,7 +992,7 @@ UK Registered Charity #1150221`;
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#334155' }}>
                 <Phone size={14} style={{ color: '#0284C7' }} />
-                <a href="tel:07429188880" style={{ color: 'inherit', textDecoration: 'none' }}>07429 188880</a>
+                <a href="tel:07782958305" style={{ color: 'inherit', textDecoration: 'none' }}>07782 958305</a>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#334155' }}>
                 <Mail size={14} style={{ color: '#0284C7' }} />
