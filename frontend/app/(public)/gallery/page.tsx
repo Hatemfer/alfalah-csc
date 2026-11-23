@@ -183,12 +183,41 @@ const CATEGORIES = [
 ];
 
 export default function GalleryPage() {
+  const [items, setItems] = useState<GalleryItem[]>(GALLERY_ITEMS);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [activeItem, setActiveItem] = useState<GalleryItem | null>(null);
 
+  // Fetch photos uploaded via CMS Media Library
+  React.useEffect(() => {
+    async function loadUploadedMedia() {
+      try {
+        const res = await fetch('/api/v1/media');
+        if (res.ok) {
+          const uploaded = await res.json();
+          if (Array.isArray(uploaded) && uploaded.length > 0) {
+            const mapped: GalleryItem[] = uploaded
+              .filter((m: any) => m.storagePath && m.mimeType?.startsWith('image/'))
+              .map((m: any, idx: number) => ({
+                id: `uploaded-${m.id || idx}`,
+                title: m.caption || m.altText || m.originalName || 'Community Photo',
+                category: 'community' as const,
+                categoryLabel: 'Community Gallery',
+                image: m.storagePath,
+                description: m.caption || m.altText || 'Uploaded via Alfalah Media Library',
+              }));
+            setItems([...mapped, ...GALLERY_ITEMS]);
+          }
+        }
+      } catch (err) {
+        // Keep initial items on error
+      }
+    }
+    loadUploadedMedia();
+  }, []);
+
   const filteredItems = selectedCategory === 'all'
-    ? GALLERY_ITEMS
-    : GALLERY_ITEMS.filter((item) => item.category === selectedCategory);
+    ? items
+    : items.filter((item) => item.category === selectedCategory);
 
   return (
     <div style={{ paddingBottom: '5rem', backgroundColor: '#f8fafc' }}>

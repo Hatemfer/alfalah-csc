@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import LiveServicesList from '@/components/LiveServicesList';
 import {
   BookOpen,
   Heart,
@@ -271,6 +272,9 @@ export default function ServicesPage() {
               </div>
             ))}
           </div>
+
+          {/* Dynamic Live Activities & Certified Training from Database */}
+          <LiveServicesList />
 
           {/* Quick Mosque Office Contact & Support Box */}
           <div

@@ -31,6 +31,18 @@ const ALLOWED_MIME_TYPES = [
   'application/pdf',
 ];
 
+@ApiTags('Public Media')
+@Controller('media')
+export class PublicMediaController {
+  constructor(private mediaService: MediaService) {}
+
+  @Get()
+  @ApiOperation({ summary: 'List all published media assets for gallery' })
+  async getPublicMedia() {
+    return this.mediaService.getAllMedia();
+  }
+}
+
 @ApiTags('Media Management')
 @Controller('admin/media')
 @UseGuards(JwtAuthGuard, RolesGuard)
