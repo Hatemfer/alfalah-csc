@@ -12,12 +12,68 @@ import {
   Alert,
   CircularProgress,
   Divider,
+  Chip,
 } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import SecurityIcon from '@mui/icons-material/Security';
+import BusinessIcon from '@mui/icons-material/Business';
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+
+interface SettingMeta {
+  label: string;
+  category: 'identity' | 'contact' | 'system';
+  description: string;
+  placeholder?: string;
+}
+
+const SETTING_DEFINITIONS: Record<string, SettingMeta> = {
+  org_name_en: {
+    label: 'Organisation Name (English)',
+    category: 'identity',
+    description: 'The official name displayed in website banners and document footers.',
+    placeholder: 'ALFALAH COMMUNITY SUPPORT CENTRE',
+  },
+  org_name_ar: {
+    label: 'Organisation Name (Arabic)',
+    category: 'identity',
+    description: 'Official Arabic title of the centre.',
+    placeholder: 'مركز الفلاح الإسلامي',
+  },
+  org_charity_number: {
+    label: 'UK Registered Charity Number',
+    category: 'identity',
+    description: 'Registered with the Charity Commission for England and Wales.',
+    placeholder: '1156221',
+  },
+  org_address: {
+    label: 'Physical Premises Address',
+    category: 'contact',
+    description: 'Street address where daily prayers and community activities take place.',
+    placeholder: '89 Tindal Street, Balsall Heath, Birmingham B12 9QU',
+  },
+  org_phone: {
+    label: 'Mosque Helpline / Mobile',
+    category: 'contact',
+    description: 'Primary telephone number for community inquiries and urgent matters.',
+    placeholder: '07782 958305',
+  },
+  org_email: {
+    label: 'Official Mosque Email',
+    category: 'contact',
+    description: 'Email address shown on the public contact page and header.',
+    placeholder: 'alfalahcsc@hotmail.com',
+  },
+  potential_domain: {
+    label: 'Website Domain',
+    category: 'system',
+    description: 'Canonical live domain name for public links and SSL.',
+    placeholder: 'alfalahcsc.com',
+  },
+};
 
 export default function AdminSiteSettingsPage() {
-  const [settings, setSettings] = useState<any[]>([]);
+  const [settings, setSettings] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
   const [savingKey, setSavingKey] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
@@ -32,7 +88,15 @@ export default function AdminSiteSettingsPage() {
       const res = await fetch('/api/v1/admin/site-settings', { credentials: 'include' });
       if (res.ok) {
         const json = await res.json();
-        setSettings(json);
+        const map: Record<string, string> = {};
+        if (Array.isArray(json)) {
+          json.forEach((s: any) => {
+            map[s.key] = s.value;
+          });
+        }
+        // Ensure standard keys exist even if not seeded
+        if (!map['org_phone']) map['org_phone'] = '07782 958305';
+        setSettings(map);
       }
     } catch (e) {
       console.error(e);
@@ -52,7 +116,9 @@ export default function AdminSiteSettingsPage() {
         body: JSON.stringify({ key, value }),
       });
       if (!res.ok) throw new Error('Failed to update setting');
-      setFeedback({ type: 'success', message: `Setting "${key}" updated successfully.` });
+      setSettings((prev) => ({ ...prev, [key]: value }));
+      const label = SETTING_DEFINITIONS[key]?.label || key;
+      setFeedback({ type: 'success', message: `"${label}" was successfully updated and saved.` });
     } catch (err: any) {
       setFeedback({ type: 'error', message: err.message });
     } finally {
@@ -62,75 +128,168 @@ export default function AdminSiteSettingsPage() {
 
   if (loading) {
     return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', p: 5 }}>
         <CircularProgress color="primary" />
       </Box>
     );
   }
 
+  const identityKeys = ['org_name_en', 'org_name_ar', 'org_charity_number'];
+  const contactKeys = ['org_address', 'org_phone', 'org_email', 'potential_domain'];
+
   return (
     <Box>
-      <Box sx={{ mb: 4 }}>
+      <Box sx={{ mb: 3.5 }}>
         <Typography variant="h5" sx={{ fontWeight: 800 }}>
-          Organisation & Site Settings
+          Mosque & Site Configuration
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Configure verified charity credentials, official names, address, and contact information.
+          Manage verified legal credentials, official telephone helpline, physical address, and organisation details.
         </Typography>
       </Box>
 
       {feedback && (
-        <Alert severity={feedback.type} sx={{ mb: 3 }} onClose={() => setFeedback(null)}>
+        <Alert
+          severity={feedback.type}
+          icon={feedback.type === 'success' ? <CheckCircleOutlineIcon fontSize="inherit" /> : undefined}
+          sx={{ mb: 3 }}
+          onClose={() => setFeedback(null)}
+        >
           {feedback.message}
         </Alert>
       )}
 
-      {/* Security Notice on Bank Details */}
+      {/* Security Safeguard Banner */}
       <Alert
         severity="info"
         icon={<SecurityIcon />}
-        sx={{ mb: 3 }}
+        sx={{ mb: 3.5, backgroundColor: 'rgba(57, 136, 202, 0.08)', color: 'text.primary', border: '1px solid rgba(57, 136, 202, 0.2)' }}
       >
-        <strong>Client Privacy & Financial Safeguard:</strong> The organisation&apos;s bank account credentials (Al Rayan Bank) are kept strictly confidential and internal. They are never published on the website or exposed via public APIs.
+        <strong>Financial Data Safeguard:</strong> The charity&apos;s bank account details (Al Rayan Bank) are kept strictly protected within the internal charity registry and are never exposed publicly through client APIs.
       </Alert>
 
-      <Card>
-        <CardContent>
+      {/* 1. Identity & Charity Credentials */}
+      <Card sx={{ mb: 3.5 }}>
+        <CardContent sx={{ p: 3 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
+            <BusinessIcon color="primary" />
+            <Typography variant="h6" sx={{ fontWeight: 800 }}>
+              Charity & Organisation Identity
+            </Typography>
+          </Box>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 2.5 }}>
+            Legal identity information registered with the UK Charity Commission.
+          </Typography>
+
+          <Divider sx={{ mb: 3 }} />
+
           <Grid container spacing={3}>
-            {settings.map((s) => (
-              <Grid item xs={12} key={s.key}>
-                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, flexWrap: 'wrap' }}>
-                  <Box sx={{ flex: 1, minWidth: 260 }}>
-                    <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
-                      {s.key}
-                    </Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1 }}>
-                      {s.description || 'Configurable setting'}
-                    </Typography>
-                    <TextField
-                      fullWidth
+            {identityKeys.map((key) => {
+              const def = SETTING_DEFINITIONS[key] || {
+                label: key,
+                description: 'Configuration setting',
+              };
+              const currentValue = settings[key] || '';
+
+              return (
+                <Grid item xs={12} key={key}>
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, flexWrap: 'wrap' }}>
+                    <Box sx={{ flex: 1, minWidth: 280 }}>
+                      <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
+                        {def.label}
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1 }}>
+                        {def.description}
+                      </Typography>
+                      <TextField
+                        fullWidth
+                        size="small"
+                        id={`input-${key}`}
+                        defaultValue={currentValue}
+                        placeholder={def.placeholder}
+                      />
+                    </Box>
+                    <Button
+                      variant="contained"
                       size="small"
-                      defaultValue={s.value}
-                      id={`setting-${s.key}`}
-                    />
+                      startIcon={<SaveIcon />}
+                      disabled={savingKey === key}
+                      onClick={() => {
+                        const input = document.getElementById(`input-${key}`) as HTMLInputElement;
+                        if (input) handleUpdate(key, input.value);
+                      }}
+                      sx={{ mt: 3, px: 2.5 }}
+                    >
+                      {savingKey === key ? 'Saving...' : 'Save'}
+                    </Button>
                   </Box>
-                  <Button
-                    variant="contained"
-                    size="small"
-                    startIcon={<SaveIcon />}
-                    disabled={savingKey === s.key}
-                    onClick={() => {
-                      const input = document.getElementById(`setting-${s.key}`) as HTMLInputElement;
-                      if (input) handleUpdate(s.key, input.value);
-                    }}
-                    sx={{ mt: 3 }}
-                  >
-                    {savingKey === s.key ? 'Saving...' : 'Update'}
-                  </Button>
-                </Box>
-                <Divider sx={{ my: 2 }} />
-              </Grid>
-            ))}
+                  <Divider sx={{ my: 2.5 }} />
+                </Grid>
+              );
+            })}
+          </Grid>
+        </CardContent>
+      </Card>
+
+      {/* 2. Contact, Address & Online Presence */}
+      <Card sx={{ mb: 3.5 }}>
+        <CardContent sx={{ p: 3 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
+            <ContactPhoneIcon color="primary" />
+            <Typography variant="h6" sx={{ fontWeight: 800 }}>
+              Contact Lines & Physical Location
+            </Typography>
+          </Box>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 2.5 }}>
+            Helpline numbers, email, and visitor address shown across public contact pages.
+          </Typography>
+
+          <Divider sx={{ mb: 3 }} />
+
+          <Grid container spacing={3}>
+            {contactKeys.map((key) => {
+              const def = SETTING_DEFINITIONS[key] || {
+                label: key,
+                description: 'Configuration setting',
+              };
+              const currentValue = settings[key] || '';
+
+              return (
+                <Grid item xs={12} key={key}>
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, flexWrap: 'wrap' }}>
+                    <Box sx={{ flex: 1, minWidth: 280 }}>
+                      <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
+                        {def.label}
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1 }}>
+                        {def.description}
+                      </Typography>
+                      <TextField
+                        fullWidth
+                        size="small"
+                        id={`input-${key}`}
+                        defaultValue={currentValue}
+                        placeholder={def.placeholder}
+                      />
+                    </Box>
+                    <Button
+                      variant="contained"
+                      size="small"
+                      startIcon={<SaveIcon />}
+                      disabled={savingKey === key}
+                      onClick={() => {
+                        const input = document.getElementById(`input-${key}`) as HTMLInputElement;
+                        if (input) handleUpdate(key, input.value);
+                      }}
+                      sx={{ mt: 3, px: 2.5 }}
+                    >
+                      {savingKey === key ? 'Saving...' : 'Save'}
+                    </Button>
+                  </Box>
+                  <Divider sx={{ my: 2.5 }} />
+                </Grid>
+              );
+            })}
           </Grid>
         </CardContent>
       </Card>

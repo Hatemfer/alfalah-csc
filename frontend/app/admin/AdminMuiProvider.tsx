@@ -14,35 +14,44 @@ export function AdminMuiProvider({ children }: { children: React.ReactNode }) {
       palette: {
         mode: isDark ? 'dark' : 'light',
         primary: {
-          main: '#3988CA', // Light Cerulean Blue
-          light: '#38bdf8',
-          dark: '#18334F',
+          main: '#3988CA', // Brand Cerulean Blue
+          light: '#60a5fa',
+          dark: '#1e40af',
           contrastText: '#ffffff',
         },
         secondary: {
-          main: '#d97706', // Gold / Amber
-          light: '#fbbf24',
-          dark: '#b45309',
+          main: '#18334F', // Deep Navy Brand
+          light: '#2d5377',
+          dark: '#0d1d2d',
         },
         background: {
-          default: isDark ? '#071018' : '#f8fafc',
-          paper: isDark ? '#0c1a29' : '#ffffff',
+          default: isDark ? '#0b1320' : '#f8fafc',
+          paper: isDark ? '#111d30' : '#ffffff',
         },
         text: {
-          primary: isDark ? '#f0f8ff' : '#0f172a',
+          primary: isDark ? '#f1f5f9' : '#0f172a',
           secondary: isDark ? '#94a3b8' : '#64748b',
         },
+        divider: isDark ? 'rgba(255,255,255,0.08)' : '#e2e8f0',
       },
       typography: {
-        fontFamily: "'Plus Jakarta Sans', -apple-system, sans-serif",
+        fontFamily: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
         h5: {
-          fontWeight: 700,
+          fontWeight: 800,
+          letterSpacing: '-0.02em',
         },
         h6: {
           fontWeight: 700,
+          letterSpacing: '-0.01em',
         },
         subtitle1: {
           fontWeight: 600,
+        },
+        subtitle2: {
+          fontWeight: 600,
+        },
+        body2: {
+          lineHeight: 1.5,
         },
       },
       shape: {
@@ -55,6 +64,10 @@ export function AdminMuiProvider({ children }: { children: React.ReactNode }) {
               textTransform: 'none',
               fontWeight: 600,
               borderRadius: 8,
+              boxShadow: 'none',
+              '&:hover': {
+                boxShadow: 'none',
+              },
             },
           },
         },
@@ -62,9 +75,25 @@ export function AdminMuiProvider({ children }: { children: React.ReactNode }) {
           styleOverrides: {
             root: {
               borderRadius: 12,
+              border: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #e2e8f0',
               boxShadow: isDark
-                ? '0 4px 20px rgba(0,0,0,0.5)'
-                : '0 4px 20px rgba(6,78,59,0.06)',
+                ? '0 1px 3px 0 rgba(0, 0, 0, 0.4)'
+                : '0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.05)',
+            },
+          },
+        },
+        MuiTableCell: {
+          styleOverrides: {
+            root: {
+              borderColor: isDark ? 'rgba(255,255,255,0.08)' : '#f1f5f9',
+            },
+            head: {
+              backgroundColor: isDark ? '#142238' : '#f8fafc',
+              color: isDark ? '#cbd5e1' : '#475569',
+              fontWeight: 700,
+              fontSize: '0.8rem',
+              textTransform: 'uppercase',
+              letterSpacing: '0.04em',
             },
           },
         },

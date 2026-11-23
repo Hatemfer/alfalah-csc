@@ -5,7 +5,6 @@ import {
   Box,
   Typography,
   Card,
-  CardContent,
   Table,
   TableBody,
   TableCell,
@@ -19,14 +18,25 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  TextField,
+  InputAdornment,
+  ButtonGroup,
+  IconButton,
+  Tooltip,
 } from '@mui/material';
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import MarkEmailUnreadIcon from '@mui/icons-material/MarkEmailUnread';
+import EmailIcon from '@mui/icons-material/Email';
+import SearchIcon from '@mui/icons-material/Search';
+import PhoneIcon from '@mui/icons-material/Phone';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 export default function AdminContactMessagesPage() {
   const [messages, setMessages] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeMessage, setActiveMessage] = useState<any | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterMode, setFilterMode] = useState<'all' | 'unread' | 'read'>('all');
 
   useEffect(() => {
     loadMessages();
@@ -38,7 +48,7 @@ export default function AdminContactMessagesPage() {
       const res = await fetch('/api/v1/admin/contact-messages', { credentials: 'include' });
       if (res.ok) {
         const json = await res.json();
-        setMessages(json);
+        setMessages(Array.isArray(json) ? json : []);
       }
     } catch (e) {
       console.error(e);
@@ -47,7 +57,8 @@ export default function AdminContactMessagesPage() {
     }
   }
 
-  const toggleReadStatus = async (id: string, currentStatus: boolean) => {
+  const toggleReadStatus = async (id: string, currentStatus: boolean, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
     try {
       await fetch(`/api/v1/admin/contact-messages/${id}/read`, {
         method: 'PUT',
@@ -55,7 +66,9 @@ export default function AdminContactMessagesPage() {
         credentials: 'include',
         body: JSON.stringify({ isRead: !currentStatus }),
       });
-      await loadMessages();
+      setMessages((prev) =>
+        prev.map((m) => (m.id === id ? { ...m, isRead: !currentStatus } : m))
+      );
       if (activeMessage && activeMessage.id === id) {
         setActiveMessage({ ...activeMessage, isRead: !currentStatus });
       }
@@ -64,19 +77,76 @@ export default function AdminContactMessagesPage() {
     }
   };
 
+  const filteredMessages = messages.filter((m) => {
+    if (filterMode === 'unread' && m.isRead) return false;
+    if (filterMode === 'read' && !m.isRead) return false;
+    if (!searchQuery.trim()) return true;
+    const q = searchQuery.toLowerCase();
+    return (
+      m.fullName?.toLowerCase().includes(q) ||
+      m.email?.toLowerCase().includes(q) ||
+      m.subject?.toLowerCase().includes(q) ||
+      m.message?.toLowerCase().includes(q)
+    );
+  });
+
+  const unreadCount = messages.filter((m) => !m.isRead).length;
+
   return (
     <Box>
-      <Box sx={{ mb: 4 }}>
-        <Typography variant="h5" sx={{ fontWeight: 800 }}>
-          Community Inquiries Inbox
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Review and respond to messages submitted via the public contact form.
-        </Typography>
+      <Box sx={{ mb: 3.5, display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', sm: 'center' }, gap: 2 }}>
+        <div>
+          <Typography variant="h5" sx={{ fontWeight: 800 }}>
+            Community Inquiries Inbox
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Review and respond to messages and program inquiries submitted through the public contact form.
+          </Typography>
+        </div>
+
+        <ButtonGroup size="small" variant="outlined">
+          <Button
+            variant={filterMode === 'all' ? 'contained' : 'outlined'}
+            onClick={() => setFilterMode('all')}
+          >
+            All ({messages.length})
+          </Button>
+          <Button
+            variant={filterMode === 'unread' ? 'contained' : 'outlined'}
+            onClick={() => setFilterMode('unread')}
+            color="error"
+          >
+            Unread ({unreadCount})
+          </Button>
+          <Button
+            variant={filterMode === 'read' ? 'contained' : 'outlined'}
+            onClick={() => setFilterMode('read')}
+          >
+            Read ({messages.length - unreadCount})
+          </Button>
+        </ButtonGroup>
       </Box>
 
+      {/* Search Input */}
+      <Card sx={{ mb: 3, p: 2 }}>
+        <TextField
+          fullWidth
+          size="small"
+          placeholder="Search by sender name, email address, subject, or message keyword..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon color="action" />
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Card>
+
       {loading ? (
-        <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', p: 5 }}>
           <CircularProgress color="primary" />
         </Box>
       ) : (
@@ -85,50 +155,97 @@ export default function AdminContactMessagesPage() {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell sx={{ fontWeight: 700 }}>Sender</TableCell>
-                  <TableCell sx={{ fontWeight: 700 }}>Email Address</TableCell>
-                  <TableCell sx={{ fontWeight: 700 }}>Subject</TableCell>
-                  <TableCell sx={{ fontWeight: 700 }}>Received At</TableCell>
                   <TableCell sx={{ fontWeight: 700 }}>Status</TableCell>
-                  <TableCell align="right" sx={{ fontWeight: 700 }}>Action</TableCell>
+                  <TableCell sx={{ fontWeight: 700 }}>Sender</TableCell>
+                  <TableCell sx={{ fontWeight: 700 }}>Subject & Message</TableCell>
+                  <TableCell sx={{ fontWeight: 700 }}>Received At</TableCell>
+                  <TableCell align="right" sx={{ fontWeight: 700 }}>Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {messages.length > 0 ? (
-                  messages.map((m) => (
-                    <TableRow key={m.id} hover sx={{ cursor: 'pointer' }} onClick={() => setActiveMessage(m)}>
-                      <TableCell sx={{ fontWeight: m.isRead ? 400 : 700 }}>
-                        {m.name}
-                      </TableCell>
-                      <TableCell>{m.email}</TableCell>
-                      <TableCell sx={{ fontWeight: m.isRead ? 400 : 700 }}>
-                        {m.subject}
-                      </TableCell>
-                      <TableCell>
-                        {new Date(m.createdAt).toLocaleString('en-GB')}
-                      </TableCell>
-                      <TableCell>
+                {filteredMessages.length > 0 ? (
+                  filteredMessages.map((m) => (
+                    <TableRow
+                      key={m.id}
+                      hover
+                      sx={{
+                        cursor: 'pointer',
+                        backgroundColor: m.isRead ? 'inherit' : 'rgba(57, 136, 202, 0.04)',
+                      }}
+                      onClick={() => {
+                        setActiveMessage(m);
+                        if (!m.isRead) toggleReadStatus(m.id, false);
+                      }}
+                    >
+                      <TableCell sx={{ width: 100 }}>
                         <Chip
                           label={m.isRead ? 'Read' : 'New'}
-                          color={m.isRead ? 'default' : 'primary'}
                           size="small"
+                          color={m.isRead ? 'default' : 'primary'}
+                          sx={{
+                            fontSize: '0.7rem',
+                            fontWeight: 800,
+                            height: 22,
+                          }}
                         />
                       </TableCell>
-                      <TableCell align="right" onClick={(e) => e.stopPropagation()}>
-                        <Button
-                          size="small"
-                          onClick={() => toggleReadStatus(m.id, m.isRead)}
-                          startIcon={m.isRead ? <MarkEmailUnreadIcon /> : <MarkEmailReadIcon />}
+
+                      <TableCell sx={{ minWidth: 180 }}>
+                        <Typography variant="body2" sx={{ fontWeight: m.isRead ? 600 : 800 }}>
+                          {m.fullName}
+                        </Typography>
+                        <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
+                          {m.email}
+                        </Typography>
+                      </TableCell>
+
+                      <TableCell sx={{ maxWidth: 380 }}>
+                        <Typography variant="body2" sx={{ fontWeight: m.isRead ? 500 : 700 }}>
+                          {m.subject || 'No Subject'}
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          color="text.secondary"
+                          sx={{
+                            display: '-webkit-box',
+                            WebkitLineClamp: 1,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                          }}
                         >
-                          {m.isRead ? 'Mark New' : 'Mark Read'}
-                        </Button>
+                          {m.message}
+                        </Typography>
+                      </TableCell>
+
+                      <TableCell sx={{ whiteSpace: 'nowrap', color: 'text.secondary', fontSize: '0.85rem' }}>
+                        {new Date(m.createdAt).toLocaleDateString('en-GB', {
+                          day: 'numeric',
+                          month: 'short',
+                          year: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </TableCell>
+
+                      <TableCell align="right" sx={{ whiteSpace: 'nowrap' }}>
+                        <Tooltip title={m.isRead ? 'Mark as Unread' : 'Mark as Read'}>
+                          <IconButton
+                            size="small"
+                            onClick={(e) => toggleReadStatus(m.id, m.isRead, e)}
+                          >
+                            {m.isRead ? <MarkEmailUnreadIcon fontSize="small" /> : <MarkEmailReadIcon fontSize="small" color="primary" />}
+                          </IconButton>
+                        </Tooltip>
                       </TableCell>
                     </TableRow>
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={6} sx={{ textAlign: 'center', py: 4, color: 'text.secondary' }}>
-                      No community inquiries in the inbox.
+                    <TableCell colSpan={5} sx={{ textAlign: 'center', py: 5, color: 'text.secondary' }}>
+                      <EmailIcon sx={{ fontSize: 44, color: 'text.secondary', opacity: 0.4, mb: 1, display: 'block', mx: 'auto' }} />
+                      <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                        No messages found matching current filters.
+                      </Typography>
                     </TableCell>
                   </TableRow>
                 )}
@@ -141,34 +258,71 @@ export default function AdminContactMessagesPage() {
       {/* Message Reader Dialog */}
       {activeMessage && (
         <Dialog open onClose={() => setActiveMessage(null)} maxWidth="sm" fullWidth>
-          <DialogTitle sx={{ fontWeight: 800 }}>
-            {activeMessage.subject}
+          <DialogTitle sx={{ fontWeight: 800, pb: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span>{activeMessage.subject || 'Community Inquiry'}</span>
+            <Chip
+              label={activeMessage.isRead ? 'Read' : 'New'}
+              size="small"
+              color={activeMessage.isRead ? 'default' : 'primary'}
+              sx={{ fontWeight: 700 }}
+            />
           </DialogTitle>
-          <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, pt: 1 }}>
-            <Box sx={{ p: 1.5, backgroundColor: 'background.default', borderRadius: 2 }}>
-              <Typography variant="body2">
-                <strong>From:</strong> {activeMessage.name} &lt;{activeMessage.email}&gt;
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                Received: {new Date(activeMessage.createdAt).toLocaleString('en-GB')}
+          <DialogContent sx={{ pt: 1 }}>
+            <Box sx={{ p: 2, borderRadius: 2, backgroundColor: 'background.default', mb: 2.5, border: '1px solid', borderColor: 'divider' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.75 }}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>
+                  {activeMessage.fullName}
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  &lt;{activeMessage.email}&gt;
+                </Typography>
+              </Box>
+              {activeMessage.phone && (
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
+                  <PhoneIcon fontSize="inherit" color="action" />
+                  <Typography variant="caption" color="text.secondary">
+                    Phone: {activeMessage.phone}
+                  </Typography>
+                </Box>
+              )}
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <CalendarTodayIcon fontSize="inherit" color="action" />
+                <Typography variant="caption" color="text.secondary">
+                  Sent: {new Date(activeMessage.createdAt).toLocaleString('en-GB')}
+                </Typography>
+              </Box>
+            </Box>
+
+            <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1 }}>
+              Message Body:
+            </Typography>
+            <Box sx={{ p: 2, borderRadius: 2, border: '1px solid', borderColor: 'divider', minHeight: 120 }}>
+              <Typography variant="body2" sx={{ whiteSpace: 'pre-line', lineHeight: 1.6 }}>
+                {activeMessage.message}
               </Typography>
             </Box>
-            <Typography variant="body1" sx={{ whiteSpace: 'pre-line', py: 2 }}>
-              {activeMessage.message}
-            </Typography>
           </DialogContent>
-          <DialogActions sx={{ p: 2 }}>
+          <DialogActions sx={{ p: 2, justifyContent: 'space-between' }}>
             <Button
+              size="small"
               onClick={() => toggleReadStatus(activeMessage.id, activeMessage.isRead)}
+              startIcon={activeMessage.isRead ? <MarkEmailUnreadIcon /> : <MarkEmailReadIcon />}
             >
-              {activeMessage.isRead ? 'Mark as Unread' : 'Mark as Read'}
+              {activeMessage.isRead ? 'Mark Unread' : 'Mark Read'}
             </Button>
-            <Button
-              variant="contained"
-              onClick={() => setActiveMessage(null)}
-            >
-              Close
-            </Button>
+            <Box sx={{ display: 'flex', gap: 1 }}>
+              <Button
+                variant="outlined"
+                component="a"
+                href={`mailto:${activeMessage.email}?subject=Re: ${encodeURIComponent(activeMessage.subject || 'Al Falah Community Inquiry')}`}
+                startIcon={<EmailIcon />}
+              >
+                Reply via Email
+              </Button>
+              <Button variant="contained" onClick={() => setActiveMessage(null)}>
+                Close
+              </Button>
+            </Box>
           </DialogActions>
         </Dialog>
       )}
