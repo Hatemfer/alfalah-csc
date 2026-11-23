@@ -24,6 +24,7 @@ import {
 import SaveIcon from '@mui/icons-material/Save';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { ConfirmDeleteModal } from '@/components/admin/ConfirmDeleteModal';
 
 export default function AdminPrayerTimesPage() {
   const [settings, setSettings] = useState<any>(null);
@@ -32,6 +33,11 @@ export default function AdminPrayerTimesPage() {
   const [savingSettings, setSavingSettings] = useState(false);
   const [savingOverride, setSavingOverride] = useState(false);
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+  const [deleteModal, setDeleteModal] = useState<{ open: boolean; date: string; loading: boolean }>({
+    open: false,
+    date: '',
+    loading: false,
+  });
 
   const [newOverride, setNewOverride] = useState({
     date: new Date().toISOString().slice(0, 10),
@@ -109,18 +115,24 @@ export default function AdminPrayerTimesPage() {
     }
   };
 
-  const handleDeleteOverride = async (date: string) => {
-    if (!window.confirm(`Remove override for ${date}? Astronomical calculation will resume for this day.`)) return;
+  const promptDeleteOverride = (date: string) => {
+    setDeleteModal({ open: true, date, loading: false });
+  };
+
+  const handleConfirmDeleteOverride = async () => {
     try {
-      const res = await fetch(`/api/v1/admin/prayer-overrides/${date}`, {
+      setDeleteModal((prev) => ({ ...prev, loading: true }));
+      const res = await fetch(`/api/v1/admin/prayer-overrides/${deleteModal.date}`, {
         method: 'DELETE',
         credentials: 'include',
       });
       if (!res.ok) throw new Error('Failed to delete override');
-      setFeedback({ type: 'success', message: `Override for ${date} removed.` });
+      setFeedback({ type: 'success', message: `Override for ${deleteModal.date} removed. Astronomical calculations resumed.` });
+      setDeleteModal({ open: false, date: '', loading: false });
       await loadData();
     } catch (err: any) {
       setFeedback({ type: 'error', message: err.message });
+      setDeleteModal((prev) => ({ ...prev, loading: false }));
     }
   };
 
@@ -261,7 +273,7 @@ export default function AdminPrayerTimesPage() {
                         <TableCell>{o.maghribIqamah || '-'}</TableCell>
                         <TableCell>{o.ishaIqamah || '-'}</TableCell>
                         <TableCell align="right">
-                          <IconButton size="small" color="error" onClick={() => handleDeleteOverride(o.date)}>
+                          <IconButton size="small" color="error" onClick={() => promptDeleteOverride(o.date)}>
                             <DeleteIcon fontSize="small" />
                           </IconButton>
                         </TableCell>
@@ -378,6 +390,17 @@ export default function AdminPrayerTimesPage() {
           </CardContent>
         </Card>
       )}
+
+      <ConfirmDeleteModal
+        open={deleteModal.open}
+        onClose={() => setDeleteModal((prev) => ({ ...prev, open: false }))}
+        onConfirm={handleConfirmDeleteOverride}
+        title="Remove Timetable Override"
+        itemName={deleteModal.date}
+        description={`Remove timetable override for ${deleteModal.date}? Astronomical prayer calculations will automatically resume for this day.`}
+        loading={deleteModal.loading}
+        confirmText="Yes, Remove Override"
+      />
     </Box>
   );
 }

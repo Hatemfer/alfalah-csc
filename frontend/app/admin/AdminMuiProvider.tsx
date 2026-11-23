@@ -97,6 +97,33 @@ export function AdminMuiProvider({ children }: { children: React.ReactNode }) {
             },
           },
         },
+        MuiDialog: {
+          styleOverrides: {
+            paper: {
+              borderRadius: 16,
+              boxShadow: '0 25px 50px -12px rgba(15, 23, 42, 0.25)',
+              backgroundImage: 'none',
+            },
+          },
+        },
+        MuiOutlinedInput: {
+          styleOverrides: {
+            root: {
+              borderRadius: 10,
+              backgroundColor: isDark ? 'rgba(255,255,255,0.03)' : '#FFFFFF',
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: isDark ? 'rgba(255,255,255,0.14)' : '#CBD5E1',
+              },
+              '&:hover .MuiOutlinedInput-notchedOutline': {
+                borderColor: '#3988CA',
+              },
+              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                borderColor: '#3988CA',
+                borderWidth: '2px',
+              },
+            },
+          },
+        },
       },
     });
   }, [theme]);

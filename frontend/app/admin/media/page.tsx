@@ -17,6 +17,7 @@ import {
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { ConfirmDeleteModal } from '@/components/admin/ConfirmDeleteModal';
 
 export default function AdminMediaPage() {
   const [mediaList, setMediaList] = useState<any[]>([]);
@@ -25,6 +26,12 @@ export default function AdminMediaPage() {
   const [altText, setAltText] = useState('');
   const [uploading, setUploading] = useState(false);
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+  const [deleteModal, setDeleteModal] = useState<{ open: boolean; id: string; name: string; loading: boolean }>({
+    open: false,
+    id: '',
+    name: '',
+    loading: false,
+  });
 
   useEffect(() => {
     loadMedia();
@@ -77,19 +84,24 @@ export default function AdminMediaPage() {
     }
   };
 
-  const handleDelete = async (id: string, name: string) => {
-    if (!window.confirm(`Delete media asset "${name}"?`)) return;
+  const promptDelete = (id: string, name: string) => {
+    setDeleteModal({ open: true, id, name, loading: false });
+  };
 
+  const handleConfirmDelete = async () => {
     try {
-      const res = await fetch(`/api/v1/admin/media/${id}`, {
+      setDeleteModal((prev) => ({ ...prev, loading: true }));
+      const res = await fetch(`/api/v1/admin/media/${deleteModal.id}`, {
         method: 'DELETE',
         credentials: 'include',
       });
       if (!res.ok) throw new Error('Delete failed');
-      setFeedback({ type: 'success', message: 'Asset removed.' });
+      setFeedback({ type: 'success', message: `Media asset "${deleteModal.name}" removed.` });
+      setDeleteModal({ open: false, id: '', name: '', loading: false });
       await loadMedia();
     } catch (err: any) {
       setFeedback({ type: 'error', message: err.message });
+      setDeleteModal((prev) => ({ ...prev, loading: false }));
     }
   };
 
@@ -220,7 +232,7 @@ export default function AdminMediaPage() {
                         </IconButton>
                       </Tooltip>
                       <Tooltip title="Delete File">
-                        <IconButton size="small" color="error" onClick={() => handleDelete(m.id, m.originalName)}>
+                        <IconButton size="small" color="error" onClick={() => promptDelete(m.id, m.originalName)}>
                           <DeleteIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
@@ -240,6 +252,16 @@ export default function AdminMediaPage() {
           )}
         </Grid>
       )}
+
+      <ConfirmDeleteModal
+        open={deleteModal.open}
+        onClose={() => setDeleteModal((prev) => ({ ...prev, open: false }))}
+        onConfirm={handleConfirmDelete}
+        title="Delete Media Asset"
+        itemName={deleteModal.name}
+        loading={deleteModal.loading}
+        confirmText="Yes, Delete File"
+      />
     </Box>
   );
 }
