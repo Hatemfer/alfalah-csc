@@ -318,9 +318,9 @@ export default function ActivitiesPage() {
                         position: 'absolute',
                         top: '12px',
                         left: '12px',
-                        background: 'linear-gradient(135deg, #0284C7 0%, #0369A1 100%)',
-                        border: '1px solid rgba(255, 255, 255, 0.25)',
-                        boxShadow: '0 2px 8px rgba(2, 132, 199, 0.35)',
+                        backgroundColor: '#0284C7',
+                        border: '1px solid rgba(255, 255, 255, 0.3)',
+                        boxShadow: '0 2px 8px rgba(2, 132, 199, 0.3)',
                         color: '#ffffff',
                         fontSize: '0.75rem',
                         fontWeight: 800,
@@ -329,7 +329,6 @@ export default function ActivitiesPage() {
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: '0.35rem',
-                        backdropFilter: 'blur(4px)',
                       }}
                     >
                       <Icon size={14} />
@@ -442,7 +441,11 @@ export default function ActivitiesPage() {
                         fontSize: '0.85rem',
                         justifyContent: 'center',
                         gap: '0.4rem',
-                        background: prog.badge ? 'linear-gradient(135deg, #0284C7 0%, #047857 100%)' : undefined,
+                        backgroundColor: '#0284C7',
+                        color: '#ffffff',
+                        border: 'none',
+                        borderRadius: '12px',
+                        boxShadow: '0 4px 14px rgba(2, 132, 199, 0.25)',
                       }}
                     >
                       {prog.badge ? 'Register Free for this Training' : 'Register / Enrol in this Class'} <ArrowRight size={14} />

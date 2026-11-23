@@ -596,7 +596,7 @@ UK Registered Charity #1150221`;
                       fontWeight: 700,
                       borderRadius: '8px',
                       border: 'none',
-                      background: 'linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%)',
+                      backgroundColor: '#0284C7',
                       color: '#ffffff',
                       cursor: 'pointer',
                       display: 'flex',
@@ -826,7 +826,7 @@ UK Registered Charity #1150221`;
                     rel="noopener noreferrer"
                     style={{
                       padding: '0.55rem 1rem',
-                      background: 'linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%)',
+                      backgroundColor: '#0284C7',
                       color: '#ffffff',
                       borderRadius: '8px',
                       textDecoration: 'none',

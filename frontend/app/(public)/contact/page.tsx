@@ -229,7 +229,7 @@ export default function ContactPage() {
                       className="contact-whatsapp-btn"
                       style={{
                         width: '100%',
-                        background: 'linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%)',
+                        backgroundColor: '#0284C7',
                         color: '#ffffff',
                         fontWeight: 700,
                         fontSize: '0.9rem',
@@ -482,7 +482,7 @@ export default function ContactPage() {
                       fontSize: '0.98rem',
                       fontWeight: 800,
                       width: '100%',
-                      background: 'linear-gradient(135deg, #0284C7 0%, #0369A1 100%)',
+                      backgroundColor: '#0284C7',
                       color: '#ffffff',
                       borderRadius: '12px',
                       border: 'none',
