@@ -799,7 +799,6 @@ export function Header() {
                 <div
                   style={{
                     display: 'flex',
-                    justifyContent: 'space-between',
                     alignItems: 'center',
                     marginTop: '0.2rem',
                     paddingTop: '0.5rem',
@@ -821,17 +820,6 @@ export function Header() {
                     <Phone size={13} style={{ color: '#3988CA' }} />
                     07429 188880
                   </a>
-                  <Link
-                    href="/admin"
-                    onClick={() => setMobileOpen(false)}
-                    style={{
-                      fontSize: '0.74rem',
-                      color: '#657B91',
-                      textDecoration: 'underline',
-                    }}
-                  >
-                    Staff Portal →
-                  </Link>
                 </div>
               </div>
             </div>

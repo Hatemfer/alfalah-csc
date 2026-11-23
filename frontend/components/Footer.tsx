@@ -174,8 +174,7 @@ export function Footer() {
             © {currentYear} AL FALAH COMMUNITY SUPPORT CENTRE. All rights reserved.
           </div>
           <div style={{ display: 'flex', gap: '1.5rem' }}>
-            <Link href="/privacy" className="footer-bottom-link">Privacy Notice & Cookies</Link>
-            <Link href="/admin" className="footer-bottom-link">Administration</Link>
+            <Link href="/privacy" className="footer-bottom-link">Privacy Notice &amp; Cookies</Link>
           </div>
         </div>
       </div>
