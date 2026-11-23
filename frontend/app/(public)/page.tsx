@@ -202,10 +202,10 @@ export default async function HomePage() {
   // Distinct authentic image helper for Academy activities
   const getActivityImage = (act: any) => {
     if (act.slug?.includes('first-aid') || act.title?.toLowerCase().includes('first aid')) {
-      return '/images/real/sakeena-learning-hub.jpg';
+      return '/images/real/first-aid-training.jpg';
     }
     if (act.slug?.includes('safeguard') || act.title?.toLowerCase().includes('safeguard')) {
-      return '/images/real/sakeena-learning-hub.jpg';
+      return '/images/real/safeguarding-training.jpg';
     }
     if (act.slug?.includes('tafsir') || act.title?.toLowerCase().includes('tafsir')) {
       return '/images/real/poster-tafsir-sheikh-jamal.jpg';

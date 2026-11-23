@@ -68,7 +68,7 @@ const PROGRAMMES: Programme[] = [
     ageGroup: 'Ages 16+ (Youth, Adults & Volunteers)',
     schedule: 'Monthly Saturday Intensive: 10:00 AM – 3:30 PM',
     location: 'Alfalah Community Hall, 89 Tindal St',
-    image: '/images/real/sakeena-learning-hub.jpg',
+    image: '/images/real/first-aid-training.jpg',
     leadInstructor: 'Certified UK Emergency First Aid Trainers',
     shortDesc: 'Fully funded, certified emergency first aid course covering life-saving CPR, AED automated defibrillator use, recovery position, choking relief, and emergency wound care for our community.',
     features: [
@@ -87,7 +87,7 @@ const PROGRAMMES: Programme[] = [
     ageGroup: 'Ages 18+ (Teachers, Volunteers, Parents & Youth Leaders)',
     schedule: 'Bi-Monthly Sunday Session: 1:30 PM – 4:30 PM',
     location: 'Sakeena Learning Hub, 89 Tindal St',
-    image: '/images/real/sakeena-learning-hub.jpg',
+    image: '/images/real/safeguarding-training.jpg',
     leadInstructor: 'Accredited UK Safeguarding Practitioners',
     shortDesc: 'Comprehensive accredited safeguarding course ensuring safe spaces for our children and vulnerable adults. Learn indicators of harm, disclosure handling, and UK regulatory compliance.',
     features: [

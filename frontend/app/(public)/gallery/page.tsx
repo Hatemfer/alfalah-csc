@@ -141,6 +141,22 @@ const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: '15',
+    title: 'Accredited First Aid & CPR Training Session',
+    category: 'sakeena',
+    categoryLabel: 'Sakeena Hub',
+    image: '/images/real/first-aid-training.jpg',
+    description: 'Hands-on life-saving CPR and automated AED defibrillator training workshop provided free of charge for community members with official certification.',
+  },
+  {
+    id: '16',
+    title: 'Certified Community Safeguarding Workshop',
+    category: 'community',
+    categoryLabel: 'Community Life',
+    image: '/images/real/first-aid-training-wide.jpg',
+    description: 'Comprehensive safeguarding certification session held in the main hall ensuring child safety and UK regulatory compliance for local volunteers and teachers.',
+  },
+  {
+    id: '15',
     title: 'Volunteer Painting & Refurbishment Day',
     category: 'community',
     categoryLabel: 'Community Life',
