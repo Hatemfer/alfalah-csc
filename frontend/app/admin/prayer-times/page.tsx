@@ -23,6 +23,10 @@ import {
   Tooltip,
   Divider,
   Collapse,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from '@mui/material';
 import SaveRoundedIcon from '@mui/icons-material/SaveRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
@@ -35,6 +39,8 @@ import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import PictureAsPdfRoundedIcon from '@mui/icons-material/PictureAsPdfRounded';
 import UploadFileRoundedIcon from '@mui/icons-material/UploadFileRounded';
 import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import CloudUploadRoundedIcon from '@mui/icons-material/CloudUploadRounded';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
 import { ConfirmDeleteModal } from '@/components/admin/ConfirmDeleteModal';
@@ -66,7 +72,12 @@ export default function AdminPrayerTimesPage() {
 
   const [jumuahTime, setJumuahTime] = useState('13:00');
   const [timetablePdfUrl, setTimetablePdfUrl] = useState('/downloads/AlFalah-Prayer-Timetable.pdf');
-  const pdfInputRef = useRef<HTMLInputElement | null>(null);
+
+  // PDF Modal States
+  const [pdfModalOpen, setPdfModalOpen] = useState(false);
+  const [selectedPdfFile, setSelectedPdfFile] = useState<File | null>(null);
+  const [deletePdfModalOpen, setDeletePdfModalOpen] = useState(false);
+  const [deletingPdfLoading, setDeletingPdfLoading] = useState(false);
 
   const [deleteModal, setDeleteModal] = useState<{ open: boolean; date: string; loading: boolean }>({
     open: false,
@@ -233,14 +244,13 @@ export default function AdminPrayerTimesPage() {
     }
   };
 
-  const handlePdfUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const handleConfirmUploadPdf = async () => {
+    if (!selectedPdfFile) return;
     setUploadingPdf(true);
     setFeedback(null);
     try {
       const fd = new FormData();
-      fd.append('file', file);
+      fd.append('file', selectedPdfFile);
       const res = await fetch('/api/v1/admin/media/upload', {
         method: 'POST',
         credentials: 'include',
@@ -248,48 +258,79 @@ export default function AdminPrayerTimesPage() {
       });
       if (!res.ok) throw new Error('Failed to upload PDF file');
       const data = await res.json();
-      const uploadedUrl = data.url || data.filePath;
+      const uploadedUrl = data.url || data.storagePath || data.filePath;
       if (uploadedUrl) {
-        setTimetablePdfUrl(uploadedUrl);
+        const oldUrl = timetablePdfUrl;
+        // Automatically delete previous PDF from server disk if it was an uploaded file
+        if (oldUrl && oldUrl.startsWith('/uploads/')) {
+          try {
+            await fetch(`/api/v1/admin/media/by-path?path=${encodeURIComponent(oldUrl)}`, {
+              method: 'DELETE',
+              credentials: 'include',
+            });
+          } catch (e) {
+            console.warn('Could not clean up previous PDF file:', e);
+          }
+        }
+
         await fetch('/api/v1/admin/site-settings', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
           body: JSON.stringify({ key: 'timetable_pdf_url', value: uploadedUrl }),
         });
+
+        setTimetablePdfUrl(uploadedUrl);
+        setPdfModalOpen(false);
+        setSelectedPdfFile(null);
         setFeedback({
           type: 'success',
-          message: `Published "${file.name}" as the Official Timetable PDF.`,
+          message: `Published "${selectedPdfFile.name}" as the live Official Timetable PDF. Previous file removed from server storage.`,
         });
+        await loadData();
       }
     } catch (err: any) {
       setFeedback({ type: 'error', message: err.message });
     } finally {
       setUploadingPdf(false);
-      if (pdfInputRef.current) pdfInputRef.current.value = '';
     }
   };
 
-  const handleRemovePdf = async () => {
-    setUploadingPdf(true);
+  const handleConfirmRemovePdf = async () => {
+    setDeletingPdfLoading(true);
     setFeedback(null);
     try {
-      const res = await fetch('/api/v1/admin/site-settings', {
+      const oldUrl = timetablePdfUrl;
+      await fetch('/api/v1/admin/site-settings', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({ key: 'timetable_pdf_url', value: '' }),
       });
-      if (!res.ok) throw new Error('Failed to remove PDF');
+
+      // Delete physical file from storage if uploaded
+      if (oldUrl && oldUrl.startsWith('/uploads/')) {
+        try {
+          await fetch(`/api/v1/admin/media/by-path?path=${encodeURIComponent(oldUrl)}`, {
+            method: 'DELETE',
+            credentials: 'include',
+          });
+        } catch (e) {
+          console.warn('Could not delete file from disk:', e);
+        }
+      }
+
       setTimetablePdfUrl('');
+      setDeletePdfModalOpen(false);
       setFeedback({
         type: 'success',
-        message: 'Official Timetable PDF removed from the public website.',
+        message: 'Official Timetable PDF removed from website and deleted from storage.',
       });
+      await loadData();
     } catch (err: any) {
       setFeedback({ type: 'error', message: err.message });
     } finally {
-      setUploadingPdf(false);
+      setDeletingPdfLoading(false);
     }
   };
 
@@ -627,20 +668,14 @@ export default function AdminPrayerTimesPage() {
                   )}
                 </Box>
 
-                <input
-                  ref={pdfInputRef}
-                  type="file"
-                  accept="application/pdf"
-                  style={{ display: 'none' }}
-                  onChange={handlePdfUpload}
-                />
-
                 <Box sx={{ display: 'flex', gap: 1.25, flexWrap: 'wrap', alignItems: 'center' }}>
                   <Button
                     variant="contained"
-                    disabled={uploadingPdf}
-                    onClick={() => pdfInputRef.current?.click()}
-                    startIcon={uploadingPdf ? <CircularProgress size={16} color="inherit" /> : <UploadFileRoundedIcon />}
+                    onClick={() => {
+                      setSelectedPdfFile(null);
+                      setPdfModalOpen(true);
+                    }}
+                    startIcon={<UploadFileRoundedIcon />}
                     sx={{
                       height: 38,
                       px: 2.5,
@@ -651,7 +686,7 @@ export default function AdminPrayerTimesPage() {
                       '&:hover': { backgroundColor: '#1E293B' },
                     }}
                   >
-                    {uploadingPdf ? 'Uploading...' : timetablePdfUrl ? 'Upload New PDF' : 'Upload PDF'}
+                    {timetablePdfUrl ? 'Upload / Replace PDF' : 'Upload PDF'}
                   </Button>
 
                   {timetablePdfUrl && (
@@ -680,8 +715,7 @@ export default function AdminPrayerTimesPage() {
                       <Button
                         variant="outlined"
                         color="error"
-                        disabled={uploadingPdf}
-                        onClick={handleRemovePdf}
+                        onClick={() => setDeletePdfModalOpen(true)}
                         startIcon={<DeleteOutlineRoundedIcon />}
                         sx={{
                           height: 38,
@@ -1116,6 +1150,7 @@ export default function AdminPrayerTimesPage() {
         </Card>
       )}
 
+      {/* Override Deletion Confirmation Modal */}
       <ConfirmDeleteModal
         open={deleteModal.open}
         onClose={() => setDeleteModal((prev) => ({ ...prev, open: false }))}
@@ -1126,6 +1161,217 @@ export default function AdminPrayerTimesPage() {
         loading={deleteModal.loading}
         confirmText="Remove Override"
       />
+
+      {/* PDF Removal Confirmation Modal */}
+      <ConfirmDeleteModal
+        open={deletePdfModalOpen}
+        onClose={() => !deletingPdfLoading && setDeletePdfModalOpen(false)}
+        onConfirm={handleConfirmRemovePdf}
+        title="Remove Official Timetable PDF?"
+        itemName={pdfDisplayName || 'Timetable PDF'}
+        description="This will remove the timetable download button from the live website and permanently delete the PDF file from server storage."
+        loading={deletingPdfLoading}
+        confirmText="Remove PDF"
+      />
+
+      {/* PDF Upload / Replace Dialog Modal */}
+      <Dialog
+        open={pdfModalOpen}
+        onClose={() => !uploadingPdf && setPdfModalOpen(false)}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: 3,
+            boxShadow: '0 20px 40px rgba(15, 23, 42, 0.16)',
+            p: 1,
+          },
+        }}
+      >
+        <DialogTitle sx={{ px: 2.5, pt: 2, pb: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
+            <Box
+              sx={{
+                width: 38,
+                height: 38,
+                borderRadius: 2,
+                backgroundColor: '#FEE2E2',
+                color: '#DC2626',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <PictureAsPdfRoundedIcon fontSize="small" />
+            </Box>
+            <Box>
+              <Typography sx={{ fontWeight: 800, fontSize: '1.05rem', color: '#0F172A' }}>
+                {timetablePdfUrl ? 'Replace Official Timetable PDF' : 'Upload Official Timetable PDF'}
+              </Typography>
+              <Typography sx={{ fontSize: '0.78rem', color: '#64748B' }}>
+                Printable PDF schedule for worshippers on https://alfalahcsc.com/prayer-times
+              </Typography>
+            </Box>
+          </Box>
+          <IconButton size="small" onClick={() => setPdfModalOpen(false)} disabled={uploadingPdf}>
+            <CloseRoundedIcon fontSize="small" />
+          </IconButton>
+        </DialogTitle>
+
+        <DialogContent sx={{ px: 2.5, py: 2 }}>
+          {/* Current file banner if exists */}
+          {timetablePdfUrl && (
+            <Box
+              sx={{
+                mb: 2.5,
+                p: 1.75,
+                borderRadius: 2,
+                backgroundColor: '#F8FAFC',
+                border: '1px solid #E2E8F0',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <Box>
+                <Typography sx={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>
+                  Currently Active on Website
+                </Typography>
+                <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#0F172A' }}>
+                  {pdfDisplayName}
+                </Typography>
+              </Box>
+              <Button
+                component="a"
+                href={timetablePdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                size="small"
+                variant="text"
+                startIcon={<OpenInNewRoundedIcon sx={{ fontSize: 14 }} />}
+                sx={{ textTransform: 'none', fontWeight: 700, fontSize: '0.78rem' }}
+              >
+                Preview
+              </Button>
+            </Box>
+          )}
+
+          {/* PDF Dropzone */}
+          <input
+            id="timetable-pdf-file-input"
+            type="file"
+            accept="application/pdf"
+            style={{ display: 'none' }}
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) setSelectedPdfFile(file);
+            }}
+          />
+
+          {!selectedPdfFile ? (
+            <Box
+              onClick={() => document.getElementById('timetable-pdf-file-input')?.click()}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => {
+                e.preventDefault();
+                const file = e.dataTransfer.files?.[0];
+                if (file && file.type === 'application/pdf') {
+                  setSelectedPdfFile(file);
+                }
+              }}
+              sx={{
+                border: '2px dashed #CBD5E1',
+                borderRadius: 2.5,
+                p: 4,
+                textAlign: 'center',
+                backgroundColor: '#F8FAFC',
+                cursor: 'pointer',
+                transition: 'all 0.15s ease',
+                '&:hover': {
+                  borderColor: '#0284C7',
+                  backgroundColor: '#F0F9FF',
+                },
+              }}
+            >
+              <CloudUploadRoundedIcon sx={{ fontSize: 42, color: '#0284C7', mb: 1 }} />
+              <Typography sx={{ fontWeight: 800, fontSize: '0.95rem', color: '#0F172A', mb: 0.5 }}>
+                Click to browse or drag &amp; drop PDF here
+              </Typography>
+              <Typography sx={{ fontSize: '0.78rem', color: '#64748B' }}>
+                Adobe PDF format only (max 10MB)
+              </Typography>
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                border: '1.5px solid #0284C7',
+                borderRadius: 2.5,
+                p: 2.5,
+                backgroundColor: '#F0F9FF',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                <PictureAsPdfRoundedIcon sx={{ color: '#DC2626', fontSize: 32 }} />
+                <Box>
+                  <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', color: '#0F172A' }}>
+                    {selectedPdfFile.name}
+                  </Typography>
+                  <Typography sx={{ fontSize: '0.76rem', color: '#64748B', fontWeight: 600 }}>
+                    {(selectedPdfFile.size / 1024 / 1024).toFixed(2)} MB • Ready to publish
+                  </Typography>
+                </Box>
+              </Box>
+
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={() => document.getElementById('timetable-pdf-file-input')?.click()}
+                sx={{ textTransform: 'none', fontWeight: 700, fontSize: '0.78rem', borderRadius: 2 }}
+              >
+                Change
+              </Button>
+            </Box>
+          )}
+
+          {/* Storage cleanup notice */}
+          <Box sx={{ mt: 2.5, p: 1.5, borderRadius: 2, backgroundColor: '#EFF6FF', border: '1px solid #DBEAFE' }}>
+            <Typography sx={{ fontSize: '0.78rem', color: '#1E40AF', lineHeight: 1.5 }}>
+              💡 <strong>Automatic Storage Cleanup:</strong> Publishing this timetable will update the public website immediately and safely remove the previous PDF file from server storage so old files do not pile up.
+            </Typography>
+          </Box>
+        </DialogContent>
+
+        <DialogActions sx={{ px: 2.5, pb: 2, pt: 1, gap: 1 }}>
+          <Button
+            variant="outlined"
+            onClick={() => setPdfModalOpen(false)}
+            disabled={uploadingPdf}
+            sx={{ fontWeight: 700, textTransform: 'none', borderRadius: 2, color: '#475569', borderColor: '#CBD5E1' }}
+          >
+            Cancel
+          </Button>
+
+          <Button
+            variant="contained"
+            disabled={!selectedPdfFile || uploadingPdf}
+            onClick={handleConfirmUploadPdf}
+            startIcon={uploadingPdf ? <CircularProgress size={16} color="inherit" /> : <UploadFileRoundedIcon />}
+            sx={{
+              fontWeight: 700,
+              textTransform: 'none',
+              borderRadius: 2,
+              px: 3,
+              backgroundColor: '#0284C7',
+              '&:hover': { backgroundColor: '#0369A1' },
+            }}
+          >
+            {uploadingPdf ? 'Uploading & Publishing...' : 'Upload & Publish to Website'}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

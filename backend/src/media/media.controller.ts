@@ -4,6 +4,7 @@ import {
   Post,
   Delete,
   Param,
+  Query,
   Body,
   UseInterceptors,
   UploadedFile,
@@ -101,6 +102,19 @@ export class MediaController {
       admin.id,
       admin.email,
     );
+  }
+
+  @Delete('by-path')
+  @ApiOperation({ summary: 'Delete a media asset by its storage path' })
+  async deleteMediaByPath(
+    @Query('path') storagePath: string,
+    @CurrentUser() admin: AdminUser,
+  ) {
+    if (!storagePath) {
+      throw new BadRequestException('Path parameter is required');
+    }
+    const deleted = await this.mediaService.deleteMediaByPath(storagePath);
+    return { success: deleted, message: 'File cleanup completed' };
   }
 
   @Delete(':id')

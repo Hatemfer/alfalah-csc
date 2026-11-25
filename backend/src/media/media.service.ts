@@ -87,4 +87,25 @@ export class MediaService {
 
     return { message: 'Media removed successfully' };
   }
+
+  async deleteMediaByPath(storagePath: string): Promise<boolean> {
+    if (!storagePath || !storagePath.startsWith('/uploads/')) {
+      return false;
+    }
+    const filename = path.basename(storagePath);
+    const filePath = path.join(this.uploadDir, filename);
+    if (fs.existsSync(filePath)) {
+      try {
+        fs.unlinkSync(filePath);
+      } catch (err) {
+        console.warn(`Could not delete file ${filePath}:`, err);
+      }
+    }
+
+    const asset = await this.mediaRepo.findOne({ where: { filename } });
+    if (asset) {
+      await this.mediaRepo.remove(asset);
+    }
+    return true;
+  }
 }
