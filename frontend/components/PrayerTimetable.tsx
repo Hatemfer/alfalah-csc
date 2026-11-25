@@ -184,7 +184,7 @@ export default function PrayerTimetable({
           const s = await settingsRes.json();
           if (isMounted) {
             if (s.jumuah_time) setJumuahTime(s.jumuah_time);
-            if (s.timetable_pdf_url) setTimetablePdfUrl(s.timetable_pdf_url);
+            if (s.timetable_pdf_url !== undefined) setTimetablePdfUrl(s.timetable_pdf_url);
           }
         }
       } catch (err) {
@@ -1175,6 +1175,7 @@ export default function PrayerTimetable({
       </div>
 
       {/* SECTION 2: OFFICIAL BI-MONTHLY TIMETABLE PDF */}
+      {timetablePdfUrl && timetablePdfUrl.trim().length > 0 && (
       <div
         className="official-timetable-card"
         style={{
@@ -1238,6 +1239,7 @@ export default function PrayerTimetable({
           </a>
         </div>
       </div>
+      )}
 
       {/* Responsive Styles for Clean Mobile Layout */}
       <style jsx global>{`

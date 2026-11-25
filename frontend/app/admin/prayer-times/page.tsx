@@ -111,7 +111,7 @@ export default function AdminPrayerTimesPage() {
       if (siteRes.ok) {
         const s = await siteRes.json();
         if (s.jumuah_time) setJumuahTime(s.jumuah_time);
-        if (s.timetable_pdf_url) setTimetablePdfUrl(s.timetable_pdf_url);
+        if (s.timetable_pdf_url !== undefined) setTimetablePdfUrl(s.timetable_pdf_url);
       }
     } catch (e) {
       console.error(e);
@@ -275,9 +275,15 @@ export default function AdminPrayerTimesPage() {
       const uploadedUrl = data.url || data.filePath;
       if (uploadedUrl) {
         setTimetablePdfUrl(uploadedUrl);
+        await fetch('/api/v1/admin/site-settings', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ key: 'timetable_pdf_url', value: uploadedUrl }),
+        });
         setFeedback({
           type: 'success',
-          message: 'PDF uploaded! Click "Save Jumu’ah & PDF" to publish it to the website.',
+          message: `Uploaded "${file.name}" and published it as the live Official Timetable PDF.`,
         });
       }
     } catch (err: any) {
@@ -285,6 +291,29 @@ export default function AdminPrayerTimesPage() {
     } finally {
       setUploadingPdf(false);
       if (pdfInputRef.current) pdfInputRef.current.value = '';
+    }
+  };
+
+  const handleRemovePdf = async () => {
+    setSavingJumuahPdf(true);
+    setFeedback(null);
+    try {
+      const res = await fetch('/api/v1/admin/site-settings', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ key: 'timetable_pdf_url', value: '' }),
+      });
+      if (!res.ok) throw new Error('Failed to remove PDF');
+      setTimetablePdfUrl('');
+      setFeedback({
+        type: 'success',
+        message: 'Official Timetable PDF removed. The download card is now hidden on the public website until you upload a new one.',
+      });
+    } catch (err: any) {
+      setFeedback({ type: 'error', message: err.message });
+    } finally {
+      setSavingJumuahPdf(false);
     }
   };
 
@@ -987,19 +1016,32 @@ export default function AdminPrayerTimesPage() {
                     color: '#334155',
                   }}
                 >
-                  {uploadingPdf ? 'Uploading...' : 'Upload PDF'}
+                  {uploadingPdf ? 'Uploading...' : timetablePdfUrl ? 'Replace PDF' : 'Upload PDF'}
                 </Button>
-                <Tooltip title="Preview current PDF">
-                  <IconButton
-                    component="a"
-                    href={timetablePdfUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    sx={{ border: '1px solid #E2E8F0', borderRadius: 2 }}
-                  >
-                    <OpenInNewRoundedIcon fontSize="small" />
-                  </IconButton>
-                </Tooltip>
+                {timetablePdfUrl && (
+                  <>
+                    <Tooltip title="Preview current PDF">
+                      <IconButton
+                        component="a"
+                        href={timetablePdfUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        sx={{ border: '1px solid #E2E8F0', borderRadius: 2 }}
+                      >
+                        <OpenInNewRoundedIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Remove PDF from website">
+                      <IconButton
+                        onClick={handleRemovePdf}
+                        disabled={savingJumuahPdf}
+                        sx={{ border: '1px solid #FECACA', borderRadius: 2, color: '#DC2626', '&:hover': { backgroundColor: '#FEF2F2' } }}
+                      >
+                        <DeleteOutlineRoundedIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                  </>
+                )}
               </Box>
             </Grid>
 
