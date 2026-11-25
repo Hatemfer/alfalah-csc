@@ -79,7 +79,7 @@ export function ImageUploadPicker({
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.5 }}>
+      <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.5 }}>
         {label}
       </Typography>
 
@@ -105,9 +105,9 @@ export function ImageUploadPicker({
             alignItems: 'center',
             gap: 2,
             p: 1.5,
-            border: '1px solid #E2E8F0',
+            border: '1px solid', borderColor: 'divider',
             borderRadius: '12px',
-            backgroundColor: '#F8FAFC',
+            backgroundColor: 'background.default',
           }}
         >
           <Box
@@ -131,14 +131,14 @@ export function ImageUploadPicker({
           <Box sx={{ flex: 1, minWidth: 0 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.25 }}>
               <CheckCircleIcon sx={{ fontSize: 16, color: '#10B981' }} />
-              <Typography variant="caption" sx={{ fontWeight: 700, color: '#0F172A' }}>
+              <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.primary' }}>
                 Image attached
               </Typography>
             </Box>
             <Typography
               variant="caption"
               sx={{
-                color: '#64748B',
+                color: 'text.secondary',
                 display: 'block',
                 textOverflow: 'ellipsis',
                 overflow: 'hidden',
@@ -181,7 +181,7 @@ export function ImageUploadPicker({
             borderRadius: '12px',
             p: 2.5,
             textAlign: 'center',
-            backgroundColor: '#F8FAFC',
+            backgroundColor: 'background.default',
             cursor: uploading ? 'default' : 'pointer',
             transition: 'all 0.2s ease',
             '&:hover': {
@@ -193,17 +193,17 @@ export function ImageUploadPicker({
           {uploading ? (
             <Box sx={{ py: 1 }}>
               <CircularProgress size={28} sx={{ color: '#3988CA', mb: 1 }} />
-              <Typography variant="body2" sx={{ fontWeight: 600, color: '#0F172A' }}>
+              <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.primary' }}>
                 Uploading image to media library...
               </Typography>
             </Box>
           ) : (
             <>
               <CloudUploadOutlinedIcon sx={{ fontSize: 36, color: '#3988CA', mb: 0.5 }} />
-              <Typography variant="body2" sx={{ fontWeight: 700, color: '#0F172A', mb: 0.25 }}>
+              <Typography variant="body2" sx={{ fontWeight: 700, color: 'text.primary', mb: 0.25 }}>
                 Click to upload cover photo
               </Typography>
-              <Typography variant="caption" sx={{ color: '#64748B', display: 'block' }}>
+              <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block' }}>
                 PNG, JPG, or WebP up to 10MB
               </Typography>
             </>
@@ -213,14 +213,14 @@ export function ImageUploadPicker({
 
       {/* Manual URL link toggle */}
       <Box sx={{ mt: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography variant="caption" sx={{ color: '#64748B' }}>
+        <Typography variant="caption" sx={{ color: 'text.secondary' }}>
           {helperText}
         </Typography>
         <Button
           size="small"
           onClick={() => setShowUrlInput(!showUrlInput)}
           startIcon={<LinkIcon fontSize="small" />}
-          sx={{ textTransform: 'none', fontSize: '0.75rem', p: 0, minWidth: 'auto', color: '#64748B' }}
+          sx={{ textTransform: 'none', fontSize: '0.75rem', p: 0, minWidth: 'auto', color: 'text.secondary' }}
         >
           {showUrlInput ? 'Hide URL field' : 'Enter URL manually'}
         </Button>
@@ -237,7 +237,7 @@ export function ImageUploadPicker({
             sx={{
               '& .MuiOutlinedInput-root': {
                 fontSize: '0.82rem',
-                backgroundColor: '#FFFFFF',
+                backgroundColor: 'background.paper',
               },
             }}
           />

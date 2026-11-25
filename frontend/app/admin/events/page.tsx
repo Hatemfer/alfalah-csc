@@ -204,10 +204,10 @@ export default function AdminEventsPage() {
     <Box>
       <Box sx={{ mb: 3.5, display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', sm: 'center' }, gap: 2 }}>
         <div>
-          <Typography variant="h5" sx={{ fontWeight: 800, color: '#0F172A' }}>
+          <Typography variant="h5" sx={{ fontWeight: 800, color: 'text.primary' }}>
             Events & Courses Scheduling
           </Typography>
-          <Typography variant="body2" sx={{ color: '#64748B', mt: 0.5 }}>
+          <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }}>
             Manage upcoming community lectures, short courses, and centre gatherings.
           </Typography>
         </div>
@@ -247,24 +247,24 @@ export default function AdminEventsPage() {
           <CircularProgress sx={{ color: '#3988CA' }} />
         </Box>
       ) : (
-        <Card sx={{ borderRadius: '14px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
+        <Card sx={{ borderRadius: '14px', border: '1px solid', borderColor: 'divider', overflow: 'hidden' }}>
           <TableContainer>
             <Table>
               <TableHead>
-                <TableRow sx={{ backgroundColor: '#F8FAFC' }}>
-                  <TableCell sx={{ fontWeight: 700, color: '#475569', fontSize: '0.78rem' }}>EVENT TITLE</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: '#475569', fontSize: '0.78rem' }}>CATEGORY</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: '#475569', fontSize: '0.78rem' }}>DATE & TIME</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: '#475569', fontSize: '0.78rem' }}>VENUE</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: '#475569', fontSize: '0.78rem' }}>STATUS</TableCell>
-                  <TableCell align="right" sx={{ fontWeight: 700, color: '#475569', fontSize: '0.78rem' }}>ACTIONS</TableCell>
+                <TableRow sx={{ backgroundColor: 'background.default' }}>
+                  <TableCell sx={{ fontWeight: 700, color: 'text.secondary', fontSize: '0.78rem' }}>EVENT TITLE</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: 'text.secondary', fontSize: '0.78rem' }}>CATEGORY</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: 'text.secondary', fontSize: '0.78rem' }}>DATE & TIME</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: 'text.secondary', fontSize: '0.78rem' }}>VENUE</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: 'text.secondary', fontSize: '0.78rem' }}>STATUS</TableCell>
+                  <TableCell align="right" sx={{ fontWeight: 700, color: 'text.secondary', fontSize: '0.78rem' }}>ACTIONS</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {events.length > 0 ? (
                   events.map((ev) => (
-                    <TableRow key={ev.id} hover sx={{ '&:hover': { backgroundColor: '#F8FAFC' } }}>
-                      <TableCell sx={{ fontWeight: 700, color: '#0F172A', minWidth: 220 }}>
+                    <TableRow key={ev.id} hover sx={{ '&:hover': { backgroundColor: 'background.default' } }}>
+                      <TableCell sx={{ fontWeight: 700, color: 'text.primary', minWidth: 220 }}>
                         {ev.title}
                         {ev.isFeatured && (
                           <Chip label="Featured" size="small" sx={{ ml: 1, height: 20, fontSize: '0.68rem', backgroundColor: '#FEF3C7', color: '#B45309', fontWeight: 800 }} />
@@ -274,10 +274,10 @@ export default function AdminEventsPage() {
                         <Chip
                           label={ev.category}
                           size="small"
-                          sx={{ fontWeight: 700, fontSize: '0.72rem', backgroundColor: '#F1F5F9', color: '#334155' }}
+                          sx={{ fontWeight: 700, fontSize: '0.72rem', backgroundColor: '#F1F5F9', color: 'text.primary' }}
                         />
                       </TableCell>
-                      <TableCell sx={{ color: '#475569', fontSize: '0.85rem' }}>
+                      <TableCell sx={{ color: 'text.secondary', fontSize: '0.85rem' }}>
                         {new Date(ev.startTime).toLocaleString('en-GB', {
                           day: 'numeric',
                           month: 'short',
@@ -285,7 +285,7 @@ export default function AdminEventsPage() {
                           minute: '2-digit',
                         })}
                       </TableCell>
-                      <TableCell sx={{ color: '#64748B', fontSize: '0.82rem', maxWidth: 220 }}>
+                      <TableCell sx={{ color: 'text.secondary', fontSize: '0.82rem', maxWidth: 220 }}>
                         {ev.venue}
                       </TableCell>
                       <TableCell sx={{ whiteSpace: 'nowrap' }}>
@@ -307,7 +307,7 @@ export default function AdminEventsPage() {
                             onClick={() => handleOpenEdit(ev)}
                             sx={{
                               color: '#3988CA',
-                              border: '1px solid #E2E8F0',
+                              border: '1px solid', borderColor: 'divider',
                               mr: 1,
                               '&:hover': { backgroundColor: '#F0F9FF' },
                             }}
@@ -334,12 +334,12 @@ export default function AdminEventsPage() {
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={6} sx={{ textAlign: 'center', py: 6, color: '#64748B' }}>
+                    <TableCell colSpan={6} sx={{ textAlign: 'center', py: 6, color: 'text.secondary' }}>
                       <EventIcon sx={{ fontSize: 48, color: '#94A3B8', opacity: 0.4, mb: 1, display: 'block', mx: 'auto' }} />
-                      <Typography variant="body1" sx={{ fontWeight: 700, color: '#0F172A', mb: 0.5 }}>
+                      <Typography variant="body1" sx={{ fontWeight: 700, color: 'text.primary', mb: 0.5 }}>
                         No events scheduled
                       </Typography>
-                      <Typography variant="body2" sx={{ color: '#64748B' }}>
+                      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                         Click &quot;Schedule New Event&quot; above to add your first lecture or course.
                       </Typography>
                     </TableCell>
@@ -368,7 +368,7 @@ export default function AdminEventsPage() {
           sx={{
             p: 2.5,
             pb: 2,
-            borderBottom: '1px solid #E2E8F0',
+            borderBottom: '1px solid', borderColor: 'divider',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -390,10 +390,10 @@ export default function AdminEventsPage() {
               <EventIcon sx={{ fontSize: 20 }} />
             </Box>
             <div>
-              <Typography variant="h6" sx={{ fontWeight: 800, color: '#0F172A', fontSize: '1.15rem' }}>
+              <Typography variant="h6" sx={{ fontWeight: 800, color: 'text.primary', fontSize: '1.15rem' }}>
                 {editingId ? 'Edit Event Details' : 'Schedule New Event'}
               </Typography>
-              <Typography variant="caption" sx={{ color: '#64748B' }}>
+              <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                 Configure dates, speaker, lecture notes, and venue information
               </Typography>
             </div>
@@ -403,7 +403,7 @@ export default function AdminEventsPage() {
             size="small"
             onClick={() => setDialogOpen(false)}
             disabled={saving}
-            sx={{ color: '#94A3B8', '&:hover': { color: '#0F172A' } }}
+            sx={{ color: '#94A3B8', '&:hover': { color: 'text.primary' } }}
           >
             <CloseIcon fontSize="small" />
           </IconButton>
@@ -412,7 +412,7 @@ export default function AdminEventsPage() {
         <DialogContent sx={{ p: 3 }}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
-              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Event Title <span style={{ color: '#DC2626' }}>*</span>
               </Typography>
               <TextField
@@ -428,12 +428,12 @@ export default function AdminEventsPage() {
                   });
                 }}
                 placeholder="e.g. Weekly Quran Tafsir with Sheikh Jamal"
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: '#F8FAFC' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: 'background.default' } }}
               />
             </Grid>
 
             <Grid item xs={12} sm={4}>
-              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Category <span style={{ color: '#DC2626' }}>*</span>
               </Typography>
               <TextField
@@ -442,7 +442,7 @@ export default function AdminEventsPage() {
                 size="small"
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: '#F8FAFC' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: 'background.default' } }}
               >
                 {EVENT_CATEGORIES.map((cat) => (
                   <MenuItem key={cat} value={cat}>
@@ -453,7 +453,7 @@ export default function AdminEventsPage() {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Start Date & Time <span style={{ color: '#DC2626' }}>*</span>
               </Typography>
               <TextField
@@ -462,12 +462,12 @@ export default function AdminEventsPage() {
                 size="small"
                 value={formData.startTime}
                 onChange={(e) => setFormData({ ...formData, startTime: e.target.value })}
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: '#F8FAFC' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: 'background.default' } }}
               />
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 End Date & Time <span style={{ color: '#DC2626' }}>*</span>
               </Typography>
               <TextField
@@ -476,12 +476,12 @@ export default function AdminEventsPage() {
                 size="small"
                 value={formData.endTime}
                 onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: '#F8FAFC' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: 'background.default' } }}
               />
             </Grid>
 
             <Grid item xs={12}>
-              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Short Summary <span style={{ color: '#DC2626' }}>*</span>
               </Typography>
               <TextField
@@ -491,12 +491,12 @@ export default function AdminEventsPage() {
                 value={formData.summary}
                 onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
                 placeholder="Brief summary shown on events directory cards..."
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: '#F8FAFC' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: 'background.default' } }}
               />
             </Grid>
 
             <Grid item xs={12}>
-              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Full Description & Notes
               </Typography>
               <TextField
@@ -506,12 +506,12 @@ export default function AdminEventsPage() {
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 placeholder="In-depth details, guest speaker bio, parking instructions..."
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: '#F8FAFC' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: 'background.default' } }}
               />
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Venue Location
               </Typography>
               <TextField
@@ -520,12 +520,12 @@ export default function AdminEventsPage() {
                 value={formData.venue}
                 onChange={(e) => setFormData({ ...formData, venue: e.target.value })}
                 placeholder="Main Prayer Hall, 89 Tindal St, Birmingham, B12 9QU"
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: '#F8FAFC' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: 'background.default' } }}
               />
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Registration URL (Optional)
               </Typography>
               <TextField
@@ -534,7 +534,7 @@ export default function AdminEventsPage() {
                 placeholder="https://..."
                 value={formData.registrationUrl}
                 onChange={(e) => setFormData({ ...formData, registrationUrl: e.target.value })}
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: '#F8FAFC' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: 'background.default' } }}
               />
             </Grid>
 
@@ -542,9 +542,9 @@ export default function AdminEventsPage() {
               <Box
                 sx={{
                   p: 2,
-                  border: '1px solid #E2E8F0',
+                  border: '1px solid', borderColor: 'divider',
                   borderRadius: '12px',
-                  backgroundColor: '#F8FAFC',
+                  backgroundColor: 'background.default',
                   display: 'flex',
                   flexDirection: { xs: 'column', sm: 'row' },
                   justifyContent: 'space-between',
@@ -562,7 +562,7 @@ export default function AdminEventsPage() {
                   label={
                     <div>
                       <Typography sx={{ fontSize: '0.88rem', fontWeight: 700 }}>Featured Event</Typography>
-                      <Typography variant="caption" sx={{ color: '#64748B' }}>Promote on homepage banner</Typography>
+                      <Typography variant="caption" sx={{ color: 'text.secondary' }}>Promote on homepage banner</Typography>
                     </div>
                   }
                 />
@@ -577,7 +577,7 @@ export default function AdminEventsPage() {
                   label={
                     <div>
                       <Typography sx={{ fontSize: '0.88rem', fontWeight: 700 }}>Publish Publicly</Typography>
-                      <Typography variant="caption" sx={{ color: '#64748B' }}>Display on alfalahcsc.com/events</Typography>
+                      <Typography variant="caption" sx={{ color: 'text.secondary' }}>Display on alfalahcsc.com/events</Typography>
                     </div>
                   }
                 />
@@ -590,7 +590,7 @@ export default function AdminEventsPage() {
           <Button
             onClick={() => setDialogOpen(false)}
             disabled={saving}
-            sx={{ color: '#64748B', fontWeight: 600, textTransform: 'none', px: 2.5 }}
+            sx={{ color: 'text.secondary', fontWeight: 600, textTransform: 'none', px: 2.5 }}
           >
             Cancel
           </Button>

@@ -80,10 +80,10 @@ export function ConfirmDeleteModal({
             <DeleteOutlineIcon sx={{ fontSize: 24 }} />
           </Box>
           <Box>
-            <Typography variant="h6" sx={{ fontWeight: 800, color: '#0F172A', fontSize: '1.1rem', lineHeight: 1.3 }}>
+            <Typography variant="h6" sx={{ fontWeight: 800, color: 'text.primary', fontSize: '1.1rem', lineHeight: 1.3 }}>
               {title}
             </Typography>
-            <Typography variant="caption" sx={{ color: '#64748B', display: 'block', mt: 0.25 }}>
+            <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mt: 0.25 }}>
               Confirm permanent deletion of this record
             </Typography>
           </Box>
@@ -95,7 +95,7 @@ export function ConfirmDeleteModal({
           disabled={loading}
           sx={{
             color: '#94A3B8',
-            '&:hover': { color: '#0F172A', backgroundColor: '#F1F5F9' },
+            '&:hover': { color: 'text.primary', backgroundColor: 'action.hover' },
           }}
         >
           <CloseIcon fontSize="small" />
@@ -104,7 +104,7 @@ export function ConfirmDeleteModal({
 
       {/* Content & Warning Card */}
       <DialogContent sx={{ p: 3, pt: 2.5, pb: 2 }}>
-        <Typography variant="body2" sx={{ color: '#475569', lineHeight: 1.6, mb: 2 }}>
+        <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.6, mb: 2 }}>
           {description || 'Are you sure you want to permanently delete this item from the database? This action cannot be undone and will immediately remove it from public view.'}
         </Typography>
 
@@ -114,8 +114,8 @@ export function ConfirmDeleteModal({
             sx={{
               p: 2,
               borderRadius: '10px',
-              backgroundColor: '#F8FAFC',
-              border: '1px solid #E2E8F0',
+              backgroundColor: 'background.default',
+              border: '1px solid', borderColor: 'divider',
               display: 'flex',
               alignItems: 'center',
               gap: 1.5,
@@ -138,14 +138,14 @@ export function ConfirmDeleteModal({
               <WarningAmberRoundedIcon sx={{ fontSize: 20 }} />
             </Box>
             <Box sx={{ minWidth: 0, flex: 1 }}>
-              <Typography variant="caption" sx={{ fontWeight: 600, color: '#64748B', display: 'block', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+              <Typography variant="caption" sx={{ fontWeight: 600, color: 'text.secondary', display: 'block', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                 Item to be removed
               </Typography>
               <Typography
                 variant="subtitle2"
                 sx={{
                   fontWeight: 800,
-                  color: '#0F172A',
+                  color: 'text.primary',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
@@ -176,13 +176,13 @@ export function ConfirmDeleteModal({
           sx={{
             px: 2.5,
             py: 0.9,
-            color: '#475569',
+            color: 'text.secondary',
             borderRadius: '8px',
             fontWeight: 600,
             textTransform: 'none',
             fontSize: '0.88rem',
             '&:hover': {
-              backgroundColor: '#F1F5F9',
+              backgroundColor: 'action.hover',
             },
           }}
         >

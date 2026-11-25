@@ -185,10 +185,10 @@ export default function AdminAnnouncementsPage() {
     <Box>
       <Box sx={{ mb: 3.5, display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', sm: 'center' }, gap: 2 }}>
         <div>
-          <Typography variant="h5" sx={{ fontWeight: 800, color: '#0F172A' }}>
+          <Typography variant="h5" sx={{ fontWeight: 800, color: 'text.primary' }}>
             Announcements & Community Notices
           </Typography>
-          <Typography variant="body2" sx={{ color: '#64748B', mt: 0.5 }}>
+          <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }}>
             Post important centre statements, seasonal schedules, Eid notices, and alerts.
           </Typography>
         </div>
@@ -228,34 +228,34 @@ export default function AdminAnnouncementsPage() {
           <CircularProgress sx={{ color: '#3988CA' }} />
         </Box>
       ) : (
-        <Card sx={{ borderRadius: '14px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
+        <Card sx={{ borderRadius: '14px', border: '1px solid', borderColor: 'divider', overflow: 'hidden' }}>
           <TableContainer>
             <Table>
               <TableHead>
-                <TableRow sx={{ backgroundColor: '#F8FAFC' }}>
-                  <TableCell sx={{ fontWeight: 700, color: '#475569', fontSize: '0.78rem' }}>NOTICE TITLE</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: '#475569', fontSize: '0.78rem' }}>TAG / BADGE</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: '#475569', fontSize: '0.78rem' }}>PINNED</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: '#475569', fontSize: '0.78rem' }}>STATUS</TableCell>
-                  <TableCell align="right" sx={{ fontWeight: 700, color: '#475569', fontSize: '0.78rem' }}>ACTIONS</TableCell>
+                <TableRow sx={{ backgroundColor: 'background.default' }}>
+                  <TableCell sx={{ fontWeight: 700, color: 'text.secondary', fontSize: '0.78rem' }}>NOTICE TITLE</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: 'text.secondary', fontSize: '0.78rem' }}>TAG / BADGE</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: 'text.secondary', fontSize: '0.78rem' }}>PINNED</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: 'text.secondary', fontSize: '0.78rem' }}>STATUS</TableCell>
+                  <TableCell align="right" sx={{ fontWeight: 700, color: 'text.secondary', fontSize: '0.78rem' }}>ACTIONS</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {announcements.length > 0 ? (
                   announcements.map((a) => (
-                    <TableRow key={a.id} hover sx={{ '&:hover': { backgroundColor: '#F8FAFC' } }}>
-                      <TableCell sx={{ fontWeight: 700, color: '#0F172A', minWidth: 260 }}>
+                    <TableRow key={a.id} hover sx={{ '&:hover': { backgroundColor: 'background.default' } }}>
+                      <TableCell sx={{ fontWeight: 700, color: 'text.primary', minWidth: 260 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                           {a.isPinned && <PushPinIcon sx={{ fontSize: 16, color: '#0284C7' }} />}
                           <span>{a.title}</span>
                         </Box>
-                        <Typography variant="caption" sx={{ color: '#64748B', display: 'block', mt: 0.5, lineHeight: 1.4 }}>
+                        <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mt: 0.5, lineHeight: 1.4 }}>
                           {a.content?.slice(0, 85)}...
                         </Typography>
                       </TableCell>
                       <TableCell>
                         {a.badgeText ? (
-                          <Chip label={a.badgeText} size="small" sx={{ fontWeight: 700, fontSize: '0.72rem', backgroundColor: '#F1F5F9', color: '#334155' }} />
+                          <Chip label={a.badgeText} size="small" sx={{ fontWeight: 700, fontSize: '0.72rem', backgroundColor: '#F1F5F9', color: 'text.primary' }} />
                         ) : (
                           <span style={{ color: '#94A3B8' }}>-</span>
                         )}
@@ -286,7 +286,7 @@ export default function AdminAnnouncementsPage() {
                             onClick={() => handleOpenEdit(a)}
                             sx={{
                               color: '#3988CA',
-                              border: '1px solid #E2E8F0',
+                              border: '1px solid', borderColor: 'divider',
                               mr: 1,
                               '&:hover': { backgroundColor: '#F0F9FF' },
                             }}
@@ -313,12 +313,12 @@ export default function AdminAnnouncementsPage() {
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={5} sx={{ textAlign: 'center', py: 6, color: '#64748B' }}>
+                    <TableCell colSpan={5} sx={{ textAlign: 'center', py: 6, color: 'text.secondary' }}>
                       <CampaignIcon sx={{ fontSize: 48, color: '#94A3B8', opacity: 0.4, mb: 1, display: 'block', mx: 'auto' }} />
-                      <Typography variant="body1" sx={{ fontWeight: 700, color: '#0F172A', mb: 0.5 }}>
+                      <Typography variant="body1" sx={{ fontWeight: 700, color: 'text.primary', mb: 0.5 }}>
                         No announcements posted
                       </Typography>
-                      <Typography variant="body2" sx={{ color: '#64748B' }}>
+                      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                         Click &quot;Post Announcement&quot; to publish notices to the homepage.
                       </Typography>
                     </TableCell>
@@ -347,7 +347,7 @@ export default function AdminAnnouncementsPage() {
           sx={{
             p: 2.5,
             pb: 2,
-            borderBottom: '1px solid #E2E8F0',
+            borderBottom: '1px solid', borderColor: 'divider',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -369,10 +369,10 @@ export default function AdminAnnouncementsPage() {
               <CampaignIcon sx={{ fontSize: 20 }} />
             </Box>
             <div>
-              <Typography variant="h6" sx={{ fontWeight: 800, color: '#0F172A', fontSize: '1.15rem' }}>
+              <Typography variant="h6" sx={{ fontWeight: 800, color: 'text.primary', fontSize: '1.15rem' }}>
                 {editingId ? 'Edit Announcement' : 'Post New Community Notice'}
               </Typography>
-              <Typography variant="caption" sx={{ color: '#64748B' }}>
+              <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                 Notices appear on the website header banner, homepage notices, and announcements page
               </Typography>
             </div>
@@ -382,7 +382,7 @@ export default function AdminAnnouncementsPage() {
             size="small"
             onClick={() => setDialogOpen(false)}
             disabled={saving}
-            sx={{ color: '#94A3B8', '&:hover': { color: '#0F172A' } }}
+            sx={{ color: '#94A3B8', '&:hover': { color: 'text.primary' } }}
           >
             <CloseIcon fontSize="small" />
           </IconButton>
@@ -391,7 +391,7 @@ export default function AdminAnnouncementsPage() {
         <DialogContent sx={{ p: 3 }}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
-              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Notice Title <span style={{ color: '#DC2626' }}>*</span>
               </Typography>
               <TextField
@@ -400,12 +400,12 @@ export default function AdminAnnouncementsPage() {
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 placeholder="e.g. Ramadan Timetable & Taraweeh Arrangements"
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: '#F8FAFC' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: 'background.default' } }}
               />
             </Grid>
 
             <Grid item xs={12} sm={4}>
-              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Badge Tag
               </Typography>
               <TextField
@@ -414,12 +414,12 @@ export default function AdminAnnouncementsPage() {
                 value={formData.badgeText}
                 onChange={(e) => setFormData({ ...formData, badgeText: e.target.value })}
                 placeholder="e.g. Urgent, Eid, Notice"
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: '#F8FAFC' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: 'background.default' } }}
               />
             </Grid>
 
             <Grid item xs={12}>
-              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Notice Content <span style={{ color: '#DC2626' }}>*</span>
               </Typography>
               <TextField
@@ -429,12 +429,12 @@ export default function AdminAnnouncementsPage() {
                 value={formData.content}
                 onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                 placeholder="Full announcement text, instructions, and relevant contact details..."
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: '#F8FAFC' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: 'background.default' } }}
               />
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Automatic Expiration (Optional)
               </Typography>
               <TextField
@@ -444,7 +444,7 @@ export default function AdminAnnouncementsPage() {
                 value={formData.expiresAt}
                 onChange={(e) => setFormData({ ...formData, expiresAt: e.target.value })}
                 helperText="Notice will automatically unpin and archive after this date."
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: '#F8FAFC' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: 'background.default' } }}
               />
             </Grid>
 
@@ -452,9 +452,9 @@ export default function AdminAnnouncementsPage() {
               <Box
                 sx={{
                   p: 2,
-                  border: '1px solid #E2E8F0',
+                  border: '1px solid', borderColor: 'divider',
                   borderRadius: '12px',
-                  backgroundColor: '#F8FAFC',
+                  backgroundColor: 'background.default',
                   display: 'flex',
                   flexDirection: { xs: 'column', sm: 'row' },
                   justifyContent: 'space-between',
@@ -472,7 +472,7 @@ export default function AdminAnnouncementsPage() {
                   label={
                     <div>
                       <Typography sx={{ fontSize: '0.88rem', fontWeight: 700 }}>Pin Announcement</Typography>
-                      <Typography variant="caption" sx={{ color: '#64748B' }}>Keep pinned prominently at top of homepage</Typography>
+                      <Typography variant="caption" sx={{ color: 'text.secondary' }}>Keep pinned prominently at top of homepage</Typography>
                     </div>
                   }
                 />
@@ -487,7 +487,7 @@ export default function AdminAnnouncementsPage() {
                   label={
                     <div>
                       <Typography sx={{ fontSize: '0.88rem', fontWeight: 700 }}>Publish Immediately</Typography>
-                      <Typography variant="caption" sx={{ color: '#64748B' }}>Visible publicly on alfalahcsc.com</Typography>
+                      <Typography variant="caption" sx={{ color: 'text.secondary' }}>Visible publicly on alfalahcsc.com</Typography>
                     </div>
                   }
                 />
@@ -500,7 +500,7 @@ export default function AdminAnnouncementsPage() {
           <Button
             onClick={() => setDialogOpen(false)}
             disabled={saving}
-            sx={{ color: '#64748B', fontWeight: 600, textTransform: 'none', px: 2.5 }}
+            sx={{ color: 'text.secondary', fontWeight: 600, textTransform: 'none', px: 2.5 }}
           >
             Cancel
           </Button>

@@ -17,9 +17,8 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  IconButton,
-  Tooltip,
   Avatar,
+  useTheme,
 } from '@mui/material';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import EventIcon from '@mui/icons-material/Event';
@@ -35,16 +34,14 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import SettingsIcon from '@mui/icons-material/Settings';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import VideocamIcon from '@mui/icons-material/Videocam';
 import SendIcon from '@mui/icons-material/Send';
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 
 interface ContactMessage {
   id: string;
-  fullName: string;
+  name?: string;
+  fullName?: string;
   email: string;
   phone?: string;
   subject?: string;
@@ -64,6 +61,8 @@ interface Announcement {
 
 export default function AdminDashboardPage() {
   const { admin } = useAdminAuth();
+  const muiTheme = useTheme();
+  const isDark = muiTheme.palette.mode === 'dark';
 
   const [stats, setStats] = useState({
     activitiesCount: 0,
@@ -158,7 +157,7 @@ export default function AdminDashboardPage() {
   if (loading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 400 }}>
-        <CircularProgress sx={{ color: '#3988CA' }} />
+        <CircularProgress color="primary" />
       </Box>
     );
   }
@@ -170,8 +169,8 @@ export default function AdminDashboardPage() {
       count: stats.activitiesCount,
       href: '/admin/activities',
       icon: VolunteerActivismIcon,
-      color: '#0284C7',
-      bgColor: '#E0F2FE',
+      color: '#38BDF8',
+      bgColor: isDark ? 'rgba(56, 189, 248, 0.14)' : '#E0F2FE',
       status: 'Active on Website',
     },
     {
@@ -180,8 +179,8 @@ export default function AdminDashboardPage() {
       count: stats.eventsCount,
       href: '/admin/events',
       icon: EventIcon,
-      color: '#6366F1',
-      bgColor: '#EEF2FF',
+      color: '#818CF8',
+      bgColor: isDark ? 'rgba(129, 140, 248, 0.14)' : '#EEF2FF',
       status: 'Public Registration',
     },
     {
@@ -190,8 +189,8 @@ export default function AdminDashboardPage() {
       count: stats.announcementsCount,
       href: '/admin/announcements',
       icon: CampaignIcon,
-      color: '#D97706',
-      bgColor: '#FEF3C7',
+      color: '#FBBF24',
+      bgColor: isDark ? 'rgba(251, 191, 36, 0.14)' : '#FEF3C7',
       status: 'Live on Homepage',
     },
     {
@@ -200,10 +199,17 @@ export default function AdminDashboardPage() {
       count: stats.messagesCount,
       href: '/admin/contact-messages',
       icon: EmailIcon,
-      color: stats.unreadMessagesCount > 0 ? '#E11D48' : '#059669',
-      bgColor: stats.unreadMessagesCount > 0 ? '#FFE4E6' : '#ECFDF5',
+      color: stats.unreadMessagesCount > 0 ? '#FB7185' : '#34D399',
+      bgColor:
+        stats.unreadMessagesCount > 0
+          ? isDark
+            ? 'rgba(251, 113, 133, 0.14)'
+            : '#FFE4E6'
+          : isDark
+          ? 'rgba(52, 211, 153, 0.14)'
+          : '#ECFDF5',
       badge: stats.unreadMessagesCount > 0 ? `${stats.unreadMessagesCount} New` : undefined,
-      status: stats.unreadMessagesCount > 0 ? 'Requires Attention' : 'All Inquiries Addressed',
+      status: stats.unreadMessagesCount > 0 ? 'Requires Attention' : 'All Addressed',
     },
     {
       title: 'Gallery & Media',
@@ -211,24 +217,24 @@ export default function AdminDashboardPage() {
       count: stats.galleryCount,
       href: '/admin/media',
       icon: PermMediaIcon,
-      color: '#0D9488',
-      bgColor: '#CCFBF1',
+      color: '#2DD4BF',
+      bgColor: isDark ? 'rgba(45, 212, 191, 0.14)' : '#CCFBF1',
       status: 'Live on /gallery',
     },
   ];
+
+  const getSenderName = (msg: ContactMessage) =>
+    msg.name?.trim() || msg.fullName?.trim() || 'Community Member';
 
   return (
     <Box sx={{ maxWidth: 1280, mx: 'auto', pb: 6 }}>
       {/* ============================================================== */}
       {/* 1. EXECUTIVE COMMAND HEADER */}
       {/* ============================================================== */}
-      <Box
+      <Card
         sx={{
           p: { xs: 2.5, md: 3 },
-          borderRadius: '20px',
-          backgroundColor: '#FFFFFF',
-          border: '1px solid #E2E8F0',
-          boxShadow: '0 2px 10px rgba(15,23,42,0.03)',
+          borderRadius: '18px',
           mb: 3.5,
           display: 'flex',
           flexDirection: { xs: 'column', md: 'row' },
@@ -239,24 +245,24 @@ export default function AdminDashboardPage() {
       >
         <Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25, mb: 0.5, flexWrap: 'wrap' }}>
-            <Typography variant="h5" sx={{ fontWeight: 800, color: '#0F172A', letterSpacing: '-0.02em' }}>
+            <Typography variant="h5" sx={{ fontWeight: 800, color: 'text.primary', letterSpacing: '-0.02em' }}>
               Welcome back, {admin?.fullName || 'Super Admin'}
             </Typography>
             <Chip
-              icon={<CheckCircleIcon sx={{ fontSize: '14px !important', color: '#16A34A' }} />}
+              icon={<CheckCircleIcon sx={{ fontSize: '14px !important', color: '#22C55E' }} />}
               label="Live Production Active"
               size="small"
               sx={{
                 fontSize: '0.72rem',
                 fontWeight: 700,
-                backgroundColor: '#DCFCE7',
-                color: '#15803D',
+                backgroundColor: isDark ? 'rgba(34, 197, 94, 0.15)' : '#DCFCE7',
+                color: isDark ? '#4ADE80' : '#15803D',
                 borderRadius: '9999px',
               }}
             />
           </Box>
-          <Typography variant="body2" sx={{ color: '#64748B' }}>
-            Al Falah Community Support Centre • 89 Tindal Street, Balsall Heath, Birmingham B12 9QU • Charity #1150221
+          <Typography variant="body2" color="text.secondary">
+            {siteSettings.org_address || '89 Tindal Street, Balsall Heath, Birmingham B12 9QU'} • Charity #{siteSettings.org_charity_number || '1150221'}
           </Typography>
         </Box>
 
@@ -269,9 +275,8 @@ export default function AdminDashboardPage() {
             rel="noopener noreferrer"
             endIcon={<OpenInNewIcon fontSize="small" />}
             sx={{
-              borderColor: '#CBD5E1',
-              color: '#334155',
-              textTransform: 'none',
+              borderColor: 'divider',
+              color: 'text.primary',
               fontWeight: 700,
               borderRadius: '9999px',
               px: 2,
@@ -280,26 +285,25 @@ export default function AdminDashboardPage() {
             Open Live Website
           </Button>
 
-          <Button
-            variant="contained"
-            size="small"
-            href="/admin/announcements"
-            startIcon={<AddIcon fontSize="small" />}
-            sx={{
-              backgroundColor: '#3988CA',
-              color: '#ffffff',
-              textTransform: 'none',
-              fontWeight: 700,
-              borderRadius: '9999px',
-              px: 2.2,
-              boxShadow: 'none',
-              '&:hover': { backgroundColor: '#2b6ea6', boxShadow: 'none' },
-            }}
-          >
-            Post Announcement
-          </Button>
+          <Link href="/admin/announcements" style={{ textDecoration: 'none' }}>
+            <Button
+              variant="contained"
+              size="small"
+              startIcon={<AddIcon fontSize="small" />}
+              sx={{
+                backgroundColor: '#3988CA',
+                color: '#ffffff',
+                fontWeight: 700,
+                borderRadius: '9999px',
+                px: 2.2,
+                '&:hover': { backgroundColor: '#2b6ea6' },
+              }}
+            >
+              Post Announcement
+            </Button>
+          </Link>
         </Box>
-      </Box>
+      </Card>
 
       {/* ============================================================== */}
       {/* 2. TOP METRIC CARDS (5 KPIs) */}
@@ -315,12 +319,12 @@ export default function AdminDashboardPage() {
                   display: 'flex',
                   flexDirection: 'column',
                   borderRadius: '16px',
-                  border: '1px solid #E2E8F0',
-                  boxShadow: '0 2px 8px rgba(15,23,42,0.03)',
                   transition: 'transform 0.2s ease, box-shadow 0.2s ease',
                   '&:hover': {
                     transform: 'translateY(-2px)',
-                    boxShadow: '0 6px 18px rgba(15,23,42,0.06)',
+                    boxShadow: isDark
+                      ? '0 8px 24px rgba(0, 0, 0, 0.45)'
+                      : '0 6px 18px rgba(15, 23, 42, 0.08)',
                   },
                 }}
               >
@@ -349,22 +353,22 @@ export default function AdminDashboardPage() {
                           fontSize: '0.68rem',
                           fontWeight: 800,
                           height: 20,
-                          backgroundColor: '#FFE4E6',
-                          color: '#E11D48',
+                          backgroundColor: isDark ? 'rgba(244, 63, 94, 0.18)' : '#FFE4E6',
+                          color: isDark ? '#FDA4AF' : '#E11D48',
                         }}
                       />
                     )}
                   </Box>
 
-                  <Typography variant="h4" sx={{ fontWeight: 800, color: '#0F172A', mb: 0.25, letterSpacing: '-0.02em' }}>
+                  <Typography variant="h4" sx={{ fontWeight: 800, color: 'text.primary', mb: 0.25, letterSpacing: '-0.02em' }}>
                     {card.count}
                   </Typography>
 
-                  <Typography variant="subtitle2" sx={{ fontWeight: 800, color: '#0F172A', lineHeight: 1.3 }}>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 800, color: 'text.primary', lineHeight: 1.3 }}>
                     {card.title}
                   </Typography>
 
-                  <Typography variant="caption" sx={{ color: '#64748B', display: 'block', mt: 0.25 }}>
+                  <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.25 }}>
                     {card.subtitle}
                   </Typography>
                 </CardContent>
@@ -376,11 +380,12 @@ export default function AdminDashboardPage() {
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    borderTop: '1px solid #F1F5F9',
-                    backgroundColor: '#F8FAFC',
+                    borderTop: '1px solid',
+                    borderColor: 'divider',
+                    backgroundColor: 'background.default',
                   }}
                 >
-                  <Typography variant="caption" sx={{ fontWeight: 600, color: '#64748B' }}>
+                  <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
                     {card.status}
                   </Typography>
 
@@ -389,10 +394,9 @@ export default function AdminDashboardPage() {
                       size="small"
                       endIcon={<ArrowForwardIcon sx={{ fontSize: 13 }} />}
                       sx={{
-                        textTransform: 'none',
                         fontSize: '0.75rem',
                         fontWeight: 700,
-                        color: '#3988CA',
+                        color: 'primary.main',
                         p: 0,
                         minWidth: 'auto',
                       }}
@@ -414,9 +418,9 @@ export default function AdminDashboardPage() {
         sx={{
           mb: 3.5,
           borderRadius: '16px',
-          border: '1px solid #E2E8F0',
-          boxShadow: '0 2px 10px rgba(15,23,42,0.03)',
-          background: 'linear-gradient(135deg, #F0F9FF 0%, #FFFFFF 100%)',
+          background: isDark
+            ? 'linear-gradient(135deg, rgba(57, 136, 202, 0.14) 0%, #111d30 100%)'
+            : 'linear-gradient(135deg, #F0F9FF 0%, #FFFFFF 100%)',
         }}
       >
         <CardContent sx={{ p: { xs: 2.5, md: 3 } }}>
@@ -437,24 +441,24 @@ export default function AdminDashboardPage() {
                 <AccessTimeFilledIcon fontSize="small" />
               </Box>
               <Box>
-                <Typography variant="subtitle1" sx={{ fontWeight: 800, color: '#0F172A' }}>
-                  Today's Congregational Prayer Timetable
+                <Typography variant="subtitle1" sx={{ fontWeight: 800, color: 'text.primary' }}>
+                  Today&apos;s Congregational Prayer Timetable
                 </Typography>
-                <Typography variant="caption" sx={{ color: '#64748B' }}>
-                  Live Birmingham schedule syncing directly to the homepage and worshippers' mobile display.
+                <Typography variant="caption" color="text.secondary">
+                  Live Birmingham schedule syncing directly to the homepage and worshippers&apos; mobile display.
                 </Typography>
               </Box>
             </Box>
 
-            <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center', flexWrap: 'wrap' }}>
               <Chip
                 label={`Friday Jumu'ah: ${siteSettings.jumuah_time || '13:00'}`}
                 size="small"
                 sx={{
                   fontWeight: 700,
                   fontSize: '0.75rem',
-                  backgroundColor: '#DCEEFF',
-                  color: '#0284C7',
+                  backgroundColor: isDark ? 'rgba(57, 136, 202, 0.22)' : '#DCEEFF',
+                  color: isDark ? '#7DD3FC' : '#0284C7',
                 }}
               />
               <Link href="/admin/prayer-times" style={{ textDecoration: 'none' }}>
@@ -464,9 +468,8 @@ export default function AdminDashboardPage() {
                   endIcon={<ArrowForwardIcon fontSize="small" />}
                   sx={{
                     borderRadius: '8px',
-                    borderColor: '#3988CA',
-                    color: '#3988CA',
-                    textTransform: 'none',
+                    borderColor: 'primary.main',
+                    color: 'primary.main',
                     fontWeight: 700,
                   }}
                 >
@@ -490,19 +493,20 @@ export default function AdminDashboardPage() {
                 <Box
                   sx={{
                     p: 1.5,
-                    backgroundColor: '#FFFFFF',
+                    backgroundColor: 'background.paper',
                     borderRadius: '12px',
-                    border: '1px solid #E2E8F0',
+                    border: '1px solid',
+                    borderColor: 'divider',
                     textAlign: 'center',
                   }}
                 >
-                  <Typography variant="caption" sx={{ fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>
+                  <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700, textTransform: 'uppercase' }}>
                     {p.name}
                   </Typography>
-                  <Typography variant="subtitle2" sx={{ fontWeight: 800, color: '#0F172A', my: 0.25 }}>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 800, color: 'text.primary', my: 0.25 }}>
                     {p.jamaah}
                   </Typography>
-                  <Typography variant="caption" sx={{ color: '#94A3B8', fontSize: '0.68rem', display: 'block' }}>
+                  <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.68rem', display: 'block' }}>
                     Begins: {p.begins}
                   </Typography>
                 </Box>
@@ -515,11 +519,12 @@ export default function AdminDashboardPage() {
       {/* ============================================================== */}
       {/* 4. QUICK MANAGEMENT SHORTCUT LAUNCHPAD */}
       {/* ============================================================== */}
-      <Card sx={{ mb: 3.5, borderRadius: '16px', border: '1px solid #E2E8F0', boxShadow: '0 2px 8px rgba(15,23,42,0.03)' }}>
+      <Card sx={{ mb: 3.5, borderRadius: '16px' }}>
         <CardContent sx={{ p: 2.5 }}>
           <Typography
             variant="caption"
-            sx={{ fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', mb: 1.5 }}
+            color="text.secondary"
+            sx={{ fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', mb: 1.5 }}
           >
             Quick Management Shortcuts
           </Typography>
@@ -528,10 +533,10 @@ export default function AdminDashboardPage() {
             {[
               { label: 'Post New Alert', icon: CampaignIcon, href: '/admin/announcements' },
               { label: 'Adjust Iqamah Times', icon: AccessTimeFilledIcon, href: '/admin/prayer-times' },
-              { label: 'Add Community Activity', icon: VolunteerActivismIcon, href: '/admin/activities' },
-              { label: 'Schedule Event / Course', icon: EventIcon, href: '/admin/events' },
-              { label: 'Curate Gallery Photos', icon: PermMediaIcon, href: '/admin/media' },
-              { label: 'Mosque Legal & Contact', icon: SettingsIcon, href: '/admin/site-settings' },
+              { label: 'Add Activity', icon: VolunteerActivismIcon, href: '/admin/activities' },
+              { label: 'Schedule Event', icon: EventIcon, href: '/admin/events' },
+              { label: 'Curate Gallery', icon: PermMediaIcon, href: '/admin/media' },
+              { label: 'Mosque Settings', icon: SettingsIcon, href: '/admin/site-settings' },
             ].map((shortcut) => {
               const Icon = shortcut.icon;
               return (
@@ -545,16 +550,15 @@ export default function AdminDashboardPage() {
                       sx={{
                         py: 1.25,
                         borderRadius: '10px',
-                        borderColor: '#E2E8F0',
-                        color: '#334155',
-                        textTransform: 'none',
+                        borderColor: 'divider',
+                        color: 'text.primary',
                         fontSize: '0.8rem',
                         fontWeight: 700,
-                        backgroundColor: '#FFFFFF',
+                        backgroundColor: 'background.default',
                         '&:hover': {
-                          borderColor: '#3988CA',
-                          backgroundColor: '#F0F9FF',
-                          color: '#0284C7',
+                          borderColor: 'primary.main',
+                          backgroundColor: isDark ? 'rgba(57, 136, 202, 0.14)' : '#F0F9FF',
+                          color: 'primary.main',
                         },
                       }}
                     >
@@ -580,17 +584,15 @@ export default function AdminDashboardPage() {
               display: 'flex',
               flexDirection: 'column',
               borderRadius: '16px',
-              border: '1px solid #E2E8F0',
-              boxShadow: '0 2px 8px rgba(15,23,42,0.03)',
             }}
           >
             <CardContent sx={{ p: 2.5, flex: 1, display: 'flex', flexDirection: 'column' }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                 <Box>
-                  <Typography variant="h6" sx={{ fontWeight: 800, color: '#0F172A', fontSize: '1.05rem' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 800, color: 'text.primary', fontSize: '1.05rem' }}>
                     Recent Community Inquiries
                   </Typography>
-                  <Typography variant="caption" sx={{ color: '#64748B' }}>
+                  <Typography variant="caption" color="text.secondary">
                     Direct messages submitted via the public contact form
                   </Typography>
                 </Box>
@@ -599,7 +601,7 @@ export default function AdminDashboardPage() {
                   <Button
                     size="small"
                     endIcon={<ArrowForwardIcon fontSize="small" />}
-                    sx={{ textTransform: 'none', fontWeight: 700, color: '#3988CA' }}
+                    sx={{ fontWeight: 700, color: 'primary.main' }}
                   >
                     View All ({stats.messagesCount})
                   </Button>
@@ -611,14 +613,14 @@ export default function AdminDashboardPage() {
               {recentMessages.length > 0 ? (
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                   {recentMessages.map((msg) => {
-                    const initials = msg.fullName
-                      ? msg.fullName
-                          .split(' ')
-                          .map((n) => n[0])
-                          .slice(0, 2)
-                          .join('')
-                          .toUpperCase()
-                      : '?';
+                    const senderName = getSenderName(msg);
+                    const initials = senderName
+                      .split(' ')
+                      .filter(Boolean)
+                      .map((n) => n[0])
+                      .slice(0, 2)
+                      .join('')
+                      .toUpperCase();
 
                     return (
                       <Box
@@ -631,16 +633,24 @@ export default function AdminDashboardPage() {
                           p: 1.5,
                           borderRadius: '12px',
                           border: '1px solid',
-                          borderColor: msg.isRead ? '#E2E8F0' : '#BAE6FD',
-                          backgroundColor: msg.isRead ? '#FFFFFF' : '#F0F9FF',
+                          borderColor: msg.isRead
+                            ? 'divider'
+                            : isDark
+                            ? 'rgba(56, 189, 248, 0.35)'
+                            : '#BAE6FD',
+                          backgroundColor: msg.isRead
+                            ? 'background.default'
+                            : isDark
+                            ? 'rgba(57, 136, 202, 0.12)'
+                            : '#F0F9FF',
                           cursor: 'pointer',
                           transition: 'all 0.2s ease',
                           display: 'flex',
                           alignItems: 'flex-start',
                           gap: 1.5,
                           '&:hover': {
-                            backgroundColor: '#F8FAFC',
-                            borderColor: '#3988CA',
+                            backgroundColor: 'action.hover',
+                            borderColor: 'primary.main',
                           },
                         }}
                       >
@@ -650,18 +660,22 @@ export default function AdminDashboardPage() {
                             height: 38,
                             fontSize: '0.82rem',
                             fontWeight: 800,
-                            backgroundColor: msg.isRead ? '#E2E8F0' : '#3988CA',
-                            color: msg.isRead ? '#475569' : '#FFFFFF',
+                            backgroundColor: msg.isRead
+                              ? isDark
+                                ? 'rgba(255,255,255,0.12)'
+                                : '#E2E8F0'
+                              : '#3988CA',
+                            color: msg.isRead ? 'text.primary' : '#FFFFFF',
                           }}
                         >
-                          {initials}
+                          {initials || '?'}
                         </Avatar>
 
                         <Box sx={{ flex: 1, minWidth: 0 }}>
                           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 0.25 }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0 }}>
-                              <Typography variant="body2" sx={{ fontWeight: msg.isRead ? 600 : 800, color: '#0F172A' }}>
-                                {msg.fullName}
+                              <Typography variant="body2" sx={{ fontWeight: msg.isRead ? 600 : 800, color: 'text.primary' }}>
+                                {senderName}
                               </Typography>
                               {!msg.isRead && (
                                 <Chip
@@ -671,14 +685,14 @@ export default function AdminDashboardPage() {
                                     height: 18,
                                     fontSize: '0.65rem',
                                     fontWeight: 800,
-                                    backgroundColor: '#FFE4E6',
-                                    color: '#E11D48',
+                                    backgroundColor: isDark ? 'rgba(244, 63, 94, 0.18)' : '#FFE4E6',
+                                    color: isDark ? '#FDA4AF' : '#E11D48',
                                   }}
                                 />
                               )}
                             </Box>
 
-                            <Typography variant="caption" sx={{ color: '#94A3B8', flexShrink: 0 }}>
+                            <Typography variant="caption" color="text.secondary" sx={{ flexShrink: 0 }}>
                               {new Date(msg.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
                             </Typography>
                           </Box>
@@ -687,7 +701,7 @@ export default function AdminDashboardPage() {
                             variant="caption"
                             sx={{
                               display: 'block',
-                              color: '#334155',
+                              color: 'text.primary',
                               fontWeight: 600,
                               mb: 0.25,
                               overflow: 'hidden',
@@ -700,8 +714,8 @@ export default function AdminDashboardPage() {
 
                           <Typography
                             variant="caption"
+                            color="text.secondary"
                             sx={{
-                              color: '#64748B',
                               display: '-webkit-box',
                               WebkitLineClamp: 1,
                               WebkitBoxOrient: 'vertical',
@@ -717,8 +731,8 @@ export default function AdminDashboardPage() {
                 </Box>
               ) : (
                 <Box sx={{ p: 4, textAlign: 'center', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <MarkEmailReadIcon sx={{ fontSize: 36, color: '#CBD5E1', mx: 'auto', mb: 1 }} />
-                  <Typography variant="body2" sx={{ fontWeight: 600, color: '#64748B' }}>
+                  <MarkEmailReadIcon sx={{ fontSize: 36, color: 'text.secondary', mx: 'auto', mb: 1, opacity: 0.5 }} />
+                  <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 600 }}>
                     No community inquiries pending.
                   </Typography>
                 </Box>
@@ -731,20 +745,14 @@ export default function AdminDashboardPage() {
         <Grid item xs={12} md={5}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
             {/* Mosque Identity & Compliance Card */}
-            <Card
-              sx={{
-                borderRadius: '16px',
-                border: '1px solid #E2E8F0',
-                boxShadow: '0 2px 8px rgba(15,23,42,0.03)',
-              }}
-            >
+            <Card sx={{ borderRadius: '16px' }}>
               <CardContent sx={{ p: 2.5 }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                  <Typography variant="h6" sx={{ fontWeight: 800, color: '#0F172A', fontSize: '1.05rem' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 800, color: 'text.primary', fontSize: '1.05rem' }}>
                     Mosque Identity & Details
                   </Typography>
                   <Link href="/admin/site-settings" style={{ textDecoration: 'none' }}>
-                    <Button size="small" sx={{ textTransform: 'none', fontWeight: 700, color: '#3988CA' }}>
+                    <Button size="small" sx={{ fontWeight: 700, color: 'primary.main' }}>
                       Edit
                     </Button>
                   </Link>
@@ -754,48 +762,48 @@ export default function AdminDashboardPage() {
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                   <Box sx={{ display: 'flex', gap: 1.25, alignItems: 'flex-start' }}>
-                    <LocationOnIcon sx={{ color: '#3988CA', fontSize: 18, mt: 0.2 }} />
+                    <LocationOnIcon sx={{ color: 'primary.main', fontSize: 18, mt: 0.2 }} />
                     <Box>
-                      <Typography variant="caption" sx={{ fontWeight: 700, color: '#64748B', display: 'block' }}>
+                      <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700, display: 'block' }}>
                         Physical Centre Address
                       </Typography>
-                      <Typography variant="body2" sx={{ fontWeight: 600, color: '#0F172A' }}>
+                      <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.primary' }}>
                         {siteSettings.org_address || '89 Tindal Street, Balsall Heath, Birmingham B12 9QU'}
                       </Typography>
                     </Box>
                   </Box>
 
                   <Box sx={{ display: 'flex', gap: 1.25, alignItems: 'flex-start' }}>
-                    <PhoneIcon sx={{ color: '#3988CA', fontSize: 18, mt: 0.2 }} />
+                    <PhoneIcon sx={{ color: 'primary.main', fontSize: 18, mt: 0.2 }} />
                     <Box>
-                      <Typography variant="caption" sx={{ fontWeight: 700, color: '#64748B', display: 'block' }}>
+                      <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700, display: 'block' }}>
                         Helpline / Telephone
                       </Typography>
-                      <Typography variant="body2" sx={{ fontWeight: 600, color: '#0F172A' }}>
+                      <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.primary' }}>
                         {siteSettings.org_phone || '07782 958305'}
                       </Typography>
                     </Box>
                   </Box>
 
                   <Box sx={{ display: 'flex', gap: 1.25, alignItems: 'flex-start' }}>
-                    <MailOutlineIcon sx={{ color: '#3988CA', fontSize: 18, mt: 0.2 }} />
+                    <MailOutlineIcon sx={{ color: 'primary.main', fontSize: 18, mt: 0.2 }} />
                     <Box>
-                      <Typography variant="caption" sx={{ fontWeight: 700, color: '#64748B', display: 'block' }}>
+                      <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700, display: 'block' }}>
                         Official Email
                       </Typography>
-                      <Typography variant="body2" sx={{ fontWeight: 600, color: '#0F172A' }}>
+                      <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.primary' }}>
                         {siteSettings.org_email || 'alfalahcsc@hotmail.com'}
                       </Typography>
                     </Box>
                   </Box>
 
                   <Box sx={{ display: 'flex', gap: 1.25, alignItems: 'flex-start' }}>
-                    <VerifiedUserIcon sx={{ color: '#16A34A', fontSize: 18, mt: 0.2 }} />
+                    <VerifiedUserIcon sx={{ color: '#22C55E', fontSize: 18, mt: 0.2 }} />
                     <Box>
-                      <Typography variant="caption" sx={{ fontWeight: 700, color: '#64748B', display: 'block' }}>
+                      <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 700, display: 'block' }}>
                         Charity Commission Registration
                       </Typography>
-                      <Typography variant="body2" sx={{ fontWeight: 600, color: '#15803D' }}>
+                      <Typography variant="body2" sx={{ fontWeight: 600, color: isDark ? '#4ADE80' : '#15803D' }}>
                         UK Registered Charity #{siteSettings.org_charity_number || '1150221'}
                       </Typography>
                     </Box>
@@ -805,20 +813,14 @@ export default function AdminDashboardPage() {
             </Card>
 
             {/* Active Announcements Snapshot */}
-            <Card
-              sx={{
-                borderRadius: '16px',
-                border: '1px solid #E2E8F0',
-                boxShadow: '0 2px 8px rgba(15,23,42,0.03)',
-              }}
-            >
+            <Card sx={{ borderRadius: '16px' }}>
               <CardContent sx={{ p: 2.5 }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5 }}>
-                  <Typography variant="h6" sx={{ fontWeight: 800, color: '#0F172A', fontSize: '1.05rem' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 800, color: 'text.primary', fontSize: '1.05rem' }}>
                     Live Announcements
                   </Typography>
                   <Link href="/admin/announcements" style={{ textDecoration: 'none' }}>
-                    <Button size="small" sx={{ textTransform: 'none', fontWeight: 700, color: '#3988CA' }}>
+                    <Button size="small" sx={{ fontWeight: 700, color: 'primary.main' }}>
                       Manage
                     </Button>
                   </Link>
@@ -834,8 +836,9 @@ export default function AdminDashboardPage() {
                         sx={{
                           p: 1.25,
                           borderRadius: '10px',
-                          backgroundColor: '#F8FAFC',
-                          border: '1px solid #E2E8F0',
+                          backgroundColor: 'background.default',
+                          border: '1px solid',
+                          borderColor: 'divider',
                           display: 'flex',
                           alignItems: 'center',
                           gap: 1.25,
@@ -848,15 +851,15 @@ export default function AdminDashboardPage() {
                             fontSize: '0.68rem',
                             fontWeight: 800,
                             height: 20,
-                            backgroundColor: '#DCEEFF',
-                            color: '#0284C7',
+                            backgroundColor: isDark ? 'rgba(57, 136, 202, 0.22)' : '#DCEEFF',
+                            color: isDark ? '#7DD3FC' : '#0284C7',
                           }}
                         />
                         <Typography
                           variant="body2"
                           sx={{
                             fontWeight: 700,
-                            color: '#0F172A',
+                            color: 'text.primary',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
@@ -866,7 +869,7 @@ export default function AdminDashboardPage() {
                           {ann.title}
                         </Typography>
                         {ann.isPinned && (
-                          <Typography variant="caption" sx={{ color: '#D97706', fontWeight: 700 }}>
+                          <Typography variant="caption" sx={{ color: isDark ? '#FBBF24' : '#D97706', fontWeight: 700 }}>
                             📌 Pinned
                           </Typography>
                         )}
@@ -874,7 +877,7 @@ export default function AdminDashboardPage() {
                     ))}
                   </Box>
                 ) : (
-                  <Typography variant="body2" sx={{ color: '#64748B', py: 1 }}>
+                  <Typography variant="body2" color="text.secondary" sx={{ py: 1 }}>
                     No announcements currently posted.
                   </Typography>
                 )}
@@ -895,49 +898,50 @@ export default function AdminDashboardPage() {
           fullWidth
           PaperProps={{ sx: { borderRadius: '16px', p: 1 } }}
         >
-          <DialogTitle sx={{ fontWeight: 800, color: '#0F172A', pb: 1 }}>
-            Inquiry from {activeMessage.fullName}
+          <DialogTitle sx={{ fontWeight: 800, color: 'text.primary', pb: 1 }}>
+            Inquiry from {getSenderName(activeMessage)}
           </DialogTitle>
           <DialogContent sx={{ pt: 1 }}>
-            <Box sx={{ mb: 2, p: 2, borderRadius: '12px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
+            <Box sx={{ mb: 2, p: 2, borderRadius: '12px', backgroundColor: 'background.default', border: '1px solid', borderColor: 'divider' }}>
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={6}>
-                  <Typography variant="caption" sx={{ color: '#64748B', display: 'block' }}>
+                  <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
                     <strong>Email:</strong> {activeMessage.email}
                   </Typography>
                 </Grid>
                 {activeMessage.phone && (
                   <Grid item xs={12} sm={6}>
-                    <Typography variant="caption" sx={{ color: '#64748B', display: 'block' }}>
+                    <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
                       <strong>Phone:</strong> {activeMessage.phone}
                     </Typography>
                   </Grid>
                 )}
                 <Grid item xs={12} sm={6}>
-                  <Typography variant="caption" sx={{ color: '#64748B', display: 'block' }}>
+                  <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
                     <strong>Subject:</strong> {activeMessage.subject || 'General Inquiry'}
                   </Typography>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <Typography variant="caption" sx={{ color: '#64748B', display: 'block' }}>
+                  <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
                     <strong>Received:</strong> {new Date(activeMessage.createdAt).toLocaleString('en-GB')}
                   </Typography>
                 </Grid>
               </Grid>
             </Box>
 
-            <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#0F172A', mb: 0.75 }}>
+            <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
               Message Content:
             </Typography>
             <Box
               sx={{
                 p: 2,
                 borderRadius: '12px',
-                border: '1px solid #E2E8F0',
-                backgroundColor: '#FFFFFF',
+                border: '1px solid',
+                borderColor: 'divider',
+                backgroundColor: 'background.default',
                 whiteSpace: 'pre-line',
                 fontSize: '0.88rem',
-                color: '#334155',
+                color: 'text.primary',
                 lineHeight: 1.6,
               }}
             >
@@ -948,7 +952,7 @@ export default function AdminDashboardPage() {
             <Button
               variant="outlined"
               onClick={() => setActiveMessage(null)}
-              sx={{ textTransform: 'none', fontWeight: 600, color: '#64748B' }}
+              sx={{ fontWeight: 600, color: 'text.secondary', borderColor: 'divider' }}
             >
               Close
             </Button>
@@ -960,11 +964,9 @@ export default function AdminDashboardPage() {
               sx={{
                 backgroundColor: '#3988CA',
                 borderRadius: '10px',
-                textTransform: 'none',
                 fontWeight: 700,
                 px: 2.5,
-                boxShadow: 'none',
-                '&:hover': { backgroundColor: '#2b6ea6', boxShadow: 'none' },
+                '&:hover': { backgroundColor: '#2b6ea6' },
               }}
             >
               Reply via Email

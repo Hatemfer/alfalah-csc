@@ -226,10 +226,10 @@ export default function AdminActivitiesPage() {
     <Box>
       <Box sx={{ mb: 3.5, display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', sm: 'center' }, gap: 2 }}>
         <div>
-          <Typography variant="h5" sx={{ fontWeight: 800, color: '#0F172A' }}>
+          <Typography variant="h5" sx={{ fontWeight: 800, color: 'text.primary' }}>
             Activities & Community Programmes
           </Typography>
-          <Typography variant="body2" sx={{ color: '#64748B', mt: 0.5 }}>
+          <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }}>
             Manage academy workshops, certified courses, STEM labs, and community sessions.
           </Typography>
         </div>
@@ -266,7 +266,7 @@ export default function AdminActivitiesPage() {
       )}
 
       {/* Search Bar */}
-      <Card sx={{ mb: 3, p: 1.5, borderRadius: '12px', border: '1px solid #E2E8F0', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+      <Card sx={{ mb: 3, p: 1.5, borderRadius: '12px', border: '1px solid', borderColor: 'divider', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
         <TextField
           fullWidth
           size="small"
@@ -282,7 +282,7 @@ export default function AdminActivitiesPage() {
           }}
           sx={{
             '& .MuiOutlinedInput-root': {
-              backgroundColor: '#F8FAFC',
+              backgroundColor: 'background.default',
               borderRadius: '8px',
               fontSize: '0.88rem',
             },
@@ -295,22 +295,22 @@ export default function AdminActivitiesPage() {
           <CircularProgress sx={{ color: '#3988CA' }} />
         </Box>
       ) : (
-        <Card sx={{ borderRadius: '14px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
+        <Card sx={{ borderRadius: '14px', border: '1px solid', borderColor: 'divider', overflow: 'hidden' }}>
           <TableContainer>
             <Table>
               <TableHead>
-                <TableRow sx={{ backgroundColor: '#F8FAFC' }}>
-                  <TableCell sx={{ fontWeight: 700, color: '#475569', fontSize: '0.78rem' }}>PROGRAMME</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: '#475569', fontSize: '0.78rem' }}>CATEGORY</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: '#475569', fontSize: '0.78rem' }}>SCHEDULE</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: '#475569', fontSize: '0.78rem' }}>STATUS</TableCell>
-                  <TableCell align="right" sx={{ fontWeight: 700, color: '#475569', fontSize: '0.78rem' }}>ACTIONS</TableCell>
+                <TableRow sx={{ backgroundColor: 'background.default' }}>
+                  <TableCell sx={{ fontWeight: 700, color: 'text.secondary', fontSize: '0.78rem' }}>PROGRAMME</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: 'text.secondary', fontSize: '0.78rem' }}>CATEGORY</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: 'text.secondary', fontSize: '0.78rem' }}>SCHEDULE</TableCell>
+                  <TableCell sx={{ fontWeight: 700, color: 'text.secondary', fontSize: '0.78rem' }}>STATUS</TableCell>
+                  <TableCell align="right" sx={{ fontWeight: 700, color: 'text.secondary', fontSize: '0.78rem' }}>ACTIONS</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {filteredActivities.length > 0 ? (
                   filteredActivities.map((act) => (
-                    <TableRow key={act.id} hover sx={{ '&:hover': { backgroundColor: '#F8FAFC' } }}>
+                    <TableRow key={act.id} hover sx={{ '&:hover': { backgroundColor: 'background.default' } }}>
                       <TableCell sx={{ minWidth: 260 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                           {act.imageUrl ? (
@@ -323,7 +323,7 @@ export default function AdminActivitiesPage() {
                                 height: 52,
                                 borderRadius: '10px',
                                 objectFit: 'cover',
-                                border: '1px solid #E2E8F0',
+                                border: '1px solid', borderColor: 'divider',
                                 flexShrink: 0,
                               }}
                             />
@@ -345,13 +345,13 @@ export default function AdminActivitiesPage() {
                             </Box>
                           )}
                           <Box>
-                            <Typography variant="subtitle2" sx={{ fontWeight: 800, color: '#0F172A', fontSize: '0.92rem' }}>
+                            <Typography variant="subtitle2" sx={{ fontWeight: 800, color: 'text.primary', fontSize: '0.92rem' }}>
                               {act.title}
                             </Typography>
                             <Typography
                               variant="caption"
                               sx={{
-                                color: '#64748B',
+                                color: 'text.secondary',
                                 display: '-webkit-box',
                                 WebkitLineClamp: 1,
                                 WebkitBoxOrient: 'vertical',
@@ -373,12 +373,12 @@ export default function AdminActivitiesPage() {
                             fontWeight: 700,
                             fontSize: '0.72rem',
                             backgroundColor: '#F1F5F9',
-                            color: '#334155',
+                            color: 'text.primary',
                           }}
                         />
                       </TableCell>
 
-                      <TableCell sx={{ color: '#64748B', fontSize: '0.85rem' }}>
+                      <TableCell sx={{ color: 'text.secondary', fontSize: '0.85rem' }}>
                         {act.scheduleInfo || 'See timetable'}
                       </TableCell>
 
@@ -402,7 +402,7 @@ export default function AdminActivitiesPage() {
                             onClick={() => handleOpenEdit(act)}
                             sx={{
                               color: '#3988CA',
-                              border: '1px solid #E2E8F0',
+                              border: '1px solid', borderColor: 'divider',
                               mr: 1,
                               '&:hover': { backgroundColor: '#F0F9FF' },
                             }}
@@ -429,12 +429,12 @@ export default function AdminActivitiesPage() {
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={5} sx={{ textAlign: 'center', py: 6, color: '#64748B' }}>
+                    <TableCell colSpan={5} sx={{ textAlign: 'center', py: 6, color: 'text.secondary' }}>
                       <VolunteerActivismIcon sx={{ fontSize: 48, color: '#94A3B8', opacity: 0.4, mb: 1, display: 'block', mx: 'auto' }} />
-                      <Typography variant="body1" sx={{ fontWeight: 700, color: '#0F172A', mb: 0.5 }}>
+                      <Typography variant="body1" sx={{ fontWeight: 700, color: 'text.primary', mb: 0.5 }}>
                         No programmes found
                       </Typography>
-                      <Typography variant="body2" sx={{ color: '#64748B' }}>
+                      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                         Click &quot;Add New Programme&quot; above to create your first activity.
                       </Typography>
                     </TableCell>
@@ -463,7 +463,7 @@ export default function AdminActivitiesPage() {
           sx={{
             p: 2.5,
             pb: 2,
-            borderBottom: '1px solid #E2E8F0',
+            borderBottom: '1px solid', borderColor: 'divider',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -485,10 +485,10 @@ export default function AdminActivitiesPage() {
               <AutoAwesomeIcon sx={{ fontSize: 20 }} />
             </Box>
             <div>
-              <Typography variant="h6" sx={{ fontWeight: 800, color: '#0F172A', fontSize: '1.15rem' }}>
+              <Typography variant="h6" sx={{ fontWeight: 800, color: 'text.primary', fontSize: '1.15rem' }}>
                 {editingId ? 'Edit Programme Details' : 'Add New Community Programme'}
               </Typography>
-              <Typography variant="caption" sx={{ color: '#64748B' }}>
+              <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                 {editingId ? 'Update details, schedule, or media for this programme' : 'Publish a new workshop or certified course to the live portal'}
               </Typography>
             </div>
@@ -498,7 +498,7 @@ export default function AdminActivitiesPage() {
             size="small"
             onClick={() => setDialogOpen(false)}
             disabled={saving}
-            sx={{ color: '#94A3B8', '&:hover': { color: '#0F172A' } }}
+            sx={{ color: '#94A3B8', '&:hover': { color: 'text.primary' } }}
           >
             <CloseIcon fontSize="small" />
           </IconButton>
@@ -508,7 +508,7 @@ export default function AdminActivitiesPage() {
           <Grid container spacing={3}>
             {/* Programme Title */}
             <Grid item xs={12} sm={8}>
-              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Programme Title <span style={{ color: '#DC2626' }}>*</span>
               </Typography>
               <TextField
@@ -524,13 +524,13 @@ export default function AdminActivitiesPage() {
                   });
                 }}
                 placeholder="e.g. Accredited First Aid & CPR Training"
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: '#F8FAFC' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: 'background.default' } }}
               />
             </Grid>
 
             {/* Category */}
             <Grid item xs={12} sm={4}>
-              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Category <span style={{ color: '#DC2626' }}>*</span>
               </Typography>
               <TextField
@@ -539,7 +539,7 @@ export default function AdminActivitiesPage() {
                 size="small"
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: '#F8FAFC' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: 'background.default' } }}
               >
                 {CATEGORIES.map((cat) => (
                   <MenuItem key={cat} value={cat}>
@@ -551,7 +551,7 @@ export default function AdminActivitiesPage() {
 
             {/* Short Summary */}
             <Grid item xs={12}>
-              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Short Summary <span style={{ color: '#DC2626' }}>*</span>
               </Typography>
               <TextField
@@ -561,13 +561,13 @@ export default function AdminActivitiesPage() {
                 value={formData.shortDescription}
                 onChange={(e) => setFormData({ ...formData, shortDescription: e.target.value })}
                 placeholder="Brief 1-2 sentence overview displayed on the public card..."
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: '#F8FAFC' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: 'background.default' } }}
               />
             </Grid>
 
             {/* Full Details & Syllabus */}
             <Grid item xs={12}>
-              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Full Details & Syllabus
               </Typography>
               <TextField
@@ -577,13 +577,13 @@ export default function AdminActivitiesPage() {
                 value={formData.fullDescription}
                 onChange={(e) => setFormData({ ...formData, fullDescription: e.target.value })}
                 placeholder="Detailed syllabus, qualifications provided, requirements, or what students need to bring..."
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: '#F8FAFC' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: 'background.default' } }}
               />
             </Grid>
 
             {/* Schedule & Location */}
             <Grid item xs={12} sm={6}>
-              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Schedule & Timings
               </Typography>
               <TextField
@@ -592,12 +592,12 @@ export default function AdminActivitiesPage() {
                 value={formData.scheduleInfo}
                 onChange={(e) => setFormData({ ...formData, scheduleInfo: e.target.value })}
                 placeholder="e.g. Every Saturday: 10:00 AM – 12:00 PM"
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: '#F8FAFC' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: 'background.default' } }}
               />
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#1E293B', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Location / Venue
               </Typography>
               <TextField
@@ -606,7 +606,7 @@ export default function AdminActivitiesPage() {
                 value={formData.location}
                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                 placeholder="Alfalah Community Support Centre, 89 Tindal St"
-                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: '#F8FAFC' } }}
+                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px', backgroundColor: 'background.default' } }}
               />
             </Grid>
 
@@ -625,19 +625,19 @@ export default function AdminActivitiesPage() {
               <Box
                 sx={{
                   p: 2,
-                  border: '1px solid #E2E8F0',
+                  border: '1px solid', borderColor: 'divider',
                   borderRadius: '12px',
-                  backgroundColor: '#F8FAFC',
+                  backgroundColor: 'background.default',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
                 }}
               >
                 <div>
-                  <Typography sx={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A' }}>
+                  <Typography sx={{ fontSize: '0.9rem', fontWeight: 700, color: 'text.primary' }}>
                     Publish to Public Website
                   </Typography>
-                  <Typography variant="caption" sx={{ color: '#64748B' }}>
+                  <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                     When enabled, this programme is immediately visible on alfalahcsc.com/activities and the services directory.
                   </Typography>
                 </div>
@@ -655,7 +655,7 @@ export default function AdminActivitiesPage() {
           <Button
             onClick={() => setDialogOpen(false)}
             disabled={saving}
-            sx={{ color: '#64748B', fontWeight: 600, textTransform: 'none', px: 2.5 }}
+            sx={{ color: 'text.secondary', fontWeight: 600, textTransform: 'none', px: 2.5 }}
           >
             Cancel
           </Button>

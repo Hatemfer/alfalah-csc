@@ -370,7 +370,7 @@ export default function AdminPrayerTimesPage() {
     return (
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 400, gap: 2 }}>
         <CircularProgress size={40} thickness={4} sx={{ color: '#0284C7' }} />
-        <Typography variant="body2" sx={{ color: '#64748B', fontWeight: 600 }}>
+        <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 600 }}>
           Loading prayer timetable...
         </Typography>
       </Box>
@@ -382,10 +382,10 @@ export default function AdminPrayerTimesPage() {
       {/* Header */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 2, mb: 3 }}>
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 800, color: '#0F172A', letterSpacing: '-0.02em', mb: 0.25 }}>
+          <Typography variant="h5" sx={{ fontWeight: 800, color: 'text.primary', letterSpacing: '-0.02em', mb: 0.25 }}>
             Prayer Times &amp; Timetable
           </Typography>
-          <Typography variant="body2" sx={{ color: '#64748B' }}>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             Adhan times update automatically every day. Manage Jama&apos;ah schedules, Friday Jumu&apos;ah, and the printable PDF below.
           </Typography>
         </Box>
@@ -396,14 +396,14 @@ export default function AdminPrayerTimesPage() {
           onClick={loadData}
           startIcon={<RefreshRoundedIcon />}
           sx={{
-            borderColor: '#CBD5E1',
-            color: '#334155',
+            borderColor: 'divider',
+            color: 'text.primary',
             fontWeight: 700,
             textTransform: 'none',
             borderRadius: 2,
             px: 2,
-            backgroundColor: '#FFFFFF',
-            '&:hover': { borderColor: '#94A3B8', backgroundColor: '#F8FAFC' },
+            backgroundColor: 'background.paper',
+            '&:hover': { borderColor: '#94A3B8', backgroundColor: 'background.default' },
           }}
         >
           Refresh
@@ -421,18 +421,18 @@ export default function AdminPrayerTimesPage() {
         sx={{
           mb: 3,
           borderRadius: 3,
-          border: '1px solid #E2E8F0',
+          border: '1px solid', borderColor: 'divider',
           boxShadow: '0 2px 10px rgba(15, 23, 42, 0.04)',
           overflow: 'hidden',
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'background.paper',
         }}
       >
         <Box
           sx={{
             px: 3,
             py: 1.75,
-            backgroundColor: '#F8FAFC',
-            borderBottom: '1px solid #E2E8F0',
+            backgroundColor: 'background.default',
+            borderBottom: '1px solid', borderColor: 'divider',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -442,10 +442,10 @@ export default function AdminPrayerTimesPage() {
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
             <AccessTimeRoundedIcon sx={{ color: '#0284C7', fontSize: 20 }} />
-            <Typography sx={{ fontWeight: 800, fontSize: '0.96rem', color: '#0F172A' }}>
+            <Typography sx={{ fontWeight: 800, fontSize: '0.96rem', color: 'text.primary' }}>
               Today&apos;s Live Timetable
             </Typography>
-            <Typography sx={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 600 }}>
+            <Typography sx={{ fontSize: '0.8rem', color: 'text.secondary', fontWeight: 600 }}>
               ({todayData?.date || todayIso})
             </Typography>
           </Box>
@@ -501,13 +501,13 @@ export default function AdminPrayerTimesPage() {
                   sx={{
                     p: 1.75,
                     borderRadius: 2,
-                    border: '1px solid #E2E8F0',
-                    backgroundColor: item.id === 'sunrise' ? '#F8FAFC' : '#FFFFFF',
+                    border: '1px solid', borderColor: 'divider',
+                    backgroundColor: item.id === 'sunrise' ? 'background.default' : 'background.paper',
                     textAlign: 'center',
                   }}
                 >
-                  <Typography sx={{ fontSize: '0.86rem', fontWeight: 800, color: '#0F172A' }}>{item.name}</Typography>
-                  <Typography sx={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 600, mt: 0.25 }}>
+                  <Typography sx={{ fontSize: '0.86rem', fontWeight: 800, color: 'text.primary' }}>{item.name}</Typography>
+                  <Typography sx={{ fontSize: '0.72rem', color: 'text.secondary', fontWeight: 600, mt: 0.25 }}>
                     Begins {to12Hour(item.adhan)}
                   </Typography>
                   <Typography
@@ -536,25 +536,25 @@ export default function AdminPrayerTimesPage() {
         sx={{
           mb: 3,
           borderRadius: 3,
-          border: '1px solid #E2E8F0',
+          border: '1px solid', borderColor: 'divider',
           boxShadow: '0 2px 10px rgba(15, 23, 42, 0.04)',
           overflow: 'hidden',
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'background.paper',
         }}
       >
         <Box
           sx={{
             px: 3,
             py: 1.75,
-            backgroundColor: '#F8FAFC',
-            borderBottom: '1px solid #E2E8F0',
+            backgroundColor: 'background.default',
+            borderBottom: '1px solid', borderColor: 'divider',
             display: 'flex',
             alignItems: 'center',
             gap: 1.25,
           }}
         >
           <PictureAsPdfRoundedIcon sx={{ color: '#DC2626', fontSize: 20 }} />
-          <Typography sx={{ fontWeight: 800, fontSize: '0.96rem', color: '#0F172A' }}>
+          <Typography sx={{ fontWeight: 800, fontSize: '0.96rem', color: 'text.primary' }}>
             Friday Jumu&apos;ah &amp; Printable Timetable PDF
           </Typography>
         </Box>
@@ -567,8 +567,8 @@ export default function AdminPrayerTimesPage() {
                 sx={{
                   p: 2.25,
                   borderRadius: 2.5,
-                  border: '1px solid #E2E8F0',
-                  backgroundColor: '#F8FAFC',
+                  border: '1px solid', borderColor: 'divider',
+                  backgroundColor: 'background.default',
                   height: '100%',
                   display: 'flex',
                   flexDirection: 'column',
@@ -577,7 +577,7 @@ export default function AdminPrayerTimesPage() {
               >
                 <Box>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                    <Typography sx={{ fontWeight: 700, fontSize: '0.84rem', color: '#1E293B' }}>
+                    <Typography sx={{ fontWeight: 700, fontSize: '0.84rem', color: 'text.primary' }}>
                       Friday Jumu&apos;ah Time
                     </Typography>
                     <Chip
@@ -592,7 +592,7 @@ export default function AdminPrayerTimesPage() {
                     fullWidth
                     value={jumuahTime}
                     onChange={(e) => setJumuahTime(e.target.value)}
-                    sx={{ backgroundColor: '#FFFFFF' }}
+                    sx={{ backgroundColor: 'background.paper' }}
                   />
                 </Box>
 
@@ -623,8 +623,8 @@ export default function AdminPrayerTimesPage() {
                 sx={{
                   p: 2.25,
                   borderRadius: 2.5,
-                  border: '1px solid #E2E8F0',
-                  backgroundColor: '#F8FAFC',
+                  border: '1px solid', borderColor: 'divider',
+                  backgroundColor: 'background.default',
                   height: '100%',
                   display: 'flex',
                   flexDirection: 'column',
@@ -650,7 +650,7 @@ export default function AdminPrayerTimesPage() {
                       <PictureAsPdfRoundedIcon />
                     </Box>
                     <Box>
-                      <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', color: '#0F172A' }}>
+                      <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', color: 'text.primary' }}>
                         Official Bi-Monthly Timetable PDF
                       </Typography>
                       <Typography sx={{ fontSize: '0.78rem', color: timetablePdfUrl ? '#059669' : '#64748B', fontWeight: 600 }}>
@@ -704,9 +704,9 @@ export default function AdminPrayerTimesPage() {
                           fontWeight: 700,
                           textTransform: 'none',
                           borderRadius: 2,
-                          backgroundColor: '#FFFFFF',
-                          borderColor: '#CBD5E1',
-                          color: '#334155',
+                          backgroundColor: 'background.paper',
+                          borderColor: 'divider',
+                          color: 'text.primary',
                         }}
                       >
                         Preview
@@ -723,7 +723,7 @@ export default function AdminPrayerTimesPage() {
                           fontWeight: 700,
                           textTransform: 'none',
                           borderRadius: 2,
-                          backgroundColor: '#FFFFFF',
+                          backgroundColor: 'background.paper',
                           borderColor: '#FECACA',
                           ml: { sm: 'auto' },
                         }}
@@ -744,18 +744,18 @@ export default function AdminPrayerTimesPage() {
         sx={{
           mb: 3,
           borderRadius: 3,
-          border: '1px solid #E2E8F0',
+          border: '1px solid', borderColor: 'divider',
           boxShadow: '0 2px 10px rgba(15, 23, 42, 0.04)',
           overflow: 'hidden',
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'background.paper',
         }}
       >
         <Box
           sx={{
             px: 3,
             py: 1.75,
-            backgroundColor: '#F8FAFC',
-            borderBottom: '1px solid #E2E8F0',
+            backgroundColor: 'background.default',
+            borderBottom: '1px solid', borderColor: 'divider',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -765,7 +765,7 @@ export default function AdminPrayerTimesPage() {
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
             <CalendarMonthRoundedIcon sx={{ color: '#2563EB', fontSize: 20 }} />
-            <Typography sx={{ fontWeight: 800, fontSize: '0.96rem', color: '#0F172A' }}>
+            <Typography sx={{ fontWeight: 800, fontSize: '0.96rem', color: 'text.primary' }}>
               Congregation (Jama&apos;ah) Schedule
             </Typography>
           </Box>
@@ -779,10 +779,10 @@ export default function AdminPrayerTimesPage() {
 
         <CardContent sx={{ p: 3 }}>
           <Box component="form" onSubmit={handleSaveOverride}>
-            <Box sx={{ mb: 3, p: 2, backgroundColor: '#F8FAFC', borderRadius: 2, border: '1px solid #E2E8F0' }}>
+            <Box sx={{ mb: 3, p: 2, backgroundColor: 'background.default', borderRadius: 2, border: '1px solid', borderColor: 'divider' }}>
               <Grid container spacing={2} alignItems="center">
                 <Grid item xs={12} sm={3}>
-                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: '#1E293B', mb: 0.75 }}>
+                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: 'text.primary', mb: 0.75 }}>
                     Start Date
                   </Typography>
                   <TextField
@@ -799,12 +799,12 @@ export default function AdminPrayerTimesPage() {
                         endDate: prev.endDate < val ? val : prev.endDate,
                       }));
                     }}
-                    sx={{ backgroundColor: '#FFFFFF' }}
+                    sx={{ backgroundColor: 'background.paper' }}
                   />
                 </Grid>
 
                 <Grid item xs={12} sm={3}>
-                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: '#1E293B', mb: 0.75 }}>
+                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: 'text.primary', mb: 0.75 }}>
                     End Date
                   </Typography>
                   <TextField
@@ -814,12 +814,12 @@ export default function AdminPrayerTimesPage() {
                     inputProps={{ min: formState.date }}
                     value={formState.endDate}
                     onChange={(e) => setFormState({ ...formState, endDate: e.target.value })}
-                    sx={{ backgroundColor: '#FFFFFF' }}
+                    sx={{ backgroundColor: 'background.paper' }}
                   />
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
-                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: '#1E293B', mb: 0.75 }}>
+                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: 'text.primary', mb: 0.75 }}>
                     Quick Select
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
@@ -869,7 +869,7 @@ export default function AdminPrayerTimesPage() {
                 { key: 'ishaIqamah', label: 'Isha Jama’ah', ph: '19:00' },
               ].map((p) => (
                 <Grid item xs={6} sm={2.4} key={p.key}>
-                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: '#1E293B', mb: 0.75 }}>
+                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: 'text.primary', mb: 0.75 }}>
                     {p.label}
                   </Typography>
                   <TextField
@@ -885,7 +885,7 @@ export default function AdminPrayerTimesPage() {
 
             <Grid container spacing={2} alignItems="flex-end">
               <Grid item xs={12} sm={8}>
-                <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: '#1E293B', mb: 0.75 }}>
+                <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: 'text.primary', mb: 0.75 }}>
                   Note (Optional)
                 </Typography>
                 <TextField
@@ -939,8 +939,8 @@ export default function AdminPrayerTimesPage() {
                     fontWeight: 700,
                     textTransform: 'none',
                     borderRadius: 2,
-                    borderColor: '#CBD5E1',
-                    color: '#475569',
+                    borderColor: 'divider',
+                    color: 'text.secondary',
                   }}
                 >
                   Clear
@@ -952,21 +952,21 @@ export default function AdminPrayerTimesPage() {
           {/* Active Overrides Table */}
           {overrides.length > 0 && (
             <Box sx={{ mt: 3.5, pt: 3, borderTop: '1px solid #E2E8F0' }}>
-              <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', color: '#0F172A', mb: 1.5 }}>
+              <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', color: 'text.primary', mb: 1.5 }}>
                 Scheduled Overrides ({overrides.length})
               </Typography>
-              <TableContainer sx={{ border: '1px solid #E2E8F0', borderRadius: 2, maxHeight: 320 }}>
+              <TableContainer sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 2, maxHeight: 320 }}>
                 <Table size="small" stickyHeader>
                   <TableHead>
                     <TableRow>
-                      <TableCell sx={{ fontWeight: 800, color: '#1E293B', backgroundColor: '#F8FAFC' }}>Date</TableCell>
-                      <TableCell sx={{ fontWeight: 700, color: '#1E293B', backgroundColor: '#F8FAFC' }}>Fajr</TableCell>
-                      <TableCell sx={{ fontWeight: 700, color: '#1E293B', backgroundColor: '#F8FAFC' }}>Dhuhr</TableCell>
-                      <TableCell sx={{ fontWeight: 700, color: '#1E293B', backgroundColor: '#F8FAFC' }}>Asr</TableCell>
-                      <TableCell sx={{ fontWeight: 700, color: '#1E293B', backgroundColor: '#F8FAFC' }}>Maghrib</TableCell>
-                      <TableCell sx={{ fontWeight: 700, color: '#1E293B', backgroundColor: '#F8FAFC' }}>Isha</TableCell>
-                      <TableCell sx={{ fontWeight: 700, color: '#1E293B', backgroundColor: '#F8FAFC' }}>Note</TableCell>
-                      <TableCell align="right" sx={{ fontWeight: 700, color: '#1E293B', backgroundColor: '#F8FAFC', pr: 2 }}>
+                      <TableCell sx={{ fontWeight: 800, color: 'text.primary', backgroundColor: 'background.default' }}>Date</TableCell>
+                      <TableCell sx={{ fontWeight: 700, color: 'text.primary', backgroundColor: 'background.default' }}>Fajr</TableCell>
+                      <TableCell sx={{ fontWeight: 700, color: 'text.primary', backgroundColor: 'background.default' }}>Dhuhr</TableCell>
+                      <TableCell sx={{ fontWeight: 700, color: 'text.primary', backgroundColor: 'background.default' }}>Asr</TableCell>
+                      <TableCell sx={{ fontWeight: 700, color: 'text.primary', backgroundColor: 'background.default' }}>Maghrib</TableCell>
+                      <TableCell sx={{ fontWeight: 700, color: 'text.primary', backgroundColor: 'background.default' }}>Isha</TableCell>
+                      <TableCell sx={{ fontWeight: 700, color: 'text.primary', backgroundColor: 'background.default' }}>Note</TableCell>
+                      <TableCell align="right" sx={{ fontWeight: 700, color: 'text.primary', backgroundColor: 'background.default', pr: 2 }}>
                         Actions
                       </TableCell>
                     </TableRow>
@@ -982,7 +982,7 @@ export default function AdminPrayerTimesPage() {
                             '&:hover': { backgroundColor: isToday ? '#E0F2FE' : '#F8FAFC' },
                           }}
                         >
-                          <TableCell sx={{ fontWeight: 700, color: '#0F172A' }}>
+                          <TableCell sx={{ fontWeight: 700, color: 'text.primary' }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                               <span>{o.date}</span>
                               {isToday && (
@@ -999,7 +999,7 @@ export default function AdminPrayerTimesPage() {
                           <TableCell sx={{ fontVariantNumeric: 'tabular-nums', fontWeight: 600 }}>{o.asrIqamah || '—'}</TableCell>
                           <TableCell sx={{ fontVariantNumeric: 'tabular-nums', fontWeight: 600 }}>{o.maghribIqamah || '—'}</TableCell>
                           <TableCell sx={{ fontVariantNumeric: 'tabular-nums', fontWeight: 600 }}>{o.ishaIqamah || '—'}</TableCell>
-                          <TableCell sx={{ color: '#64748B', fontSize: '0.8rem' }}>{o.notes || '—'}</TableCell>
+                          <TableCell sx={{ color: 'text.secondary', fontSize: '0.8rem' }}>{o.notes || '—'}</TableCell>
                           <TableCell align="right" sx={{ pr: 1.5 }}>
                             <Tooltip title="Edit">
                               <IconButton size="small" onClick={() => handleEditOverride(o)} sx={{ color: '#0284C7', mr: 0.5 }}>
@@ -1028,10 +1028,10 @@ export default function AdminPrayerTimesPage() {
         <Card
           sx={{
             borderRadius: 3,
-            border: '1px solid #E2E8F0',
+            border: '1px solid', borderColor: 'divider',
             boxShadow: 'none',
             overflow: 'hidden',
-            backgroundColor: '#FFFFFF',
+            backgroundColor: 'background.paper',
           }}
         >
           <Box
@@ -1039,7 +1039,7 @@ export default function AdminPrayerTimesPage() {
             sx={{
               px: 3,
               py: 1.75,
-              backgroundColor: '#F8FAFC',
+              backgroundColor: 'background.default',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
@@ -1048,17 +1048,17 @@ export default function AdminPrayerTimesPage() {
             }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
-              <TuneRoundedIcon sx={{ color: '#64748B', fontSize: 20 }} />
+              <TuneRoundedIcon sx={{ color: 'text.secondary', fontSize: 20 }} />
               <Box>
-                <Typography sx={{ fontWeight: 700, fontSize: '0.9rem', color: '#334155' }}>
+                <Typography sx={{ fontWeight: 700, fontSize: '0.9rem', color: 'text.primary' }}>
                   Advanced: Astronomical Calculation &amp; Default Offsets
                 </Typography>
-                <Typography sx={{ fontSize: '0.75rem', color: '#64748B' }}>
+                <Typography sx={{ fontSize: '0.75rem', color: 'text.secondary' }}>
                   Birmingham coordinates (52.4578, -1.8904) and fallback Iqamah offsets
                 </Typography>
               </Box>
             </Box>
-            {showAdvanced ? <KeyboardArrowUpRoundedIcon sx={{ color: '#64748B' }} /> : <KeyboardArrowDownRoundedIcon sx={{ color: '#64748B' }} />}
+            {showAdvanced ? <KeyboardArrowUpRoundedIcon sx={{ color: 'text.secondary' }} /> : <KeyboardArrowDownRoundedIcon sx={{ color: 'text.secondary' }} />}
           </Box>
 
           <Collapse in={showAdvanced}>
@@ -1066,7 +1066,7 @@ export default function AdminPrayerTimesPage() {
             <CardContent sx={{ p: 3 }}>
               <Grid container spacing={2.5}>
                 <Grid item xs={12} sm={4}>
-                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: '#1E293B', mb: 0.75 }}>
+                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: 'text.primary', mb: 0.75 }}>
                     Latitude
                   </Typography>
                   <TextField
@@ -1078,7 +1078,7 @@ export default function AdminPrayerTimesPage() {
                   />
                 </Grid>
                 <Grid item xs={12} sm={4}>
-                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: '#1E293B', mb: 0.75 }}>
+                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: 'text.primary', mb: 0.75 }}>
                     Longitude
                   </Typography>
                   <TextField
@@ -1090,7 +1090,7 @@ export default function AdminPrayerTimesPage() {
                   />
                 </Grid>
                 <Grid item xs={12} sm={4}>
-                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: '#1E293B', mb: 0.75 }}>
+                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: 'text.primary', mb: 0.75 }}>
                     Asr Juristic Method
                   </Typography>
                   <TextField
@@ -1113,7 +1113,7 @@ export default function AdminPrayerTimesPage() {
                   { key: 'ishaIqamahOffsetMins', label: 'Isha Offset (Mins)' },
                 ].map((off) => (
                   <Grid item xs={6} sm={2.4} key={off.key}>
-                    <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: '#1E293B', mb: 0.75 }}>
+                    <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: 'text.primary', mb: 0.75 }}>
                       {off.label}
                     </Typography>
                     <TextField
@@ -1206,10 +1206,10 @@ export default function AdminPrayerTimesPage() {
               <PictureAsPdfRoundedIcon fontSize="small" />
             </Box>
             <Box>
-              <Typography sx={{ fontWeight: 800, fontSize: '1.05rem', color: '#0F172A', lineHeight: 1.3 }}>
+              <Typography sx={{ fontWeight: 800, fontSize: '1.05rem', color: 'text.primary', lineHeight: 1.3 }}>
                 {timetablePdfUrl ? 'Replace Official Timetable PDF' : 'Upload Official Timetable PDF'}
               </Typography>
-              <Typography sx={{ fontSize: '0.8rem', color: '#64748B', mt: 0.25 }}>
+              <Typography sx={{ fontSize: '0.8rem', color: 'text.secondary', mt: 0.25 }}>
                 Printable PDF schedule for worshippers on the website.
               </Typography>
             </Box>
@@ -1228,8 +1228,8 @@ export default function AdminPrayerTimesPage() {
                 px: 2,
                 py: 1.25,
                 borderRadius: 2,
-                backgroundColor: '#F8FAFC',
-                border: '1px solid #E2E8F0',
+                backgroundColor: 'background.default',
+                border: '1px solid', borderColor: 'divider',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
@@ -1237,14 +1237,14 @@ export default function AdminPrayerTimesPage() {
               }}
             >
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0, flex: 1 }}>
-                <Typography sx={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748B', whiteSpace: 'nowrap' }}>
+                <Typography sx={{ fontSize: '0.74rem', fontWeight: 700, color: 'text.secondary', whiteSpace: 'nowrap' }}>
                   Current File:
                 </Typography>
                 <Typography
                   sx={{
                     fontSize: '0.82rem',
                     fontWeight: 700,
-                    color: '#0F172A',
+                    color: 'text.primary',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
@@ -1297,7 +1297,7 @@ export default function AdminPrayerTimesPage() {
                 borderRadius: 2.5,
                 p: 3.5,
                 textAlign: 'center',
-                backgroundColor: '#F8FAFC',
+                backgroundColor: 'background.default',
                 cursor: 'pointer',
                 transition: 'all 0.15s ease',
                 '&:hover': {
@@ -1307,10 +1307,10 @@ export default function AdminPrayerTimesPage() {
               }}
             >
               <CloudUploadRoundedIcon sx={{ fontSize: 38, color: '#0284C7', mb: 1 }} />
-              <Typography sx={{ fontWeight: 800, fontSize: '0.92rem', color: '#0F172A', mb: 0.5 }}>
+              <Typography sx={{ fontWeight: 800, fontSize: '0.92rem', color: 'text.primary', mb: 0.5 }}>
                 Click to browse or drag &amp; drop PDF here
               </Typography>
-              <Typography sx={{ fontSize: '0.76rem', color: '#64748B' }}>
+              <Typography sx={{ fontSize: '0.76rem', color: 'text.secondary' }}>
                 Adobe PDF format only (max 10MB)
               </Typography>
             </Box>
@@ -1334,7 +1334,7 @@ export default function AdminPrayerTimesPage() {
                     sx={{
                       fontWeight: 800,
                       fontSize: '0.88rem',
-                      color: '#0F172A',
+                      color: 'text.primary',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       whiteSpace: 'nowrap',
@@ -1343,7 +1343,7 @@ export default function AdminPrayerTimesPage() {
                   >
                     {selectedPdfFile.name}
                   </Typography>
-                  <Typography sx={{ fontSize: '0.74rem', color: '#64748B', fontWeight: 600 }}>
+                  <Typography sx={{ fontSize: '0.74rem', color: 'text.secondary', fontWeight: 600 }}>
                     {(selectedPdfFile.size / 1024 / 1024).toFixed(2)} MB • Ready to publish
                   </Typography>
                 </Box>
@@ -1359,7 +1359,7 @@ export default function AdminPrayerTimesPage() {
                   fontSize: '0.78rem',
                   borderRadius: 2,
                   flexShrink: 0,
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: 'background.paper',
                   borderColor: '#BAE6FD',
                   color: '#0284C7',
                   '&:hover': { backgroundColor: '#F0F9FF', borderColor: '#0284C7' },
@@ -1376,7 +1376,7 @@ export default function AdminPrayerTimesPage() {
             variant="outlined"
             onClick={() => setPdfModalOpen(false)}
             disabled={uploadingPdf}
-            sx={{ fontWeight: 700, textTransform: 'none', borderRadius: 2, color: '#475569', borderColor: '#CBD5E1' }}
+            sx={{ fontWeight: 700, textTransform: 'none', borderRadius: 2, color: 'text.secondary', borderColor: 'divider' }}
           >
             Cancel
           </Button>

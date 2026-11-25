@@ -83,7 +83,7 @@ export default function AdminContactMessagesPage() {
     if (!searchQuery.trim()) return true;
     const q = searchQuery.toLowerCase();
     return (
-      m.fullName?.toLowerCase().includes(q) ||
+      (m.name || m.fullName || '').toLowerCase().includes(q) ||
       m.email?.toLowerCase().includes(q) ||
       m.subject?.toLowerCase().includes(q) ||
       m.message?.toLowerCase().includes(q)
@@ -192,7 +192,7 @@ export default function AdminContactMessagesPage() {
 
                       <TableCell sx={{ minWidth: 180 }}>
                         <Typography variant="body2" sx={{ fontWeight: m.isRead ? 600 : 800 }}>
-                          {m.fullName}
+                          {m.name || m.fullName || 'Anonymous'}
                         </Typography>
                         <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
                           {m.email}
@@ -271,7 +271,7 @@ export default function AdminContactMessagesPage() {
             <Box sx={{ p: 2, borderRadius: 2, backgroundColor: 'background.default', mb: 2.5, border: '1px solid', borderColor: 'divider' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.75 }}>
                 <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>
-                  {activeMessage.fullName}
+                  {activeMessage.name || activeMessage.fullName || 'Anonymous'}
                 </Typography>
                 <Typography variant="caption" color="text.secondary">
                   &lt;{activeMessage.email}&gt;

@@ -26,6 +26,7 @@ import {
   FormControlLabel,
   Switch,
   InputAdornment,
+  useTheme,
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -87,6 +88,8 @@ const CATEGORY_COLORS: Record<string, { bg: string; text: string; border: string
 };
 
 export default function AdminMediaGalleryPage() {
+  const muiTheme = useTheme();
+  const isDark = muiTheme.palette.mode === 'dark';
   const [activeTab, setActiveTab] = useState<number>(0);
   const [mediaList, setMediaList] = useState<MediaItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -365,10 +368,10 @@ export default function AdminMediaGalleryPage() {
       {/* Header Banner */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 2, mb: 3 }}>
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 800, color: '#0F172A', letterSpacing: '-0.02em' }}>
+          <Typography variant="h5" sx={{ fontWeight: 800, color: 'text.primary', letterSpacing: '-0.02em' }}>
             Gallery & Media Content Manager
           </Typography>
-          <Typography variant="body2" sx={{ color: '#64748B', mt: 0.5 }}>
+          <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }}>
             Curate photos and walkthrough video for the public gallery (alfalahcsc.com/gallery) and manage website documents.
           </Typography>
         </Box>
@@ -382,8 +385,8 @@ export default function AdminMediaGalleryPage() {
             rel="noopener noreferrer"
             endIcon={<OpenInNewIcon fontSize="small" />}
             sx={{
-              borderColor: '#CBD5E1',
-              color: '#334155',
+              borderColor: 'divider',
+              color: 'text.primary',
               textTransform: 'none',
               fontWeight: 700,
               borderRadius: '9999px',
@@ -425,7 +428,7 @@ export default function AdminMediaGalleryPage() {
       )}
 
       {/* Top Level Navigation Tabs */}
-      <Card sx={{ mb: 3.5, borderRadius: '16px', border: '1px solid #E2E8F0', boxShadow: '0 2px 8px rgba(15,23,42,0.04)' }}>
+      <Card sx={{ mb: 3.5, borderRadius: '16px', border: '1px solid', borderColor: 'divider', boxShadow: '0 2px 8px rgba(15,23,42,0.04)' }}>
         <Tabs
           value={activeTab}
           onChange={(_, v) => setActiveTab(v)}
@@ -501,9 +504,9 @@ export default function AdminMediaGalleryPage() {
             sx={{
               mb: 3.5,
               borderRadius: '16px',
-              border: '1px solid #E2E8F0',
+              border: '1px solid', borderColor: 'divider',
               boxShadow: '0 2px 10px rgba(15,23,42,0.03)',
-              background: 'linear-gradient(135deg, #F0F9FF 0%, #FFFFFF 100%)',
+              background: isDark ? 'linear-gradient(135deg, rgba(57, 136, 202, 0.14) 0%, #111d30 100%)' : 'linear-gradient(135deg, #F0F9FF 0%, #FFFFFF 100%)',
             }}
           >
             <CardContent sx={{ p: { xs: 2, sm: 2.5 } }}>
@@ -526,7 +529,7 @@ export default function AdminMediaGalleryPage() {
                   </Box>
                   <Box sx={{ minWidth: 0 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 800, color: '#0F172A' }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 800, color: 'text.primary' }}>
                         {videoTitle}
                       </Typography>
                       <Chip
@@ -544,7 +547,7 @@ export default function AdminMediaGalleryPage() {
                     <Typography
                       variant="body2"
                       sx={{
-                        color: '#64748B',
+                        color: 'text.secondary',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         whiteSpace: 'nowrap',
@@ -593,11 +596,11 @@ export default function AdminMediaGalleryPage() {
                     sx={{
                       cursor: 'pointer',
                       fontWeight: isSelected ? 800 : 600,
-                      backgroundColor: isSelected ? '#3988CA' : '#FFFFFF',
+                      backgroundColor: isSelected ? '#3988CA' : 'background.paper',
                       color: isSelected ? '#FFFFFF' : '#475569',
-                      border: isSelected ? '1px solid #3988CA' : '1px solid #CBD5E1',
+                      border: '1px solid', borderColor: isSelected ? '#3988CA' : 'divider',
                       '&:hover': {
-                        backgroundColor: isSelected ? '#2b6ea6' : '#F8FAFC',
+                        backgroundColor: isSelected ? '#2b6ea6' : 'action.hover',
                       },
                     }}
                   />
@@ -605,7 +608,7 @@ export default function AdminMediaGalleryPage() {
               })}
             </Box>
 
-            <Typography variant="caption" sx={{ color: '#64748B', fontWeight: 600 }}>
+            <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>
               Showing {filteredGalleryItems.length} of {galleryItems.length} gallery photos
             </Typography>
           </Box>
@@ -629,7 +632,7 @@ export default function AdminMediaGalleryPage() {
                         display: 'flex',
                         flexDirection: 'column',
                         borderRadius: '16px',
-                        border: '1px solid #E2E8F0',
+                        border: '1px solid', borderColor: 'divider',
                         boxShadow: '0 2px 8px rgba(15,23,42,0.04)',
                         overflow: 'hidden',
                         transition: 'transform 0.2s ease, box-shadow 0.2s ease',
@@ -680,7 +683,7 @@ export default function AdminMediaGalleryPage() {
                           variant="subtitle2"
                           sx={{
                             fontWeight: 800,
-                            color: '#0F172A',
+                            color: 'text.primary',
                             mb: 0.5,
                             lineHeight: 1.3,
                             overflow: 'hidden',
@@ -696,7 +699,7 @@ export default function AdminMediaGalleryPage() {
                         <Typography
                           variant="caption"
                           sx={{
-                            color: '#64748B',
+                            color: 'text.secondary',
                             lineHeight: 1.4,
                             flex: 1,
                             mb: 1.5,
@@ -716,7 +719,7 @@ export default function AdminMediaGalleryPage() {
                             justifyContent: 'space-between',
                             alignItems: 'center',
                             pt: 1,
-                            borderTop: '1px solid #F1F5F9',
+                            borderTop: '1px solid', borderColor: 'divider',
                           }}
                         >
                           <Typography variant="caption" sx={{ color: '#94A3B8', fontWeight: 600 }}>
@@ -754,10 +757,10 @@ export default function AdminMediaGalleryPage() {
           ) : (
             <Card sx={{ p: 5, textAlign: 'center', borderRadius: '16px', border: '1px dashed #CBD5E1' }}>
               <AddPhotoAlternateIcon sx={{ fontSize: 44, color: '#94A3B8', mb: 1 }} />
-              <Typography variant="h6" sx={{ fontWeight: 700, color: '#0F172A', mb: 0.5 }}>
+              <Typography variant="h6" sx={{ fontWeight: 700, color: 'text.primary', mb: 0.5 }}>
                 No photos in this category yet
               </Typography>
-              <Typography variant="body2" sx={{ color: '#64748B', mb: 2 }}>
+              <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
                 Click below to upload the first photograph for this category.
               </Typography>
               <Button
@@ -786,9 +789,9 @@ export default function AdminMediaGalleryPage() {
       {activeTab === 1 && (
         <Box>
           {/* Upload Asset Bar */}
-          <Card sx={{ mb: 3.5, borderRadius: '16px', border: '1px solid #E2E8F0', boxShadow: '0 2px 8px rgba(15,23,42,0.04)' }}>
+          <Card sx={{ mb: 3.5, borderRadius: '16px', border: '1px solid', borderColor: 'divider', boxShadow: '0 2px 8px rgba(15,23,42,0.04)' }}>
             <CardContent sx={{ p: 2.5 }}>
-              <Typography variant="subtitle1" sx={{ fontWeight: 800, color: '#0F172A', mb: 1.5 }}>
+              <Typography variant="subtitle1" sx={{ fontWeight: 800, color: 'text.primary', mb: 1.5 }}>
                 Upload Document or Image Asset (PDFs & Images up to 10MB)
               </Typography>
 
@@ -803,8 +806,8 @@ export default function AdminMediaGalleryPage() {
                       sx={{
                         height: 50,
                         borderRadius: '10px',
-                        borderColor: '#CBD5E1',
-                        color: '#334155',
+                        borderColor: 'divider',
+                        color: 'text.primary',
                         textTransform: 'none',
                         fontWeight: 600,
                       }}
@@ -876,12 +879,12 @@ export default function AdminMediaGalleryPage() {
                 onClick={() => setAssetFilter(filterKey)}
                 sx={{
                   fontWeight: assetFilter === filterKey ? 800 : 600,
-                  backgroundColor: assetFilter === filterKey ? '#3988CA' : '#FFFFFF',
+                  backgroundColor: assetFilter === filterKey ? '#3988CA' : 'background.paper',
                   color: assetFilter === filterKey ? '#FFFFFF' : '#475569',
-                  border: assetFilter === filterKey ? '1px solid #3988CA' : '1px solid #CBD5E1',
+                  border: '1px solid', borderColor: assetFilter === filterKey ? '#3988CA' : 'divider',
                   cursor: 'pointer',
                   '&:hover': {
-                    backgroundColor: assetFilter === filterKey ? '#2b6ea6' : '#F8FAFC',
+                    backgroundColor: assetFilter === filterKey ? '#2b6ea6' : 'action.hover',
                   },
                 }}
               />
@@ -906,7 +909,7 @@ export default function AdminMediaGalleryPage() {
                         display: 'flex',
                         flexDirection: 'column',
                         borderRadius: '14px',
-                        border: '1px solid #E2E8F0',
+                        border: '1px solid', borderColor: 'divider',
                         boxShadow: '0 2px 6px rgba(15,23,42,0.03)',
                         overflow: 'hidden',
                       }}
@@ -915,11 +918,11 @@ export default function AdminMediaGalleryPage() {
                       <Box
                         sx={{
                           height: 140,
-                          backgroundColor: isPdf ? '#FEF2F2' : '#F8FAFC',
+                          backgroundColor: isPdf ? (isDark ? 'rgba(239, 68, 68, 0.12)' : '#FEF2F2') : 'background.default',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          borderBottom: '1px solid #E2E8F0',
+                          borderBottom: '1px solid', borderColor: 'divider',
                           position: 'relative',
                         }}
                       >
@@ -962,7 +965,7 @@ export default function AdminMediaGalleryPage() {
                           variant="body2"
                           sx={{
                             fontWeight: 700,
-                            color: '#0F172A',
+                            color: 'text.primary',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
@@ -972,7 +975,7 @@ export default function AdminMediaGalleryPage() {
                           {m.originalName}
                         </Typography>
 
-                        <Typography variant="caption" sx={{ color: '#64748B', display: 'block', mt: 0.5, mb: 1.5 }}>
+                        <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mt: 0.5, mb: 1.5 }}>
                           {(m.sizeBytes / 1024).toFixed(1)} KB • {new Date(m.createdAt).toLocaleDateString()}
                         </Typography>
 
@@ -985,7 +988,7 @@ export default function AdminMediaGalleryPage() {
                               textTransform: 'none',
                               fontSize: '0.75rem',
                               fontWeight: 600,
-                              color: '#475569',
+                              color: 'text.secondary',
                               p: 0,
                               minWidth: 'auto',
                             }}
@@ -1027,7 +1030,7 @@ export default function AdminMediaGalleryPage() {
         fullWidth
         PaperProps={{ sx: { borderRadius: '16px', p: 1 } }}
       >
-        <DialogTitle sx={{ fontWeight: 800, color: '#0F172A', pb: 1 }}>
+        <DialogTitle sx={{ fontWeight: 800, color: 'text.primary', pb: 1 }}>
           {editingPhoto ? 'Edit Gallery Photo Details' : 'Add New Photograph to Public Gallery'}
         </DialogTitle>
         <Box component="form" onSubmit={handleSavePhotoModal}>
@@ -1035,7 +1038,7 @@ export default function AdminMediaGalleryPage() {
             {/* File Dropzone (Only for new uploads) */}
             {!editingPhoto ? (
               <Box>
-                <Typography sx={{ fontSize: '0.84rem', fontWeight: 700, color: '#334155', mb: 0.75 }}>
+                <Typography sx={{ fontSize: '0.84rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                   Select Image File (JPG, PNG, WebP)
                 </Typography>
                 <Box
@@ -1048,7 +1051,7 @@ export default function AdminMediaGalleryPage() {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor: '#F8FAFC',
+                    backgroundColor: 'background.default',
                     cursor: 'pointer',
                     '&:hover': { borderColor: '#3988CA', backgroundColor: '#F0F9FF' },
                   }}
@@ -1070,20 +1073,20 @@ export default function AdminMediaGalleryPage() {
                   {modalFile ? (
                     <Box sx={{ textAlign: 'center' }}>
                       <CheckCircleOutlineIcon sx={{ fontSize: 32, color: '#16A34A', mb: 0.5 }} />
-                      <Typography variant="body2" sx={{ fontWeight: 700, color: '#0F172A' }}>
+                      <Typography variant="body2" sx={{ fontWeight: 700, color: 'text.primary' }}>
                         {modalFile.name}
                       </Typography>
-                      <Typography variant="caption" sx={{ color: '#64748B' }}>
+                      <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                         {(modalFile.size / 1024).toFixed(1)} KB • Click to change file
                       </Typography>
                     </Box>
                   ) : (
                     <Box sx={{ textAlign: 'center' }}>
                       <CloudUploadIcon sx={{ fontSize: 36, color: '#3988CA', mb: 0.5 }} />
-                      <Typography variant="body2" sx={{ fontWeight: 700, color: '#0F172A' }}>
+                      <Typography variant="body2" sx={{ fontWeight: 700, color: 'text.primary' }}>
                         Click to browse or drop photograph here
                       </Typography>
-                      <Typography variant="caption" sx={{ color: '#64748B' }}>
+                      <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                         High quality JPG or PNG recommended (up to 10MB)
                       </Typography>
                     </Box>
@@ -1091,17 +1094,17 @@ export default function AdminMediaGalleryPage() {
                 </Box>
               </Box>
             ) : (
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, p: 1.5, backgroundColor: '#F8FAFC', borderRadius: '12px' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, p: 1.5, backgroundColor: 'background.default', borderRadius: '12px' }}>
                 <img
                   src={editingPhoto.storagePath}
                   alt={editingPhoto.title || ''}
                   style={{ width: 80, height: 60, objectFit: 'cover', borderRadius: '8px' }}
                 />
                 <Box>
-                  <Typography variant="body2" sx={{ fontWeight: 700, color: '#0F172A' }}>
+                  <Typography variant="body2" sx={{ fontWeight: 700, color: 'text.primary' }}>
                     {editingPhoto.originalName}
                   </Typography>
-                  <Typography variant="caption" sx={{ color: '#64748B' }}>
+                  <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                     Path: {editingPhoto.storagePath}
                   </Typography>
                 </Box>
@@ -1110,7 +1113,7 @@ export default function AdminMediaGalleryPage() {
 
             {/* Photo Title */}
             <Box>
-              <Typography sx={{ fontSize: '0.84rem', fontWeight: 700, color: '#334155', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.84rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Photo Title *
               </Typography>
               <TextField
@@ -1126,7 +1129,7 @@ export default function AdminMediaGalleryPage() {
 
             {/* Category Select */}
             <Box>
-              <Typography sx={{ fontSize: '0.84rem', fontWeight: 700, color: '#334155', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.84rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Public Gallery Category *
               </Typography>
               <FormControl fullWidth size="small">
@@ -1146,7 +1149,7 @@ export default function AdminMediaGalleryPage() {
 
             {/* Caption / Description */}
             <Box>
-              <Typography sx={{ fontSize: '0.84rem', fontWeight: 700, color: '#334155', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.84rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Caption / Description (Visible on card & lightbox)
               </Typography>
               <TextField
@@ -1162,7 +1165,7 @@ export default function AdminMediaGalleryPage() {
 
             {/* Display Order */}
             <Box>
-              <Typography sx={{ fontSize: '0.84rem', fontWeight: 700, color: '#334155', mb: 0.75 }}>
+              <Typography sx={{ fontSize: '0.84rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
                 Display Priority Order
               </Typography>
               <TextField
@@ -1180,7 +1183,7 @@ export default function AdminMediaGalleryPage() {
             <Button
               onClick={() => setPhotoModalOpen(false)}
               disabled={modalSaving}
-              sx={{ textTransform: 'none', fontWeight: 600, color: '#64748B' }}
+              sx={{ textTransform: 'none', fontWeight: 600, color: 'text.secondary' }}
             >
               Cancel
             </Button>
@@ -1214,16 +1217,16 @@ export default function AdminMediaGalleryPage() {
         fullWidth
         PaperProps={{ sx: { borderRadius: '16px', p: 1 } }}
       >
-        <DialogTitle sx={{ fontWeight: 800, color: '#0F172A', pb: 1 }}>
+        <DialogTitle sx={{ fontWeight: 800, color: 'text.primary', pb: 1 }}>
           Configure Featured Walkthrough Video
         </DialogTitle>
         <DialogContent sx={{ pt: 1, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
-          <Typography variant="body2" sx={{ color: '#64748B' }}>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             This video is prominently featured at the top of the public Gallery page (alfalahcsc.com/gallery).
           </Typography>
 
           <Box>
-            <Typography sx={{ fontSize: '0.84rem', fontWeight: 700, color: '#334155', mb: 0.75 }}>
+            <Typography sx={{ fontSize: '0.84rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
               Video File Path or Stream URL *
             </Typography>
             <TextField
@@ -1238,7 +1241,7 @@ export default function AdminMediaGalleryPage() {
           </Box>
 
           <Box>
-            <Typography sx={{ fontSize: '0.84rem', fontWeight: 700, color: '#334155', mb: 0.75 }}>
+            <Typography sx={{ fontSize: '0.84rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
               Section Title
             </Typography>
             <TextField
@@ -1252,7 +1255,7 @@ export default function AdminMediaGalleryPage() {
           </Box>
 
           <Box>
-            <Typography sx={{ fontSize: '0.84rem', fontWeight: 700, color: '#334155', mb: 0.75 }}>
+            <Typography sx={{ fontSize: '0.84rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
               Subtitle Description
             </Typography>
             <TextField
@@ -1265,7 +1268,7 @@ export default function AdminMediaGalleryPage() {
             />
           </Box>
 
-          <Box sx={{ p: 1.5, backgroundColor: '#F8FAFC', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
+          <Box sx={{ p: 1.5, backgroundColor: 'background.default', borderRadius: '12px', border: '1px solid', borderColor: 'divider' }}>
             <FormControlLabel
               control={
                 <Switch
@@ -1276,10 +1279,10 @@ export default function AdminMediaGalleryPage() {
               }
               label={
                 <Box>
-                  <Typography variant="body2" sx={{ fontWeight: 700, color: '#0F172A' }}>
+                  <Typography variant="body2" sx={{ fontWeight: 700, color: 'text.primary' }}>
                     Show Video Section on Public Gallery
                   </Typography>
-                  <Typography variant="caption" sx={{ color: '#64748B' }}>
+                  <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                     Toggle off if you wish to temporarily hide the video player on the gallery page.
                   </Typography>
                 </Box>
@@ -1292,7 +1295,7 @@ export default function AdminMediaGalleryPage() {
           <Button
             onClick={() => setVideoModalOpen(false)}
             disabled={savingVideo}
-            sx={{ textTransform: 'none', fontWeight: 600, color: '#64748B' }}
+            sx={{ textTransform: 'none', fontWeight: 600, color: 'text.secondary' }}
           >
             Cancel
           </Button>
