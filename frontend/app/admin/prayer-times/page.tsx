@@ -603,9 +603,7 @@ export default function AdminPrayerTimesPage() {
                       backgroundColor: 'background.paper',
                       '& input': { colorScheme: isDark ? 'dark' : 'light' },
                       '& input::-webkit-calendar-picker-indicator': {
-                        filter: isDark ? 'invert(1) brightness(0.95)' : 'none',
                         cursor: 'pointer',
-                        opacity: isDark ? 0.9 : 0.6,
                       },
                     }}
                   />
@@ -818,9 +816,7 @@ export default function AdminPrayerTimesPage() {
                       backgroundColor: 'background.paper',
                       '& input': { colorScheme: isDark ? 'dark' : 'light' },
                       '& input::-webkit-calendar-picker-indicator': {
-                        filter: isDark ? 'invert(1) brightness(0.95)' : 'none',
                         cursor: 'pointer',
-                        opacity: isDark ? 0.9 : 0.6,
                       },
                     }}
                   />
@@ -841,9 +837,7 @@ export default function AdminPrayerTimesPage() {
                       backgroundColor: 'background.paper',
                       '& input': { colorScheme: isDark ? 'dark' : 'light' },
                       '& input::-webkit-calendar-picker-indicator': {
-                        filter: isDark ? 'invert(1) brightness(0.95)' : 'none',
                         cursor: 'pointer',
-                        opacity: isDark ? 0.9 : 0.6,
                       },
                     }}
                   />

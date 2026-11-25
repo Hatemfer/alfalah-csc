@@ -92,17 +92,22 @@
 /* Universal Dark Mode styling for browser native input pickers (clock & calendar) */
 [data-theme='dark'] input[type="time"],
 [data-theme='dark'] input[type="date"],
-[data-theme='dark'] input[type="datetime-local"] {
+[data-theme='dark'] input[type="datetime-local"],
+.dark input[type="time"],
+.dark input[type="date"],
+.dark input[type="datetime-local"] {
   color-scheme: dark !important;
 }
 
 [data-theme='dark'] input[type="time"]::-webkit-calendar-picker-indicator,
 [data-theme='dark'] input[type="date"]::-webkit-calendar-picker-indicator,
 [data-theme='dark'] input[type="datetime-local"]::-webkit-calendar-picker-indicator,
-[data-theme='dark'] input::-webkit-calendar-picker-indicator {
-  filter: invert(1) brightness(0.95) !important;
+[data-theme='dark'] input::-webkit-calendar-picker-indicator,
+.dark input[type="time"]::-webkit-calendar-picker-indicator,
+.dark input[type="date"]::-webkit-calendar-picker-indicator,
+.dark input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+.dark input::-webkit-calendar-picker-indicator {
   cursor: pointer !important;
-  opacity: 0.9 !important;
 }
 
 /* Base Styles */
