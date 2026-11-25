@@ -182,37 +182,65 @@ const CATEGORIES = [
   { id: 'community', label: 'Community & Eid' },
 ];
 
+const CATEGORY_LABELS: Record<string, string> = {
+  stem: 'Youth & STEM Lab',
+  sakeena: 'Sakeena Hub',
+  worship: 'Worship & Prayers',
+  facilities: 'Mosque Facilities',
+  community: 'Community Life',
+};
+
 export default function GalleryPage() {
   const [items, setItems] = useState<GalleryItem[]>(GALLERY_ITEMS);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [activeItem, setActiveItem] = useState<GalleryItem | null>(null);
+  const [videoTour, setVideoTour] = useState({
+    url: '/videos/community-tour.mp4',
+    title: 'Video Walkthrough & Centre Atmosphere',
+    subtitle: 'Experience the warm, welcoming environment at 89 Tindal Street, Balsall Heath',
+    enabled: true,
+  });
 
-  // Fetch photos uploaded via CMS Media Library
+  // Fetch photos uploaded via CMS Media Library and Video Settings
   React.useEffect(() => {
-    async function loadUploadedMedia() {
+    async function loadGalleryContent() {
       try {
-        const res = await fetch('/api/v1/media');
-        if (res.ok) {
-          const uploaded = await res.json();
-          if (Array.isArray(uploaded) && uploaded.length > 0) {
-            const mapped: GalleryItem[] = uploaded
-              .filter((m: any) => m.storagePath && m.mimeType?.startsWith('image/'))
-              .map((m: any, idx: number) => ({
-                id: `uploaded-${m.id || idx}`,
-                title: m.caption || m.altText || m.originalName || 'Community Photo',
-                category: 'community' as const,
-                categoryLabel: 'Community Gallery',
-                image: m.storagePath,
-                description: m.caption || m.altText || 'Uploaded via Alfalah Media Library',
-              }));
-            setItems([...mapped, ...GALLERY_ITEMS]);
+        const [galleryRes, settingsRes] = await Promise.all([
+          fetch('/api/v1/media/gallery'),
+          fetch('/api/v1/site-settings'),
+        ]);
+
+        if (galleryRes.ok) {
+          const galleryData = await galleryRes.json();
+          if (Array.isArray(galleryData) && galleryData.length > 0) {
+            const mapped: GalleryItem[] = galleryData.map((m: any) => ({
+              id: m.id,
+              title: m.title || m.originalName || 'Community Photo',
+              category: (m.category || 'community') as any,
+              categoryLabel: CATEGORY_LABELS[m.category] || 'Community Life',
+              image: m.storagePath,
+              description: m.caption || m.altText || '',
+            }));
+            setItems(mapped);
+          }
+        }
+
+        if (settingsRes.ok) {
+          const settings = await settingsRes.json();
+          if (settings.gallery_video_url !== undefined || settings.gallery_video_enabled !== undefined) {
+            setVideoTour({
+              url: settings.gallery_video_url || '/videos/community-tour.mp4',
+              title: settings.gallery_video_title || 'Video Walkthrough & Centre Atmosphere',
+              subtitle: settings.gallery_video_subtitle || 'Experience the warm, welcoming environment at 89 Tindal Street, Balsall Heath',
+              enabled: settings.gallery_video_enabled !== 'false',
+            });
           }
         }
       } catch (err) {
         // Keep initial items on error
       }
     }
-    loadUploadedMedia();
+    loadGalleryContent();
   }, []);
 
   const filteredItems = selectedCategory === 'all'
@@ -249,88 +277,91 @@ export default function GalleryPage() {
       </section>
 
       {/* Featured Video Tour Section */}
-      <section style={{ padding: '2.5rem 0 1.5rem' }}>
-        <div className="container" style={{ maxWidth: '1000px' }}>
-          <div
-            style={{
-              backgroundColor: '#ffffff',
-              borderRadius: '20px',
-              border: '1px solid #e2e8f0',
-              overflow: 'hidden',
-              boxShadow: '0 8px 30px rgba(15, 23, 42, 0.06)',
-            }}
-          >
+      {videoTour.enabled && (
+        <section style={{ padding: '2.5rem 0 1.5rem' }}>
+          <div className="container" style={{ maxWidth: '1000px' }}>
             <div
               style={{
-                padding: '1.25rem 1.75rem',
-                borderBottom: '1px solid #e2e8f0',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexWrap: 'wrap',
-                gap: '0.75rem',
                 backgroundColor: '#ffffff',
+                borderRadius: '20px',
+                border: '1px solid #e2e8f0',
+                overflow: 'hidden',
+                boxShadow: '0 8px 30px rgba(15, 23, 42, 0.06)',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                <div
+              <div
+                style={{
+                  padding: '1.25rem 1.75rem',
+                  borderBottom: '1px solid #e2e8f0',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
+                  gap: '0.75rem',
+                  backgroundColor: '#ffffff',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                  <div
+                    style={{
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '50%',
+                      backgroundColor: '#DCEEFF',
+                      color: '#3988CA',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Video size={18} />
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: '1.1rem', fontWeight: 800, margin: 0, color: '#0f172a' }}>
+                      {videoTour.title}
+                    </h3>
+                    <p style={{ fontSize: '0.8rem', color: '#64748b', margin: 0 }}>
+                      {videoTour.subtitle}
+                    </p>
+                  </div>
+                </div>
+
+                <span
                   style={{
-                    width: '36px',
-                    height: '36px',
-                    borderRadius: '50%',
-                    backgroundColor: '#DCEEFF',
+                    fontSize: '0.78rem',
+                    fontWeight: 700,
                     color: '#3988CA',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    backgroundColor: '#DCEEFF',
+                    padding: '0.3rem 0.75rem',
+                    borderRadius: '9999px',
                   }}
                 >
-                  <Video size={18} />
-                </div>
-                <div>
-                  <h3 style={{ fontSize: '1.1rem', fontWeight: 800, margin: 0, color: '#0f172a' }}>
-                    Video Walkthrough & Centre Atmosphere
-                  </h3>
-                  <p style={{ fontSize: '0.8rem', color: '#64748b', margin: 0 }}>
-                    Experience the warm, welcoming environment at 89 Tindal Street, Balsall Heath
-                  </p>
-                </div>
+                  Official Video Tour
+                </span>
               </div>
 
-              <span
-                style={{
-                  fontSize: '0.78rem',
-                  fontWeight: 700,
-                  color: '#3988CA',
-                  backgroundColor: '#DCEEFF',
-                  padding: '0.3rem 0.75rem',
-                  borderRadius: '9999px',
-                }}
-              >
-                Official Video Tour
-              </span>
-            </div>
-
-            <div style={{ position: 'relative', width: '100%', backgroundColor: '#000000', maxHeight: '540px' }}>
-              <video
-                controls
-                playsInline
-                preload="metadata"
-                style={{
-                  width: '100%',
-                  maxHeight: '540px',
-                  display: 'block',
-                  margin: '0 auto',
-                  objectFit: 'contain',
-                }}
-              >
-                <source src="/videos/community-tour.mp4" type="video/mp4" />
-                Your browser does not support HTML5 video streaming.
-              </video>
+              <div style={{ position: 'relative', width: '100%', backgroundColor: '#000000', maxHeight: '540px' }}>
+                <video
+                  key={videoTour.url}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  style={{
+                    width: '100%',
+                    maxHeight: '540px',
+                    display: 'block',
+                    margin: '0 auto',
+                    objectFit: 'contain',
+                  }}
+                >
+                  <source src={videoTour.url} type="video/mp4" />
+                  Your browser does not support HTML5 video streaming.
+                </video>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Category Filter Pills — Smooth Horizontal Scroll on Mobile, Centered on Desktop */}
       <section style={{ padding: '0.85rem 0 1.25rem' }}>
@@ -340,8 +371,8 @@ export default function GalleryPage() {
               {CATEGORIES.map((cat) => {
                 const isSelected = selectedCategory === cat.id;
                 const count = cat.id === 'all'
-                  ? GALLERY_ITEMS.length
-                  : GALLERY_ITEMS.filter((item) => item.category === cat.id).length;
+                  ? items.length
+                  : items.filter((item) => item.category === cat.id).length;
 
                 return (
                   <button
@@ -428,6 +459,7 @@ export default function GalleryPage() {
                     src={item.image}
                     alt={item.title}
                     fill
+                    unoptimized
                     style={{ objectFit: 'cover' }}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 380px"
                   />
@@ -563,6 +595,7 @@ export default function GalleryPage() {
                 src={activeItem.image}
                 alt={activeItem.title}
                 fill
+                unoptimized
                 style={{ objectFit: 'contain' }}
                 sizes="(max-width: 820px) 100vw, 820px"
               />

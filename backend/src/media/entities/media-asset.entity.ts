@@ -25,6 +25,18 @@ export class MediaAsset {
   @Column({ name: 'storage_path', length: 500 })
   storagePath: string;
 
+  @Column({ length: 255, nullable: true })
+  title: string;
+
+  @Column({ length: 50, default: 'community' })
+  category: string;
+
+  @Column({ name: 'is_gallery', default: false })
+  isGallery: boolean;
+
+  @Column({ name: 'display_order', default: 0 })
+  displayOrder: number;
+
   @Column({ name: 'alt_text', length: 255, nullable: true })
   altText: string;
 
@@ -34,3 +46,4 @@ export class MediaAsset {
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 }
+

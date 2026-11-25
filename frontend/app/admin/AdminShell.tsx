@@ -65,7 +65,7 @@ const NAV_GROUPS: NavGroup[] = [
       { label: 'Activities & Training', href: '/admin/activities', icon: VolunteerActivismIcon },
       { label: 'Events & Courses', href: '/admin/events', icon: EventIcon },
       { label: 'Prayer Times & Iqamah', href: '/admin/prayer-times', icon: AccessTimeFilledIcon },
-      { label: 'Media Library', href: '/admin/media', icon: PermMediaIcon },
+      { label: 'Gallery & Media', href: '/admin/media', icon: PermMediaIcon },
     ],
   },
   {

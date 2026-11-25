@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Patch,
   Delete,
   Param,
   Query,
@@ -38,9 +39,15 @@ export class PublicMediaController {
   constructor(private mediaService: MediaService) {}
 
   @Get()
-  @ApiOperation({ summary: 'List all published media assets for gallery' })
+  @ApiOperation({ summary: 'List all published media assets' })
   async getPublicMedia() {
     return this.mediaService.getAllMedia();
+  }
+
+  @Get('gallery')
+  @ApiOperation({ summary: 'List all curated gallery items for the public gallery showcase' })
+  async getGalleryMedia() {
+    return this.mediaService.getGalleryMedia();
   }
 }
 
@@ -53,9 +60,19 @@ export class MediaController {
   constructor(private mediaService: MediaService) {}
 
   @Get()
-  @ApiOperation({ summary: 'List all uploaded media assets' })
-  async getMedia() {
-    return this.mediaService.getAllMedia();
+  @ApiOperation({ summary: 'List all uploaded media assets with optional filtering' })
+  async getMedia(
+    @Query('isGallery') isGallery?: string,
+    @Query('category') category?: string,
+  ) {
+    const filter: { isGallery?: boolean; category?: string } = {};
+    if (isGallery !== undefined) {
+      filter.isGallery = isGallery === 'true';
+    }
+    if (category) {
+      filter.category = category;
+    }
+    return this.mediaService.getAllMedia(filter);
   }
 
   @Post('upload')
@@ -88,8 +105,11 @@ export class MediaController {
   )
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,
+    @Body('title') title: string,
+    @Body('category') category: string,
     @Body('altText') altText: string,
     @Body('caption') caption: string,
+    @Body('isGallery') isGallery: string,
     @CurrentUser() admin: AdminUser,
   ) {
     if (!file) {
@@ -97,11 +117,34 @@ export class MediaController {
     }
     return this.mediaService.saveMediaRecord(
       file,
-      altText,
-      caption,
+      {
+        title,
+        category,
+        altText,
+        caption,
+        isGallery: isGallery === 'true' || isGallery === '1',
+      },
       admin.id,
       admin.email,
     );
+  }
+
+  @Patch(':id')
+  @ApiOperation({ summary: 'Update metadata of a media asset' })
+  async updateMedia(
+    @Param('id') id: string,
+    @Body()
+    dto: {
+      title?: string;
+      category?: string;
+      caption?: string;
+      altText?: string;
+      isGallery?: boolean;
+      displayOrder?: number;
+    },
+    @CurrentUser() admin: AdminUser,
+  ) {
+    return this.mediaService.updateMedia(id, dto, admin.id, admin.email);
   }
 
   @Delete('by-path')
@@ -126,3 +169,4 @@ export class MediaController {
     return this.mediaService.deleteMedia(id, admin.id, admin.email);
   }
 }
+
