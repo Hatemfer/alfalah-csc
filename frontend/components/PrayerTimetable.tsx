@@ -162,18 +162,75 @@ export default function PrayerTimetable({
   const [now, setNow] = useState<Date>(new Date());
   const [mounted, setMounted] = useState(false);
   const [use24Hour, setUse24Hour] = useState<boolean>(false);
+  const [liveData, setLiveData] = useState<any>(null);
+  const [jumuahTime, setJumuahTime] = useState<string>('13:00');
+  const [timetablePdfUrl, setTimetablePdfUrl] = useState<string>('/downloads/AlFalah-Prayer-Timetable.pdf');
 
   useEffect(() => {
     setMounted(true);
+    let isMounted = true;
+
+    async function fetchLiveToday() {
+      try {
+        const [todayRes, settingsRes] = await Promise.all([
+          fetch('/api/v1/prayer-times/today'),
+          fetch('/api/v1/site-settings'),
+        ]);
+        if (todayRes.ok) {
+          const json = await todayRes.json();
+          if (isMounted) setLiveData(json);
+        }
+        if (settingsRes.ok) {
+          const s = await settingsRes.json();
+          if (isMounted) {
+            if (s.jumuah_time) setJumuahTime(s.jumuah_time);
+            if (s.timetable_pdf_url) setTimetablePdfUrl(s.timetable_pdf_url);
+          }
+        }
+      } catch (err) {
+        // Fall back gracefully to local pre-computed schedule
+      }
+    }
+
+    fetchLiveToday();
+
     const timer = setInterval(() => {
       setNow(new Date());
     }, 1000);
-    return () => clearInterval(timer);
+    return () => {
+      isMounted = false;
+      clearInterval(timer);
+    };
   }, []);
 
   const todaySchedule = useMemo(() => {
-    return getDaySchedule(now);
-  }, [now]);
+    const base = getDaySchedule(now);
+    if (!liveData) return base;
+    return {
+      ...base,
+      fajr: {
+        adhan: liveData.fajr?.adhan || base.fajr.adhan,
+        iqamah: liveData.fajr?.iqamah || base.fajr.iqamah,
+      },
+      sunrise: liveData.sunrise || base.sunrise,
+      dhuhr: {
+        adhan: liveData.dhuhr?.adhan || base.dhuhr.adhan,
+        iqamah: liveData.dhuhr?.iqamah || base.dhuhr.iqamah,
+      },
+      asr: {
+        adhan: liveData.asr?.adhan || base.asr.adhan,
+        iqamah: liveData.asr?.iqamah || base.asr.iqamah,
+      },
+      maghrib: {
+        adhan: liveData.maghrib?.adhan || base.maghrib.adhan,
+        iqamah: liveData.maghrib?.iqamah || base.maghrib.iqamah,
+      },
+      isha: {
+        adhan: liveData.isha?.adhan || base.isha.adhan,
+        iqamah: liveData.isha?.iqamah || base.isha.iqamah,
+      },
+    };
+  }, [now, liveData]);
 
   // Compute next prayer and real-time countdown
   const nextPrayerInfo = useMemo(() => {
@@ -910,7 +967,8 @@ export default function PrayerTimetable({
           }}
         >
           <span>
-            <strong>Friday Congregational Service (Jumu’ah)</strong>: Khutbah & Salah at <strong style={{ color: '#0284C7' }}>13:00 (1:00 PM)</strong>
+            <strong>Friday Congregational Service (Jumu’ah)</strong>: Khutbah &amp; Salah at{' '}
+            <strong style={{ color: '#0284C7' }}>{jumuahTime} ({to12Hour(jumuahTime)})</strong>
           </span>
           <span style={{ color: '#B45309', fontWeight: 600 }}>
             Weekly Tafsir Lecture: Every Saturday after Maghrib with Sheikh Jamal Al-Jabarti
@@ -1110,7 +1168,8 @@ export default function PrayerTimetable({
           }}
         >
           <span>
-            <strong>Friday Jumu’ah Service</strong>: Khutbah &amp; Salah at <strong style={{ color: '#0284C7' }}>13:00 (1:00 PM)</strong> sharp
+            <strong>Friday Jumu’ah Service</strong>: Khutbah &amp; Salah at{' '}
+            <strong style={{ color: '#0284C7' }}>{jumuahTime} ({to12Hour(jumuahTime)})</strong> sharp
           </span>
         </div>
       </div>
@@ -1159,7 +1218,7 @@ export default function PrayerTimetable({
 
         <div className="timetable-card-actions">
           <a
-            href="/downloads/AlFalah-Prayer-Timetable.pdf"
+            href={timetablePdfUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary timetable-card-btn"

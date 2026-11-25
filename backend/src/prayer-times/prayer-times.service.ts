@@ -271,25 +271,43 @@ export class PrayerTimesService {
     dto: CreatePrayerOverrideDto,
     adminId?: string,
     adminEmail?: string,
-  ): Promise<PrayerTimeOverride> {
-    let override = await this.overrideRepo.findOne({ where: { date: dto.date } });
-    if (!override) {
-      override = this.overrideRepo.create(dto);
-    } else {
-      Object.assign(override, dto);
+  ): Promise<{ count: number; dates: string[]; override: PrayerTimeOverride }> {
+    const { endDate, ...fields } = dto;
+    const dates: string[] = [];
+
+    const start = new Date(`${dto.date}T12:00:00Z`);
+    const end = endDate && endDate >= dto.date ? new Date(`${endDate}T12:00:00Z`) : start;
+
+    // Cap range at 90 days to prevent accidental huge loops
+    const maxDays = 90;
+    const cursor = new Date(start);
+    while (cursor <= end && dates.length < maxDays) {
+      dates.push(cursor.toISOString().slice(0, 10));
+      cursor.setUTCDate(cursor.getUTCDate() + 1);
     }
-    const saved = await this.overrideRepo.save(override);
+
+    let lastSaved!: PrayerTimeOverride;
+    for (const dateStr of dates) {
+      const payload = { ...fields, date: dateStr };
+      let override = await this.overrideRepo.findOne({ where: { date: dateStr } });
+      if (!override) {
+        override = this.overrideRepo.create(payload);
+      } else {
+        Object.assign(override, payload);
+      }
+      lastSaved = await this.overrideRepo.save(override);
+    }
 
     await this.auditService.log({
       adminId,
       adminEmail,
       action: 'SAVE_PRAYER_OVERRIDE',
       entityType: 'PRAYER_OVERRIDE',
-      entityId: dto.date,
-      details: dto,
+      entityId: dates.length > 1 ? `${dates[0]}..${dates[dates.length - 1]}` : dto.date,
+      details: { ...dto, daysUpdated: dates.length },
     });
 
-    return saved;
+    return { count: dates.length, dates, override: lastSaved };
   }
 
   async deleteOverride(

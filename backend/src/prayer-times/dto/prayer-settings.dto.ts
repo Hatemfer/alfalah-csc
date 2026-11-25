@@ -70,6 +70,11 @@ export class CreatePrayerOverrideDto {
   @IsNotEmpty()
   date: string; // YYYY-MM-DD
 
+  @ApiProperty({ example: '2026-11-07', required: false })
+  @IsString()
+  @IsOptional()
+  endDate?: string; // Optional YYYY-MM-DD for applying schedule across a date range
+
   @ApiProperty({ example: '05:45', required: false })
   @IsString()
   @IsOptional()
