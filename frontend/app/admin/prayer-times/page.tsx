@@ -1188,56 +1188,69 @@ export default function AdminPrayerTimesPage() {
           },
         }}
       >
-        <DialogTitle sx={{ px: 2.5, pt: 2, pb: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
+        <DialogTitle sx={{ px: 3, pt: 2.5, pb: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
             <Box
               sx={{
-                width: 38,
-                height: 38,
+                width: 40,
+                height: 40,
                 borderRadius: 2,
                 backgroundColor: '#FEE2E2',
                 color: '#DC2626',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                flexShrink: 0,
               }}
             >
               <PictureAsPdfRoundedIcon fontSize="small" />
             </Box>
             <Box>
-              <Typography sx={{ fontWeight: 800, fontSize: '1.05rem', color: '#0F172A' }}>
+              <Typography sx={{ fontWeight: 800, fontSize: '1.05rem', color: '#0F172A', lineHeight: 1.3 }}>
                 {timetablePdfUrl ? 'Replace Official Timetable PDF' : 'Upload Official Timetable PDF'}
               </Typography>
-              <Typography sx={{ fontSize: '0.78rem', color: '#64748B' }}>
-                Printable PDF schedule for worshippers on https://alfalahcsc.com/prayer-times
+              <Typography sx={{ fontSize: '0.8rem', color: '#64748B', mt: 0.25 }}>
+                Printable PDF schedule for worshippers on the website.
               </Typography>
             </Box>
           </Box>
-          <IconButton size="small" onClick={() => setPdfModalOpen(false)} disabled={uploadingPdf}>
+          <IconButton size="small" onClick={() => setPdfModalOpen(false)} disabled={uploadingPdf} sx={{ color: '#94A3B8' }}>
             <CloseRoundedIcon fontSize="small" />
           </IconButton>
         </DialogTitle>
 
-        <DialogContent sx={{ px: 2.5, py: 2 }}>
+        <DialogContent sx={{ px: 3, py: 2 }}>
           {/* Current file banner if exists */}
           {timetablePdfUrl && (
             <Box
               sx={{
-                mb: 2.5,
-                p: 1.75,
+                mb: 2.25,
+                px: 2,
+                py: 1.25,
                 borderRadius: 2,
                 backgroundColor: '#F8FAFC',
                 border: '1px solid #E2E8F0',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
+                gap: 1.5,
               }}
             >
-              <Box>
-                <Typography sx={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>
-                  Currently Active on Website
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0, flex: 1 }}>
+                <Typography sx={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748B', whiteSpace: 'nowrap' }}>
+                  Current File:
                 </Typography>
-                <Typography sx={{ fontSize: '0.86rem', fontWeight: 700, color: '#0F172A' }}>
+                <Typography
+                  sx={{
+                    fontSize: '0.82rem',
+                    fontWeight: 700,
+                    color: '#0F172A',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  }}
+                  title={pdfDisplayName}
+                >
                   {pdfDisplayName}
                 </Typography>
               </Box>
@@ -1248,8 +1261,8 @@ export default function AdminPrayerTimesPage() {
                 rel="noopener noreferrer"
                 size="small"
                 variant="text"
-                startIcon={<OpenInNewRoundedIcon sx={{ fontSize: 14 }} />}
-                sx={{ textTransform: 'none', fontWeight: 700, fontSize: '0.78rem' }}
+                startIcon={<OpenInNewRoundedIcon sx={{ fontSize: 13 }} />}
+                sx={{ textTransform: 'none', fontWeight: 700, fontSize: '0.78rem', color: '#0284C7', flexShrink: 0 }}
               >
                 Preview
               </Button>
@@ -1282,7 +1295,7 @@ export default function AdminPrayerTimesPage() {
               sx={{
                 border: '2px dashed #CBD5E1',
                 borderRadius: 2.5,
-                p: 4,
+                p: 3.5,
                 textAlign: 'center',
                 backgroundColor: '#F8FAFC',
                 cursor: 'pointer',
@@ -1293,11 +1306,11 @@ export default function AdminPrayerTimesPage() {
                 },
               }}
             >
-              <CloudUploadRoundedIcon sx={{ fontSize: 42, color: '#0284C7', mb: 1 }} />
-              <Typography sx={{ fontWeight: 800, fontSize: '0.95rem', color: '#0F172A', mb: 0.5 }}>
+              <CloudUploadRoundedIcon sx={{ fontSize: 38, color: '#0284C7', mb: 1 }} />
+              <Typography sx={{ fontWeight: 800, fontSize: '0.92rem', color: '#0F172A', mb: 0.5 }}>
                 Click to browse or drag &amp; drop PDF here
               </Typography>
-              <Typography sx={{ fontSize: '0.78rem', color: '#64748B' }}>
+              <Typography sx={{ fontSize: '0.76rem', color: '#64748B' }}>
                 Adobe PDF format only (max 10MB)
               </Typography>
             </Box>
@@ -1306,20 +1319,31 @@ export default function AdminPrayerTimesPage() {
               sx={{
                 border: '1.5px solid #0284C7',
                 borderRadius: 2.5,
-                p: 2.5,
+                p: 2,
                 backgroundColor: '#F0F9FF',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
+                gap: 2,
               }}
             >
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                <PictureAsPdfRoundedIcon sx={{ color: '#DC2626', fontSize: 32 }} />
-                <Box>
-                  <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', color: '#0F172A' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, minWidth: 0, flex: 1 }}>
+                <PictureAsPdfRoundedIcon sx={{ color: '#DC2626', fontSize: 32, flexShrink: 0 }} />
+                <Box sx={{ minWidth: 0, flex: 1 }}>
+                  <Typography
+                    sx={{
+                      fontWeight: 800,
+                      fontSize: '0.88rem',
+                      color: '#0F172A',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                    }}
+                    title={selectedPdfFile.name}
+                  >
                     {selectedPdfFile.name}
                   </Typography>
-                  <Typography sx={{ fontSize: '0.76rem', color: '#64748B', fontWeight: 600 }}>
+                  <Typography sx={{ fontSize: '0.74rem', color: '#64748B', fontWeight: 600 }}>
                     {(selectedPdfFile.size / 1024 / 1024).toFixed(2)} MB • Ready to publish
                   </Typography>
                 </Box>
@@ -1329,22 +1353,25 @@ export default function AdminPrayerTimesPage() {
                 size="small"
                 variant="outlined"
                 onClick={() => document.getElementById('timetable-pdf-file-input')?.click()}
-                sx={{ textTransform: 'none', fontWeight: 700, fontSize: '0.78rem', borderRadius: 2 }}
+                sx={{
+                  textTransform: 'none',
+                  fontWeight: 700,
+                  fontSize: '0.78rem',
+                  borderRadius: 2,
+                  flexShrink: 0,
+                  backgroundColor: '#FFFFFF',
+                  borderColor: '#BAE6FD',
+                  color: '#0284C7',
+                  '&:hover': { backgroundColor: '#F0F9FF', borderColor: '#0284C7' },
+                }}
               >
-                Change
+                Change File
               </Button>
             </Box>
           )}
-
-          {/* Storage cleanup notice */}
-          <Box sx={{ mt: 2.5, p: 1.5, borderRadius: 2, backgroundColor: '#EFF6FF', border: '1px solid #DBEAFE' }}>
-            <Typography sx={{ fontSize: '0.78rem', color: '#1E40AF', lineHeight: 1.5 }}>
-              💡 <strong>Automatic Storage Cleanup:</strong> Publishing this timetable will update the public website immediately and safely remove the previous PDF file from server storage so old files do not pile up.
-            </Typography>
-          </Box>
         </DialogContent>
 
-        <DialogActions sx={{ px: 2.5, pb: 2, pt: 1, gap: 1 }}>
+        <DialogActions sx={{ px: 3, pb: 2.5, pt: 1, gap: 1 }}>
           <Button
             variant="outlined"
             onClick={() => setPdfModalOpen(false)}
