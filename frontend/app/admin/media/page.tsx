@@ -77,14 +77,29 @@ const CATEGORY_LABELS: Record<string, string> = {
   general: 'General Asset',
 };
 
-const CATEGORY_COLORS: Record<string, { bg: string; text: string; border: string }> = {
-  stem: { bg: '#E0F2FE', text: '#0369A1', border: '#BAE6FD' },
-  sakeena: { bg: '#FDF4FF', text: '#A21CAF', border: '#F5D0FE' },
-  worship: { bg: '#ECFDF5', text: '#047857', border: '#A7F3D0' },
-  facilities: { bg: '#FEF3C7', text: '#B45309', border: '#FDE68A' },
-  community: { bg: '#EEF2FF', text: '#4338CA', border: '#C7D2FE' },
-  document: { bg: '#F1F5F9', text: '#475569', border: '#CBD5E1' },
-  general: { bg: '#F1F5F9', text: '#475569', border: '#CBD5E1' },
+const getCategoryColor = (cat: string, isDark: boolean) => {
+  if (isDark) {
+    const darkColors: Record<string, { bg: string; text: string; border: string }> = {
+      stem: { bg: 'rgba(2, 132, 199, 0.22)', text: '#38BDF8', border: 'rgba(56, 189, 248, 0.35)' },
+      sakeena: { bg: 'rgba(162, 28, 175, 0.22)', text: '#F0ABFC', border: 'rgba(240, 171, 252, 0.35)' },
+      worship: { bg: 'rgba(16, 185, 129, 0.22)', text: '#34D399', border: 'rgba(52, 211, 153, 0.35)' },
+      facilities: { bg: 'rgba(217, 119, 6, 0.22)', text: '#FBBF24', border: 'rgba(251, 191, 36, 0.35)' },
+      community: { bg: 'rgba(99, 102, 241, 0.22)', text: '#818CF8', border: 'rgba(129, 140, 248, 0.35)' },
+      document: { bg: 'rgba(148, 163, 184, 0.22)', text: '#CBD5E1', border: 'rgba(203, 213, 225, 0.35)' },
+      general: { bg: 'rgba(148, 163, 184, 0.22)', text: '#CBD5E1', border: 'rgba(203, 213, 225, 0.35)' },
+    };
+    return darkColors[cat] || darkColors.community;
+  }
+  const lightColors: Record<string, { bg: string; text: string; border: string }> = {
+    stem: { bg: '#E0F2FE', text: '#0369A1', border: '#BAE6FD' },
+    sakeena: { bg: '#FDF4FF', text: '#A21CAF', border: '#F5D0FE' },
+    worship: { bg: '#ECFDF5', text: '#047857', border: '#A7F3D0' },
+    facilities: { bg: '#FEF3C7', text: '#B45309', border: '#FDE68A' },
+    community: { bg: '#EEF2FF', text: '#4338CA', border: '#C7D2FE' },
+    document: { bg: '#F1F5F9', text: '#475569', border: '#CBD5E1' },
+    general: { bg: '#F1F5F9', text: '#475569', border: '#CBD5E1' },
+  };
+  return lightColors[cat] || lightColors.community;
 };
 
 export default function AdminMediaGalleryPage() {
@@ -621,7 +636,7 @@ export default function AdminMediaGalleryPage() {
           ) : filteredGalleryItems.length > 0 ? (
             <Grid container spacing={2.5}>
               {filteredGalleryItems.map((item) => {
-                const catColor = CATEGORY_COLORS[item.category || 'community'] || CATEGORY_COLORS.community;
+                const catColor = getCategoryColor(item.category || 'community', isDark);
                 const catLabel = CATEGORY_LABELS[item.category || 'community'] || item.category;
 
                 return (

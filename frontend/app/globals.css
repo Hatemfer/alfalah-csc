@@ -89,6 +89,22 @@
   --shadow-xl:         0 18px 36px rgba(24, 51, 79, 0.1);
 }
 
+/* Universal Dark Mode styling for browser native input pickers (clock & calendar) */
+[data-theme='dark'] input[type="time"],
+[data-theme='dark'] input[type="date"],
+[data-theme='dark'] input[type="datetime-local"] {
+  color-scheme: dark !important;
+}
+
+[data-theme='dark'] input[type="time"]::-webkit-calendar-picker-indicator,
+[data-theme='dark'] input[type="date"]::-webkit-calendar-picker-indicator,
+[data-theme='dark'] input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+[data-theme='dark'] input::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(0.95) !important;
+  cursor: pointer !important;
+  opacity: 0.9 !important;
+}
+
 /* Base Styles */
 * {
   box-sizing: border-box;

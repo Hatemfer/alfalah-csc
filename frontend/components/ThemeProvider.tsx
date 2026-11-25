@@ -20,10 +20,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('light');
 
   useEffect(() => {
-    // Al Falah Community Centre visual identity is strictly light, bright, and welcoming
     try {
-      localStorage.removeItem('alfalah_theme');
-      document.documentElement.setAttribute('data-theme', 'light');
+      const saved = localStorage.getItem('alfalah_theme');
+      if (saved === 'dark' || saved === 'light') {
+        setThemeState(saved);
+        document.documentElement.setAttribute('data-theme', saved);
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
     } catch {
       // ignore
     }

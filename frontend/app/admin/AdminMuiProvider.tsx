@@ -3,6 +3,7 @@
 import React, { useMemo } from 'react';
 import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import GlobalStyles from '@mui/material/GlobalStyles';
 import { useTheme } from '../../components/ThemeProvider';
 
 export function AdminMuiProvider({ children }: { children: React.ReactNode }) {
@@ -117,9 +118,30 @@ export function AdminMuiProvider({ children }: { children: React.ReactNode }) {
             },
           },
         },
+        MuiInputBase: {
+          styleOverrides: {
+            root: {
+              colorScheme: isDark ? 'dark' : 'light',
+              '& input[type="time"]::-webkit-calendar-picker-indicator, & input[type="date"]::-webkit-calendar-picker-indicator, & input[type="datetime-local"]::-webkit-calendar-picker-indicator': {
+                filter: isDark ? 'invert(1) brightness(0.95)' : 'none',
+                cursor: 'pointer',
+                opacity: isDark ? 0.9 : 0.6,
+              },
+            },
+            input: {
+              colorScheme: isDark ? 'dark' : 'light',
+              '&::-webkit-calendar-picker-indicator': {
+                filter: isDark ? 'invert(1) brightness(0.95)' : 'none',
+                cursor: 'pointer',
+                opacity: isDark ? 0.9 : 0.6,
+              },
+            },
+          },
+        },
         MuiOutlinedInput: {
           styleOverrides: {
             root: {
+              colorScheme: isDark ? 'dark' : 'light',
               borderRadius: 10,
               backgroundColor: isDark ? 'rgba(255,255,255,0.03)' : '#FFFFFF',
               '& .MuiOutlinedInput-notchedOutline': {
@@ -132,6 +154,19 @@ export function AdminMuiProvider({ children }: { children: React.ReactNode }) {
                 borderColor: '#3988CA',
                 borderWidth: '2px',
               },
+              '& input[type="time"]::-webkit-calendar-picker-indicator, & input[type="date"]::-webkit-calendar-picker-indicator, & input[type="datetime-local"]::-webkit-calendar-picker-indicator': {
+                filter: isDark ? 'invert(1) brightness(0.95)' : 'none',
+                cursor: 'pointer',
+                opacity: isDark ? 0.9 : 0.6,
+              },
+            },
+            input: {
+              colorScheme: isDark ? 'dark' : 'light',
+              '&::-webkit-calendar-picker-indicator': {
+                filter: isDark ? 'invert(1) brightness(0.95)' : 'none',
+                cursor: 'pointer',
+                opacity: isDark ? 0.9 : 0.6,
+              },
             },
           },
         },
@@ -139,9 +174,29 @@ export function AdminMuiProvider({ children }: { children: React.ReactNode }) {
     });
   }, [theme]);
 
+  const isDark = theme === 'dark';
+
   return (
     <MuiThemeProvider theme={muiTheme}>
       <CssBaseline />
+      <GlobalStyles
+        styles={{
+          html: {
+            colorScheme: isDark ? 'dark' : 'light',
+          },
+          body: {
+            colorScheme: isDark ? 'dark' : 'light',
+          },
+          'input[type="time"], input[type="date"], input[type="datetime-local"]': {
+            colorScheme: isDark ? 'dark !important' : 'light !important',
+          },
+          'input[type="time"]::-webkit-calendar-picker-indicator, input[type="date"]::-webkit-calendar-picker-indicator, input[type="datetime-local"]::-webkit-calendar-picker-indicator': {
+            filter: isDark ? 'invert(1) brightness(0.95) !important' : 'none !important',
+            cursor: 'pointer !important',
+            opacity: isDark ? '0.9 !important' : '0.6 !important',
+          },
+        }}
+      />
       {children}
     </MuiThemeProvider>
   );

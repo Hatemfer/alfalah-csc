@@ -43,6 +43,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CloudUploadRoundedIcon from '@mui/icons-material/CloudUploadRounded';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
+import { useTheme } from '@mui/material/styles';
 import { ConfirmDeleteModal } from '@/components/admin/ConfirmDeleteModal';
 import { to12Hour } from '@/utils/prayerTimes';
 
@@ -59,6 +60,8 @@ interface DailyPrayerData {
 }
 
 export default function AdminPrayerTimesPage() {
+  const muiTheme = useTheme();
+  const isDark = muiTheme.palette.mode === 'dark';
   const [settings, setSettings] = useState<any>(null);
   const [overrides, setOverrides] = useState<any[]>([]);
   const [todayData, setTodayData] = useState<DailyPrayerData | null>(null);
@@ -363,7 +366,11 @@ export default function AdminPrayerTimesPage() {
   const pdfDisplayName = useMemo(() => {
     if (!timetablePdfUrl) return '';
     const parts = timetablePdfUrl.split('/');
-    return decodeURIComponent(parts[parts.length - 1] || 'Official-Timetable.pdf');
+    const raw = decodeURIComponent(parts[parts.length - 1] || 'Official-Timetable.pdf');
+    if (/^\d+-[0-9a-fA-F-]+\.pdf$/i.test(raw)) {
+      return 'AlFalah-Official-Timetable.pdf';
+    }
+    return raw.replace(/^\d+[-_]/, '');
   }, [timetablePdfUrl]);
 
   if (loading) {
@@ -592,7 +599,15 @@ export default function AdminPrayerTimesPage() {
                     fullWidth
                     value={jumuahTime}
                     onChange={(e) => setJumuahTime(e.target.value)}
-                    sx={{ backgroundColor: 'background.paper' }}
+                    sx={{
+                      backgroundColor: 'background.paper',
+                      '& input': { colorScheme: isDark ? 'dark' : 'light' },
+                      '& input::-webkit-calendar-picker-indicator': {
+                        filter: isDark ? 'invert(1) brightness(0.95)' : 'none',
+                        cursor: 'pointer',
+                        opacity: isDark ? 0.9 : 0.6,
+                      },
+                    }}
                   />
                 </Box>
 
@@ -799,7 +814,15 @@ export default function AdminPrayerTimesPage() {
                         endDate: prev.endDate < val ? val : prev.endDate,
                       }));
                     }}
-                    sx={{ backgroundColor: 'background.paper' }}
+                    sx={{
+                      backgroundColor: 'background.paper',
+                      '& input': { colorScheme: isDark ? 'dark' : 'light' },
+                      '& input::-webkit-calendar-picker-indicator': {
+                        filter: isDark ? 'invert(1) brightness(0.95)' : 'none',
+                        cursor: 'pointer',
+                        opacity: isDark ? 0.9 : 0.6,
+                      },
+                    }}
                   />
                 </Grid>
 
@@ -814,7 +837,15 @@ export default function AdminPrayerTimesPage() {
                     inputProps={{ min: formState.date }}
                     value={formState.endDate}
                     onChange={(e) => setFormState({ ...formState, endDate: e.target.value })}
-                    sx={{ backgroundColor: 'background.paper' }}
+                    sx={{
+                      backgroundColor: 'background.paper',
+                      '& input': { colorScheme: isDark ? 'dark' : 'light' },
+                      '& input::-webkit-calendar-picker-indicator': {
+                        filter: isDark ? 'invert(1) brightness(0.95)' : 'none',
+                        cursor: 'pointer',
+                        opacity: isDark ? 0.9 : 0.6,
+                      },
+                    }}
                   />
                 </Grid>
 
