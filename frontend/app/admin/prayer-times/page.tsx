@@ -22,6 +22,7 @@ import {
   Chip,
   Tooltip,
   Divider,
+  Collapse,
 } from '@mui/material';
 import SaveRoundedIcon from '@mui/icons-material/SaveRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
@@ -29,12 +30,13 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded';
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import PictureAsPdfRoundedIcon from '@mui/icons-material/PictureAsPdfRounded';
 import UploadFileRoundedIcon from '@mui/icons-material/UploadFileRounded';
 import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded';
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
+import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
 import { ConfirmDeleteModal } from '@/components/admin/ConfirmDeleteModal';
 import { to12Hour } from '@/utils/prayerTimes';
 
@@ -57,10 +59,10 @@ export default function AdminPrayerTimesPage() {
   const [loading, setLoading] = useState(true);
   const [savingSettings, setSavingSettings] = useState(false);
   const [savingOverride, setSavingOverride] = useState(false);
-  const [savingJumuahPdf, setSavingJumuahPdf] = useState(false);
+  const [savingJumuah, setSavingJumuah] = useState(false);
   const [uploadingPdf, setUploadingPdf] = useState(false);
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
-  const [showAdvancedAdhan, setShowAdvancedAdhan] = useState(false);
 
   const [jumuahTime, setJumuahTime] = useState('13:00');
   const [timetablePdfUrl, setTimetablePdfUrl] = useState('/downloads/AlFalah-Prayer-Timetable.pdf');
@@ -77,18 +79,12 @@ export default function AdminPrayerTimesPage() {
   const [formState, setFormState] = useState({
     date: todayIso,
     endDate: todayIso,
-    fajrAdhan: '',
     fajrIqamah: '',
-    sunrise: '',
-    dhuhrAdhan: '',
     dhuhrIqamah: '',
-    asrAdhan: '',
     asrIqamah: '',
-    maghribAdhan: '',
     maghribIqamah: '',
-    ishaAdhan: '',
     ishaIqamah: '',
-    notes: 'Official mosque timetable',
+    notes: '',
   });
 
   useEffect(() => {
@@ -125,23 +121,14 @@ export default function AdminPrayerTimesPage() {
     setFormState({
       date: item.date,
       endDate: item.date,
-      fajrAdhan: item.fajrAdhan || '',
       fajrIqamah: item.fajrIqamah || '',
-      sunrise: item.sunrise || '',
-      dhuhrAdhan: item.dhuhrAdhan || '',
       dhuhrIqamah: item.dhuhrIqamah || '',
-      asrAdhan: item.asrAdhan || '',
       asrIqamah: item.asrIqamah || '',
-      maghribAdhan: item.maghribAdhan || '',
       maghribIqamah: item.maghribIqamah || '',
-      ishaAdhan: item.ishaAdhan || '',
       ishaIqamah: item.ishaIqamah || '',
-      notes: item.notes || 'Official mosque timetable',
+      notes: item.notes || '',
     });
-    if (item.fajrAdhan || item.dhuhrAdhan) {
-      setShowAdvancedAdhan(true);
-    }
-    window.scrollTo({ top: 380, behavior: 'smooth' });
+    window.scrollTo({ top: 340, behavior: 'smooth' });
   };
 
   const applyRangePreset = (daysCount: number) => {
@@ -183,8 +170,8 @@ export default function AdminPrayerTimesPage() {
         credentials: 'include',
         body: JSON.stringify(settings),
       });
-      if (!res.ok) throw new Error('Failed to update prayer calculation settings');
-      setFeedback({ type: 'success', message: 'Prayer calculation parameters updated successfully.' });
+      if (!res.ok) throw new Error('Failed to update calculation settings');
+      setFeedback({ type: 'success', message: 'Astronomical calculation parameters updated.' });
       await loadData();
     } catch (err: any) {
       setFeedback({ type: 'error', message: err.message });
@@ -215,8 +202,8 @@ export default function AdminPrayerTimesPage() {
         type: 'success',
         message:
           updatedCount > 1
-            ? `Schedule saved across ${updatedCount} days (${formState.date} to ${formState.endDate}). Live on public website.`
-            : `Timetable override saved for ${formState.date}. Live on public website.`,
+            ? `Jama'ah schedule applied to ${updatedCount} days (${formState.date} to ${formState.endDate}).`
+            : `Jama'ah schedule saved for ${formState.date}.`,
       });
       await loadData();
     } catch (err: any) {
@@ -226,34 +213,23 @@ export default function AdminPrayerTimesPage() {
     }
   };
 
-  const handleSaveJumuahAndPdf = async () => {
-    setSavingJumuahPdf(true);
+  const handleSaveJumuah = async () => {
+    setSavingJumuah(true);
     setFeedback(null);
     try {
-      const [jRes, pRes] = await Promise.all([
-        fetch('/api/v1/admin/site-settings', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({ key: 'jumuah_time', value: jumuahTime }),
-        }),
-        fetch('/api/v1/admin/site-settings', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({ key: 'timetable_pdf_url', value: timetablePdfUrl }),
-        }),
-      ]);
-      if (!jRes.ok || !pRes.ok) throw new Error('Failed to update Jumu’ah or PDF settings');
-      setFeedback({
-        type: 'success',
-        message: 'Friday Jumu’ah time & Official Timetable PDF updated on the live website.',
+      const res = await fetch('/api/v1/admin/site-settings', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ key: 'jumuah_time', value: jumuahTime }),
       });
+      if (!res.ok) throw new Error('Failed to update Jumu’ah time');
+      setFeedback({ type: 'success', message: `Friday Jumu’ah time updated to ${jumuahTime} (${to12Hour(jumuahTime)}).` });
       await loadData();
     } catch (err: any) {
       setFeedback({ type: 'error', message: err.message });
     } finally {
-      setSavingJumuahPdf(false);
+      setSavingJumuah(false);
     }
   };
 
@@ -283,7 +259,7 @@ export default function AdminPrayerTimesPage() {
         });
         setFeedback({
           type: 'success',
-          message: `Uploaded "${file.name}" and published it as the live Official Timetable PDF.`,
+          message: `Published "${file.name}" as the Official Timetable PDF.`,
         });
       }
     } catch (err: any) {
@@ -295,7 +271,7 @@ export default function AdminPrayerTimesPage() {
   };
 
   const handleRemovePdf = async () => {
-    setSavingJumuahPdf(true);
+    setUploadingPdf(true);
     setFeedback(null);
     try {
       const res = await fetch('/api/v1/admin/site-settings', {
@@ -308,12 +284,12 @@ export default function AdminPrayerTimesPage() {
       setTimetablePdfUrl('');
       setFeedback({
         type: 'success',
-        message: 'Official Timetable PDF removed. The download card is now hidden on the public website until you upload a new one.',
+        message: 'Official Timetable PDF removed from the public website.',
       });
     } catch (err: any) {
       setFeedback({ type: 'error', message: err.message });
     } finally {
-      setSavingJumuahPdf(false);
+      setUploadingPdf(false);
     }
   };
 
@@ -331,7 +307,7 @@ export default function AdminPrayerTimesPage() {
       if (!res.ok) throw new Error('Failed to delete override');
       setFeedback({
         type: 'success',
-        message: `Override for ${deleteModal.date} removed. Astronomical calculations resumed for this day.`,
+        message: `Override for ${deleteModal.date} removed. Automatic calculation restored.`,
       });
       setDeleteModal({ open: false, date: '', loading: false });
       await loadData();
@@ -343,27 +319,33 @@ export default function AdminPrayerTimesPage() {
 
   const isTodayOverridden = useMemo(() => Boolean(todayData?.isOverridden), [todayData]);
 
+  const pdfDisplayName = useMemo(() => {
+    if (!timetablePdfUrl) return '';
+    const parts = timetablePdfUrl.split('/');
+    return decodeURIComponent(parts[parts.length - 1] || 'Official-Timetable.pdf');
+  }, [timetablePdfUrl]);
+
   if (loading) {
     return (
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 400, gap: 2 }}>
-        <CircularProgress size={44} thickness={4} sx={{ color: '#0284C7' }} />
+        <CircularProgress size={40} thickness={4} sx={{ color: '#0284C7' }} />
         <Typography variant="body2" sx={{ color: '#64748B', fontWeight: 600 }}>
-          Loading prayer timetables &amp; astronomical engine...
+          Loading prayer timetable...
         </Typography>
       </Box>
     );
   }
 
   return (
-    <Box sx={{ pb: 8, maxWidth: 1200, mx: 'auto' }}>
-      {/* Page Header */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 2, mb: 3 }}>
+    <Box sx={{ pb: 6, maxWidth: 1160, mx: 'auto' }}>
+      {/* Header */}
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 2, mb: 3 }}>
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 800, color: '#0F172A', letterSpacing: '-0.02em', mb: 0.5 }}>
-            Prayer Times &amp; Congregation Management
+          <Typography variant="h5" sx={{ fontWeight: 800, color: '#0F172A', letterSpacing: '-0.02em', mb: 0.25 }}>
+            Prayer Times &amp; Timetable
           </Typography>
-          <Typography variant="body2" sx={{ color: '#64748B', maxWidth: 740 }}>
-            Adhan start times calculate automatically for Birmingham 365 days a year. Use this dashboard to set fixed Jama&apos;ah times for any date range, update Friday Jumu&apos;ah, or upload the printable PDF timetable.
+          <Typography variant="body2" sx={{ color: '#64748B' }}>
+            Adhan times update automatically every day. Manage Jama&apos;ah schedules, Friday Jumu&apos;ah, and the printable PDF below.
           </Typography>
         </Box>
 
@@ -379,10 +361,11 @@ export default function AdminPrayerTimesPage() {
             textTransform: 'none',
             borderRadius: 2,
             px: 2,
+            backgroundColor: '#FFFFFF',
             '&:hover': { borderColor: '#94A3B8', backgroundColor: '#F8FAFC' },
           }}
         >
-          Refresh Timetable
+          Refresh
         </Button>
       </Box>
 
@@ -392,13 +375,13 @@ export default function AdminPrayerTimesPage() {
         </Alert>
       )}
 
-      {/* TODAY'S LIVE TIMETABLE */}
+      {/* 1. TODAY'S LIVE TIMETABLE */}
       <Card
         sx={{
-          mb: 4,
+          mb: 3,
           borderRadius: 3,
           border: '1px solid #E2E8F0',
-          boxShadow: '0 4px 16px -2px rgba(15, 23, 42, 0.05)',
+          boxShadow: '0 2px 10px rgba(15, 23, 42, 0.04)',
           overflow: 'hidden',
           backgroundColor: '#FFFFFF',
         }}
@@ -406,7 +389,7 @@ export default function AdminPrayerTimesPage() {
         <Box
           sx={{
             px: 3,
-            py: 2,
+            py: 1.75,
             backgroundColor: '#F8FAFC',
             borderBottom: '1px solid #E2E8F0',
             display: 'flex',
@@ -416,59 +399,29 @@ export default function AdminPrayerTimesPage() {
             gap: 1.5,
           }}
         >
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-            <Box
-              sx={{
-                width: 36,
-                height: 36,
-                borderRadius: '50%',
-                backgroundColor: '#E0F2FE',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#0284C7',
-              }}
-            >
-              <AccessTimeRoundedIcon fontSize="small" />
-            </Box>
-            <Box>
-              <Typography sx={{ fontWeight: 800, fontSize: '1rem', color: '#0F172A' }}>
-                Today&apos;s Live Timetable (Worshipper View)
-              </Typography>
-              <Typography sx={{ fontSize: '0.78rem', color: '#64748B' }}>
-                Date: <strong>{todayData?.date || todayIso}</strong> • Jumu&apos;ah: <strong>{to12Hour(jumuahTime)}</strong>
-              </Typography>
-            </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
+            <AccessTimeRoundedIcon sx={{ color: '#0284C7', fontSize: 20 }} />
+            <Typography sx={{ fontWeight: 800, fontSize: '0.96rem', color: '#0F172A' }}>
+              Today&apos;s Live Timetable
+            </Typography>
+            <Typography sx={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 600 }}>
+              ({todayData?.date || todayIso})
+            </Typography>
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            {isTodayOverridden ? (
-              <Chip
-                icon={<CheckCircleRoundedIcon style={{ color: '#B45309' }} />}
-                label="Mosque Override Active"
-                size="small"
-                sx={{
-                  backgroundColor: '#FEF3C7',
-                  color: '#92400E',
-                  fontWeight: 700,
-                  fontSize: '0.76rem',
-                  border: '1px solid #FDE68A',
-                }}
-              />
-            ) : (
-              <Chip
-                icon={<CheckCircleRoundedIcon style={{ color: '#059669' }} />}
-                label="Astronomical Auto-Calculation Active"
-                size="small"
-                sx={{
-                  backgroundColor: '#ECFDF5',
-                  color: '#065F46',
-                  fontWeight: 700,
-                  fontSize: '0.76rem',
-                  border: '1px solid #A7F3D0',
-                }}
-              />
-            )}
+            <Chip
+              icon={<CheckCircleRoundedIcon style={{ color: isTodayOverridden ? '#B45309' : '#059669' }} />}
+              label={isTodayOverridden ? 'Custom Schedule Active' : 'Auto-Calculated'}
+              size="small"
+              sx={{
+                backgroundColor: isTodayOverridden ? '#FEF3C7' : '#ECFDF5',
+                color: isTodayOverridden ? '#92400E' : '#065F46',
+                fontWeight: 700,
+                fontSize: '0.74rem',
+                border: isTodayOverridden ? '1px solid #FDE68A' : '1px solid #A7F3D0',
+              }}
+            />
 
             <Button
               size="small"
@@ -484,17 +437,16 @@ export default function AdminPrayerTimesPage() {
                   maghribIqamah: todayData?.maghrib.iqamah || '',
                   ishaIqamah: todayData?.isha.iqamah || '',
                 }));
-                window.scrollTo({ top: 380, behavior: 'smooth' });
               }}
               sx={{ fontWeight: 700, textTransform: 'none', color: '#0284C7', fontSize: '0.8rem' }}
             >
-              Edit Today&apos;s Times
+              Load Today into Form
             </Button>
           </Box>
         </Box>
 
-        <CardContent sx={{ p: 3 }}>
-          <Grid container spacing={2}>
+        <CardContent sx={{ p: 2.5 }}>
+          <Grid container spacing={1.5}>
             {[
               { id: 'fajr', name: 'Fajr', adhan: todayData?.fajr.adhan || '05:43', iqamah: todayData?.fajr.iqamah || '06:45' },
               { id: 'sunrise', name: 'Sunrise', adhan: todayData?.sunrise || '07:46', iqamah: '—' },
@@ -506,44 +458,29 @@ export default function AdminPrayerTimesPage() {
               <Grid item xs={6} sm={4} md={2} key={item.id}>
                 <Box
                   sx={{
-                    p: 2,
+                    p: 1.75,
                     borderRadius: 2,
                     border: '1px solid #E2E8F0',
                     backgroundColor: item.id === 'sunrise' ? '#F8FAFC' : '#FFFFFF',
                     textAlign: 'center',
-                    transition: 'all 0.15s ease',
-                    '&:hover': {
-                      borderColor: '#0284C7',
-                      boxShadow: '0 4px 12px rgba(2, 132, 199, 0.08)',
-                    },
                   }}
                 >
-                  <Typography sx={{ fontSize: '0.9rem', fontWeight: 800, color: '#0F172A', mb: 0.5 }}>
-                    {item.name}
-                  </Typography>
-                  <Typography sx={{ fontSize: '0.74rem', color: '#64748B', fontWeight: 600 }}>
+                  <Typography sx={{ fontSize: '0.86rem', fontWeight: 800, color: '#0F172A' }}>{item.name}</Typography>
+                  <Typography sx={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 600, mt: 0.25 }}>
                     Begins {to12Hour(item.adhan)}
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: '1.25rem',
+                      fontSize: '1.15rem',
                       fontWeight: 800,
                       color: item.iqamah === '—' ? '#94A3B8' : '#0284C7',
-                      mt: 0.5,
+                      mt: 0.4,
                       fontVariantNumeric: 'tabular-nums',
                     }}
                   >
                     {item.iqamah === '—' ? '—' : to12Hour(item.iqamah)}
                   </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: '0.66rem',
-                      fontWeight: 700,
-                      color: '#94A3B8',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.04em',
-                    }}
-                  >
+                  <Typography sx={{ fontSize: '0.62rem', fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase' }}>
                     {item.iqamah === '—' ? 'Shuruq' : 'Jama’ah'}
                   </Typography>
                 </Box>
@@ -553,13 +490,13 @@ export default function AdminPrayerTimesPage() {
         </CardContent>
       </Card>
 
-      {/* DATE-RANGE CONGREGATION SCHEDULE OVERRIDES */}
+      {/* 2. FRIDAY JUMU'AH & OFFICIAL TIMETABLE PDF */}
       <Card
         sx={{
-          mb: 4,
+          mb: 3,
           borderRadius: 3,
           border: '1px solid #E2E8F0',
-          boxShadow: '0 4px 16px -2px rgba(15, 23, 42, 0.05)',
+          boxShadow: '0 2px 10px rgba(15, 23, 42, 0.04)',
           overflow: 'hidden',
           backgroundColor: '#FFFFFF',
         }}
@@ -567,7 +504,222 @@ export default function AdminPrayerTimesPage() {
         <Box
           sx={{
             px: 3,
-            py: 2.25,
+            py: 1.75,
+            backgroundColor: '#F8FAFC',
+            borderBottom: '1px solid #E2E8F0',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1.25,
+          }}
+        >
+          <PictureAsPdfRoundedIcon sx={{ color: '#DC2626', fontSize: 20 }} />
+          <Typography sx={{ fontWeight: 800, fontSize: '0.96rem', color: '#0F172A' }}>
+            Friday Jumu&apos;ah &amp; Printable Timetable PDF
+          </Typography>
+        </Box>
+
+        <CardContent sx={{ p: 3 }}>
+          <Grid container spacing={3} alignItems="stretch">
+            {/* Left: Jumu'ah Time */}
+            <Grid item xs={12} md={4}>
+              <Box
+                sx={{
+                  p: 2.25,
+                  borderRadius: 2.5,
+                  border: '1px solid #E2E8F0',
+                  backgroundColor: '#F8FAFC',
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Box>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+                    <Typography sx={{ fontWeight: 700, fontSize: '0.84rem', color: '#1E293B' }}>
+                      Friday Jumu&apos;ah Time
+                    </Typography>
+                    <Chip
+                      label={to12Hour(jumuahTime)}
+                      size="small"
+                      sx={{ height: 22, fontSize: '0.72rem', fontWeight: 800, backgroundColor: '#E0F2FE', color: '#0369A1' }}
+                    />
+                  </Box>
+                  <TextField
+                    type="time"
+                    size="small"
+                    fullWidth
+                    value={jumuahTime}
+                    onChange={(e) => setJumuahTime(e.target.value)}
+                    sx={{ backgroundColor: '#FFFFFF' }}
+                  />
+                </Box>
+
+                <Button
+                  variant="contained"
+                  fullWidth
+                  disabled={savingJumuah}
+                  onClick={handleSaveJumuah}
+                  startIcon={savingJumuah ? <CircularProgress size={16} color="inherit" /> : <SaveRoundedIcon />}
+                  sx={{
+                    mt: 2,
+                    height: 38,
+                    fontWeight: 700,
+                    textTransform: 'none',
+                    borderRadius: 2,
+                    backgroundColor: '#0284C7',
+                    '&:hover': { backgroundColor: '#0369A1' },
+                  }}
+                >
+                  {savingJumuah ? 'Saving...' : 'Save Jumu’ah Time'}
+                </Button>
+              </Box>
+            </Grid>
+
+            {/* Right: Official PDF File Card */}
+            <Grid item xs={12} md={8}>
+              <Box
+                sx={{
+                  p: 2.25,
+                  borderRadius: 2.5,
+                  border: '1px solid #E2E8F0',
+                  backgroundColor: '#F8FAFC',
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  gap: 2,
+                }}
+              >
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 2, flexWrap: 'wrap' }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                    <Box
+                      sx={{
+                        width: 42,
+                        height: 42,
+                        borderRadius: 2,
+                        backgroundColor: timetablePdfUrl ? '#FEE2E2' : '#E2E8F0',
+                        color: timetablePdfUrl ? '#DC2626' : '#64748B',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <PictureAsPdfRoundedIcon />
+                    </Box>
+                    <Box>
+                      <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', color: '#0F172A' }}>
+                        Official Bi-Monthly Timetable PDF
+                      </Typography>
+                      <Typography sx={{ fontSize: '0.78rem', color: timetablePdfUrl ? '#059669' : '#64748B', fontWeight: 600 }}>
+                        {timetablePdfUrl ? `Active: ${pdfDisplayName}` : 'No PDF currently published on website'}
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  {timetablePdfUrl && (
+                    <Chip
+                      label="Visible on Website"
+                      size="small"
+                      sx={{ backgroundColor: '#ECFDF5', color: '#065F46', fontWeight: 700, fontSize: '0.72rem' }}
+                    />
+                  )}
+                </Box>
+
+                <input
+                  ref={pdfInputRef}
+                  type="file"
+                  accept="application/pdf"
+                  style={{ display: 'none' }}
+                  onChange={handlePdfUpload}
+                />
+
+                <Box sx={{ display: 'flex', gap: 1.25, flexWrap: 'wrap', alignItems: 'center' }}>
+                  <Button
+                    variant="contained"
+                    disabled={uploadingPdf}
+                    onClick={() => pdfInputRef.current?.click()}
+                    startIcon={uploadingPdf ? <CircularProgress size={16} color="inherit" /> : <UploadFileRoundedIcon />}
+                    sx={{
+                      height: 38,
+                      px: 2.5,
+                      fontWeight: 700,
+                      textTransform: 'none',
+                      borderRadius: 2,
+                      backgroundColor: '#0F172A',
+                      '&:hover': { backgroundColor: '#1E293B' },
+                    }}
+                  >
+                    {uploadingPdf ? 'Uploading...' : timetablePdfUrl ? 'Upload New PDF' : 'Upload PDF'}
+                  </Button>
+
+                  {timetablePdfUrl && (
+                    <>
+                      <Button
+                        component="a"
+                        href={timetablePdfUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        variant="outlined"
+                        startIcon={<OpenInNewRoundedIcon />}
+                        sx={{
+                          height: 38,
+                          px: 2,
+                          fontWeight: 700,
+                          textTransform: 'none',
+                          borderRadius: 2,
+                          backgroundColor: '#FFFFFF',
+                          borderColor: '#CBD5E1',
+                          color: '#334155',
+                        }}
+                      >
+                        Preview
+                      </Button>
+
+                      <Button
+                        variant="outlined"
+                        color="error"
+                        disabled={uploadingPdf}
+                        onClick={handleRemovePdf}
+                        startIcon={<DeleteOutlineRoundedIcon />}
+                        sx={{
+                          height: 38,
+                          px: 2,
+                          fontWeight: 700,
+                          textTransform: 'none',
+                          borderRadius: 2,
+                          backgroundColor: '#FFFFFF',
+                          borderColor: '#FECACA',
+                          ml: { sm: 'auto' },
+                        }}
+                      >
+                        Remove PDF
+                      </Button>
+                    </>
+                  )}
+                </Box>
+              </Box>
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+
+      {/* 3. JAMA'AH SCHEDULE (DATE RANGE) */}
+      <Card
+        sx={{
+          mb: 3,
+          borderRadius: 3,
+          border: '1px solid #E2E8F0',
+          boxShadow: '0 2px 10px rgba(15, 23, 42, 0.04)',
+          overflow: 'hidden',
+          backgroundColor: '#FFFFFF',
+        }}
+      >
+        <Box
+          sx={{
+            px: 3,
+            py: 1.75,
             backgroundColor: '#F8FAFC',
             borderBottom: '1px solid #E2E8F0',
             display: 'flex',
@@ -577,46 +729,27 @@ export default function AdminPrayerTimesPage() {
             gap: 1.5,
           }}
         >
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-            <Box
-              sx={{
-                width: 36,
-                height: 36,
-                borderRadius: '50%',
-                backgroundColor: '#EFF6FF',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#2563EB',
-              }}
-            >
-              <CalendarMonthRoundedIcon fontSize="small" />
-            </Box>
-            <Box>
-              <Typography sx={{ fontWeight: 800, fontSize: '1rem', color: '#0F172A' }}>
-                Set Jama&apos;ah Times (Single Day or Date Range)
-              </Typography>
-              <Typography sx={{ fontSize: '0.78rem', color: '#64748B' }}>
-                Update congregation times for 1 day, 2 weeks, or the entire month in one click. Leave any field blank to use automatic astronomical calculation.
-              </Typography>
-            </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
+            <CalendarMonthRoundedIcon sx={{ color: '#2563EB', fontSize: 20 }} />
+            <Typography sx={{ fontWeight: 800, fontSize: '0.96rem', color: '#0F172A' }}>
+              Congregation (Jama&apos;ah) Schedule
+            </Typography>
           </Box>
 
           <Chip
             label={`Applying to ${rangeDaysCount} ${rangeDaysCount === 1 ? 'day' : 'days'}`}
             size="small"
-            sx={{ backgroundColor: '#E0F2FE', color: '#0369A1', fontWeight: 800, fontSize: '0.75rem' }}
+            sx={{ backgroundColor: '#E0F2FE', color: '#0369A1', fontWeight: 800, fontSize: '0.74rem' }}
           />
         </Box>
 
         <CardContent sx={{ p: 3 }}>
           <Box component="form" onSubmit={handleSaveOverride}>
-            {/* Date Range + Quick Presets */}
             <Box sx={{ mb: 3, p: 2, backgroundColor: '#F8FAFC', borderRadius: 2, border: '1px solid #E2E8F0' }}>
               <Grid container spacing={2} alignItems="center">
                 <Grid item xs={12} sm={3}>
-                  <Typography sx={{ fontWeight: 700, fontSize: '0.84rem', color: '#1E293B', mb: 0.75 }}>
-                    Start Date *
+                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: '#1E293B', mb: 0.75 }}>
+                    Start Date
                   </Typography>
                   <TextField
                     type="date"
@@ -637,8 +770,8 @@ export default function AdminPrayerTimesPage() {
                 </Grid>
 
                 <Grid item xs={12} sm={3}>
-                  <Typography sx={{ fontWeight: 700, fontSize: '0.84rem', color: '#1E293B', mb: 0.75 }}>
-                    End Date (Optional)
+                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: '#1E293B', mb: 0.75 }}>
+                    End Date
                   </Typography>
                   <TextField
                     type="date"
@@ -652,118 +785,90 @@ export default function AdminPrayerTimesPage() {
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
-                  <Typography sx={{ fontWeight: 700, fontSize: '0.84rem', color: '#1E293B', mb: 0.75 }}>
-                    Quick Range Presets
+                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: '#1E293B', mb: 0.75 }}>
+                    Quick Select
                   </Typography>
-                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
+                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
                     <Button
                       size="small"
                       variant={rangeDaysCount === 1 ? 'contained' : 'outlined'}
                       onClick={() => applyRangePreset(1)}
-                      sx={{ textTransform: 'none', fontWeight: 700, fontSize: '0.78rem', borderRadius: 2 }}
+                      sx={{ textTransform: 'none', fontWeight: 700, fontSize: '0.76rem', borderRadius: 2 }}
                     >
-                      Today Only
+                      Today
                     </Button>
                     <Button
                       size="small"
                       variant={rangeDaysCount === 7 ? 'contained' : 'outlined'}
                       onClick={() => applyRangePreset(7)}
-                      sx={{ textTransform: 'none', fontWeight: 700, fontSize: '0.78rem', borderRadius: 2 }}
+                      sx={{ textTransform: 'none', fontWeight: 700, fontSize: '0.76rem', borderRadius: 2 }}
                     >
-                      Next 7 Days
+                      7 Days
                     </Button>
                     <Button
                       size="small"
                       variant={rangeDaysCount === 14 ? 'contained' : 'outlined'}
                       onClick={() => applyRangePreset(14)}
-                      sx={{ textTransform: 'none', fontWeight: 700, fontSize: '0.78rem', borderRadius: 2 }}
+                      sx={{ textTransform: 'none', fontWeight: 700, fontSize: '0.76rem', borderRadius: 2 }}
                     >
-                      Next 14 Days
+                      14 Days
                     </Button>
                     <Button
                       size="small"
                       variant="outlined"
                       onClick={applyRestOfMonthPreset}
-                      sx={{ textTransform: 'none', fontWeight: 700, fontSize: '0.78rem', borderRadius: 2 }}
+                      sx={{ textTransform: 'none', fontWeight: 700, fontSize: '0.76rem', borderRadius: 2 }}
                     >
                       Rest of Month
-                    </Button>
-                    <Button
-                      size="small"
-                      variant="text"
-                      onClick={() => setShowAdvancedAdhan(!showAdvancedAdhan)}
-                      sx={{ textTransform: 'none', fontWeight: 700, fontSize: '0.76rem', color: '#64748B', ml: 'auto' }}
-                    >
-                      {showAdvancedAdhan ? 'Hide Custom Adhan' : '+ Custom Adhan'}
                     </Button>
                   </Box>
                 </Grid>
               </Grid>
             </Box>
 
-            {/* 5 Jama'ah Inputs */}
-            <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', color: '#0F172A', mb: 1.5 }}>
-              Official Congregation (Jama&apos;ah) Times (24h HH:MM)
-            </Typography>
-
-            <Grid container spacing={2} sx={{ mb: 3 }}>
+            <Grid container spacing={2} sx={{ mb: 2.5 }}>
               {[
-                { key: 'fajr', label: "Fajr Jama'ah", adhanKey: 'fajrAdhan', iqamahKey: 'fajrIqamah', phIq: '06:45', phAd: '05:43' },
-                { key: 'dhuhr', label: "Dhuhr Jama'ah", adhanKey: 'dhuhrAdhan', iqamahKey: 'dhuhrIqamah', phIq: '12:45', phAd: '11:58' },
-                { key: 'asr', label: "Asr Jama'ah", adhanKey: 'asrAdhan', iqamahKey: 'asrIqamah', phIq: '14:30', phAd: '14:14' },
-                { key: 'maghrib', label: "Maghrib Jama'ah", adhanKey: 'maghribAdhan', iqamahKey: 'maghribIqamah', phIq: '16:03', phAd: '16:03' },
-                { key: 'isha', label: "Isha Jama'ah", adhanKey: 'ishaAdhan', iqamahKey: 'ishaIqamah', phIq: '19:00', phAd: '18:05' },
+                { key: 'fajrIqamah', label: 'Fajr Jama’ah', ph: '06:45' },
+                { key: 'dhuhrIqamah', label: 'Dhuhr Jama’ah', ph: '12:45' },
+                { key: 'asrIqamah', label: 'Asr Jama’ah', ph: '14:30' },
+                { key: 'maghribIqamah', label: 'Maghrib Jama’ah', ph: '16:03' },
+                { key: 'ishaIqamah', label: 'Isha Jama’ah', ph: '19:00' },
               ].map((p) => (
                 <Grid item xs={6} sm={2.4} key={p.key}>
-                  <Typography sx={{ fontWeight: 700, fontSize: '0.84rem', color: '#1E293B', mb: 0.75 }}>
+                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: '#1E293B', mb: 0.75 }}>
                     {p.label}
                   </Typography>
                   <TextField
                     size="small"
                     fullWidth
-                    placeholder={p.phIq}
-                    value={(formState as any)[p.iqamahKey]}
-                    onChange={(e) => setFormState({ ...formState, [p.iqamahKey]: e.target.value })}
+                    placeholder={p.ph}
+                    value={(formState as any)[p.key]}
+                    onChange={(e) => setFormState({ ...formState, [p.key]: e.target.value })}
                   />
-                  {showAdvancedAdhan && (
-                    <Box sx={{ mt: 1 }}>
-                      <Typography sx={{ fontSize: '0.72rem', color: '#64748B', mb: 0.25 }}>
-                        Custom Adhan
-                      </Typography>
-                      <TextField
-                        size="small"
-                        fullWidth
-                        placeholder={p.phAd}
-                        value={(formState as any)[p.adhanKey]}
-                        onChange={(e) => setFormState({ ...formState, [p.adhanKey]: e.target.value })}
-                      />
-                    </Box>
-                  )}
                 </Grid>
               ))}
             </Grid>
 
-            {/* Notes & Save */}
-            <Grid container spacing={2} alignItems="center">
+            <Grid container spacing={2} alignItems="flex-end">
               <Grid item xs={12} sm={8}>
-                <Typography sx={{ fontWeight: 700, fontSize: '0.84rem', color: '#1E293B', mb: 0.75 }}>
-                  Schedule Notes / Occasion
+                <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: '#1E293B', mb: 0.75 }}>
+                  Note (Optional)
                 </Typography>
                 <TextField
                   size="small"
                   fullWidth
-                  placeholder="e.g. Winter Jama'ah Timetable - Nov/Dec 2026"
+                  placeholder="e.g. Winter Schedule"
                   value={formState.notes}
                   onChange={(e) => setFormState({ ...formState, notes: e.target.value })}
                 />
               </Grid>
 
-              <Grid item xs={12} sm={4} sx={{ display: 'flex', gap: 1.5, mt: { xs: 0, sm: 3 } }}>
+              <Grid item xs={12} sm={4} sx={{ display: 'flex', gap: 1.25 }}>
                 <Button
                   type="submit"
                   variant="contained"
                   disabled={savingOverride}
-                  startIcon={savingOverride ? <CircularProgress size={18} color="inherit" /> : <SaveRoundedIcon />}
+                  startIcon={savingOverride ? <CircularProgress size={16} color="inherit" /> : <SaveRoundedIcon />}
                   sx={{
                     flex: 1,
                     height: 40,
@@ -777,8 +882,8 @@ export default function AdminPrayerTimesPage() {
                   {savingOverride
                     ? 'Saving...'
                     : rangeDaysCount > 1
-                      ? `Apply to ${rangeDaysCount} Days`
-                      : 'Save Override'}
+                      ? `Save (${rangeDaysCount} Days)`
+                      : 'Save Schedule'}
                 </Button>
 
                 <Button
@@ -787,18 +892,12 @@ export default function AdminPrayerTimesPage() {
                     setFormState({
                       date: todayIso,
                       endDate: todayIso,
-                      fajrAdhan: '',
                       fajrIqamah: '',
-                      sunrise: '',
-                      dhuhrAdhan: '',
                       dhuhrIqamah: '',
-                      asrAdhan: '',
                       asrIqamah: '',
-                      maghribAdhan: '',
                       maghribIqamah: '',
-                      ishaAdhan: '',
                       ishaIqamah: '',
-                      notes: 'Official mosque timetable',
+                      notes: '',
                     })
                   }
                   sx={{
@@ -810,53 +909,29 @@ export default function AdminPrayerTimesPage() {
                     color: '#475569',
                   }}
                 >
-                  Reset
+                  Clear
                 </Button>
               </Grid>
             </Grid>
           </Box>
 
-          {/* ACTIVE OVERRIDES TABLE */}
-          <Box sx={{ mt: 4, pt: 3, borderTop: '1px solid #E2E8F0' }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, flexWrap: 'wrap', gap: 1 }}>
-              <Typography sx={{ fontWeight: 800, fontSize: '0.95rem', color: '#0F172A' }}>
-                Active &amp; Scheduled Overrides ({overrides.length})
+          {/* Active Overrides Table */}
+          {overrides.length > 0 && (
+            <Box sx={{ mt: 3.5, pt: 3, borderTop: '1px solid #E2E8F0' }}>
+              <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', color: '#0F172A', mb: 1.5 }}>
+                Scheduled Overrides ({overrides.length})
               </Typography>
-              <Typography sx={{ fontSize: '0.78rem', color: '#64748B' }}>
-                Click edit to adjust a day or delete to restore automatic calculation.
-              </Typography>
-            </Box>
-
-            {overrides.length === 0 ? (
-              <Box
-                sx={{
-                  p: 4,
-                  textAlign: 'center',
-                  backgroundColor: '#F8FAFC',
-                  borderRadius: 2,
-                  border: '1px dashed #CBD5E1',
-                }}
-              >
-                <InfoOutlinedIcon sx={{ color: '#94A3B8', fontSize: 32, mb: 1 }} />
-                <Typography sx={{ fontWeight: 700, color: '#334155', fontSize: '0.9rem' }}>
-                  No Manual Overrides Active
-                </Typography>
-                <Typography sx={{ color: '#64748B', fontSize: '0.8rem', maxWidth: 450, mx: 'auto', mt: 0.5 }}>
-                  The mosque timetable is running 100% automatically using Birmingham astronomical calculation rules and standard Jama&apos;ah offsets.
-                </Typography>
-              </Box>
-            ) : (
-              <TableContainer sx={{ border: '1px solid #E2E8F0', borderRadius: 2, maxHeight: 360 }}>
+              <TableContainer sx={{ border: '1px solid #E2E8F0', borderRadius: 2, maxHeight: 320 }}>
                 <Table size="small" stickyHeader>
                   <TableHead>
                     <TableRow>
-                      <TableCell sx={{ fontWeight: 800, color: '#1E293B', backgroundColor: '#F8FAFC', py: 1.25 }}>Date</TableCell>
+                      <TableCell sx={{ fontWeight: 800, color: '#1E293B', backgroundColor: '#F8FAFC' }}>Date</TableCell>
                       <TableCell sx={{ fontWeight: 700, color: '#1E293B', backgroundColor: '#F8FAFC' }}>Fajr</TableCell>
                       <TableCell sx={{ fontWeight: 700, color: '#1E293B', backgroundColor: '#F8FAFC' }}>Dhuhr</TableCell>
                       <TableCell sx={{ fontWeight: 700, color: '#1E293B', backgroundColor: '#F8FAFC' }}>Asr</TableCell>
                       <TableCell sx={{ fontWeight: 700, color: '#1E293B', backgroundColor: '#F8FAFC' }}>Maghrib</TableCell>
                       <TableCell sx={{ fontWeight: 700, color: '#1E293B', backgroundColor: '#F8FAFC' }}>Isha</TableCell>
-                      <TableCell sx={{ fontWeight: 700, color: '#1E293B', backgroundColor: '#F8FAFC' }}>Notes</TableCell>
+                      <TableCell sx={{ fontWeight: 700, color: '#1E293B', backgroundColor: '#F8FAFC' }}>Note</TableCell>
                       <TableCell align="right" sx={{ fontWeight: 700, color: '#1E293B', backgroundColor: '#F8FAFC', pr: 2 }}>
                         Actions
                       </TableCell>
@@ -873,20 +948,14 @@ export default function AdminPrayerTimesPage() {
                             '&:hover': { backgroundColor: isToday ? '#E0F2FE' : '#F8FAFC' },
                           }}
                         >
-                          <TableCell sx={{ fontWeight: 700, color: '#0F172A', py: 1.25 }}>
+                          <TableCell sx={{ fontWeight: 700, color: '#0F172A' }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                               <span>{o.date}</span>
                               {isToday && (
                                 <Chip
                                   label="Today"
                                   size="small"
-                                  sx={{
-                                    height: 20,
-                                    fontSize: '0.68rem',
-                                    fontWeight: 800,
-                                    backgroundColor: '#0284C7',
-                                    color: '#FFFFFF',
-                                  }}
+                                  sx={{ height: 18, fontSize: '0.66rem', fontWeight: 800, backgroundColor: '#0284C7', color: '#FFFFFF' }}
                                 />
                               )}
                             </Box>
@@ -898,12 +967,12 @@ export default function AdminPrayerTimesPage() {
                           <TableCell sx={{ fontVariantNumeric: 'tabular-nums', fontWeight: 600 }}>{o.ishaIqamah || '—'}</TableCell>
                           <TableCell sx={{ color: '#64748B', fontSize: '0.8rem' }}>{o.notes || '—'}</TableCell>
                           <TableCell align="right" sx={{ pr: 1.5 }}>
-                            <Tooltip title="Edit this override">
+                            <Tooltip title="Edit">
                               <IconButton size="small" onClick={() => handleEditOverride(o)} sx={{ color: '#0284C7', mr: 0.5 }}>
                                 <EditOutlinedIcon fontSize="small" />
                               </IconButton>
                             </Tooltip>
-                            <Tooltip title="Delete override and restore automatic calculation">
+                            <Tooltip title="Remove">
                               <IconButton size="small" onClick={() => promptDeleteOverride(o.date)} sx={{ color: '#DC2626' }}>
                                 <DeleteOutlineRoundedIcon fontSize="small" />
                               </IconButton>
@@ -915,301 +984,135 @@ export default function AdminPrayerTimesPage() {
                   </TableBody>
                 </Table>
               </TableContainer>
-            )}
-          </Box>
+            </Box>
+          )}
         </CardContent>
       </Card>
 
-      {/* FRIDAY JUMU'AH & OFFICIAL TIMETABLE PDF */}
-      <Card
-        sx={{
-          mb: 4,
-          borderRadius: 3,
-          border: '1px solid #E2E8F0',
-          boxShadow: '0 4px 16px -2px rgba(15, 23, 42, 0.05)',
-          overflow: 'hidden',
-          backgroundColor: '#FFFFFF',
-        }}
-      >
-        <Box
-          sx={{
-            px: 3,
-            py: 2.25,
-            backgroundColor: '#F8FAFC',
-            borderBottom: '1px solid #E2E8F0',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 1.5,
-          }}
-        >
-          <Box
-            sx={{
-              width: 36,
-              height: 36,
-              borderRadius: '50%',
-              backgroundColor: '#FEF2F2',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#DC2626',
-            }}
-          >
-            <PictureAsPdfRoundedIcon fontSize="small" />
-          </Box>
-          <Box>
-            <Typography sx={{ fontWeight: 800, fontSize: '1rem', color: '#0F172A' }}>
-              Friday Jumu&apos;ah &amp; Printable Timetable PDF
-            </Typography>
-            <Typography sx={{ fontSize: '0.78rem', color: '#64748B' }}>
-              Synced directly to the homepage prayer bar and the public Prayer Timetable page.
-            </Typography>
-          </Box>
-        </Box>
-
-        <CardContent sx={{ p: 3 }}>
-          <Grid container spacing={2.5} alignItems="flex-end">
-            <Grid item xs={12} sm={3}>
-              <Typography sx={{ fontWeight: 700, fontSize: '0.84rem', color: '#1E293B', mb: 0.75 }}>
-                Friday Jumu&apos;ah Time (24h)
-              </Typography>
-              <TextField
-                size="small"
-                fullWidth
-                placeholder="13:00"
-                value={jumuahTime}
-                onChange={(e) => setJumuahTime(e.target.value)}
-                helperText={`Displays as: ${jumuahTime} (${to12Hour(jumuahTime)})`}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <Typography sx={{ fontWeight: 700, fontSize: '0.84rem', color: '#1E293B', mb: 0.75 }}>
-                Official Bi-Monthly Timetable PDF URL
-              </Typography>
-              <Box sx={{ display: 'flex', gap: 1 }}>
-                <TextField
-                  size="small"
-                  fullWidth
-                  value={timetablePdfUrl}
-                  onChange={(e) => setTimetablePdfUrl(e.target.value)}
-                  placeholder="/downloads/AlFalah-Prayer-Timetable.pdf"
-                />
-                <input
-                  ref={pdfInputRef}
-                  type="file"
-                  accept="application/pdf"
-                  style={{ display: 'none' }}
-                  onChange={handlePdfUpload}
-                />
-                <Button
-                  variant="outlined"
-                  size="small"
-                  disabled={uploadingPdf}
-                  onClick={() => pdfInputRef.current?.click()}
-                  startIcon={uploadingPdf ? <CircularProgress size={16} /> : <UploadFileRoundedIcon />}
-                  sx={{
-                    whiteSpace: 'nowrap',
-                    fontWeight: 700,
-                    textTransform: 'none',
-                    borderRadius: 2,
-                    borderColor: '#CBD5E1',
-                    color: '#334155',
-                  }}
-                >
-                  {uploadingPdf ? 'Uploading...' : timetablePdfUrl ? 'Replace PDF' : 'Upload PDF'}
-                </Button>
-                {timetablePdfUrl && (
-                  <>
-                    <Tooltip title="Preview current PDF">
-                      <IconButton
-                        component="a"
-                        href={timetablePdfUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        sx={{ border: '1px solid #E2E8F0', borderRadius: 2 }}
-                      >
-                        <OpenInNewRoundedIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Remove PDF from website">
-                      <IconButton
-                        onClick={handleRemovePdf}
-                        disabled={savingJumuahPdf}
-                        sx={{ border: '1px solid #FECACA', borderRadius: 2, color: '#DC2626', '&:hover': { backgroundColor: '#FEF2F2' } }}
-                      >
-                        <DeleteOutlineRoundedIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
-                  </>
-                )}
-              </Box>
-            </Grid>
-
-            <Grid item xs={12} sm={3} sx={{ display: 'flex', justifyContent: 'flex-end', pb: { sm: 2.8 } }}>
-              <Button
-                variant="contained"
-                fullWidth
-                disabled={savingJumuahPdf}
-                startIcon={savingJumuahPdf ? <CircularProgress size={18} color="inherit" /> : <SaveRoundedIcon />}
-                onClick={handleSaveJumuahAndPdf}
-                sx={{
-                  height: 40,
-                  fontWeight: 700,
-                  textTransform: 'none',
-                  borderRadius: 2,
-                  backgroundColor: '#0284C7',
-                  '&:hover': { backgroundColor: '#0369A1' },
-                }}
-              >
-                {savingJumuahPdf ? 'Saving...' : 'Save Jumu’ah & PDF'}
-              </Button>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
-
-      {/* ASTRONOMICAL SOLAR CALCULATION PARAMETERS */}
+      {/* 4. COLLAPSIBLE ADVANCED ASTRONOMICAL SETTINGS */}
       {settings && (
         <Card
           sx={{
             borderRadius: 3,
             border: '1px solid #E2E8F0',
-            boxShadow: '0 4px 16px -2px rgba(15, 23, 42, 0.05)',
+            boxShadow: 'none',
             overflow: 'hidden',
             backgroundColor: '#FFFFFF',
           }}
         >
           <Box
+            onClick={() => setShowAdvanced(!showAdvanced)}
             sx={{
               px: 3,
-              py: 2.25,
+              py: 1.75,
               backgroundColor: '#F8FAFC',
-              borderBottom: '1px solid #E2E8F0',
               display: 'flex',
+              justifyContent: 'space-between',
               alignItems: 'center',
-              gap: 1.5,
+              cursor: 'pointer',
+              '&:hover': { backgroundColor: '#F1F5F9' },
             }}
           >
-            <Box
-              sx={{
-                width: 36,
-                height: 36,
-                borderRadius: '50%',
-                backgroundColor: '#F3E8FF',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#7E22CE',
-              }}
-            >
-              <TuneRoundedIcon fontSize="small" />
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
+              <TuneRoundedIcon sx={{ color: '#64748B', fontSize: 20 }} />
+              <Box>
+                <Typography sx={{ fontWeight: 700, fontSize: '0.9rem', color: '#334155' }}>
+                  Advanced: Astronomical Calculation &amp; Default Offsets
+                </Typography>
+                <Typography sx={{ fontSize: '0.75rem', color: '#64748B' }}>
+                  Birmingham coordinates (52.4578, -1.8904) and fallback Iqamah offsets
+                </Typography>
+              </Box>
             </Box>
-            <Box>
-              <Typography sx={{ fontWeight: 800, fontSize: '1rem', color: '#0F172A' }}>
-                Astronomical Solar Calculation Parameters (Birmingham, UK)
-              </Typography>
-              <Typography sx={{ fontSize: '0.78rem', color: '#64748B' }}>
-                Governs 365-day automated prayer begins times and fallback congregation offsets when no manual override exists.
-              </Typography>
-            </Box>
+            {showAdvanced ? <KeyboardArrowUpRoundedIcon sx={{ color: '#64748B' }} /> : <KeyboardArrowDownRoundedIcon sx={{ color: '#64748B' }} />}
           </Box>
 
-          <CardContent sx={{ p: 3 }}>
-            <Grid container spacing={2.5}>
-              <Grid item xs={12} sm={4}>
-                <Typography sx={{ fontWeight: 700, fontSize: '0.84rem', color: '#1E293B', mb: 0.75 }}>
-                  Centre Latitude
-                </Typography>
-                <TextField
-                  type="number"
-                  size="small"
-                  fullWidth
-                  value={settings.latitude}
-                  onChange={(e) => setSettings({ ...settings, latitude: parseFloat(e.target.value) })}
-                  helperText="Default: 52.457800 (Balsall Heath)"
-                />
-              </Grid>
-
-              <Grid item xs={12} sm={4}>
-                <Typography sx={{ fontWeight: 700, fontSize: '0.84rem', color: '#1E293B', mb: 0.75 }}>
-                  Centre Longitude
-                </Typography>
-                <TextField
-                  type="number"
-                  size="small"
-                  fullWidth
-                  value={settings.longitude}
-                  onChange={(e) => setSettings({ ...settings, longitude: parseFloat(e.target.value) })}
-                  helperText="Default: -1.890400 (Balsall Heath)"
-                />
-              </Grid>
-
-              <Grid item xs={12} sm={4}>
-                <Typography sx={{ fontWeight: 700, fontSize: '0.84rem', color: '#1E293B', mb: 0.75 }}>
-                  Asr Juristic Method
-                </Typography>
-                <TextField
-                  select
-                  size="small"
-                  fullWidth
-                  value={settings.asrJuristic}
-                  onChange={(e) => setSettings({ ...settings, asrJuristic: e.target.value })}
-                  helperText="Hanafi shadow ratio (standard for UK mosques)"
-                >
-                  <MenuItem value="HANAFI">Hanafi (Standard for UK/Birmingham)</MenuItem>
-                  <MenuItem value="SHAFI">Shafi / Standard (1x Shadow)</MenuItem>
-                </TextField>
-              </Grid>
-
-              <Grid item xs={12}>
-                <Divider sx={{ my: 1 }} />
-                <Typography sx={{ fontWeight: 800, fontSize: '0.9rem', color: '#0F172A', mb: 1.5 }}>
-                  Automated Congregation (Iqamah) Offsets (Minutes After Adhan)
-                </Typography>
-              </Grid>
-
-              {[
-                { key: 'fajrIqamahOffsetMins', label: 'Fajr Offset (Mins)' },
-                { key: 'dhuhrIqamahOffsetMins', label: 'Dhuhr Offset (Mins)' },
-                { key: 'asrIqamahOffsetMins', label: 'Asr Offset (Mins)' },
-                { key: 'maghribIqamahOffsetMins', label: 'Maghrib Offset (Mins)' },
-                { key: 'ishaIqamahOffsetMins', label: 'Isha Offset (Mins)' },
-              ].map((off) => (
-                <Grid item xs={6} sm={2.4} key={off.key}>
-                  <Typography sx={{ fontWeight: 700, fontSize: '0.84rem', color: '#1E293B', mb: 0.75 }}>
-                    {off.label}
+          <Collapse in={showAdvanced}>
+            <Divider />
+            <CardContent sx={{ p: 3 }}>
+              <Grid container spacing={2.5}>
+                <Grid item xs={12} sm={4}>
+                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: '#1E293B', mb: 0.75 }}>
+                    Latitude
                   </Typography>
                   <TextField
                     type="number"
                     size="small"
                     fullWidth
-                    value={settings[off.key]}
-                    onChange={(e) => setSettings({ ...settings, [off.key]: parseInt(e.target.value, 10) })}
+                    value={settings.latitude}
+                    onChange={(e) => setSettings({ ...settings, latitude: parseFloat(e.target.value) })}
                   />
                 </Grid>
-              ))}
-            </Grid>
+                <Grid item xs={12} sm={4}>
+                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: '#1E293B', mb: 0.75 }}>
+                    Longitude
+                  </Typography>
+                  <TextField
+                    type="number"
+                    size="small"
+                    fullWidth
+                    value={settings.longitude}
+                    onChange={(e) => setSettings({ ...settings, longitude: parseFloat(e.target.value) })}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: '#1E293B', mb: 0.75 }}>
+                    Asr Juristic Method
+                  </Typography>
+                  <TextField
+                    select
+                    size="small"
+                    fullWidth
+                    value={settings.asrJuristic}
+                    onChange={(e) => setSettings({ ...settings, asrJuristic: e.target.value })}
+                  >
+                    <MenuItem value="HANAFI">Hanafi (Standard for UK/Birmingham)</MenuItem>
+                    <MenuItem value="SHAFI">Shafi / Standard</MenuItem>
+                  </TextField>
+                </Grid>
 
-            <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
-              <Button
-                variant="contained"
-                disabled={savingSettings}
-                startIcon={savingSettings ? <CircularProgress size={18} color="inherit" /> : <SaveRoundedIcon />}
-                onClick={handleSaveSettings}
-                sx={{
-                  fontWeight: 700,
-                  textTransform: 'none',
-                  borderRadius: 2,
-                  px: 3,
-                  py: 1,
-                  backgroundColor: '#0284C7',
-                  '&:hover': { backgroundColor: '#0369A1' },
-                }}
-              >
-                {savingSettings ? 'Updating...' : 'Update Calculation Parameters'}
-              </Button>
-            </Box>
-          </CardContent>
+                {[
+                  { key: 'fajrIqamahOffsetMins', label: 'Fajr Offset (Mins)' },
+                  { key: 'dhuhrIqamahOffsetMins', label: 'Dhuhr Offset (Mins)' },
+                  { key: 'asrIqamahOffsetMins', label: 'Asr Offset (Mins)' },
+                  { key: 'maghribIqamahOffsetMins', label: 'Maghrib Offset (Mins)' },
+                  { key: 'ishaIqamahOffsetMins', label: 'Isha Offset (Mins)' },
+                ].map((off) => (
+                  <Grid item xs={6} sm={2.4} key={off.key}>
+                    <Typography sx={{ fontWeight: 700, fontSize: '0.82rem', color: '#1E293B', mb: 0.75 }}>
+                      {off.label}
+                    </Typography>
+                    <TextField
+                      type="number"
+                      size="small"
+                      fullWidth
+                      value={settings[off.key]}
+                      onChange={(e) => setSettings({ ...settings, [off.key]: parseInt(e.target.value, 10) })}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+
+              <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
+                <Button
+                  variant="contained"
+                  disabled={savingSettings}
+                  startIcon={savingSettings ? <CircularProgress size={16} color="inherit" /> : <SaveRoundedIcon />}
+                  onClick={handleSaveSettings}
+                  sx={{
+                    fontWeight: 700,
+                    textTransform: 'none',
+                    borderRadius: 2,
+                    px: 3,
+                    backgroundColor: '#0284C7',
+                    '&:hover': { backgroundColor: '#0369A1' },
+                  }}
+                >
+                  {savingSettings ? 'Saving...' : 'Save Calculation Settings'}
+                </Button>
+              </Box>
+            </CardContent>
+          </Collapse>
         </Card>
       )}
 
@@ -1219,7 +1122,7 @@ export default function AdminPrayerTimesPage() {
         onConfirm={handleConfirmDeleteOverride}
         title="Remove Timetable Override"
         itemName={deleteModal.date}
-        description={`Remove timetable override for ${deleteModal.date}? Astronomical prayer calculations will automatically resume for this day.`}
+        description={`Remove timetable override for ${deleteModal.date}? Astronomical calculations will resume for this day.`}
         loading={deleteModal.loading}
         confirmText="Remove Override"
       />
