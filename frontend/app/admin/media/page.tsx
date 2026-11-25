@@ -597,7 +597,7 @@ export default function AdminMediaGalleryPage() {
                       cursor: 'pointer',
                       fontWeight: isSelected ? 800 : 600,
                       backgroundColor: isSelected ? '#3988CA' : 'background.paper',
-                      color: isSelected ? '#FFFFFF' : '#475569',
+                      color: isSelected ? '#FFFFFF' : 'text.secondary',
                       border: '1px solid', borderColor: isSelected ? '#3988CA' : 'divider',
                       '&:hover': {
                         backgroundColor: isSelected ? '#2b6ea6' : 'action.hover',
@@ -880,7 +880,7 @@ export default function AdminMediaGalleryPage() {
                 sx={{
                   fontWeight: assetFilter === filterKey ? 800 : 600,
                   backgroundColor: assetFilter === filterKey ? '#3988CA' : 'background.paper',
-                  color: assetFilter === filterKey ? '#FFFFFF' : '#475569',
+                  color: assetFilter === filterKey ? '#FFFFFF' : 'text.secondary',
                   border: '1px solid', borderColor: assetFilter === filterKey ? '#3988CA' : 'divider',
                   cursor: 'pointer',
                   '&:hover': {

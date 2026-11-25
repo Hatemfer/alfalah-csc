@@ -321,7 +321,7 @@ export default function AdminEventsPage() {
                             onClick={() => promptDelete(ev.id, ev.title)}
                             sx={{
                               color: '#DC2626',
-                              border: '1px solid #FEE2E2',
+                              border: '1px solid rgba(239, 68, 68, 0.28)',
                               backgroundColor: 'rgba(239, 68, 68, 0.12)',
                               '&:hover': { backgroundColor: 'rgba(239, 68, 68, 0.22)' },
                             }}
@@ -380,7 +380,7 @@ export default function AdminEventsPage() {
                 width: 38,
                 height: 38,
                 borderRadius: '10px',
-                backgroundColor: '#E0F2FE',
+                backgroundColor: 'rgba(57, 136, 202, 0.18)',
                 color: '#0284C7',
                 display: 'flex',
                 alignItems: 'center',

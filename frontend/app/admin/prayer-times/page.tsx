@@ -583,7 +583,7 @@ export default function AdminPrayerTimesPage() {
                     <Chip
                       label={to12Hour(jumuahTime)}
                       size="small"
-                      sx={{ height: 22, fontSize: '0.72rem', fontWeight: 800, backgroundColor: '#E0F2FE', color: '#0369A1' }}
+                      sx={{ height: 22, fontSize: '0.72rem', fontWeight: 800, backgroundColor: 'rgba(57, 136, 202, 0.16)', color: '#38BDF8' }}
                     />
                   </Box>
                   <TextField
@@ -639,7 +639,7 @@ export default function AdminPrayerTimesPage() {
                         width: 42,
                         height: 42,
                         borderRadius: 2,
-                        backgroundColor: timetablePdfUrl ? '#FEE2E2' : '#E2E8F0',
+                        backgroundColor: timetablePdfUrl ? 'rgba(239, 68, 68, 0.14)' : 'action.selected',
                         color: timetablePdfUrl ? '#DC2626' : '#64748B',
                         display: 'flex',
                         alignItems: 'center',
@@ -682,8 +682,8 @@ export default function AdminPrayerTimesPage() {
                       fontWeight: 700,
                       textTransform: 'none',
                       borderRadius: 2,
-                      backgroundColor: '#0F172A',
-                      '&:hover': { backgroundColor: '#1E293B' },
+                      backgroundColor: '#3988CA',
+                      '&:hover': { backgroundColor: '#2b6ea6' },
                     }}
                   >
                     {timetablePdfUrl ? 'Upload / Replace PDF' : 'Upload PDF'}
@@ -724,7 +724,7 @@ export default function AdminPrayerTimesPage() {
                           textTransform: 'none',
                           borderRadius: 2,
                           backgroundColor: 'background.paper',
-                          borderColor: '#FECACA',
+                          borderColor: 'rgba(239, 68, 68, 0.35)',
                           ml: { sm: 'auto' },
                         }}
                       >
@@ -773,7 +773,7 @@ export default function AdminPrayerTimesPage() {
           <Chip
             label={`Applying to ${rangeDaysCount} ${rangeDaysCount === 1 ? 'day' : 'days'}`}
             size="small"
-            sx={{ backgroundColor: '#E0F2FE', color: '#0369A1', fontWeight: 800, fontSize: '0.74rem' }}
+            sx={{ backgroundColor: 'rgba(57, 136, 202, 0.16)', color: '#38BDF8', fontWeight: 800, fontSize: '0.74rem' }}
           />
         </Box>
 
@@ -979,7 +979,7 @@ export default function AdminPrayerTimesPage() {
                           key={o.id || o.date}
                           sx={{
                             backgroundColor: isToday ? 'rgba(57, 136, 202, 0.12)' : 'inherit',
-                            '&:hover': { backgroundColor: isToday ? '#E0F2FE' : '#F8FAFC' },
+                            '&:hover': { backgroundColor: isToday ? 'rgba(57, 136, 202, 0.2)' : 'action.hover' },
                           }}
                         >
                           <TableCell sx={{ fontWeight: 700, color: 'text.primary' }}>
@@ -1195,7 +1195,7 @@ export default function AdminPrayerTimesPage() {
                 width: 40,
                 height: 40,
                 borderRadius: 2,
-                backgroundColor: '#FEE2E2',
+                backgroundColor: 'rgba(239, 68, 68, 0.14)',
                 color: '#DC2626',
                 display: 'flex',
                 alignItems: 'center',

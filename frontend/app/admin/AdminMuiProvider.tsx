@@ -58,6 +58,17 @@ export function AdminMuiProvider({ children }: { children: React.ReactNode }) {
         borderRadius: 10,
       },
       components: {
+        MuiCssBaseline: {
+          styleOverrides: {
+            html: {
+              colorScheme: isDark ? 'dark' : 'light',
+            },
+            'input[type="time"]::-webkit-calendar-picker-indicator, input[type="date"]::-webkit-calendar-picker-indicator': {
+              filter: isDark ? 'invert(1) brightness(0.95)' : 'none',
+              cursor: 'pointer',
+            },
+          },
+        },
         MuiButton: {
           styleOverrides: {
             root: {

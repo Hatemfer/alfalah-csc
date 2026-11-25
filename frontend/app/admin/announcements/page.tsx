@@ -262,7 +262,7 @@ export default function AdminAnnouncementsPage() {
                       </TableCell>
                       <TableCell>
                         {a.isPinned ? (
-                          <Chip label="Pinned" size="small" sx={{ fontWeight: 800, fontSize: '0.7rem', backgroundColor: '#E0F2FE', color: '#0369A1' }} />
+                          <Chip label="Pinned" size="small" sx={{ fontWeight: 800, fontSize: '0.7rem', backgroundColor: 'rgba(57, 136, 202, 0.18)', color: '#38BDF8' }} />
                         ) : (
                           <span style={{ color: '#94A3B8', fontSize: '0.85rem' }}>No</span>
                         )}
@@ -300,7 +300,7 @@ export default function AdminAnnouncementsPage() {
                             onClick={() => promptDelete(a.id, a.title)}
                             sx={{
                               color: '#DC2626',
-                              border: '1px solid #FEE2E2',
+                              border: '1px solid rgba(239, 68, 68, 0.28)',
                               backgroundColor: 'rgba(239, 68, 68, 0.12)',
                               '&:hover': { backgroundColor: 'rgba(239, 68, 68, 0.22)' },
                             }}
@@ -359,7 +359,7 @@ export default function AdminAnnouncementsPage() {
                 width: 38,
                 height: 38,
                 borderRadius: '10px',
-                backgroundColor: '#E0F2FE',
+                backgroundColor: 'rgba(57, 136, 202, 0.18)',
                 color: '#0284C7',
                 display: 'flex',
                 alignItems: 'center',
