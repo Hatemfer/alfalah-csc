@@ -274,7 +274,7 @@ export default function AdminEventsPage() {
                         <Chip
                           label={ev.category}
                           size="small"
-                          sx={{ fontWeight: 700, fontSize: '0.72rem', backgroundColor: '#F1F5F9', color: 'text.primary' }}
+                          sx={{ fontWeight: 700, fontSize: '0.72rem', backgroundColor: 'rgba(148, 163, 184, 0.16)', color: 'text.primary' }}
                         />
                       </TableCell>
                       <TableCell sx={{ color: 'text.secondary', fontSize: '0.85rem' }}>
@@ -295,7 +295,7 @@ export default function AdminEventsPage() {
                           sx={{
                             fontWeight: 700,
                             fontSize: '0.72rem',
-                            backgroundColor: ev.isPublished ? '#DCFCE7' : '#F1F5F9',
+                            backgroundColor: ev.isPublished ? 'rgba(34, 197, 94, 0.16)' : 'rgba(148, 163, 184, 0.16)',
                             color: ev.isPublished ? '#15803D' : '#64748B',
                           }}
                         />
@@ -309,7 +309,7 @@ export default function AdminEventsPage() {
                               color: '#3988CA',
                               border: '1px solid', borderColor: 'divider',
                               mr: 1,
-                              '&:hover': { backgroundColor: '#F0F9FF' },
+                              '&:hover': { backgroundColor: 'rgba(57, 136, 202, 0.14)' },
                             }}
                           >
                             <EditOutlinedIcon fontSize="small" />
@@ -322,8 +322,8 @@ export default function AdminEventsPage() {
                             sx={{
                               color: '#DC2626',
                               border: '1px solid #FEE2E2',
-                              backgroundColor: '#FEF2F2',
-                              '&:hover': { backgroundColor: '#FEE2E2' },
+                              backgroundColor: 'rgba(239, 68, 68, 0.12)',
+                              '&:hover': { backgroundColor: 'rgba(239, 68, 68, 0.22)' },
                             }}
                           >
                             <DeleteOutlineIcon fontSize="small" />

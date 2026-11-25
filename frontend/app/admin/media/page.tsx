@@ -464,7 +464,7 @@ export default function AdminMediaGalleryPage() {
                     height: 20,
                     fontSize: '0.72rem',
                     fontWeight: 700,
-                    backgroundColor: activeTab === 0 ? '#DCEEFF' : '#F1F5F9',
+                    backgroundColor: activeTab === 0 ? 'rgba(57, 136, 202, 0.18)' : 'rgba(148, 163, 184, 0.16)',
                     color: activeTab === 0 ? '#0284C7' : '#64748B',
                   }}
                 />
@@ -484,7 +484,7 @@ export default function AdminMediaGalleryPage() {
                     height: 20,
                     fontSize: '0.72rem',
                     fontWeight: 700,
-                    backgroundColor: activeTab === 1 ? '#DCEEFF' : '#F1F5F9',
+                    backgroundColor: activeTab === 1 ? 'rgba(57, 136, 202, 0.18)' : 'rgba(148, 163, 184, 0.16)',
                     color: activeTab === 1 ? '#0284C7' : '#64748B',
                   }}
                 />
@@ -539,7 +539,7 @@ export default function AdminMediaGalleryPage() {
                           height: 20,
                           fontSize: '0.72rem',
                           fontWeight: 700,
-                          backgroundColor: videoEnabled ? '#DCFCE7' : '#F1F5F9',
+                          backgroundColor: videoEnabled ? 'rgba(34, 197, 94, 0.16)' : 'rgba(148, 163, 184, 0.16)',
                           color: videoEnabled ? '#15803D' : '#64748B',
                         }}
                       />
@@ -570,7 +570,7 @@ export default function AdminMediaGalleryPage() {
                     color: '#3988CA',
                     fontWeight: 700,
                     textTransform: 'none',
-                    '&:hover': { backgroundColor: '#F0F9FF', borderColor: '#2b6ea6' },
+                    '&:hover': { backgroundColor: 'rgba(57, 136, 202, 0.14)', borderColor: '#2b6ea6' },
                   }}
                 >
                   Configure Video Tour
@@ -1053,7 +1053,7 @@ export default function AdminMediaGalleryPage() {
                     justifyContent: 'center',
                     backgroundColor: 'background.default',
                     cursor: 'pointer',
-                    '&:hover': { borderColor: '#3988CA', backgroundColor: '#F0F9FF' },
+                    '&:hover': { borderColor: '#3988CA', backgroundColor: 'rgba(57, 136, 202, 0.12)' },
                   }}
                 >
                   <input

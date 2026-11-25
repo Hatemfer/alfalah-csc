@@ -456,7 +456,7 @@ export default function AdminPrayerTimesPage() {
               label={isTodayOverridden ? 'Custom Schedule Active' : 'Auto-Calculated'}
               size="small"
               sx={{
-                backgroundColor: isTodayOverridden ? '#FEF3C7' : '#ECFDF5',
+                backgroundColor: isTodayOverridden ? 'rgba(245, 158, 11, 0.16)' : 'rgba(16, 185, 129, 0.16)',
                 color: isTodayOverridden ? '#92400E' : '#065F46',
                 fontWeight: 700,
                 fontSize: '0.74rem',
@@ -663,7 +663,7 @@ export default function AdminPrayerTimesPage() {
                     <Chip
                       label="Visible on Website"
                       size="small"
-                      sx={{ backgroundColor: '#ECFDF5', color: '#065F46', fontWeight: 700, fontSize: '0.72rem' }}
+                      sx={{ backgroundColor: 'rgba(16, 185, 129, 0.16)', color: '#10B981', fontWeight: 700, fontSize: '0.72rem' }}
                     />
                   )}
                 </Box>
@@ -978,7 +978,7 @@ export default function AdminPrayerTimesPage() {
                         <TableRow
                           key={o.id || o.date}
                           sx={{
-                            backgroundColor: isToday ? '#F0F9FF' : 'inherit',
+                            backgroundColor: isToday ? 'rgba(57, 136, 202, 0.12)' : 'inherit',
                             '&:hover': { backgroundColor: isToday ? '#E0F2FE' : '#F8FAFC' },
                           }}
                         >
@@ -1044,7 +1044,7 @@ export default function AdminPrayerTimesPage() {
               justifyContent: 'space-between',
               alignItems: 'center',
               cursor: 'pointer',
-              '&:hover': { backgroundColor: '#F1F5F9' },
+              '&:hover': { backgroundColor: 'action.hover' },
             }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
@@ -1301,8 +1301,8 @@ export default function AdminPrayerTimesPage() {
                 cursor: 'pointer',
                 transition: 'all 0.15s ease',
                 '&:hover': {
-                  borderColor: '#0284C7',
-                  backgroundColor: '#F0F9FF',
+                  borderColor: '#3988CA',
+                  backgroundColor: 'rgba(57, 136, 202, 0.12)',
                 },
               }}
             >
@@ -1320,7 +1320,7 @@ export default function AdminPrayerTimesPage() {
                 border: '1.5px solid #0284C7',
                 borderRadius: 2.5,
                 p: 2,
-                backgroundColor: '#F0F9FF',
+                backgroundColor: 'rgba(57, 136, 202, 0.12)',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
@@ -1362,7 +1362,7 @@ export default function AdminPrayerTimesPage() {
                   backgroundColor: 'background.paper',
                   borderColor: '#BAE6FD',
                   color: '#0284C7',
-                  '&:hover': { backgroundColor: '#F0F9FF', borderColor: '#0284C7' },
+                  '&:hover': { backgroundColor: 'rgba(57, 136, 202, 0.12)', borderColor: '#3988CA' },
                 }}
               >
                 Change File
