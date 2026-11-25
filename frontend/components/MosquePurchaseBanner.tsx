@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Heart,
@@ -45,6 +45,33 @@ const PLEDGE_TIERS = [
 
 export function MosquePurchaseBanner() {
   const [copied, setCopied] = useState(false);
+  const [targetAmount, setTargetAmount] = useState<number>(600000);
+  const [raisedAmount, setRaisedAmount] = useState<number>(0);
+
+  useEffect(() => {
+    async function loadAppealSettings() {
+      try {
+        const res = await fetch('/api/v1/site-settings');
+        if (res.ok) {
+          const settings = await res.json();
+          if (settings.purchase_appeal_target) {
+            const t = Number(settings.purchase_appeal_target);
+            if (!Number.isNaN(t) && t > 0) setTargetAmount(t);
+          }
+          if (settings.purchase_appeal_raised) {
+            const r = Number(settings.purchase_appeal_raised);
+            if (!Number.isNaN(r) && r >= 0) setRaisedAmount(r);
+          }
+        }
+      } catch (_) {
+        // Keep defaults on error
+      }
+    }
+    loadAppealSettings();
+  }, []);
+
+  const progressPct = targetAmount > 0 ? Math.min(100, Math.round((raisedAmount / targetAmount) * 100)) : 0;
+  const targetLabel = targetAmount >= 1000 ? `£${Math.round(targetAmount / 1000)}k` : `£${targetAmount}`;
 
   const handleCopyBank = () => {
     const text = `AL FALAH COMMUNITY SUPPORT CENTRE — Mosque Purchase Appeal
@@ -118,7 +145,7 @@ UK Registered Charity #1150221`;
                     border: '1px solid #BAE6FD',
                   }}
                 >
-                  Appeal: £600k Target
+                  Appeal: {targetLabel} Target
                 </span>
 
                 <span
@@ -139,6 +166,52 @@ UK Registered Charity #1150221`;
                   100% Donation Policy
                 </span>
               </div>
+
+              {raisedAmount > 0 && (
+                <div
+                  style={{
+                    marginBottom: '1.15rem',
+                    padding: '0.85rem 1rem',
+                    backgroundColor: '#F8FAFC',
+                    borderRadius: '12px',
+                    border: '1px solid #E2E8F0',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      fontSize: '0.8rem',
+                      fontWeight: 700,
+                      color: '#0F172A',
+                      marginBottom: '0.45rem',
+                    }}
+                  >
+                    <span>£{raisedAmount.toLocaleString()} raised</span>
+                    <span style={{ color: '#0284C7' }}>{progressPct}% of £{targetAmount.toLocaleString()}</span>
+                  </div>
+                  <div
+                    style={{
+                      width: '100%',
+                      height: '8px',
+                      backgroundColor: '#E2E8F0',
+                      borderRadius: '9999px',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: `${progressPct}%`,
+                        height: '100%',
+                        background: 'linear-gradient(90deg, #0284C7 0%, #38BDF8 100%)',
+                        borderRadius: '9999px',
+                        transition: 'width 0.4s ease',
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
 
               {/* Headline */}
               <h2

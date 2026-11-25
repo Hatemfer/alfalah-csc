@@ -19,10 +19,11 @@ import SecurityIcon from '@mui/icons-material/Security';
 import BusinessIcon from '@mui/icons-material/Business';
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 
 interface SettingMeta {
   label: string;
-  category: 'identity' | 'contact' | 'system';
+  category: 'identity' | 'contact' | 'system' | 'fundraising';
   description: string;
   placeholder?: string;
 }
@@ -44,7 +45,7 @@ const SETTING_DEFINITIONS: Record<string, SettingMeta> = {
     label: 'UK Registered Charity Number',
     category: 'identity',
     description: 'Registered with the Charity Commission for England and Wales.',
-    placeholder: '1156221',
+    placeholder: '1150221',
   },
   org_address: {
     label: 'Physical Premises Address',
@@ -69,6 +70,18 @@ const SETTING_DEFINITIONS: Record<string, SettingMeta> = {
     category: 'system',
     description: 'Canonical live domain name for public links and SSL.',
     placeholder: 'alfalahcsc.com',
+  },
+  purchase_appeal_target: {
+    label: 'Mosque Purchase Appeal Target (£)',
+    category: 'fundraising',
+    description: 'Total fundraising goal in GBP shown on the homepage appeal banner (e.g. 600000).',
+    placeholder: '600000',
+  },
+  purchase_appeal_raised: {
+    label: 'Amount Raised to Date (£)',
+    category: 'fundraising',
+    description: 'Current funds raised in GBP toward purchasing 89 Tindal Street (set 0 to hide progress bar).',
+    placeholder: '0',
   },
 };
 
@@ -96,6 +109,8 @@ export default function AdminSiteSettingsPage() {
         }
         // Ensure standard keys exist even if not seeded
         if (!map['org_phone']) map['org_phone'] = '07782 958305';
+        if (!map['purchase_appeal_target']) map['purchase_appeal_target'] = '600000';
+        if (!map['purchase_appeal_raised']) map['purchase_appeal_raised'] = '0';
         setSettings(map);
       }
     } catch (e) {
@@ -136,6 +151,7 @@ export default function AdminSiteSettingsPage() {
 
   const identityKeys = ['org_name_en', 'org_name_ar', 'org_charity_number'];
   const contactKeys = ['org_address', 'org_phone', 'org_email', 'potential_domain'];
+  const fundraisingKeys = ['purchase_appeal_target', 'purchase_appeal_raised'];
 
   return (
     <Box>
@@ -267,6 +283,70 @@ export default function AdminSiteSettingsPage() {
                       <TextField
                         fullWidth
                         size="small"
+                        id={`input-${key}`}
+                        defaultValue={currentValue}
+                        placeholder={def.placeholder}
+                      />
+                    </Box>
+                    <Button
+                      variant="contained"
+                      size="small"
+                      startIcon={<SaveIcon />}
+                      disabled={savingKey === key}
+                      onClick={() => {
+                        const input = document.getElementById(`input-${key}`) as HTMLInputElement;
+                        if (input) handleUpdate(key, input.value);
+                      }}
+                      sx={{ mt: 3, px: 2.5 }}
+                    >
+                      {savingKey === key ? 'Saving...' : 'Save'}
+                    </Button>
+                  </Box>
+                  <Divider sx={{ my: 2.5 }} />
+                </Grid>
+              );
+            })}
+          </Grid>
+        </CardContent>
+      </Card>
+
+      {/* 3. Mosque Purchase Fundraising Appeal */}
+      <Card sx={{ mb: 3.5 }}>
+        <CardContent sx={{ p: 3 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
+            <VolunteerActivismIcon color="primary" />
+            <Typography variant="h6" sx={{ fontWeight: 800 }}>
+              Mosque Purchase Fundraising Appeal
+            </Typography>
+          </Box>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 2.5 }}>
+            Control the fundraising target and current amount raised displayed on the homepage appeal banner.
+          </Typography>
+
+          <Divider sx={{ mb: 3 }} />
+
+          <Grid container spacing={3}>
+            {fundraisingKeys.map((key) => {
+              const def = SETTING_DEFINITIONS[key] || {
+                label: key,
+                description: 'Configuration setting',
+              };
+              const currentValue = settings[key] || '';
+
+              return (
+                <Grid item xs={12} key={key}>
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, flexWrap: 'wrap' }}>
+                    <Box sx={{ flex: 1, minWidth: 280 }}>
+                      <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
+                        {def.label}
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1 }}>
+                        {def.description}
+                      </Typography>
+                      <TextField
+                        fullWidth
+                        size="small"
+                        type="number"
                         id={`input-${key}`}
                         defaultValue={currentValue}
                         placeholder={def.placeholder}
