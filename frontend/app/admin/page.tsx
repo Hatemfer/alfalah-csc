@@ -592,10 +592,10 @@ export default function AdminDashboardPage() {
               borderRadius: '16px',
             }}
           >
-            <CardContent sx={{ p: 2.5, flex: 1, display: 'flex', flexDirection: 'column' }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                <Box>
-                  <Typography variant="h6" sx={{ fontWeight: 800, color: 'text.primary', fontSize: '1.05rem' }}>
+            <CardContent sx={{ p: { xs: 2, sm: 2.5 }, flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 1.5, mb: 2 }}>
+                <Box sx={{ minWidth: 0 }}>
+                  <Typography variant="h6" sx={{ fontWeight: 800, color: 'text.primary', fontSize: { xs: '0.98rem', sm: '1.05rem' } }}>
                     Recent Community Inquiries
                   </Typography>
                   <Typography variant="caption" color="text.secondary">
@@ -603,11 +603,11 @@ export default function AdminDashboardPage() {
                   </Typography>
                 </Box>
 
-                <Link href="/admin/contact-messages" style={{ textDecoration: 'none' }}>
+                <Link href="/admin/contact-messages" style={{ textDecoration: 'none', flexShrink: 0 }}>
                   <Button
                     size="small"
                     endIcon={<ArrowForwardIcon fontSize="small" />}
-                    sx={{ fontWeight: 700, color: 'primary.main' }}
+                    sx={{ fontWeight: 700, color: 'primary.main', whiteSpace: 'nowrap', flexShrink: 0 }}
                   >
                     View All ({stats.messagesCount})
                   </Button>
@@ -752,13 +752,13 @@ export default function AdminDashboardPage() {
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, minWidth: 0 }}>
             {/* Mosque Identity & Compliance Card */}
             <Card sx={{ borderRadius: '16px' }}>
-              <CardContent sx={{ p: 2.5 }}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                  <Typography variant="h6" sx={{ fontWeight: 800, color: 'text.primary', fontSize: '1.05rem' }}>
-                    Mosque Identity & Details
+              <CardContent sx={{ p: { xs: 2, sm: 2.5 } }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 1.5, mb: 2 }}>
+                  <Typography variant="h6" sx={{ fontWeight: 800, color: 'text.primary', fontSize: { xs: '0.98rem', sm: '1.05rem' } }}>
+                    Mosque Identity &amp; Details
                   </Typography>
-                  <Link href="/admin/site-settings" style={{ textDecoration: 'none' }}>
-                    <Button size="small" sx={{ fontWeight: 700, color: 'primary.main' }}>
+                  <Link href="/admin/site-settings" style={{ textDecoration: 'none', flexShrink: 0 }}>
+                    <Button size="small" sx={{ fontWeight: 700, color: 'primary.main', whiteSpace: 'nowrap' }}>
                       Edit
                     </Button>
                   </Link>

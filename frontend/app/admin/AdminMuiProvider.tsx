@@ -37,22 +37,60 @@ export function AdminMuiProvider({ children }: { children: React.ReactNode }) {
       },
       typography: {
         fontFamily: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+        h4: {
+          fontWeight: 800,
+          letterSpacing: '-0.02em',
+          fontSize: '1.75rem',
+          '@media (max-width:600px)': {
+            fontSize: '1.35rem',
+            lineHeight: 1.25,
+          },
+        },
         h5: {
           fontWeight: 800,
           letterSpacing: '-0.02em',
+          fontSize: '1.5rem',
+          '@media (max-width:600px)': {
+            fontSize: '1.2rem',
+            lineHeight: 1.25,
+          },
         },
         h6: {
           fontWeight: 700,
           letterSpacing: '-0.01em',
+          fontSize: '1.15rem',
+          '@media (max-width:600px)': {
+            fontSize: '1rem',
+            lineHeight: 1.3,
+          },
         },
         subtitle1: {
           fontWeight: 600,
+          '@media (max-width:600px)': {
+            fontSize: '0.92rem',
+          },
         },
         subtitle2: {
           fontWeight: 600,
+          '@media (max-width:600px)': {
+            fontSize: '0.84rem',
+          },
+        },
+        body1: {
+          '@media (max-width:600px)': {
+            fontSize: '0.9rem',
+          },
         },
         body2: {
           lineHeight: 1.5,
+          '@media (max-width:600px)': {
+            fontSize: '0.82rem',
+          },
+        },
+        caption: {
+          '@media (max-width:600px)': {
+            fontSize: '0.73rem',
+          },
         },
       },
       shape: {
@@ -108,6 +146,10 @@ export function AdminMuiProvider({ children }: { children: React.ReactNode }) {
           styleOverrides: {
             root: {
               borderColor: isDark ? 'rgba(255,255,255,0.08)' : '#f1f5f9',
+              '@media (max-width:600px)': {
+                padding: '10px 12px',
+                fontSize: '0.82rem',
+              },
             },
             head: {
               backgroundColor: isDark ? '#142238' : '#f8fafc',
@@ -116,6 +158,10 @@ export function AdminMuiProvider({ children }: { children: React.ReactNode }) {
               fontSize: '0.8rem',
               textTransform: 'uppercase',
               letterSpacing: '0.04em',
+              '@media (max-width:600px)': {
+                fontSize: '0.72rem',
+                padding: '10px 12px',
+              },
             },
           },
         },
