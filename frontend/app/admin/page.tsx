@@ -233,19 +233,19 @@ export default function AdminDashboardPage() {
       {/* ============================================================== */}
       <Card
         sx={{
-          p: { xs: 2.5, md: 3 },
+          p: { xs: 2, sm: 2.5, md: 3 },
           borderRadius: '18px',
           mb: 3.5,
           display: 'flex',
           flexDirection: { xs: 'column', md: 'row' },
           justifyContent: 'space-between',
           alignItems: { xs: 'flex-start', md: 'center' },
-          gap: 2.5,
+          gap: { xs: 2, md: 2.5 },
         }}
       >
-        <Box>
+        <Box sx={{ minWidth: 0, width: '100%' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25, mb: 0.5, flexWrap: 'wrap' }}>
-            <Typography variant="h5" sx={{ fontWeight: 800, color: 'text.primary', letterSpacing: '-0.02em' }}>
+            <Typography variant="h5" sx={{ fontWeight: 800, color: 'text.primary', letterSpacing: '-0.02em', fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>
               Welcome back, {admin?.fullName || 'Super Admin'}
             </Typography>
             <Chip
@@ -261,12 +261,12 @@ export default function AdminDashboardPage() {
               }}
             />
           </Box>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" sx={{ wordBreak: 'break-word' }}>
             {siteSettings.org_address || '89 Tindal Street, Balsall Heath, Birmingham B12 9QU'} • Charity #{siteSettings.org_charity_number || '1150221'}
           </Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
+        <Box sx={{ display: 'flex', gap: 1.25, flexWrap: 'wrap', width: { xs: '100%', md: 'auto' }, flexShrink: 0 }}>
           <Button
             variant="outlined"
             size="small"
@@ -280,12 +280,13 @@ export default function AdminDashboardPage() {
               fontWeight: 700,
               borderRadius: '9999px',
               px: 2,
+              flex: { xs: '1 1 auto', sm: '0 0 auto' },
             }}
           >
             Open Live Website
           </Button>
 
-          <Link href="/admin/announcements" style={{ textDecoration: 'none' }}>
+          <Link href="/admin/announcements" style={{ textDecoration: 'none', flex: '0 0 auto' }}>
             <Button
               variant="contained"
               size="small"
@@ -546,14 +547,19 @@ export default function AdminDashboardPage() {
                       fullWidth
                       variant="outlined"
                       size="small"
-                      startIcon={<Icon sx={{ fontSize: 16 }} />}
+                      startIcon={<Icon sx={{ fontSize: 16, flexShrink: 0 }} />}
                       sx={{
                         py: 1.25,
+                        px: { xs: 1.25, sm: 1.5 },
                         borderRadius: '10px',
                         borderColor: 'divider',
                         color: 'text.primary',
-                        fontSize: '0.8rem',
+                        fontSize: { xs: '0.75rem', sm: '0.8rem' },
                         fontWeight: 700,
+                        textAlign: 'left',
+                        justifyContent: 'flex-start',
+                        lineHeight: 1.25,
+                        height: '100%',
                         backgroundColor: 'background.default',
                         '&:hover': {
                           borderColor: 'primary.main',
@@ -742,8 +748,8 @@ export default function AdminDashboardPage() {
         </Grid>
 
         {/* Right Column: Mosque Credentials & Notices */}
-        <Grid item xs={12} md={5}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+        <Grid item xs={12} md={5} sx={{ minWidth: 0 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, minWidth: 0 }}>
             {/* Mosque Identity & Compliance Card */}
             <Card sx={{ borderRadius: '16px' }}>
               <CardContent sx={{ p: 2.5 }}>

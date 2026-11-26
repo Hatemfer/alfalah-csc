@@ -283,13 +283,22 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh', backgroundColor: 'background.default' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        minHeight: '100vh',
+        width: '100%',
+        maxWidth: '100vw',
+        overflowX: 'hidden',
+        backgroundColor: 'background.default',
+      }}
+    >
       {/* Top Application Bar */}
       <AppBar
         position="fixed"
         elevation={0}
         sx={{
-          width: { md: `calc(100% - ${DRAWER_WIDTH}px)` },
+          width: { xs: '100%', md: `calc(100% - ${DRAWER_WIDTH}px)` },
           ml: { md: `${DRAWER_WIDTH}px` },
           borderBottom: '1px solid',
           borderColor: 'divider',
@@ -297,23 +306,27 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           color: 'text.primary',
         }}
       >
-        <Toolbar sx={{ justifyContent: 'space-between', minHeight: 64 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <Toolbar sx={{ justifyContent: 'space-between', minHeight: 64, px: { xs: 1.5, sm: 2.5 }, gap: 1 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0, flex: 1 }}>
             <IconButton
               color="inherit"
               aria-label="open drawer"
               edge="start"
               onClick={() => setMobileOpen(!mobileOpen)}
-              sx={{ display: { md: 'none' } }}
+              sx={{ display: { md: 'none' }, flexShrink: 0 }}
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="subtitle1" sx={{ fontWeight: 800, color: 'text.primary' }}>
+            <Typography
+              variant="subtitle1"
+              noWrap
+              sx={{ fontWeight: 800, color: 'text.primary', fontSize: { xs: '0.95rem', sm: '1rem' } }}
+            >
               {currentPageTitle}
             </Typography>
           </Box>
 
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.75, sm: 1.5 }, flexShrink: 0 }}>
             <Tooltip title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}>
               <IconButton onClick={toggleTheme} color="inherit" size="small">
                 {theme === 'dark' ? <Brightness7Icon fontSize="small" /> : <Brightness4Icon fontSize="small" />}
@@ -366,7 +379,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               size="small"
               onClick={logout}
               startIcon={<ExitToAppIcon fontSize="small" />}
-              sx={{ fontWeight: 700, fontSize: '0.82rem' }}
+              sx={{ fontWeight: 700, fontSize: { xs: '0.78rem', sm: '0.82rem' }, px: { xs: 1, sm: 1.5 }, minWidth: 'auto' }}
             >
               Logout
             </Button>
@@ -417,8 +430,11 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         component="main"
         sx={{
           flexGrow: 1,
-          p: { xs: 2, sm: 3, md: 3.5 },
-          width: { md: `calc(100% - ${DRAWER_WIDTH}px)` },
+          minWidth: 0,
+          p: { xs: 1.75, sm: 3, md: 3.5 },
+          width: { xs: '100%', md: `calc(100% - ${DRAWER_WIDTH}px)` },
+          maxWidth: '100%',
+          overflowX: 'hidden',
           mt: 8,
           backgroundColor: 'background.default',
         }}

@@ -102,7 +102,7 @@ export default function AdminHomepageSectionsPage() {
             <Grid item xs={12} key={sec.id}>
               <Card>
                 <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 2 }}>
-                  <Box sx={{ flex: 1, minWidth: 280 }}>
+                  <Box sx={{ flex: 1, minWidth: { xs: '100%', sm: 280 } }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
                       <Typography variant="h6" sx={{ fontWeight: 700 }}>
                         {sec.title || sec.sectionKey}

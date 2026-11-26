@@ -210,7 +210,7 @@ export default function AdminSiteSettingsPage() {
               return (
                 <Grid item xs={12} key={key}>
                   <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, flexWrap: 'wrap' }}>
-                    <Box sx={{ flex: 1, minWidth: 280 }}>
+                    <Box sx={{ flex: 1, minWidth: { xs: '100%', sm: 280 } }}>
                       <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
                         {def.label}
                       </Typography>
@@ -273,7 +273,7 @@ export default function AdminSiteSettingsPage() {
               return (
                 <Grid item xs={12} key={key}>
                   <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, flexWrap: 'wrap' }}>
-                    <Box sx={{ flex: 1, minWidth: 280 }}>
+                    <Box sx={{ flex: 1, minWidth: { xs: '100%', sm: 280 } }}>
                       <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
                         {def.label}
                       </Typography>
@@ -336,7 +336,7 @@ export default function AdminSiteSettingsPage() {
               return (
                 <Grid item xs={12} key={key}>
                   <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, flexWrap: 'wrap' }}>
-                    <Box sx={{ flex: 1, minWidth: 280 }}>
+                    <Box sx={{ flex: 1, minWidth: { xs: '100%', sm: 280 } }}>
                       <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
                         {def.label}
                       </Typography>

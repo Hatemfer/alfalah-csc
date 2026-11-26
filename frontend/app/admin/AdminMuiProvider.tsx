@@ -85,11 +85,22 @@ export function AdminMuiProvider({ children }: { children: React.ReactNode }) {
         MuiCard: {
           styleOverrides: {
             root: {
+              maxWidth: '100%',
               borderRadius: 12,
               border: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #e2e8f0',
               boxShadow: isDark
                 ? '0 1px 3px 0 rgba(0, 0, 0, 0.4)'
                 : '0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.05)',
+            },
+          },
+        },
+        MuiTableContainer: {
+          styleOverrides: {
+            root: {
+              width: '100%',
+              maxWidth: '100%',
+              overflowX: 'auto',
+              WebkitOverflowScrolling: 'touch',
             },
           },
         },
@@ -114,6 +125,9 @@ export function AdminMuiProvider({ children }: { children: React.ReactNode }) {
               borderRadius: 16,
               boxShadow: '0 25px 50px -12px rgba(15, 23, 42, 0.25)',
               backgroundImage: 'none',
+              width: 'calc(100% - 24px)',
+              margin: '12px',
+              maxHeight: 'calc(100vh - 24px)',
             },
           },
         },
@@ -174,9 +188,13 @@ export function AdminMuiProvider({ children }: { children: React.ReactNode }) {
         styles={{
           html: {
             colorScheme: isDark ? 'dark' : 'light',
+            maxWidth: '100%',
+            overflowX: 'hidden',
           },
           body: {
             colorScheme: isDark ? 'dark' : 'light',
+            maxWidth: '100%',
+            overflowX: 'hidden',
           },
           'input[type="time"], input[type="date"], input[type="datetime-local"]': {
             colorScheme: isDark ? 'dark !important' : 'light !important',
